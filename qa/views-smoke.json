@@ -1,0 +1,429 @@
+{
+  "version": "0.12.0",
+  "passed": true,
+  "checks": [
+    {
+      "label": "midnight_tide",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your project. Now an app."
+    },
+    {
+      "label": "botanical_canopy",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your project. Now an app."
+    },
+    {
+      "label": "stratosphere",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your project. Now an app."
+    },
+    {
+      "label": "pearl_current",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your project. Now an app."
+    },
+    {
+      "label": "citrus_circuit",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your project. Now an app."
+    },
+    {
+      "label": "cobalt_hydro",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your project. Now an app."
+    },
+    {
+      "label": "aurora_lake",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your project. Now an app."
+    },
+    {
+      "label": "sunset_estuary",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your project. Now an app."
+    },
+    {
+      "label": "glacial_quartz",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your project. Now an app."
+    },
+    {
+      "label": "meadow_os",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your project. Now an app."
+    },
+    {
+      "label": "sapphire_reef",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Deep water. Clear focus."
+    },
+    {
+      "label": "sapphire_reef-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Deep water. Clear focus."
+    },
+    {
+      "label": "sakura_glass",
+      "width": 1487,
+      "overflow": false,
+      "heading": "A little room to blossom."
+    },
+    {
+      "label": "sakura_glass-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "A little room to blossom."
+    },
+    {
+      "label": "solar_atelier",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Made in a different light."
+    },
+    {
+      "label": "solar_atelier-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Made in a different light."
+    },
+    {
+      "label": "jade_observatory",
+      "width": 1487,
+      "overflow": false,
+      "heading": "A fresh perspective."
+    },
+    {
+      "label": "jade_observatory-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "A fresh perspective."
+    },
+    {
+      "label": "lunar_archive",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Quiet space. Bright ideas."
+    },
+    {
+      "label": "lunar_archive-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Quiet space. Bright ideas."
+    },
+    {
+      "label": "rainforest_lab",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Good things grow here."
+    },
+    {
+      "label": "rainforest_lab-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Good things grow here."
+    },
+    {
+      "label": "lavender_signal",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Find your frequency."
+    },
+    {
+      "label": "lavender_signal-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Find your frequency."
+    },
+    {
+      "label": "pacific_terminal",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your next horizon."
+    },
+    {
+      "label": "pacific_terminal-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Your next horizon."
+    },
+    {
+      "label": "champagne_orbit",
+      "width": 1487,
+      "overflow": false,
+      "heading": "An elegant way forward."
+    },
+    {
+      "label": "champagne_orbit-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "An elegant way forward."
+    },
+    {
+      "label": "arctic_iris",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Everything, crystal clear."
+    },
+    {
+      "label": "arctic_iris-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Everything, crystal clear."
+    },
+    {
+      "label": "overview",
+      "width": 1487,
+      "overflow": false,
+      "heading": "A little space. A lot of possibility."
+    },
+    {
+      "label": "overview-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "A little space. A lot of possibility."
+    },
+    {
+      "label": "projects",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Your projects. Ready for their next chapter."
+    },
+    {
+      "label": "projects-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Your projects. Ready for their next chapter."
+    },
+    {
+      "label": "details",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Focus Notes"
+    },
+    {
+      "label": "details-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Focus Notes"
+    },
+    {
+      "label": "outputs",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Choose where your app will live."
+    },
+    {
+      "label": "outputs-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Choose where your app will live."
+    },
+    {
+      "label": "setup",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Let the setup take care of itself."
+    },
+    {
+      "label": "setup-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Let the setup take care of itself."
+    },
+    {
+      "label": "activity",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Every step, in one place."
+    },
+    {
+      "label": "activity-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Every step, in one place."
+    },
+    {
+      "label": "results",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Small ideas. Real apps."
+    },
+    {
+      "label": "results-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Small ideas. Real apps."
+    },
+    {
+      "label": "connections",
+      "width": 1487,
+      "overflow": false,
+      "heading": "A familiar tool. A new possibility."
+    },
+    {
+      "label": "connections-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "A familiar tool. A new possibility."
+    },
+    {
+      "label": "designs",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Twenty atmospheres. One simple app."
+    },
+    {
+      "label": "designs-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Twenty atmospheres. One simple app."
+    },
+    {
+      "label": "preferences",
+      "width": 1487,
+      "overflow": false,
+      "heading": "A few thoughtful adjustments."
+    },
+    {
+      "label": "preferences-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "A few thoughtful adjustments."
+    },
+    {
+      "label": "help",
+      "width": 1487,
+      "overflow": false,
+      "heading": "From project folder to double-click."
+    },
+    {
+      "label": "help-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "From project folder to double-click."
+    },
+    {
+      "label": "about",
+      "width": 1487,
+      "overflow": false,
+      "heading": "Made to be opened."
+    },
+    {
+      "label": "about-mobile",
+      "width": 390,
+      "overflow": false,
+      "heading": "Made to be opened."
+    }
+  ],
+  "errors": [],
+  "accessibility": [
+    {
+      "label": "sapphire_reef",
+      "violations": []
+    },
+    {
+      "label": "sakura_glass",
+      "violations": []
+    },
+    {
+      "label": "solar_atelier",
+      "violations": []
+    },
+    {
+      "label": "jade_observatory",
+      "violations": []
+    },
+    {
+      "label": "lunar_archive",
+      "violations": []
+    },
+    {
+      "label": "rainforest_lab",
+      "violations": []
+    },
+    {
+      "label": "lavender_signal",
+      "violations": []
+    },
+    {
+      "label": "pacific_terminal",
+      "violations": []
+    },
+    {
+      "label": "champagne_orbit",
+      "violations": []
+    },
+    {
+      "label": "arctic_iris",
+      "violations": []
+    },
+    {
+      "label": "overview",
+      "violations": []
+    },
+    {
+      "label": "projects",
+      "violations": []
+    },
+    {
+      "label": "details",
+      "violations": []
+    },
+    {
+      "label": "outputs",
+      "violations": []
+    },
+    {
+      "label": "setup",
+      "violations": []
+    },
+    {
+      "label": "activity",
+      "violations": []
+    },
+    {
+      "label": "results",
+      "violations": []
+    },
+    {
+      "label": "connections",
+      "violations": []
+    },
+    {
+      "label": "designs",
+      "violations": []
+    },
+    {
+      "label": "preferences",
+      "violations": []
+    },
+    {
+      "label": "help",
+      "violations": []
+    },
+    {
+      "label": "about",
+      "violations": []
+    }
+  ],
+  "behavior": {
+    "themes": 20,
+    "views": 12,
+    "creation": true,
+    "cancellation": true,
+    "projectSearch": true
+  },
+  "scope": "Bounded browser-fixture UI smoke; native launcher and device acceptance are separate."
+}

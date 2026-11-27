@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'">
-<title>Make App</title><script src="aero-scenes-data.js"></script><script src="appearance.js"></script><link rel="stylesheet" href="design.css"><link rel="stylesheet" href="creator.css"><link rel="stylesheet" href="aero.css"><link rel="stylesheet" href="photo-scenes.css">
+<title>Make App</title><script src="aero-scenes-data.js"></script><script src="studio-themes.js"></script><script src="appearance.js"></script><link rel="stylesheet" href="design.css"><link rel="stylesheet" href="creator.css"><link rel="stylesheet" href="aero.css"><link rel="stylesheet" href="photo-scenes.css"><link rel="stylesheet" href="studio-themes.css"><link rel="stylesheet" href="app-views.css">
 </head>
 <body>
 <div id="creator-viewport"><main class="creator-shell">
@@ -54,10 +54,13 @@
 </main></div>
 <dialog id="project-information" class="project-information" aria-labelledby="project-information-title"><header><h2 id="project-information-title">Project details</h2><button id="close-project-information" class="icon-button" type="button" aria-label="Close project details"><span class="icon i-x" aria-hidden="true"></span></button></header><div id="project-information-content"></div></dialog>
 <dialog id="theme-picker" class="theme-picker" aria-labelledby="theme-title" aria-describedby="theme-description">
-  <div class="theme-picker-header"><div><p class="theme-eyebrow">MAKE IT YOURS</p><h2 id="theme-title">A different atmosphere.</h2><p id="theme-description">Ten worlds. The same simple way to make an app.</p></div><button id="close-themes" class="icon-button" type="button" aria-label="Close themes"><span class="icon i-x" aria-hidden="true"></span></button></div>
+  <div class="theme-picker-header"><div><p class="theme-eyebrow">MAKE IT YOURS</p><h2 id="theme-title">A different atmosphere.</h2><p id="theme-description">Twenty worlds. The same simple way to make an app.</p></div><button id="close-themes" class="icon-button" type="button" aria-label="Close themes"><span class="icon i-x" aria-hidden="true"></span></button></div>
+  <div class="theme-collection-bar"><label for="theme-search" class="sr-only">Find a theme</label><input id="theme-search" type="search" placeholder="Find your atmosphere"><button class="button secondary" id="theme-shuffle" type="button"><span class="icon i-sun" aria-hidden="true"></span>Surprise me</button></div>
   <div id="theme-options" class="theme-options" role="group" aria-label="Choose a theme"></div>
   <div class="classic-controls"><div><strong>Classic appearance</strong><p>A quiet canvas, with no scenery.</p></div><label class="sr-only" for="classic-appearance">Classic color mode</label><select id="classic-appearance"><option value="system">Match system</option><option value="light">Light</option><option value="dark">Dark</option></select><button id="use-classic" class="button secondary" type="button" aria-pressed="false">Use Classic</button></div>
   <p id="theme-status" class="theme-status" role="status" aria-live="polite"></p>
 </dialog>
-<script src="creator-demo.js"></script><script src="creator.js"></script><script src="aero-scenes.js"></script>
+<button id="open-views" class="view-launcher" type="button" aria-haspopup="dialog" aria-controls="app-views" title="Explore views (Alt+G)"><span class="icon i-menu" aria-hidden="true"></span><span>Views</span></button>
+<dialog id="app-views" class="app-views" aria-labelledby="views-title"><header class="views-toolbar"><a class="views-brand" href="#create"><img src="assets/brand.png" alt="" width="32" height="32"><span>Make App</span></a><span class="views-toolbar-note">A place for your next app.</span><button id="close-views" class="icon-button" type="button" aria-label="Close views"><span class="icon i-x" aria-hidden="true"></span></button></header><div class="views-layout"><nav id="views-nav" aria-label="App views"></nav><section class="views-stage"><div id="view-content"></div><p id="view-notice" role="status" aria-live="polite"></p></section></div></dialog>
+<script src="creator-demo.js"></script><script src="creator.js"></script><script src="aero-scenes.js"></script><script src="app-views.js"></script>
 </body></html>

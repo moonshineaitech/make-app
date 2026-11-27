@@ -8,7 +8,7 @@ Open what you build. Choose a local project and create its desktop app, or expor
 
 ![Make App creator](docs/assets/make-app-windows.png)
 
-The creator includes ten selectable Frutiger Aero themes and a Classic appearance. The complete product website includes the same interactive renderer. [Preview, build and verify the website](docs/INTERFACE.md) with `npm run preview:site`.
+The creator includes twenty selectable Frutiger Aero themes and a Classic appearance. The complete product website includes the same interactive renderer. [Preview, build and verify the website](docs/INTERFACE.md) with `npm run preview:site`.
 
 ## Start here
 
@@ -23,9 +23,15 @@ A web export copies an existing static build into a new folder. Upload that fold
 
 ## Make it yours
 
-Click the **Make App** wordmark (or press **Alt+T**) in a photographic theme to switch between ten Frutiger Aero designs, from midnight water and aurora glass to botanical green, pearl and sunlit skies. Themes are included offline and your choice is remembered. Classic also offers system, light and dark appearance. Changing a theme preserves your selected project and creation progress. [Interface and accessibility details](docs/INTERFACE.md).
+Click the **Make App** wordmark (or press **Alt+T**) in a photographic theme to switch between twenty Frutiger Aero designs, from midnight water and aurora glass to botanical green, pearl and sunlit skies. Themes are included offline and your choice is remembered. Classic also offers system, light and dark appearance. Changing a theme preserves your selected project and creation progress. [Interface and accessibility details](docs/INTERFACE.md).
 
-![Ten selectable Make App themes](docs/assets/make-app-themes.png)
+![The original ten Make App themes](docs/assets/make-app-themes.png)
+
+The **Views** button (or **Alt+G**) opens twelve focused screens: overview, projects, project details, output formats, first launch, build activity, recent apps, coding tools, appearance, preferences, help and about. Project search and pins, live build messages, recent output paths, theme search, spacing and reduced motion are included. These screens use the same local creator and its real state.
+
+The second collection adds Sapphire Reef, Sakura Glass, Solar Atelier, Jade Observatory, Lunar Archive, Rainforest Lab, Lavender Signal, Pacific Terminal, Champagne Orbit and Arctic Iris. Each has original bundled scenery and a distinct responsive composition.
+
+![Ten additional Make App layouts](docs/assets/make-app-studio.jpg)
 
 ## Choose your download
 

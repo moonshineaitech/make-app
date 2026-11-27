@@ -39,7 +39,7 @@ app.whenReady().then(async()=>{
   for(const width of [1000,390,320]){win.setContentSize(width,1058);await scan(theme,width);}
   if(theme==='midnight_tide'||theme==='meadow_os')await capture(win,theme+'-mobile.png');
   win.setContentSize(1000,1000);await evaluate(win,"document.getElementById('appearance').click();true");
-  assert.equal(await evaluate(win,"document.querySelectorAll('[data-theme-choice]').length"),10);
+  assert.equal(await evaluate(win,"document.querySelectorAll('[data-theme-choice]').length"),20);
   assert.equal(await evaluate(win,"document.querySelector('[data-theme-choice][aria-pressed=true]').dataset.themeChoice"),theme);
   await until(()=>evaluate(win,"[...document.querySelectorAll('.theme-choice img')].every(i=>i.complete&&i.naturalWidth>0)"),'all thumbnails');
   await scan(theme+'-picker',1000);

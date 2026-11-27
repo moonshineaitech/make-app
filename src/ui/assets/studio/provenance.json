@@ -1,0 +1,111 @@
+{
+  "tool": "Built-in image generation",
+  "purpose": "Original Frutiger Aero photographic art for ten additional live app layouts",
+  "sourceDimensions": [
+    1536,
+    1024
+  ],
+  "files": [
+    {
+      "path": "sapphire_reef.jpg",
+      "bytes": 259919,
+      "sha256": "54246998ee5c824901ff72e178629779a1d92e3820465a437adda9e442333528"
+    },
+    {
+      "path": "sapphire_reef-thumb.jpg",
+      "bytes": 14450,
+      "sha256": "a68ebc2cfffac518d4e219cc0a80128b896079b708d81c53c3c9a0fa0b75c461"
+    },
+    {
+      "path": "sakura_glass.jpg",
+      "bytes": 261634,
+      "sha256": "66185c0c8e0ff414a6d04b1c434cf85e4d0c453f24e05da1d6b898ae6c97e0b5"
+    },
+    {
+      "path": "sakura_glass-thumb.jpg",
+      "bytes": 14318,
+      "sha256": "9ba5688ae48a2f3187f159003acb641e6f3edebe7eed78f54e2d8fd3b674f5cf"
+    },
+    {
+      "path": "solar_atelier.jpg",
+      "bytes": 225441,
+      "sha256": "ab8344a975c04ed13a879f002da3af95e4f281888715d7552dc28dc638c69603"
+    },
+    {
+      "path": "solar_atelier-thumb.jpg",
+      "bytes": 11812,
+      "sha256": "b75828dd85386f88c83abb8b479f0a435625ad88b8458714883c890cd406475e"
+    },
+    {
+      "path": "jade_observatory.jpg",
+      "bytes": 386121,
+      "sha256": "5b322d28cb53c1b03c59294b44b13588fb6c04a80c0ec2e4ff960726aa8a89fe"
+    },
+    {
+      "path": "jade_observatory-thumb.jpg",
+      "bytes": 15007,
+      "sha256": "891307798e040f00a678997e6ce4ac94e4ba78d7754ee715b9abb5b5637205ad"
+    },
+    {
+      "path": "lunar_archive.jpg",
+      "bytes": 178380,
+      "sha256": "cffcaaf202234cd7ea2faef1830ebfbe419d9670213b50f033de950eaec05b1a"
+    },
+    {
+      "path": "lunar_archive-thumb.jpg",
+      "bytes": 10101,
+      "sha256": "4321af64bfbed88f0f6bd72a7823c1fce962aaea6705e0cfa25bfc937cd7ca00"
+    },
+    {
+      "path": "rainforest_lab.jpg",
+      "bytes": 322782,
+      "sha256": "89eb13ea4e41ddb5dc3eb5395991801962d5b5ccd4fefb8abebadc74efc49e81"
+    },
+    {
+      "path": "rainforest_lab-thumb.jpg",
+      "bytes": 15965,
+      "sha256": "d145777cca8ec9685a759258e3f0523db7f04b84466eb3db37a6a9131e2bd7ec"
+    },
+    {
+      "path": "lavender_signal.jpg",
+      "bytes": 190926,
+      "sha256": "b4f4f50e4e1998e4b7ba4f1a491021b1177def33bf9c164394acfb0ba32dedb0"
+    },
+    {
+      "path": "lavender_signal-thumb.jpg",
+      "bytes": 12617,
+      "sha256": "1f342d04fc0de2dd0344dfa7ca712583fcb7db8f29302e3394b4b8fa04eb307b"
+    },
+    {
+      "path": "pacific_terminal.jpg",
+      "bytes": 279071,
+      "sha256": "9d988a1931cc1f59273471e79faf64d68e91848a74b309ac307296283be22320"
+    },
+    {
+      "path": "pacific_terminal-thumb.jpg",
+      "bytes": 11671,
+      "sha256": "9ee481bbfddb21eaf0214a0cdaeeb5616b2cc2d9b044da515f09deddcab63100"
+    },
+    {
+      "path": "champagne_orbit.jpg",
+      "bytes": 224540,
+      "sha256": "8897d6c426cf8475f6b33c49877c52bcdaf27f9ac7b3ebd42696262ad113d693"
+    },
+    {
+      "path": "champagne_orbit-thumb.jpg",
+      "bytes": 12969,
+      "sha256": "5fa58479005293e697c82ffdc460f2227e1e8d6a7fb08eaead1716bf3175de34"
+    },
+    {
+      "path": "arctic_iris.jpg",
+      "bytes": 239699,
+      "sha256": "e5a1df2919195190eb855828d0e352019a4f284a4f18c94c7bd2d4ae559e28ca"
+    },
+    {
+      "path": "arctic_iris-thumb.jpg",
+      "bytes": 13033,
+      "sha256": "127d92472276e703b6fbabff59b17230094d6a653363d9b9045c530b16bc3d4b"
+    }
+  ],
+  "thumbnails": "Live renderer captures from the bounded 0.12 view smoke; no rendered image is used as an interactive UI."
+}

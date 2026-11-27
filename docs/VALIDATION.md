@@ -1,5 +1,7 @@
 # Validation and open gates
 
+The 0.12 interface preview adds twenty total designs and twelve utility views. Its focused Electron renderer smoke passed 54 layout checks and creation, cancellation and project-search behavior. Native engine compatibility evidence below is from earlier runs; the full cross-platform release matrix has not been repeated for this UI iteration.
+
 The 0.9 interface adds native Electron design checks for 15 light/dark and responsive layouts, automated accessibility rules, horizontal overflow, creation/cancellation/errors, stale inspections, preview resizing and website controls. These use controlled fixtures. The native desktop matrix separately verifies actual app creation and launch. See [interface verification](INTERFACE.md).
 
 Verification records apply to a particular build, source commit and environment. They do not establish universal application compatibility.

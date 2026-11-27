@@ -22,3 +22,5 @@ qa/design/
 qa/aero/
 design-qa.md
 web-dist/
+
+qa/views/

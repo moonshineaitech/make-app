@@ -6,7 +6,7 @@
     ['citrus_circuit', 'Citrus Circuit', 'light'], ['cobalt_hydro', 'Cobalt Hydro', 'light'],
     ['aurora_lake', 'Aurora Lake', 'dark'], ['sunset_estuary', 'Sunset Estuary', 'light'],
     ['glacial_quartz', 'Glacial Quartz', 'light'], ['meadow_os', 'Meadow OS', 'light']
-  ];
+  ].concat((window.makeAppStudioThemes||[]).map(theme=>[theme.id,theme.name,theme.scheme]));
   const modes = ['system', 'light', 'dark'];
   const validStyle = value => value === 'classic' || themes.some(theme => theme[0] === value);
   const read = key => { try { return localStorage.getItem(key); } catch { return null; } };
@@ -54,7 +54,7 @@
       button.type = 'button'; button.className = 'theme-choice';
       button.dataset.themeChoice = id; button.setAttribute('aria-pressed', 'false');
       const image = document.createElement('img');
-      image.src = 'assets/aero/' + id + '-thumb.jpg'; image.alt = ''; image.width = 320; image.height = 200; image.loading = 'lazy';
+      image.src = (window.makeAppStudioThemes||[]).some(theme=>theme.id===id)?'assets/studio/'+id+'-thumb.jpg':'assets/aero/'+id+'-thumb.jpg'; image.alt = ''; image.width = 320; image.height = 200; image.loading = 'lazy';
       const caption = document.createElement('span'); caption.className = 'theme-choice-caption';
       const title = document.createElement('strong'); title.textContent = name;
       const check = document.createElement('span'); check.className = 'icon i-circle-check'; check.setAttribute('aria-hidden', 'true');

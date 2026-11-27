@@ -25,6 +25,7 @@ function render() {
   $('output-name').textContent = name ? name + (web ? ' · web export' : platform?.extension || '') : 'Your next app';
   $('output-caption').textContent = web ? 'Export to a folder of your choice' : 'Choose where to save it next';
   window.dispatchEvent(new Event('make-app:render'));
+  window.dispatchEvent(new CustomEvent('make-app:state',{detail:{selected,busy,platform,format:format(),source:$('source').value,name:$('name').value,phase:document.body.dataset.phase}}));
 }
 function setBusy(value) {
   busy = value;
@@ -89,6 +90,7 @@ api.capabilities().then(value => {
 api.projects().then(projects => {
   for (const project of projects) $('saved').append(new Option(project.name, project.path));
   if (!projects.length) $('saved').firstElementChild.textContent = 'No saved projects yet — browse a folder';
+  render();
 }).catch(() => { $('saved').replaceChildren(new Option('Browse a folder to get started', '')); });
 $('browse').onclick = async () => { try { await openSource(await api.choose()); } catch (error) { status(error.message, true); } };
 $('saved').onchange = () => openSource($('saved').value);
@@ -109,6 +111,7 @@ $('creator-form').onsubmit = async event => {
     const result = await api.make({ source: $('source').value, name: $('name').value, target: $('entry').value || undefined, format: format() });
     if (result.cancelled) { phase('ready'); status('Creation cancelled. Your existing files are unchanged.'); return; }
     phase('success');
+    window.dispatchEvent(new CustomEvent('make-app:created',{detail:{...result,source:$('source').value,createdAt:Date.now()}}));
     const filename = result.executable?.split(/[\\/]/).at(-1) || result.name + '.' + result.format;
     status(result.preview ? 'Preview complete. Download Make App to create this file on your computer.'
       : result.format === 'web' ? 'Web app exported. Host the folder over HTTPS to use it on your devices.' : filename + ' is ready. Open it whenever you like.');
@@ -120,7 +123,8 @@ $('cancel').onclick = async () => {
   $('cancel').disabled = true; status('Cancelling creation…');
   try { await api.cancel(); } catch (error) { $('cancel').disabled = false; status(error.message, true); }
 };
-api.onProgress(text => { $('progress').hidden = false; $('log').textContent = ($('log').textContent + text).slice(-12000); });
+api.onProgress(text => { $('progress').hidden = false; $('log').textContent = ($('log').textContent + text).slice(-12000);window.dispatchEvent(new Event('make-app:progress')); });
 $('reveal').onclick = () => api.reveal().catch(error => status(error.message, true));
 api.initial().then(openSource).catch(error => status(error.message, true)); api.onSource(openSource);
 phase('idle'); render();
+window.addEventListener('make-app:open-project',event=>openSource(event.detail?.path));
