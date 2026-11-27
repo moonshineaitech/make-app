@@ -1,6 +1,6 @@
 {
   "name": "appdock",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Create desktop apps and installable web exports from local projects",
   "author": "GoldRock AI",
   "license": "MIT",
@@ -65,6 +65,7 @@
       "signExecutable": false
     },
     "portable": {
+      "unpackDirName": true,
       "artifactName": "Make-App-${version}-Windows.exe"
     },
     "compression": "normal",

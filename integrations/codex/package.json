@@ -1,6 +1,6 @@
 {
   "name": "appdock-codex-plugin",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Local project inspection and AppDock desktop handoff for Codex",
   "private": true,
   "license": "MIT",

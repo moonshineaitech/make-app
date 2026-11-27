@@ -1,4 +1,4 @@
-# Make App 0.9.0 — a clearer way to open your work
+# Make App 0.9.1 — a clearer way to open your work
 
 The creator and complete product website now share a new interface: warm translucent materials, locally bundled Geist typography, precise iconography and a quieter hierarchy. Project selection, output format and saving stay in one view. System, light and dark appearance modes carry through to the launch and terminal screens.
 
@@ -6,6 +6,7 @@ The creator and complete product website now share a new interface: warm translu
 - A complete static website with an interactive sample-project preview, coding-tool tabs, device guidance, FAQs and a platform-specific download chooser. The preview uses the actual app renderer without reading files, creating apps or running project code.
 - The download chooser uses published GitHub assets and explains when builds remain in draft review. No remote fonts, analytics, account or application backend.
 - Stale project-inspection responses cannot enable creation for a newly typed folder. Switching projects clears outdated results and requirements.
+- Windows portable runtimes now extract into a separate directory for every launch, preventing overlapping generated apps from replacing each other's runtime files. Native acceptance now launches two generated apps simultaneously and checks both results and shutdown.
 - A bounded native Electron design check covers 15 responsive/theme combinations, automated accessibility rules, preview sizing and creation, cancellation, invalid-folder and website-control states. Native acceptance separately creates and launches generated apps on all five desktop targets.
 
 See docs/INTERFACE.md for website preview, hosting and verification instructions.
