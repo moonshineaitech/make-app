@@ -1,4 +1,12 @@
-# Make App 0.13.0 — complete Aero workspaces and glass motion
+# Make App 0.14.0 — a clearer Aero workspace
+
+The overview now shows saved projects directly, alongside the current project's original glass illustration, output and detection status. Horizontal layouts use four primary destinations and a keyboard-accessible More menu. Existing sidebar compositions and all twelve utility views remain available.
+
+The Appearance library includes larger previews, live search, Original/Studio collection filters and a current-design marker. Applying a theme keeps the library and search open and preserves the selected project. The glass surfaces, typography, scrollbars, project rows and narrow layouts are refined across all twenty designs. The measured photographic creator screens and existing artwork are retained.
+
+Release verification is recorded per build. Local Windows packaging and renderer checks do not imply that a new native Mac/Linux matrix has run. Previous verified 0.13 downloads remain separate from this design iteration. Preview signing and clean-machine requirements still apply.
+
+## Previous: Make App 0.13.0 — complete Aero workspaces and glass motion
 
 Both interface collections are included: the original ten photographic designs, each with its creator and twelve matching screens, plus ten additional Studio designs. Switch collections and themes without losing your selected project or creation progress. All artwork is bundled locally.
 

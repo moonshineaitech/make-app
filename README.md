@@ -47,6 +47,14 @@ The original ten designs remain intact: Midnight Tide, Botanical Canopy, Stratos
 
 The original creator artwork and measured controls are preserved. The surrounding screens share real project and creation state; they are functional interfaces rather than screenshots.
 
+## A clearer workspace
+
+The 0.14 workspace puts saved projects directly on the overview, with the current project's original glass illustration, output and detection status. Horizontal layouts use four primary destinations and a keyboard-accessible **More** menu for the remaining views. The original sidebar compositions remain available.
+
+Appearance now has larger previews, search, Original/Studio collection filters and a visible current-design marker. Applying a design keeps the library, search and project in place. Refined typography, quieter glass borders, themed scrollbars and a responsive compact navigation carry through all twenty designs. The measured photographic creator screens remain intact.
+
+![The refined Make App workspace](docs/assets/make-app-workspace.jpg)
+
 ## Choose your download
 
 **Release status:** binary assets remain private while a release is a draft. The source and CI results are public. Desktop builds use native acceptance on each target; check the validation page and release assets before choosing a build. [Hosting and storefront distribution](docs/DISTRIBUTION.md) covers direct downloads, itch.io, Whop and store requirements.

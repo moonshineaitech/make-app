@@ -8,19 +8,29 @@
  const icon=name=>{const e=node('span','icon '+name);e.setAttribute('aria-hidden','true');return e;};
  const button=(text,action,kind='secondary',glyph)=>{const e=node('button','button '+kind);e.type='button';if(glyph)e.append(icon(glyph));e.append(document.createTextNode(text));e.addEventListener('click',action);return e;};
  const notice=text=>{$('view-notice').textContent=text;};
- let state={},view='overview',lastResult,filter='',pinnedOnly=false;
+ let state={},view='overview',lastResult,filter='',pinnedOnly=false,designFilter='',designCollection='all';
+ const primaryViews=new Set(['overview','projects','results','designs']);
+ const moreMenu=node('div','views-more-menu');moreMenu.id='views-more-menu';moreMenu.setAttribute('popover','auto');moreMenu.setAttribute('role','menu');moreMenu.setAttribute('aria-label','All app views');dialog.append(moreMenu);
+ const moreButton=button('More',()=>{if(moreMenu.matches(':popover-open'))moreMenu.hidePopover();else{moreMenu.showPopover();positionMenu();(moreMenu.querySelector('[aria-current=page]')||moreMenu.querySelector('button')).focus();}},'quiet','i-menu');moreButton.id='views-more';moreButton.setAttribute('aria-haspopup','menu');moreButton.setAttribute('aria-controls',moreMenu.id);moreButton.setAttribute('aria-expanded','false');moreButton.hidden=true;
+ function positionMenu(){const r=moreButton.getBoundingClientRect(),m=moreMenu.getBoundingClientRect();moreMenu.style.left=Math.max(12,Math.min(r.right-m.width,innerWidth-m.width-12))+'px';moreMenu.style.top=Math.max(12,Math.min(r.bottom+10,innerHeight-m.height-12))+'px';}
+ function navLayout(){const compact=innerWidth<=650||['midnight_tide','stratosphere','aurora_lake','glacial_quartz','citrus_circuit'].includes(dialog.dataset.original);$('views-nav').dataset.compact=String(compact);moreButton.hidden=!compact;moreButton.classList.toggle('is-current',!primaryViews.has(view));moreButton.setAttribute('aria-label','More views'+(!primaryViews.has(view)?', current: '+definitions.find(d=>d[0]===view)[1]:''));if(!compact&&moreMenu.matches(':popover-open'))moreMenu.hidePopover();else if(moreMenu.matches(':popover-open'))positionMenu();}
+ function selectView(id){if(moreMenu.matches(':popover-open'))moreMenu.hidePopover();view=id;filter='';render();content.querySelector('h1').focus({preventScroll:true});}
+ moreMenu.addEventListener('toggle',()=>moreButton.setAttribute('aria-expanded',String(moreMenu.matches(':popover-open'))));
+ moreMenu.addEventListener('keydown',event=>{const items=[...moreMenu.querySelectorAll('button')],index=items.indexOf(document.activeElement);let next;if(event.key==='ArrowDown')next=(index+1)%items.length;else if(event.key==='ArrowUp')next=(index-1+items.length)%items.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=items.length-1;if(next!==undefined){event.preventDefault();items[next].focus();}});
+ window.addEventListener('resize',navLayout);new MutationObserver(navLayout).observe(dialog,{attributes:true,attributeFilter:['data-original']});
+ dialog.addEventListener('close',()=>{if(moreMenu.matches(':popover-open'))moreMenu.hidePopover();});
  let recent=load('make-app-recent-outputs',[]);if(!Array.isArray(recent))recent=[];
  recent=recent.filter(r=>r&&typeof r.name==='string'&&typeof r.source==='string'&&r.source.length<8192).slice(0,20);
  let pins=load('make-app-pinned-projects',[]);if(!Array.isArray(pins))pins=[];
  pins=pins.filter(p=>typeof p==='string').slice(0,100);
  const projects=()=>[...$('saved').options].filter(o=>o.value).map(o=>({name:o.text,path:o.value}));
- function close(){dialog.close();}
+ function close(){if(moreMenu.matches(':popover-open'))moreMenu.hidePopover();dialog.close();}
  function returnToCreator(focus){close();if(focus)$(focus)?.focus();}
  function openProject(path){if(state.busy){notice('Finish or cancel the current app first.');return;}window.dispatchEvent(new CustomEvent('make-app:open-project',{detail:{path}}));returnToCreator('name');}
  function open(viewId='overview'){
   if(!definitions.some(d=>d[0]===viewId))viewId='overview';view=viewId;filter='';
   if($('theme-picker').open)$('theme-picker').close();if($('project-information').open)$('project-information').close();
-  render();if(!dialog.open)dialog.showModal();
+  render();if(!dialog.open)dialog.showModal();content.querySelector('h1').focus({preventScroll:true});
  }
  function header(eyebrow,title,copy){const e=node('header','view-heading');e.append(node('p','view-eyebrow',eyebrow),node('h1','',title),node('p','view-intro',copy));content.append(e);}
  function card(title,copy,glyph){const e=node('article','view-card');if(glyph)e.append(icon(glyph));if(title)e.append(node('h2','',title));if(copy)e.append(node('p','',copy));return e;}
@@ -34,17 +44,20 @@
   else window.open('https://github.com/moonshineaitech/make-app/'+paths[section],'_blank','noopener,noreferrer');
  }
  function pickFormat(format){const input=document.querySelector('input[name=format][value='+format+']');if(input.disabled||state.busy){notice('This output is unavailable for the current project.');return;}input.checked=true;input.dispatchEvent(new Event('change'));returnToCreator('name');}
- function chooseTheme(id){close();$('appearance').click();document.querySelector('[data-theme-choice="'+id+'"]').click();$('close-themes').click();}
+ function chooseTheme(id){const top=dialog.querySelector('.views-stage').scrollTop;close();$('appearance').click();document.querySelector('[data-theme-choice="'+id+'"]').click();$('close-themes').click();open('designs');dialog.querySelector('.views-stage').scrollTop=top;notice('Atmosphere applied. Your project is unchanged.');}
  function overview(){
-  header('YOUR LOCAL WORKSPACE','A little space. A lot of possibility.','Pick up a project, find your atmosphere, and make something you can open.');
-  const hero=node('div','view-feature');const img=node('img');img.src=themeImage();img.alt='';
-  const body=node('div','view-feature-copy');body.append(node('p','view-eyebrow',state.selected?'READY WHEN YOU ARE':'START SOMETHING'),node('h2','',state.name||'Your next app'),node('p','',state.selected?.label||'Choose a project folder. Make App figures out how it runs.'),button(state.selected?'Continue creating':'Choose a project',()=>{returnToCreator();if(!state.selected)$('browse').click();},'primary','i-arrow'));hero.append(img,body);content.append(hero);
-  const a=card('Projects',projects().length?projects().length+' saved projects available on this computer.':'Browse a folder to get started.','i-folder');a.append(button('Browse projects',()=>open('projects')));
-  const b=card('Twenty atmospheres','Original glass, scenery and distinct layouts. Your choice stays with you.','i-sun');b.append(button('Find your atmosphere',()=>open('designs')));
-  const c=card('Your coding tool','Use Make App from the tools you already work in.','i-command');c.append(button('Explore connections',()=>open('connections')));grid(a,b,c);
+  header('YOUR WORKSPACE','Open what you’re building.','Your projects, your desktop, your atmosphere. Everything stays on this computer.');
+  const hero=node('div','view-feature workspace-feature'),art=node('figure','workspace-art'),img=node('img');img.src=dialog.dataset.original?'assets/originals/'+dialog.dataset.original+'-signature.jpg':themeImage();img.alt='';art.append(img);
+  const body=node('div','view-feature-copy');body.append(node('p','view-eyebrow',state.selected?'CURRENT PROJECT':'START HERE'),node('h2','',state.name||'Your next app'),node('p','',state.selected?.label||'Choose a project folder. Make App detects its setup for you.'));
+  const chips=node('div','workspace-chips');chips.append(node('span','',state.format==='web'?'Web export':(state.platform?.name||'Desktop')+' app'),node('span','',state.selected?'Project detected':'Choose a folder'));body.append(chips,button(state.selected?'Continue creating':'Choose a project',()=>{returnToCreator();if(!state.selected)$('browse').click();},'primary','i-arrow'));hero.append(art,body);content.append(hero);
+  const shortcuts=node('div','workspace-shortcuts');for(const [label,id,glyph]of [['Your projects','projects','i-folder'],['Change atmosphere','designs','i-sun'],['Connect a coding tool','connections','i-command']])shortcuts.append(button(label,()=>open(id),'quiet',glyph));content.append(shortcuts);
+  const section=node('section','workspace-projects'),top=node('div','workspace-section-heading');top.append(node('h2','','Saved projects'),button('View all',()=>open('projects'),'quiet','i-arrow'));section.append(top);
+  const saved=projects().sort((a,b)=>Number(pins.includes(b.path))-Number(pins.includes(a.path))||a.name.localeCompare(b.name)).slice(0,3);
+  if(!saved.length)section.append(node('p','workspace-empty','Your saved projects will appear here. Start by choosing a folder.'));
+  for(const project of saved){const row=node('article','project-row'),picture=node('span','project-picture'),text=node('div','project-copy');picture.append(icon('i-folder'));text.append(node('h3','',project.name),node('p','path-text',project.path));const use=button('Open',()=>openProject(project.path),'secondary','i-arrow');use.disabled=!!state.busy;row.append(picture,text,use);section.append(row);}content.append(section);
  }
  function projectView(){
-  header('PICK UP WHERE YOU LEFT OFF','Your projects. Ready for their next chapter.','Saved coding projects stay in their original folders. Select one to inspect it and create an app.');
+  header('PROJECT LIBRARY','Your projects.','Choose a saved project or browse a folder to create its app.');
   const toolbar=node('div','view-toolbar'),search=node('input');search.type='search';search.placeholder='Search projects or folders';search.setAttribute('aria-label','Search projects');search.value=filter;
   const list=node('div','project-list');search.addEventListener('input',()=>{filter=search.value;draw();});
   const pinButton=button(pinnedOnly?'Show all':'Pinned only',()=>{pinnedOnly=!pinnedOnly;pinButton.textContent=pinnedOnly?'Show all':'Pinned only';pinButton.setAttribute('aria-pressed',String(pinnedOnly));draw();});pinButton.setAttribute('aria-pressed',String(pinnedOnly));
@@ -97,9 +110,14 @@
  }
  function themeImage(){const studio=window.makeAppStudioThemes.find(t=>t.id===root.dataset.aero);return studio?'assets/studio/'+studio.id+'.jpg':root.dataset.aero?'assets/aero/'+root.dataset.aero+'.jpg':'assets/brand.png';}
  function designs(){
-  header('A PLACE THAT FEELS LIKE YOU','Twenty atmospheres. One simple app.','Choose a complete visual world. Your project and build progress stay with you.');
-  content.append(button('Open theme chooser',()=>{close();$('appearance').click();},'primary','i-sun'));
-  const gallery=node('div','view-theme-grid');for(const b of document.querySelectorAll('[data-theme-choice]')){const item=node('button','view-theme-card');item.type='button';item.setAttribute('aria-pressed',String(b.dataset.themeChoice===root.dataset.aero));const img=node('img');img.src=b.querySelector('img').getAttribute('src');img.alt='';img.loading='lazy';item.append(img,node('strong','',b.querySelector('strong').textContent));item.addEventListener('click',()=>chooseTheme(b.dataset.themeChoice));gallery.append(item);}content.append(gallery);
+  header('APPEARANCE','Find your atmosphere.','Twenty complete designs. Your project and creation progress stay with you.');
+  const tools=node('div','design-library-tools'),tabs=node('div','design-library-tabs');tabs.setAttribute('role','group');tabs.setAttribute('aria-label','Filter design collection');
+  const search=node('input');search.type='search';search.placeholder='Search atmospheres';search.setAttribute('aria-label','Search atmospheres');search.value=designFilter;
+  const gallery=node('div','view-theme-grid'),status=node('p','design-library-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');
+  function filterDesigns(){let count=0;for(const item of gallery.children){item.hidden=(designCollection!=='all'&&item.dataset.collection!==designCollection)||!item.dataset.name.includes(designFilter.toLocaleLowerCase());if(!item.hidden)count++;}status.textContent=count+' '+(count===1?'atmosphere':'atmospheres')+(designFilter?' matching “'+designFilter+'”':'');for(const b of tabs.children)b.setAttribute('aria-pressed',String(b.dataset.collection===designCollection));}
+  for(const [id,label]of [['all','All 20'],['original','Originals'],['studio','Studio']]){const b=button(label,()=>{designCollection=id;filterDesigns();},'quiet');b.dataset.collection=id;tabs.append(b);}search.addEventListener('input',()=>{designFilter=search.value;filterDesigns();});tools.append(tabs,search);content.append(tools,status);
+  for(const b of document.querySelectorAll('[data-theme-choice]')){const item=node('button','view-theme-card');item.type='button';const current=b.dataset.themeChoice===root.dataset.aero;item.setAttribute('aria-pressed',String(current));item.dataset.collection=b.dataset.collection;item.dataset.name=b.textContent.toLocaleLowerCase();const img=node('img');img.src=b.querySelector('img').getAttribute('src');img.alt='';img.loading='lazy';const caption=node('span','design-card-caption'),copy=node('span');copy.append(node('strong','',b.querySelector('strong').textContent),node('small','',b.dataset.collection==='original'?'Original collection':'Studio collection'));caption.append(copy);if(current){const check=node('span','design-current');check.append(icon('i-circle-check'),node('span','','Current'));caption.append(check);}item.append(img,caption);item.addEventListener('click',()=>chooseTheme(b.dataset.themeChoice));gallery.append(item);}content.append(gallery);filterDesigns();
+  const classic=node('div','design-classic-note');classic.append(node('p','','Prefer a quieter canvas? Classic includes system, light and dark modes.'),button('Classic & theme settings',()=>{close();$('appearance').click();},'quiet','i-sun'));content.append(classic);
  }
  function preferences(){
   header('MAKE YOURSELF COMFORTABLE','A few thoughtful adjustments.','Saved on this device, ready the next time you open Make App.');
@@ -115,15 +133,17 @@
  function about(){
   header('MAKE APP','Made to be opened.','A free, local way to turn your existing project into a desktop app or static web export.');
   const feature=node('div','view-feature about-feature'),image=node('img');image.src=themeImage();image.alt='';const body=node('div','view-feature-copy');body.append(node('p','view-eyebrow','INDEPENDENT · OPEN SOURCE'),node('h2','', 'Your project stays yours.'),node('p','', 'No Make App account. No Make App API key. Your original folder stays in place.'),button('Explore the source',()=>guide('source'),'primary','i-up-right'));feature.append(image,body);content.append(feature);
-  facts([['Desktop','Windows · macOS · Linux'],['Web exports','Phones · tablets · browsers'],['License','MIT'],['Release','0.13 preview']]);
+  facts([['Desktop','Windows · macOS · Linux'],['Web exports','Phones · tablets · browsers'],['License','MIT'],['Release','0.14 preview']]);
   content.append(card('Built with care','An independent project. Publisher signing, notarization and physical-device acceptance remain separate release checks.','i-shield'));
  }
  const renderers={overview,projects:projectView,details,outputs,setup,activity,results,connections,designs,preferences,help,about};
  function render(){
   content.replaceChildren();$('view-notice').textContent='';for(const b of $('views-nav').querySelectorAll('button')){b.classList.toggle('is-current',b.dataset.view===view);if(b.dataset.view===view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');}
-  renderers[view]();const heading=content.querySelector('h1');heading.id='views-title';heading.tabIndex=-1;dialog.dataset.view=view;
+  for(const b of moreMenu.querySelectorAll('[data-menu-view]')){if(b.dataset.menuView===view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');}
+  renderers[view]();const heading=content.querySelector('h1');heading.id='views-title';heading.tabIndex=-1;dialog.dataset.view=view;navLayout();
  }
- for(const [id,title,glyph]of definitions){const b=button(title,()=>{view=id;filter='';render();content.querySelector('h1').focus();},'quiet',glyph);b.dataset.view=id;$('views-nav').append(b);}
+ for(const [id,title,glyph]of definitions){const b=button(title,()=>selectView(id),'quiet',glyph);b.dataset.view=id;if(!primaryViews.has(id))b.dataset.secondary='true';$('views-nav').append(b);const item=button(title,()=>selectView(id),'quiet',glyph);item.dataset.menuView=id;item.setAttribute('role','menuitem');item.tabIndex=-1;moreMenu.append(item);}
+ $('views-nav').append(moreButton);navLayout();
  $('open-views').addEventListener('click',()=>open());$('close-views').addEventListener('click',close);
  dialog.querySelector('.views-brand').addEventListener('click',event=>{event.preventDefault();returnToCreator();});
  dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)close();});

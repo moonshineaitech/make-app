@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceVersion": "0.13.0",
+  "sourceVersion": "0.14.0",
   "generatedForReview": true,
   "contentBasis": "Committed Git blob bytes (LF for text), excluding this manifest",
   "files": [
@@ -71,8 +71,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 15454,
-      "sha256": "2f6af46690e00479a66bc821208032abd51f82c66f33eb83e351c256dfb72182"
+      "bytes": 16237,
+      "sha256": "46e6259223e98b2eb2011464f2d4553d1b8cda18491dedd060e33a5f85b5b262"
     },
     {
       "path": "SECURITY.md",
@@ -121,8 +121,8 @@
     },
     {
       "path": "docs/RELEASE_NOTES.md",
-      "bytes": 9092,
-      "sha256": "1114604f8cbccaea02548a1465ad5865a60ebeb2fe0a908a0202e2eeaa1633a9"
+      "bytes": 10142,
+      "sha256": "763ca4a490e6903da7b4ec812b42a888b62b2518cfcfe9a5bf0b3e89a424d8da"
     },
     {
       "path": "docs/RELEASING.md",
@@ -163,6 +163,11 @@
       "path": "docs/assets/make-app-windows.png",
       "bytes": 1521920,
       "sha256": "3ae7e81182e9d7b1ce0e8f9d1806baf9c4230497939c21106b4fe11a98c1149c"
+    },
+    {
+      "path": "docs/assets/make-app-workspace.jpg",
+      "bytes": 149434,
+      "sha256": "4324641116a0883fd1ffc5dbda087b9937baafecd1e450044b76cb99a0893c92"
     },
     {
       "path": "electron-builder.config.cjs",
@@ -447,12 +452,12 @@
     {
       "path": "package-lock.json",
       "bytes": 119130,
-      "sha256": "db4faf07faae6622a700d55f3f0d6683259255636d55e424cb27057ab800b19a"
+      "sha256": "10cd9e7170bc49fbcaeda185482b3d11b23d09ef482846583aa157d86031cf50"
     },
     {
       "path": "package.json",
       "bytes": 4500,
-      "sha256": "b383ae0713e4b9436d32bfa1f2696a98a1234c13efc425f83e7fd8e032c71a90"
+      "sha256": "a247e5a35fd579a181c322e6f64b4de39453177b63eebbf676c79f4b8857daef"
     },
     {
       "path": "qa/README.md",
@@ -506,8 +511,8 @@
     },
     {
       "path": "scripts/build-site.cjs",
-      "bytes": 1706,
-      "sha256": "1863742ca94aa88d99a6ddbb85f19408a9179ff7f8ceb1a7f46826be0a7f7099"
+      "bytes": 1729,
+      "sha256": "9a199716e9ef18f4e737dbb4ae94820098dab7d25524a06a0d60dbb8c3f99335"
     },
     {
       "path": "scripts/check-public-source.cjs",
@@ -611,8 +616,8 @@
     },
     {
       "path": "scripts/verify-views.cjs",
-      "bytes": 5470,
-      "sha256": "f3ea97e83c342699c78313079c4bcd32cd881f455df024e04d567b5184df683e"
+      "bytes": 8206,
+      "sha256": "73e5440a85f28d060b2bc606c91de523db62e72625e66980fbca55e45b13de32"
     },
     {
       "path": "site/index.html",
@@ -916,8 +921,8 @@
     },
     {
       "path": "src/ui/app-views.js",
-      "bytes": 24331,
-      "sha256": "08f6adaf5b3ba6c044c2df9d5017485a60abafdfccc415249bf8f8e33f440c42"
+      "bytes": 30467,
+      "sha256": "6e3230d54adb538fc82788097b0c10dcc06e238d5efc72fc6ab7d1090805354e"
     },
     {
       "path": "src/ui/appearance.js",
@@ -2301,8 +2306,8 @@
     },
     {
       "path": "src/ui/creator.html",
-      "bytes": 11817,
-      "sha256": "83a3731f68836c52c5e7f94dceeb75959910dc842ead5f66feae602c581167a0"
+      "bytes": 11868,
+      "sha256": "e2ff88f79e87ff9aec256afe3b37feb509337d882fc45c7f2761d271724953dc"
     },
     {
       "path": "src/ui/creator.js",
@@ -2398,6 +2403,11 @@
       "path": "src/ui/tool.js",
       "bytes": 3199,
       "sha256": "c02711c9384d13d41a3df5ffeaa29298018a322841be63196ed58fd90a37ed56"
+    },
+    {
+      "path": "src/ui/workspace-polish.css",
+      "bytes": 12201,
+      "sha256": "71228f741ae71f446ae202ca3113c35e77f1c59ef73d4ed92f55b0cc61d82aba"
     },
     {
       "path": "src/web-export.cjs",
