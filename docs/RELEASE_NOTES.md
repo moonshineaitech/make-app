@@ -1,4 +1,18 @@
-# Make App 0.11.0 — photographic Aero interfaces
+# Make App 0.13.0 — complete Aero workspaces and glass motion
+
+Both interface collections are included: the original ten photographic designs, each with its creator and twelve matching screens, plus ten additional Studio designs. Switch collections and themes without losing your selected project or creation progress. All artwork is bundled locally.
+
+Seven coordinated motion treatments cover glass highlights, entrances, press feedback, ripples and focus, image depth, panel lighting, and selection/build/success feedback. Choose Glass, Subtle or Reduced motion in Preferences. System reduced motion takes precedence, and decorative motion pauses while the app is hidden.
+
+The twelve utility views include project search and pins, project details, output formats, first launch, build activity, recent apps, coding tools, appearance, preferences, help and about. The website shares the actual renderer with clearly labeled sample data.
+
+Download the converter for your own operating system, or the complete coding-tool bundle if you want Codex/MCP integration. Windows uses a portable EXE; macOS uses a ZIP containing an app; Linux uses an AppImage. Apple Silicon, Intel Mac, Linux x64 and Linux ARM64 have separate builds. No global Node installation, account or API key is needed to open the converter. Project-specific runtimes may still be required.
+
+Local 0.13 verification recorded 294 layout checks, 32 automated accessibility scans, all twenty motion themes and a native Windows creation smoke. Release assets are admitted separately by the exact-commit native five-target workflow and source verification; see BUILD-VERIFICATION.json for the release's actual evidence.
+
+This is an unsigned, non-notarized preview. Generated desktop launchers require the original project folder and a compatible computer. Web exports serve existing static builds; they do not make backend or native code run on phones. This independent integration is not an approved OpenAI Directory listing. See [distribution guidance](DISTRIBUTION.md).
+
+## Previous: Make App 0.11.0 — photographic Aero interfaces
 
 The ten selected Aero concepts now use their original scenic artwork, glass frames, pictograms and button materials, with measured 1487 × 1058 layouts. Project paths, saved projects, app names, output choices and creation actions remain real editable controls. Each design retains its own composition, including Botanical’s sidebar, Citrus’s three columns and Pearl’s creation summary.
 

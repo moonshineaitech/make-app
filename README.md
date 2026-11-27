@@ -49,7 +49,7 @@ The original creator artwork and measured controls are preserved. The surroundin
 
 ## Choose your download
 
-**Release status:** binary assets remain private while a release is a draft. The source and CI results are public. Desktop builds use native acceptance on each target; check the validation page and release assets before choosing a build.
+**Release status:** binary assets remain private while a release is a draft. The source and CI results are public. Desktop builds use native acceptance on each target; check the validation page and release assets before choosing a build. [Hosting and storefront distribution](docs/DISTRIBUTION.md) covers direct downloads, itch.io, Whop and store requirements.
 
 | Computer | Converter asset | Codex plugin asset |
 | --- | --- | --- |

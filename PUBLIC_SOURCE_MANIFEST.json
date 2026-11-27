@@ -71,8 +71,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 15331,
-      "sha256": "e04751ba01bffb1dfedc5180ea953565968f265881567ff90788ba444fd54d49"
+      "bytes": 15454,
+      "sha256": "2f6af46690e00479a66bc821208032abd51f82c66f33eb83e351c256dfb72182"
     },
     {
       "path": "SECURITY.md",
@@ -93,6 +93,11 @@
       "path": "docs/CROSS_PLATFORM.md",
       "bytes": 3715,
       "sha256": "46a46517a9ec50e120f95a845ee698bcc5f4669e327c866ba6b63cee2bd8a80b"
+    },
+    {
+      "path": "docs/DISTRIBUTION.md",
+      "bytes": 4829,
+      "sha256": "8c83d88392c11bc042c33c1c1ac059be22fd063fccb4e2337d9be329c8d3f97f"
     },
     {
       "path": "docs/HARNESSES.md",
@@ -116,8 +121,8 @@
     },
     {
       "path": "docs/RELEASE_NOTES.md",
-      "bytes": 7046,
-      "sha256": "5a2a37bf3ae4ba03a04d7d04afb52f3a3a460fdcfbc27a75ffcefb3a9473f50b"
+      "bytes": 9092,
+      "sha256": "1114604f8cbccaea02548a1465ad5865a60ebeb2fe0a908a0202e2eeaa1633a9"
     },
     {
       "path": "docs/RELEASING.md",
