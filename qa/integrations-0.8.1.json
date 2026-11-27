@@ -1,7 +1,7 @@
 {
   "version": "0.8.1",
   "environment": "Development Windows x64 host, Node 24",
-  "regressions": { "passed": 82, "failed": 0, "posixOnlySkipped": 1 },
+  "regressions": { "passed": 84, "failed": 0, "posixOnlySkipped": 1 },
   "integrationTests": { "passed": 20, "failed": 0, "skipped": 0 },
   "adapterIds": ["codex", "claude", "cursor", "vscode", "vscode-local", "gemini", "opencode", "generic"],
   "actualMcpServerLaunchPerAdapter": true,

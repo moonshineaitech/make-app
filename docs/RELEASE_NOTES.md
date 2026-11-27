@@ -8,6 +8,7 @@ Ask your coding tool to make an app for the current project. The Codex plugin no
 - The CLI and MCP tools use one shared implementation for inspection, native creation, static web export and converter handoff. Only the local project path is required for creation. Default outputs are new siblings under Make App Outputs.
 - A reusable make-app MCP prompt guides clients that support prompts. The Codex plugin also includes the run-project skill.
 - Runtime dependency inventories now include the integration bundle's dependencies as well as the converter's.
+- Source hashing retries a file from fresh metadata when OneDrive/cloud hydration changes its first-read timestamps. A hash is accepted only after a stable before/after read; persistently changing files still fail after three attempts.
 
 Download the complete Codex Plugin archive for your desktop OS/architecture. Extract it to a stable folder. For Codex, run Install Codex Plugin and open a new chat. For other tools or project-only Codex setup, open Connect Coding Tool and choose your project. Source and detailed compatibility instructions are in docs/HARNESSES.md.
 

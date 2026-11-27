@@ -4,8 +4,9 @@ Verification records apply to a particular build, source commit and environment.
 
 ## Local Windows evidence
 
-- 82 applicable Windows regression tests passed; one POSIX-only permission check is skipped on Windows and runs on Unix.
+- 84 applicable Windows regression tests passed; one POSIX-only permission check is skipped on Windows and runs on Unix.
 - Twenty plugin/integration tests passed for 0.8.1. Each adapter's generated configuration launches the actual MCP server, discovers tools/prompts and inspects a local project. Tests verify configuration/comment preservation, removal after unrelated edits, conflicts, invalid settings, linked paths, CLI inspection and automatic web output. This is protocol/adapter verification, not manual acceptance in every vendor UI.
+- Fresh source hashing handles first-read cloud metadata changes with a bounded complete reread. A changing file still fails after three attempts. Cache identity and fresh permission checks retain their metadata/content requirements.
 - Three actual project executables opened their app windows with zero extra setup/approval clicks, then stopped their managed processes. Original source fingerprints remained unchanged. These tests used an intermediate 0.8 development executable; final release binaries are gated independently by native matrix acceptance.
 - The creator passed automated WCAG-tagged checks in light/dark themes at 320, 520 and 900 pixels, without horizontal overflow.
 - A static web export rendered at 390, 768 and 1280 pixels. Its service worker controlled the app, and the app reloaded after its HTTP server stopped, with browser storage preserved and no Node bridge exposed.
