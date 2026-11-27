@@ -6,7 +6,7 @@ The creator and complete product website now share a new interface: warm translu
 - A complete static website with an interactive sample-project preview, coding-tool tabs, device guidance, FAQs and a platform-specific download chooser. The preview uses the actual app renderer without reading files, creating apps or running project code.
 - The download chooser uses published GitHub assets and explains when builds remain in draft review. No remote fonts, analytics, account or application backend.
 - Stale project-inspection responses cannot enable creation for a newly typed folder. Switching projects clears outdated results and requirements.
-- Windows portable runtimes now extract into a separate directory for every launch, preventing overlapping generated apps from replacing each other's runtime files. Native acceptance now launches two generated apps simultaneously and checks both results and shutdown.
+- Windows portable runtimes and Linux extract-and-run AppImages now use separate extraction directories for every launch, preventing overlapping apps from replacing or removing each other's runtime files. Linux temporary directories are private and cleaned on exit. Native acceptance starts a second app after the first project is running, then checks both results and shutdown.
 - A bounded native Electron design check covers 15 responsive/theme combinations, automated accessibility rules, preview sizing and creation, cancellation, invalid-folder and website-control states. Native acceptance separately creates and launches generated apps on all five desktop targets.
 
 See docs/INTERFACE.md for website preview, hosting and verification instructions.

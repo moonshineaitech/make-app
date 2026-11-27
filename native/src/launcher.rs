@@ -47,8 +47,19 @@ fn main_run()->Result<i32,String>{
  let spec=app_dir.join("launch.json");if !checked(&spec,&footer[48..80]){let pending=app_dir.join(format!("launch-{}.tmp",std::process::id()));fs::write(&pending,&config).map_err(|e|e.to_string())?;if spec.exists(){fs::remove_file(&spec).map_err(|e|e.to_string())?;}if let Err(error)=fs::rename(&pending,&spec){if checked(&spec,&footer[48..80]){let _=fs::remove_file(&pending);}else{return Err(error.to_string());}}}
  #[cfg(unix)]{use std::os::unix::fs::PermissionsExt;fs::set_permissions(&spec,fs::Permissions::from_mode(0o600)).map_err(|e|e.to_string())?;}
  let mut command=Command::new(&runtime);command.arg("--direct-project-app").args(std::env::args_os().skip(1)).env("APPDOCK_EMBEDDED_SPEC",&spec).env("APPDOCK_LAUNCHER_FILE",&own).stdin(Stdio::null()).stdout(Stdio::null()).stderr(Stdio::null());
- #[cfg(target_os="linux")] command.env("APPIMAGE_EXTRACT_AND_RUN","1");
+ // Extract-and-run AppImages can share a digest-based directory under TMPDIR.
+ // Keep one app's exit from removing another running app's extracted files.
+ #[cfg(target_os="linux")] let run_dir={
+  use std::os::unix::fs::DirBuilderExt;
+  let stamp=std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_err(|e|e.to_string())?.as_nanos();
+  let parent=std::env::temp_dir().canonicalize().map_err(|e|format!("Temporary storage is unavailable: {e}"))?;
+  let directory=parent.join(format!("make-app-{}-{stamp}",std::process::id()));
+  fs::DirBuilder::new().mode(0o700).create(&directory).map_err(|e|e.to_string())?;directory
+ };
+ #[cfg(target_os="linux")] command.env("APPIMAGE_EXTRACT_AND_RUN","1").env("TMPDIR",&run_dir);
  #[cfg(windows)] command.creation_flags(0x08000000);
- Ok(command.status().map_err(|e|format!("Cannot start the bundled runtime: {e}"))?.code().unwrap_or(1))
+ let result=command.status();
+ #[cfg(target_os="linux")] let _=fs::remove_dir_all(&run_dir);
+ Ok(result.map_err(|e|format!("Cannot start the bundled runtime: {e}"))?.code().unwrap_or(1))
 }
 fn main(){match main_run(){Ok(code)=>std::process::exit(code),Err(error)=>{if std::env::var_os("APPDOCK_LAUNCHER_NO_DIALOG").is_none(){#[cfg(windows)]unsafe{MessageBoxW(0,wide(&error).as_ptr(),wide("Could not start this app").as_ptr(),0x10);}#[cfg(not(windows))]eprintln!("Could not start this app: {error}");}std::process::exit(1);}}}
