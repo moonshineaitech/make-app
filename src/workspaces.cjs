@@ -60,7 +60,20 @@ async function prepare(record, dataRoot, options, copy) {
   const original = record.originRoot || record.root;
   // Validate before creating directories, including when the cache is inside a symlinked source.
   const realOriginal = await fs.realpath(original);
-  const relative = path.relative(path.toNamespacedPath(realOriginal), path.toNamespacedPath(path.resolve(dataRoot)));
+  // Resolve the existing ancestor as the cache itself may not exist yet. This also
+  // expands Windows 8.3 aliases, which path.resolve alone cannot normalize.
+  const missing = [];
+  let ancestor = path.resolve(dataRoot), realData;
+  for (;;) {
+    try { realData = path.join(await fs.realpath(ancestor), ...missing); break; }
+    catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+      const parent = path.dirname(ancestor);
+      if (parent === ancestor) throw error;
+      missing.unshift(path.basename(ancestor)); ancestor = parent;
+    }
+  }
+  const relative = path.relative(realOriginal, realData);
   if (!relative || relative === '.' || (!relative.startsWith('..' + path.sep) && relative !== '..' && !path.isAbsolute(relative))) throw new Error('AppDock runtime data must be stored outside the selected source project.');
   const folder = location(record, dataRoot);
   const token = await acquire(folder);

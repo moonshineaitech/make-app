@@ -59,7 +59,7 @@ Compatibility depends on the project and framework. First launch can download a 
 
 ## What has been checked
 
-The local Windows baseline has 71 regression tests, ten language examples across nine families, and three actual project executables that opened their app windows and stopped their processes. These are local observations, not clean-machine certification or proof every application works. [Validation scope and release status](docs/VALIDATION.md).
+The local Windows baseline has 72 regression tests, ten language examples across nine families, and three actual project executables that opened their app windows and stopped their processes. These are local observations, not clean-machine certification or proof every application works. [Validation scope and release status](docs/VALIDATION.md).
 
 The preview is unsigned, so Windows can show a publisher warning. Compare your download with **SHA256SUMS.txt**. Run generated apps only from projects you trust: project code and setup scripts run with your account's permissions and can update the original folder. Make App is not a filesystem/network security sandbox.
 

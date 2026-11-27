@@ -5,11 +5,12 @@ const { within, atomic } = require('./workspaces.cjs');
 async function attach(record) {
   const directory = path.join(record.workspaceFolder, 'data');
   await fs.mkdir(directory, { recursive: true });
+  const realDirectory = await fs.realpath(directory);
   for (const relative of ['.data', '.appdock/data']) {
     const link = path.join(record.root, relative);
     try {
       const stat = await fs.lstat(link);
-      if (!stat.isSymbolicLink() || path.resolve(await fs.realpath(link)) !== path.resolve(directory)) throw new Error('Persistent data path conflicts with an existing project path: ' + relative);
+      if (!stat.isSymbolicLink() || path.relative(await fs.realpath(link), realDirectory) !== '') throw new Error('Persistent data path conflicts with an existing project path: ' + relative);
     } catch (error) {
       if (error.code !== 'ENOENT') throw error;
       await fs.symlink(directory, link, process.platform === 'win32' ? 'junction' : 'dir');

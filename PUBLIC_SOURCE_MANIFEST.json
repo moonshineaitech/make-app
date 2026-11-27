@@ -66,7 +66,7 @@
     {
       "path": "README.md",
       "bytes": 8431,
-      "sha256": "341d62c4f35060de5b23d1d8d8461aed068bf0b4636b653396723268907e2ff8"
+      "sha256": "85ac4c5febcb3006e97c1f629ebf171e6e9c4864175bab5f2f48b9bc19493c68"
     },
     {
       "path": "SECURITY.md",
@@ -105,8 +105,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 1553,
-      "sha256": "d120c375fe87f6c428cc04be1bb9796b5fa0bfb6d2f913eab930bd852a18520f"
+      "bytes": 1593,
+      "sha256": "b19a7a1b875611d77e2586b679f83732d29def9999f626373e5d953f56dcc88f"
     },
     {
       "path": "docs/assets/make-app-windows.png",
@@ -585,8 +585,8 @@
     },
     {
       "path": "src/project-data.cjs",
-      "bytes": 2009,
-      "sha256": "923a298765f5280377bfab0537a0ee3ebef2921db1c34f8d0c0f6fc401b0c1fd"
+      "bytes": 2058,
+      "sha256": "24ae9257c9f5cd25598f15f45e5d954958cc464604369adb4a1e92168b2741de"
     },
     {
       "path": "src/project-smoke.cjs",
@@ -730,8 +730,8 @@
     },
     {
       "path": "src/workspaces.cjs",
-      "bytes": 14749,
-      "sha256": "9197c3dc149fb13c8aefcbaeee0f1f636bf83da2834c604e5d5e1cddb51f45f9"
+      "bytes": 15252,
+      "sha256": "4ac837b743311bc5cde0b63288e6ed9f4b8bd8f246e18b40df2ef0e7392ed189"
     },
     {
       "path": "test/adapters.test.cjs",
@@ -770,8 +770,8 @@
     },
     {
       "path": "test/languages.test.cjs",
-      "bytes": 10336,
-      "sha256": "83a8d8d2189c92e17bf7989ffa82b0038ce5baacc40ccdf8ca223fc953b3b650"
+      "bytes": 10810,
+      "sha256": "ac0d944390f304272853bb77811198a6533d757b8e3e9437f104ddf99d739f25"
     },
     {
       "path": "test/package-managers.test.cjs",
@@ -805,8 +805,8 @@
     },
     {
       "path": "test/terminal.test.cjs",
-      "bytes": 4187,
-      "sha256": "6fae7d3189150d83b86e5b1e9f45a12cd98aa8058f095440496efbd1f66c17f2"
+      "bytes": 4295,
+      "sha256": "0a5ec98dff08a221e7d2ea06ddb857877aeef3c0e176f776d915d757bed9a0ec"
     }
   ]
 }

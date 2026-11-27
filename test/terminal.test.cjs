@@ -19,5 +19,6 @@ test('terminal descendants stop when their controller crashes',{skip:!windows},a
  try{const marker=path.join(root,'port.txt'),server=path.join(root,'server.cjs'),controller=path.join(root,'controller.cjs');await fs.writeFile(server,`const s=require('node:http').createServer((q,r)=>r.end('alive'));s.listen(0,'127.0.0.1',()=>require('node:fs').writeFileSync(${JSON.stringify(marker)},String(s.address().port)));`);
  await fs.writeFile(controller,`require(${JSON.stringify(require.resolve('../src/terminal.cjs'))}).spawn(process.execPath,[${JSON.stringify(server)}],{cwd:${JSON.stringify(root)},env:{...process.env}});setInterval(()=>{},1000);`);
  owner=require('node:child_process').spawn(process.execPath,[controller],{stdio:'ignore',windowsHide:true});await until(async()=>{try{port=Number(await fs.readFile(marker,'utf8'));return port>0;}catch{return false;}});assert.equal(await(await fetch('http://127.0.0.1:'+port)).text(),'alive');owner.kill('SIGKILL');await until(async()=>{try{await fetch('http://127.0.0.1:'+port,{signal:AbortSignal.timeout(200)});return false;}catch{return true;}});
- }finally{owner?.kill('SIGKILL');await fs.rm(root,{recursive:true,force:true});}
+ // Windows releases ConPTY directory handles shortly after the server closes.
+ }finally{owner?.kill('SIGKILL');await fs.rm(root,{recursive:true,force:true,maxRetries:10,retryDelay:100});}
 });
