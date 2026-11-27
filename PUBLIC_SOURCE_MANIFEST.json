@@ -601,8 +601,8 @@
     },
     {
       "path": "scripts/verify-design.cjs",
-      "bytes": 14821,
-      "sha256": "72963b12968cce997721cd9501a5daca43aeb5a3be99d9e0355783363efc339a"
+      "bytes": 15629,
+      "sha256": "619d04a5eb25f7f7c3d130300d842f629a08d740326fbe73931d58d0a46f44e4"
     },
     {
       "path": "scripts/verify-motion.cjs",
@@ -641,8 +641,8 @@
     },
     {
       "path": "site/site.js",
-      "bytes": 9581,
-      "sha256": "2f0f9d1110991cc50c6ee9d3122581ddf86cb5edce67f40ea5afcdce16aabc30"
+      "bytes": 9842,
+      "sha256": "7751e6e1c1ea80dd7b14970b3d59a13dd62ac18f7ce75a8cf5a80bbe94248484"
     },
     {
       "path": "src/adapters.cjs",
@@ -2306,8 +2306,8 @@
     },
     {
       "path": "src/ui/creator-demo.js",
-      "bytes": 4159,
-      "sha256": "d2ee1065a30d3975cc9966d310941c301bc4ed26c49ecb406a68be40372e6351"
+      "bytes": 4377,
+      "sha256": "d64f12b0f097476a95fa414e6d8d284186385ffca17743216e854352b5c4eeb6"
     },
     {
       "path": "src/ui/creator.css",

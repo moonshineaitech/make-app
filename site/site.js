@@ -57,7 +57,8 @@ for (const button of document.querySelectorAll('[data-mode]')) button.addEventLi
 window.addEventListener('message', event => {
  if(event.origin!==location.origin||event.source!==iframe.contentWindow)return;
  if(event.data?.type==='make-app:download')openDownloads(platformDefault);
- if(event.data?.type==='make-app:theme'&&siteDesigns.some(design=>design.id===event.data.theme)){previewDesign=event.data.theme;showDesigns();}
+ if(event.data?.type==='make-app:theme'&&(event.data.theme===null||siteDesigns.some(design=>design.id===event.data.theme))){previewDesign=event.data.theme;showDesigns();}
+ if(event.data?.type==='make-app:format'&&['desktop','web'].includes(event.data.format))for(const button of document.querySelectorAll('[data-mode]'))button.setAttribute('aria-pressed',String(button.dataset.mode===event.data.format));
  if(event.data?.type==='make-app:size'&&Number.isFinite(event.data.height)&&event.data.height>=300&&event.data.height<=2400){
   const height=Math.ceil(event.data.height)+'px';if(iframe.style.height!==height)iframe.style.height=height;
  }

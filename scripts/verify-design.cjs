@@ -99,6 +99,11 @@ app.whenReady().then(async () => {
   nativeTheme.themeSource='dark';await site.loadURL(origin+'/');await until(()=>evaluate(site,`document.getElementById('app-demo').contentDocument?.body.dataset.phase==='ready'`),'light preview under dark system appearance');await stable(site);await evaluate(site,axe);
   await evaluate(site,`(()=>{const d=document.getElementById('app-demo').contentDocument;d.getElementById('appearance').click();d.getElementById('use-classic').click();d.getElementById('close-themes').click()})()`);
   assert.equal(await evaluate(site,`getComputedStyle(document.getElementById('app-demo').contentDocument.documentElement).colorScheme`),'light','Explicit light appearance must not inherit a dark canvas');
+  await until(()=>evaluate(site,`!document.querySelector('.site-design-card[aria-pressed=true]')`),'Classic clears the photographic gallery selection');
+  await evaluate(site,`(()=>{const d=document.getElementById('app-demo').contentDocument,i=d.querySelector('input[name=format][value=web]');i.checked=true;i.dispatchEvent(new Event('change'))})()`);
+  await until(()=>evaluate(site,`document.querySelector('[data-mode=web]').getAttribute('aria-pressed')==='true'`),'embedded output changes update the website toolbar');
+  await evaluate(site,`document.querySelector('[data-mode=desktop]').click();true`);
+  await until(()=>evaluate(site,`document.getElementById('app-demo').contentDocument.querySelector('input[name=format][value=desktop]').checked`),'website toolbar changes update the embedded output');
   checks.push(await scan(site,'website-dark-system','light',1440));
   nativeTheme.themeSource='light';
   assert.equal(await evaluate(site,`document.querySelectorAll('.site-design-card').length`),20);

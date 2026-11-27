@@ -42,5 +42,6 @@
       document.getElementById('appearance').click();choice.click();document.getElementById('close-themes').click();if(activeView)window.makeAppViews.open(activeView);
     }
   });
-  window.addEventListener('make-app:appearance',()=>{if(parent!==window)parent.postMessage({type:'make-app:theme',theme:document.documentElement.dataset.aero},location.origin);});
+  window.addEventListener('make-app:appearance',()=>{if(parent!==window)parent.postMessage({type:'make-app:theme',theme:document.documentElement.dataset.aero||null},location.origin);});
+  window.addEventListener('make-app:state',event=>{if(parent!==window&&['desktop','web'].includes(event.detail?.format))parent.postMessage({type:'make-app:format',format:event.detail.format},location.origin);});
 })();
