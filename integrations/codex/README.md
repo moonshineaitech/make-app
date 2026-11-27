@@ -1,9 +1,9 @@
 # Make App for Codex
 
-Use the complete Windows release ZIP for one-click installation: extract it, double-click **Install Codex Plugin.cmd**, then open a new Codex chat and ask **Make an executable for this project**. Node and the converter are included. Keep the extracted folder in place.
+Use the complete plugin archive for your OS and architecture from GitHub Releases. Extract it to a stable folder, run **Install Codex Plugin** (`.cmd` on Windows, `.command` on macOS, `.sh` on Linux), then open a new chat. Node and the converter are included; Codex must already be installed.
 
-Tools: `inspect_project`, `list_projects`, `make_executable`, `open_project`. Inspection and creation do not execute project code. Opening a generated app does. The source folder must remain in place; this is not source-inclusive portable distribution.
+Ask **Make a desktop app for this project**, or **Export this static web build as an installable web app**. The four tools are `inspect_project`, `list_projects`, `make_executable` and `open_project`. Creation does not run project code. Desktop output requires the original folder; web output needs HTTPS hosting for installation on phones/browsers.
 
-Run **Uninstall Codex Plugin.cmd** to remove just this plugin. The installer uses Codex's supported CLI instead of replacing configuration files or changing execution policy. It requires an installed compatible Codex client.
+Run the matching **Uninstall Codex Plugin** script before replacing or deleting the extracted folder. Only this plugin is removed. The installer uses supported Codex CLI commands instead of replacing configuration files or changing execution policy.
 
-Independent MIT-licensed local integration. No Make App API key, account or relay service. Windows x64 preview; not submitted to or approved for the OpenAI Plugin Directory. See the repository's privacy policy, security policy and installation guide.
+Independent MIT-licensed local integration; no Make App account, API key or relay. Unsigned preview, with native acceptance tracked separately for each desktop OS. Not an approved OpenAI Plugin Directory listing. See the repository's installation guide, privacy and security policies.

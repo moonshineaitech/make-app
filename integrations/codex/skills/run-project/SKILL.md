@@ -1,14 +1,14 @@
 ---
 name: run-project
-description: Create a one-click Windows executable from an existing local software project, or inspect its launch requirements. Use for Make App conversion; not for publishing or deploying services.
+description: Create a native desktop app from a local software project, inspect its launch requirements, or export an existing static web build for phones and browsers using Make App.
 ---
 
-Use `inspect_project` on the actual project root. If several executable targets exist, use an unambiguous target from the request or ask for the required selection. Do not invent an executable consumer for a library.
+Use `inspect_project` on the actual project root. If several executable targets exist, use the target clearly specified by the request; otherwise ask which program to launch. Libraries need a real executable consumer.
 
-When the user asks for an app or executable, call `make_executable` with the project root and the requested absolute `.exe` output path. Choose a sensible new output filename when the task already authorizes creation and no filename was given. The tool refuses to overwrite an existing output. It creates the file without running project code.
+For desktop output, call `make_executable` with the project root and an absolute output path matching the host: `.exe` on Windows, `.app` on macOS, `.run` on Linux. Creation does not run project code. Choose a sensible new filename when creation is already authorized; existing outputs are preserved. Return the saved path and explain that the original project folder must remain in place. The converter need not stay installed.
 
-Return the generated executable path. Explain that it opens the project directly, requires the source folder to remain in place, and does not require an AppDock installation. Do not send the user through a project library or manual configuration when automatic detection works. Creating the file is separate from testing its launch; run it only within the user's authorized scope and report observed behavior.
+For a phone/browser app, use `make_executable` with `format: "web"` and a new absolute output directory. This requires an existing static frontend build. Explain that the exported directory must be served over HTTPS before browser installation; offline access follows a successful first visit. A web export does not execute backend or native desktop code on the phone. Hosting the export or backend requires its own authorization; creation does not publish anything.
 
-The complete Windows bundle includes the builder. If it is missing, identify that missing component or the APPDOCK_BUILDER override; do not claim a generated executable exists. Do not install software or change Codex settings without authorization.
+Use `open_project` when the user wants to choose output in the converter UI. Avoid a project library or manual configuration when detection succeeds. Creating an app and testing its launch are separate operations; execute it only within the task's authorized scope and report observed behavior.
 
-Keep credentials out of arguments, manifests and chat. Missing secrets and external services still require their own setup. A local app screen does not establish cloud workflows, signing, clean-machine compatibility, or untested operating systems.
+The complete plugin archive for the current OS includes the builder and Node. If the builder is missing, identify the missing bundle or `APPDOCK_BUILDER` override rather than claiming an app exists. Keep credentials out of arguments, exported files and chat. Missing secrets, services and platform SDKs remain project requirements. Do not infer signing, clean-machine or physical-device acceptance from a successful local window.

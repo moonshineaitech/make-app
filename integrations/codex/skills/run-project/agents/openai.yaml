@@ -1,4 +1,4 @@
 interface:
-  display_name: "Make a project executable"
-  short_description: "Create one-click executables from local projects"
-  default_prompt: "Use $run-project to create a one-click executable for this local project."
+  display_name: "Create a project app"
+  short_description: "Create desktop apps and installable web exports"
+  default_prompt: "Use $run-project to create an app for this local project."

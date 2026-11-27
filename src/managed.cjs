@@ -1,5 +1,13 @@
 const fs=require('node:fs/promises');const path=require('node:path');const os=require('node:os');const crypto=require('node:crypto');const {spawn}=require('node:child_process');const {pathToFileURL}=require('node:url');
 const pending=new Map();
+const systemNodes=new Map();
+async function systemNode(major,{signal,node}={}){
+ const binary=node||await require('./engine.cjs').executable('node');if(!binary)return null;const cacheKey=major+':'+binary;if(systemNodes.has(cacheKey))return systemNodes.get(cacheKey);
+ try{const version=await run(binary,['--version'],{signal});if(!new RegExp('^v'+major+'\\.').test(version))return null;
+  const paths=[path.join(path.dirname(binary),'node_modules/npm/bin/npm-cli.js'),path.join(path.dirname(binary),'../lib/node_modules/npm/bin/npm-cli.js')];const npm=paths.find(file=>require('node:fs').existsSync(file));if(!npm)return null;
+  const value={node:binary,npm,directory:path.dirname(binary),version,source:'system'};systemNodes.set(cacheKey,value);return value;
+ }catch(error){signal?.throwIfAborted();return null;}
+}
 async function exists(file){try{await fs.access(file);return true;}catch{return false;}}
 async function run(exe,args,options={}){return new Promise((resolve,reject)=>{const child=require('./process-broker.cjs').spawn(exe,args,{windowsHide:true,stdio:['pipe','pipe','pipe'],...options});let output='';const timer=setTimeout(()=>{child.kill();reject(new Error('Tool setup timed out.'));},120000);child.stdout.on('data',d=>output+=d);child.stderr.on('data',d=>output+=d);child.once('error',e=>{clearTimeout(timer);reject(e);});child.once('exit',code=>{clearTimeout(timer);code===0?resolve(output.trim()):reject(new Error(output.slice(-3000)||`Tool exited ${code}`));});});}
 async function download(url,file,onLog,signal){const response=await fetch(url,{signal:signal?AbortSignal.any([signal,AbortSignal.timeout(120000)]):AbortSignal.timeout(120000)});if(!response.ok)throw new Error(`Download failed (${response.status}): ${new URL(url).hostname}`);const handle=await fs.open(file,'w');let bytes=0,last=Date.now();try{for await(const chunk of response.body){signal?.throwIfAborted();bytes+=chunk.length;await handle.write(chunk);if(Date.now()-last>3000){onLog(`Downloading runtime: ${Math.round(bytes/1048576)} MB\n`);last=Date.now();}}}finally{await handle.close();}}
@@ -10,6 +18,7 @@ function nodePlatform(platform=process.platform,arch=process.arch){
 }
 async function nodeRuntime(dataRoot,major=24,onLog=()=>{},{signal,allowDownloads=true}={}){
   const platform=nodePlatform(),suffix=process.platform==='win32'&&process.arch==='x64'?'':'-'+process.platform+'-'+process.arch;
+  signal?.throwIfAborted();const existing=await systemNode(major,{signal});if(existing){onLog('Using compatible installed Node.js '+existing.version+'.\n');return existing;}
   const key=path.join(dataRoot,'runtimes','node-'+major+suffix);if(pending.has(key))return pending.get(key);
   const operation=(async()=>{
     await fs.mkdir(key,{recursive:true});
@@ -56,4 +65,4 @@ async function codexProjects(home=process.env.CODEX_HOME||path.join(os.homedir()
   const projects=[];for(const [id,value]of Object.entries(state['local-projects']||{}))for(const root of value.rootPaths||[]){if(typeof root!=='string'||!(await exists(root)))continue;projects.push({id,name:value.name||path.basename(root),path:root});}
   const saved=state['electron-saved-workspace-roots']||[];for(const root of saved)if(typeof root==='string'&&!projects.some(p=>p.path===root)&&await exists(root))projects.push({id:root,name:path.basename(root),path:root});return projects;
 }
-module.exports={nodePlatform,nodeRuntime,stage,existing:require('./workspaces.cjs').existing,writeWrappers,codexProjects,run};
+module.exports={systemNode,nodePlatform,nodeRuntime,stage,existing:require('./workspaces.cjs').existing,writeWrappers,codexProjects,run};

@@ -305,8 +305,8 @@
     },
     {
       "path": "integrations/codex/README.md",
-      "bytes": 1023,
-      "sha256": "1b38eeeddf9e5359d172cf0eb0c6ff9db316e9c9129d955a0419dee6c879ee6b"
+      "bytes": 1203,
+      "sha256": "515d47917a86f0849503dac76623f67c60039d11c957229335d67530cff8c509"
     },
     {
       "path": "integrations/codex/assets/icon.png",
@@ -345,13 +345,13 @@
     },
     {
       "path": "integrations/codex/skills/run-project/SKILL.md",
-      "bytes": 1698,
-      "sha256": "f616120a52d8d5ca3bad1997e991d4f2d0aba9f98057962d8089a1bced873ef7"
+      "bytes": 2054,
+      "sha256": "11d02e1f1aea632297cf720f327de087aace8380951f50894c22cc7e479d7add"
     },
     {
       "path": "integrations/codex/skills/run-project/agents/openai.yaml",
-      "bytes": 221,
-      "sha256": "efde4748588fbaf3f6ad3c8bb05e8978f47ebb1963627696c87623f6ed5876c4"
+      "bytes": 199,
+      "sha256": "a130959c0f9cd085bd76e9933a3b673e66d4fad17e2fa7e0c042a2b04efb567e"
     },
     {
       "path": "integrations/codex/test/install.test.cjs",
@@ -515,8 +515,8 @@
     },
     {
       "path": "src/creator-smoke.cjs",
-      "bytes": 1787,
-      "sha256": "27c396150a6dc20f39b53a031615858159042123a6d8d30298aec6e1e4049e22"
+      "bytes": 1875,
+      "sha256": "895d03c4b5cfa54517d70ba1ef2916b1743d910a7f811b6a2240598db05e45da"
     },
     {
       "path": "src/diagnostics.cjs",
@@ -615,8 +615,8 @@
     },
     {
       "path": "src/managed.cjs",
-      "bytes": 13193,
-      "sha256": "98ec3d6d643afe344a8118dec9a6087002be006d806dbf463bf2a3dc7cb1336c"
+      "bytes": 14194,
+      "sha256": "530c060136f2a330b1d2904510b9e436bbb630b3883b0eeda84a08a290ce77b3"
     },
     {
       "path": "src/output-path.cjs",
@@ -865,8 +865,8 @@
     },
     {
       "path": "test/portable.test.cjs",
-      "bytes": 6106,
-      "sha256": "06bbb3643305c21c0e277b2d67994aebef2c0607dcdc079133e1aaad58602c89"
+      "bytes": 6554,
+      "sha256": "2bae2511f91ea612a8ef8d981182cf01057bab211bdcd8d5db77dd8c9a1f312e"
     },
     {
       "path": "test/projects.test.cjs",
