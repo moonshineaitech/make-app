@@ -103,8 +103,8 @@
  }
  function preferences(){
   header('MAKE YOURSELF COMFORTABLE','A few thoughtful adjustments.','Saved on this device, ready the next time you open Make App.');
-  const settings=[['density','Spacing',[['comfortable','Comfortable'],['compact','Compact']],'Comfortable'],['motion','Motion',[['system','Follow system'],['quiet','Reduced motion']],'Follow system']];
-  for(const [key,title,options]of settings){const c=card(title,key==='density'?'Choose the spacing for utility views and the new layouts.':'Keep the interface still and calm.');const label=node('label','sr-only',title),select=node('select');select.id='preference-'+key;label.htmlFor=select.id;for(const [id,text]of options)select.append(new Option(text,id));select.value=root.dataset[key]||options[0][0];select.addEventListener('change',()=>{root.dataset[key]=select.value;save('make-app-'+key,select.value);notice(title+' saved.');});c.append(label,select);content.append(c);}
+  const settings=[['density','Spacing',[['comfortable','Comfortable'],['compact','Compact']],'Comfortable'],['motion','Motion',[['system','Follow system'],['full','Glass motion'],['subtle','Subtle motion'],['quiet','Reduced motion']],'Follow system']];
+  for(const [key,title,options]of settings){const c=card(title,key==='density'?'Choose the spacing for utility views and the new layouts.':'Glass shine, gentle depth and responsive movement. Choose the level that feels right.');const label=node('label','sr-only',title),select=node('select');select.id='preference-'+key;label.htmlFor=select.id;for(const [id,text]of options)select.append(new Option(text,id));select.value=root.dataset[key]||options[0][0];select.addEventListener('change',()=>{root.dataset[key]=select.value;save('make-app-'+key,select.value);notice(title+' saved.');});c.append(label,select);content.append(c);}
   const c=card('Your atmosphere','Choose from twenty photographic designs, or use Classic with system, light and dark modes.','i-sun');c.append(button('Change appearance',()=>open('designs')));content.append(c);
  }
  function help(){
@@ -115,7 +115,7 @@
  function about(){
   header('MAKE APP','Made to be opened.','A free, local way to turn your existing project into a desktop app or static web export.');
   const feature=node('div','view-feature about-feature'),image=node('img');image.src=themeImage();image.alt='';const body=node('div','view-feature-copy');body.append(node('p','view-eyebrow','INDEPENDENT · OPEN SOURCE'),node('h2','', 'Your project stays yours.'),node('p','', 'No Make App account. No Make App API key. Your original folder stays in place.'),button('Explore the source',()=>guide('source'),'primary','i-up-right'));feature.append(image,body);content.append(feature);
-  facts([['Desktop','Windows · macOS · Linux'],['Web exports','Phones · tablets · browsers'],['License','MIT'],['Release','0.12 preview']]);
+  facts([['Desktop','Windows · macOS · Linux'],['Web exports','Phones · tablets · browsers'],['License','MIT'],['Release','0.13 preview']]);
   content.append(card('Built with care','An independent project. Publisher signing, notarization and physical-device acceptance remain separate release checks.','i-shield'));
  }
  const renderers={overview,projects:projectView,details,outputs,setup,activity,results,connections,designs,preferences,help,about};
@@ -134,6 +134,6 @@
  document.addEventListener('keydown',event=>{if(event.altKey&&event.key.toLowerCase()==='g'){event.preventDefault();open();}});
  let collection='all';const search=$('theme-search');function filterThemes(){for(const b of document.querySelectorAll('[data-theme-choice]'))b.hidden=(collection!=='all'&&b.dataset.collection!==collection)||!b.textContent.toLocaleLowerCase().includes(search.value.toLocaleLowerCase());}search.addEventListener('input',filterThemes);for(const b of document.querySelectorAll('[data-collection]')){if(b.hasAttribute('data-theme-choice'))continue;b.addEventListener('click',()=>{collection=b.dataset.collection;search.value='';for(const choice of document.querySelectorAll('.collection-switcher button'))choice.setAttribute('aria-pressed',String(choice===b));filterThemes();});}
  $('theme-shuffle').addEventListener('click',()=>{const buttons=[...document.querySelectorAll('[data-theme-choice]')].filter(b=>b.getAttribute('aria-pressed')!=='true'&&(collection==='all'||b.dataset.collection===collection));const b=buttons[Math.floor(Math.random()*buttons.length)];if(b){search.value='';filterThemes();b.click();b.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});}});
- for(const [key,valid]of [['density',['comfortable','compact']],['motion',['system','quiet']]]){const value=load('make-app-'+key,valid[0]);if(valid.includes(value))root.dataset[key]=value;}
+ for(const [key,valid]of [['density',['comfortable','compact']],['motion',['system','full','subtle','quiet']]]){const value=load('make-app-'+key,valid[0]);if(valid.includes(value))root.dataset[key]=value;}
  window.makeAppViews=Object.freeze({open});
 })();

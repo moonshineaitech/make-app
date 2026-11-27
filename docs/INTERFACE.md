@@ -22,6 +22,24 @@ The original shells include a live project receipt where the composition has roo
 
 `npm run test:originals` is a bounded check of all 120 utility screens at desktop and mobile widths (240 view states), the ten original creators, collection filtering, creation and ten overview accessibility scans. It does not replace native engine or physical-device acceptance.
 
+## Motion across both collections
+
+The shared, locally bundled motion layer covers creator controls and text, complete original interfaces, Studio layouts, dynamic utility views, website sections, dialogs, launch/setup screens and the console shell. The original image geometry remains owned by its renderer; motion uses separate translate/scale properties and optical overlays.
+
+Seven coordinated effects are included:
+
+1. Specular sweeps across glass on hover, focus and occasional ambient highlights.
+2. Staggered entrances for text, controls, cards, sections and dialogs. Text stays fully opaque.
+3. Tactile lift and spring press feedback for pointer and keyboard controls.
+4. Clipped water ripples and focus glints, with pointer coordinates mapped through the original scene scale.
+5. Gentle image breathing, pointer depth and thumbnail/brand responses.
+6. Panel edge lighting and theme-sensitive optical highlights.
+7. Selection glints, creation shimmer, progress breathing and success feedback.
+
+Preferences offers Follow system, Glass motion, Subtle motion and Reduced motion. The OS reduced-motion preference always wins. Reduced mode cancels owned transient effects, removes decorative layers and keeps the normal static focus indicators. Background activity pauses when the document is hidden; images outside the viewport do not breathe. Resizing cancels transient effects rather than leaving stale geometry in flight. Touch gets press feedback without hover displacement.
+
+`npm run test:motion` checks all twenty themes, dynamic views, shine and ripple generation, retained photographic scale, motion preferences, emulated reduced-motion media, creation/cancellation and website registration. This is a bounded renderer test rather than physical-device performance acceptance.
+
 ## Preview and build
 
 ```sh

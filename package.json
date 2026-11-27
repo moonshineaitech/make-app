@@ -1,6 +1,6 @@
 {
   "name": "appdock",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "description": "Create desktop apps and installable web exports from local projects",
   "author": "GoldRock AI",
   "license": "MIT",
@@ -32,7 +32,8 @@
     "build:linux": "electron-builder --linux AppImage --config electron-builder.config.cjs",
     "postinstall": "node scripts/prepare-terminal.cjs",
     "test:views": "node scripts/run-design-check.cjs --views",
-    "test:originals": "node scripts/run-design-check.cjs --originals"
+    "test:originals": "node scripts/run-design-check.cjs --originals",
+    "test:motion": "node scripts/run-design-check.cjs --motion"
   },
   "devDependencies": {
     "axe-core": "^4.14.1",

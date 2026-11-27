@@ -33,6 +33,12 @@ The second collection adds Sapphire Reef, Sakura Glass, Solar Atelier, Jade Obse
 
 ![Ten additional Make App layouts](docs/assets/make-app-studio.jpg)
 
+## Glass motion
+
+Both collections, the website and launch screens share seven kinds of motion: specular shine, staggered entrances, spring press feedback, water ripples and focus glints, image depth, panel lighting, and selection/progress/success feedback. Text remains fully opaque while moving. Original photographic positions and scale transforms stay under the original renderer.
+
+Open **Views → Preferences → Motion** for Glass motion, Subtle motion or Reduced motion. System reduced motion always takes precedence. Decorative work pauses when the app is hidden; hover effects adapt for touch.
+
 ## The original collection, completed
 
 The original ten designs remain intact: Midnight Tide, Botanical Canopy, Stratosphere, Pearl Current, Citrus Circuit, Cobalt Hydro, Aurora Lake, Sunset Estuary, Glacial Quartz and Meadow OS. Each now includes the original creator **plus twelve matching app screens**, using its own glass materials, imagery, navigation and project receipt. Choose **Original designs** in the app to open this collection. The newer Studio collection remains available beside it.

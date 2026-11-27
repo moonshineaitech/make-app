@@ -1,0 +1,46 @@
+/* Optical motion sits above the existing materials; layout and artwork stay intact. */
+:root{--motion-ease:cubic-bezier(.2,.75,.2,1);--motion-spring:cubic-bezier(.16,1.2,.3,1);--motion-lift:-2px;--motion-glint:.28}
+:root[data-motion=subtle]{--motion-lift:-1px;--motion-glint:.14}
+.motion-host{position:relative}
+.motion-button{transition:translate .22s var(--motion-ease),scale .18s var(--motion-spring),box-shadow .24s var(--motion-ease),border-color .24s var(--motion-ease)}
+.motion-button:hover:not(:disabled){translate:0 var(--motion-lift)}
+.motion-button:active:not(:disabled){translate:0 0;scale:.98}
+.motion-button>.icon{transition:translate .25s var(--motion-spring),rotate .3s var(--motion-ease)}
+.motion-button:hover:not(:disabled)>.i-arrow,.motion-button:hover:not(:disabled)>.i-up-right{translate:2px 0}
+.motion-button:hover:not(:disabled)>.i-sun{rotate:14deg}
+.motion-panel{transition:border-color .3s var(--motion-ease),box-shadow .3s var(--motion-ease)}
+.motion-panel:hover{border-color:var(--accent-line,var(--line))}
+.motion-field{transition:border-color .2s var(--motion-ease),box-shadow .25s var(--motion-ease)}
+.motion-picture{transition:translate .65s var(--motion-ease),rotate .65s var(--motion-ease),scale .65s var(--motion-ease);transform-origin:center}
+:is(.studio-art>img,.view-feature>img,.original-signature,.original-identity>img,.symbol).motion-picture.motion-in-view:not(.motion-pointed){animation:glass-image-breathe 9s ease-in-out infinite;animation-delay:var(--motion-photo-delay,0s)}
+.motion-picture.motion-pointed{translate:var(--motion-photo-x,0px) var(--motion-photo-y,0px);rotate:var(--motion-photo-angle,0deg);scale:1.012}
+/* Separate children avoid collisions with the original selected marks and caption icons. */
+.motion-sheen{display:block!important;position:absolute!important;inset:0!important;overflow:hidden!important;border-radius:inherit!important;pointer-events:none!important;z-index:3!important;margin:0!important;padding:0!important;border:0!important;contain:paint}
+.motion-film{position:absolute;top:-55%;left:-85%;width:75%;height:210%;background:linear-gradient(112deg,transparent 12%,#ffffff08 30%,#ffffffa6 48%,#ffffff0d 60%,transparent 80%);opacity:var(--motion-glint);mix-blend-mode:screen;pointer-events:none;will-change:translate}
+.motion-ripple{position:absolute;width:36px;height:36px;border:1px solid #ffffffb0;border-radius:50%;background:radial-gradient(circle,#ffffff08 45%,#ffffff42 72%,transparent 74%);opacity:.6;pointer-events:none;will-change:scale,opacity}
+.motion-water{position:absolute;inset:0;overflow:hidden;pointer-events:none;contain:paint;border-radius:inherit}
+.motion-water::after{content:'';position:absolute;inset:-30%;background:radial-gradient(ellipse at 55% 24%,#bdf8ff24,transparent 45%);opacity:.38;animation:glass-water-light 18s ease-in-out infinite alternate;pointer-events:none}
+.motion-working .motion-film{animation:glass-working-sweep 2.6s var(--motion-ease) infinite}
+body[data-phase=creating] #busy-progress,body[data-phase=creating] .view-card progress{animation:glass-progress-breathe 2.4s ease-in-out infinite}
+@keyframes glass-image-breathe{0%,100%{translate:0 0}50%{translate:0 -2px}}
+@keyframes glass-water-light{from{translate:-6% -2%;opacity:.22}to{translate:5% 3%;opacity:.48}}
+@keyframes glass-working-sweep{0%,20%{translate:0 0;opacity:0}35%{opacity:.24}80%,100%{translate:270% 0;opacity:0}}
+@keyframes glass-progress-breathe{0%,100%{opacity:.7}50%{opacity:1}}
+/* Inline bitmap geometry and text transforms remain owned by the original renderer. */
+:root[data-photo] .motion-button.photo-slot:hover{translate:0 -1px}
+:root[data-photo] .motion-button.photo-slot:active{translate:0 0;scale:.99}
+:root[data-photo] .photo-control>.motion-sheen{border-radius:12px!important}
+:root[data-photo] #make>.motion-sheen{border-radius:999px!important}
+:root[data-photo] .scene-caption>.motion-sheen{border-radius:4px!important}
+:root[data-motion=subtle] .motion-picture.motion-in-view:not(.motion-pointed){animation:none}
+:root[data-motion=subtle] .motion-water::after{animation:none;opacity:.16}
+:root[data-motion-paused] .motion-picture,:root[data-motion-paused] .motion-water::after,:root[data-motion-paused] .motion-film{animation-play-state:paused!important}
+:root[data-motion-dialog] .creator-shell .motion-picture,:root[data-motion-dialog] .creator-shell .motion-water::after{animation-play-state:paused!important}
+:root[data-motion=quiet] .motion-picture,:root[data-motion=quiet] .motion-button,:root[data-motion=quiet] .motion-button>.icon{translate:none!important;rotate:none!important;scale:none!important;animation:none!important;transition:none!important}
+:root[data-motion=quiet] .motion-sheen,:root[data-motion=quiet] .motion-water{display:none!important}
+:root[data-motion=quiet] .motion-panel,:root[data-motion=quiet] .motion-field{transition:none!important}
+:root[data-motion=quiet] .motion-button:hover,:root[data-motion=quiet] .motion-button:active{transform:none!important}
+:root[data-motion=quiet] body[data-phase=creating] #busy-progress,:root[data-motion=quiet] body[data-phase=creating] .view-card progress{animation:none!important}
+@media(prefers-reduced-motion:reduce){.motion-picture,.motion-button,.motion-button>.icon{translate:none!important;rotate:none!important;scale:none!important;animation:none!important;transition:none!important}.motion-panel,.motion-field{transition:none!important}.motion-button:hover,.motion-button:active{transform:none!important}.motion-sheen,.motion-water{display:none!important}body[data-phase=creating] #busy-progress,body[data-phase=creating] .view-card progress{animation:none!important}}
+@media(hover:none){.motion-button:hover:not(:disabled){translate:none}.motion-picture.motion-pointed{translate:none;rotate:none;scale:none}}
+@media(forced-colors:active){.motion-sheen,.motion-water{display:none!important}.motion-picture{animation:none!important}}

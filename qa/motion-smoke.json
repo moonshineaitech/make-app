@@ -1,0 +1,162 @@
+{
+  "version": "0.13.0",
+  "passed": true,
+  "themes": [
+    {
+      "theme": "midnight_tide",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "botanical_canopy",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "stratosphere",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "pearl_current",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "citrus_circuit",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "cobalt_hydro",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "aurora_lake",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "sunset_estuary",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "glacial_quartz",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "meadow_os",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "sapphire_reef",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "sakura_glass",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "solar_atelier",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "jade_observatory",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "lunar_archive",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "rainforest_lab",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "lavender_signal",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "pacific_terminal",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "champagne_orbit",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    },
+    {
+      "theme": "arctic_iris",
+      "buttons": 57,
+      "panels": 12,
+      "pictures": 28,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "behavior": {
+    "effects": 7,
+    "allTwentyThemes": true,
+    "dynamicViews": true,
+    "photographicScalePreserved": true,
+    "shine": true,
+    "ripple": true,
+    "subtle": true,
+    "quietCancelsAnimations": true,
+    "osReducedMotion": true,
+    "creation": true,
+    "cancellationWithMotionOff": true,
+    "website": true
+  },
+  "scope": "Bounded renderer motion and interaction smoke; physical devices and native packaging are separate."
+}
