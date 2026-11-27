@@ -18,3 +18,5 @@ integrations/codex/server/runtime/
 
 qa/sbom.cdx.json
 qa/desktop-*.json
+qa/design/
+web-dist/

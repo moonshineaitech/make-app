@@ -8,6 +8,8 @@ Open what you build. Choose a local project and create its desktop app, or expor
 
 ![Make App creator](docs/assets/make-app-windows.png)
 
+The redesigned creator, light/dark appearance and complete product website share a restrained glass interface. [Preview, build and verify the website](docs/INTERFACE.md) with `npm run preview:site`.
+
 ## Start here
 
 1. Download the converter for your computer from **Releases**.

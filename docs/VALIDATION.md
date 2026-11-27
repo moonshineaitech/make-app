@@ -1,5 +1,7 @@
 # Validation and open gates
 
+The 0.9 interface adds native Electron design checks for 15 light/dark and responsive layouts, automated accessibility rules, horizontal overflow, creation/cancellation/errors, stale inspections, preview resizing and website controls. These use controlled fixtures. The native desktop matrix separately verifies actual app creation and launch. See [interface verification](INTERFACE.md).
+
 Verification records apply to a particular build, source commit and environment. They do not establish universal application compatibility.
 
 ## Local Windows evidence

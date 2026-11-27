@@ -1,0 +1,99 @@
+const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron');
+const fs = require('node:fs/promises'), path = require('node:path'), assert = require('node:assert/strict');
+app.commandLine.appendSwitch('force-device-scale-factor', '1');
+app.disableHardwareAcceleration(); app.on('window-all-closed', () => {});
+const watchdog = setTimeout(() => { console.error('Design verification exceeded 90 seconds.'); app.exit(1); }, 90000); watchdog.unref();
+const root = path.resolve(__dirname, '..'), output = path.resolve(process.env.MAKE_APP_DESIGN_OUTPUT || path.join(root, 'qa/design'));
+app.setPath('userData', path.join(output, 'profile'));
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+async function until(fn, label) { const end = Date.now() + 15000; while (Date.now() < end) { if (await fn()) return; await delay(35); } throw new Error('Timed out: ' + label); }
+let pendingMake, creationMode = 'success', madePayload, revealCalls = 0;
+ipcMain.handle('creator', async (event, method, args) => {
+  if (method === 'capabilities') return { ...require('../src/platform.cjs').capabilities() };
+  if (method === 'initial') return 'C:/Projects/Focus Notes';
+  if (method === 'projects') return [{ name: 'Focus Notes', path: 'C:/Projects/Focus Notes' }];
+  if (method === 'inspect') {
+    await delay(args.source.includes('slow-a') ? 220 : 25);
+    if (args.source.includes('invalid')) throw new Error('Choose an existing project folder.');
+    return { name: args.source.includes('fast-b') ? 'Fast B' : 'Focus Notes', label: 'TypeScript web app', configured: true, webAvailable: true, setupTasks: 1, buildTasks: 1, requirements: ['Node.js', 'npm'], requiredEnvironment: [] };
+  }
+  if (method === 'choose') return 'C:/Projects/Focus Notes';
+  if (method === 'make') {
+    madePayload = args; event.sender.send('creator-progress', 'Preparing the app launcher…\n');
+    if (creationMode === 'wait') return new Promise(resolve => { pendingMake = resolve; });
+    const host = require('../src/platform.cjs').host();
+    return { executable: 'C:/Apps/Focus Notes' + host.extension, name: 'Focus Notes', format: args.format === 'web' ? 'web' : host.extension.slice(1) };
+  }
+  if (method === 'cancel') { pendingMake?.({ cancelled: true }); pendingMake = null; return; }
+  if (method === 'reveal') { revealCalls++; return; }
+});
+async function evaluate(win, code) { return win.webContents.executeJavaScript(code); }
+async function scan(win, surface, theme, width) {
+  const violations = await evaluate(win, `axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}}).then(r=>r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})))`);
+  const layout = await evaluate(win, `({width:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth})`);
+  return { surface, theme, width, actualWidth: layout.width, horizontalOverflow: layout.overflow, violations };
+}
+async function stable(win) {
+  // Hidden native windows may suspend rAF. Keep the animation settling wait bounded.
+  await delay(280);
+  await evaluate(win, `document.getAnimations().forEach(animation=>animation.finish());true`);
+}
+async function capture(win, name) { await stable(win); await fs.writeFile(path.join(output, name), (await win.webContents.capturePage()).toPNG()); }
+app.whenReady().then(async () => {
+  await fs.mkdir(output, { recursive: true });
+  const server = require('./preview-site.cjs').createServer(); await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  const origin = 'http://127.0.0.1:' + server.address().port;
+  const axe = await fs.readFile(path.join(root, 'node_modules/axe-core/axe.min.js'), 'utf8'), checks = [];
+  for (const theme of ['light', 'dark']) {
+    nativeTheme.themeSource = theme;
+    const win = new BrowserWindow({ show: false, width: 1000, height: 900, webPreferences: { preload: path.join(root, 'src/creator-preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false, backgroundThrottling: false } });
+    await win.loadURL(origin + '/app/creator.html'); await until(() => evaluate(win, `!document.getElementById('make').disabled`), 'project inspection');
+    await evaluate(win, 'document.fonts.ready'); await evaluate(win, axe);
+    assert.equal(await evaluate(win, 'window.makeApp.preview'), undefined, 'The browser demo must not replace native IPC');
+    for (const width of [1000, 900, 520, 390, 320]) { win.setContentSize(width, 1050); await stable(win); checks.push(await scan(win, 'creator', theme, width)); }
+    win.setContentSize(1000, 900); await capture(win, 'app-' + theme + '.png');
+    if (theme === 'light') {
+      await evaluate(win, `document.getElementById('name').value='My App';document.getElementById('name').dispatchEvent(new Event('input'));document.getElementById('make').click();true`);
+      await until(() => evaluate(win, `!document.getElementById('reveal').hidden`), 'success state');
+      assert.equal(madePayload.name, 'My App'); await evaluate(win, `document.getElementById('reveal').click();true`); assert.equal(revealCalls, 1);
+      await capture(win, 'app-success.png');
+      await evaluate(win, `document.querySelector('input[value="web"]').click();true`); assert.equal(await evaluate(win, `document.getElementById('make-label').textContent`), 'Export web app');
+      creationMode = 'wait'; await evaluate(win, `document.getElementById('make').click();true`); await until(() => Promise.resolve(!!pendingMake), 'pending creation');
+      assert.equal(await evaluate(win, `document.getElementById('source').disabled`), true);
+      await evaluate(win, `document.getElementById('cancel').click();true`); await until(() => evaluate(win, `!document.getElementById('source').disabled`), 'cancellation');
+      assert.match(await evaluate(win, `document.getElementById('status').textContent`), /cancelled/);
+      creationMode = 'success';
+      await evaluate(win, `document.getElementById('source').value='C:/Projects/slow-a';document.getElementById('source').dispatchEvent(new Event('change'));true`);
+      await delay(35); await evaluate(win, `document.getElementById('source').value='C:/Projects/fast-b';document.getElementById('source').dispatchEvent(new Event('input'));true`);
+      await delay(230); assert.equal(await evaluate(win, `document.getElementById('make').disabled`), true, 'A stale inspection must not enable the wrong project');
+      await until(() => evaluate(win, `document.getElementById('name').value==='Fast B'&&!document.getElementById('make').disabled`), 'newest inspection');
+      await evaluate(win, `document.getElementById('source').value='C:/Projects/invalid';document.getElementById('source').dispatchEvent(new Event('change'));true`);
+      await until(() => evaluate(win, `document.getElementById('source').getAttribute('aria-invalid')==='true'`), 'invalid source');
+      assert.equal(await evaluate(win, `document.getElementById('make').disabled`), true);
+    }
+    win.destroy();
+  }
+  nativeTheme.themeSource = 'light';
+  const site = new BrowserWindow({ show: false, width: 1440, height: 1000, webPreferences: { contextIsolation: true, sandbox: true, nodeIntegration: false, backgroundThrottling: false } });
+  await site.loadURL(origin + '/'); await evaluate(site, 'document.fonts.ready'); await delay(300); await evaluate(site, axe);
+  for (const width of [1440, 1024, 768, 390, 320]) {
+    site.setContentSize(width, 1050); await stable(site);
+    await until(() => evaluate(site, `(()=>{const frame=document.getElementById('app-demo');const shell=frame.contentDocument?.querySelector('.creator-shell');return shell&&Math.abs(frame.clientHeight-shell.getBoundingClientRect().height-2)<5})()`), 'preview resize');
+    checks.push(await scan(site, 'website', 'light', width));
+    if (width === 390) await capture(site, 'website-mobile.png');
+  }
+  site.setContentSize(1440, 1000); await stable(site);
+  await until(() => evaluate(site, `(()=>{const frame=document.getElementById('app-demo');return Math.abs(frame.clientHeight-frame.contentDocument.querySelector('.creator-shell').getBoundingClientRect().height-2)<5})()`), 'desktop preview resize');
+  await capture(site, 'website-desktop.png');
+  await evaluate(site, `window.fetch=async()=>({ok:true,json:async()=>[]});document.querySelector('[data-download]').click();true`);
+  await until(() => evaluate(site, `document.getElementById('release-status').textContent.includes('maintainer review')`), 'draft download state');
+  assert.equal(await evaluate(site, `document.getElementById('download-native').hidden`), true, 'Drafts must not become broken public download links');
+  await capture(site, 'website-downloads.png');
+  await evaluate(site, `document.getElementById('close-download').click();document.querySelector('[data-agent="cursor"]').click();true`);
+  assert.equal(await evaluate(site, `document.getElementById('agent-context').textContent`), 'In your Cursor chat');
+  await evaluate(site, `document.querySelector('.faq-list summary').click();true`); assert.equal(await evaluate(site, `document.querySelector('.faq-list details').open`), true);
+  const report = { passed: checks.every(check => !check.horizontalOverflow && !check.violations.length), fixture: 'Controlled UI IPC and public release fixtures; native app creation is verified by desktop acceptance separately', checks, behavior: { success: true, reveal: true, webChoice: true, cancellation: true, staleInspectionRejected: true, invalidSource: true, draftDownloadsHonest: true, harnessTabs: true, faq: true }, physicalMobileTested: false };
+  await fs.writeFile(path.join(output, 'verification.json'), JSON.stringify(report, null, 2));
+  console.log(JSON.stringify({ passed: report.passed, checks: checks.length, violations: checks.reduce((sum, check) => sum + check.violations.length, 0), overflow: checks.filter(check => check.horizontalOverflow).length, output }));
+  site.destroy(); server.close(); app.exit(report.passed ? 0 : 1);
+}).catch(error => { console.error(error); app.exit(1); });

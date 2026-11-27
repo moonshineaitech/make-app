@@ -29,6 +29,8 @@ jobs:
       - run: npm run build:supervisor
       - run: npm run build:launcher
       - run: npm test
+      - run: npm run build:site
+      - run: npm run test:design
       - run: npm ci --prefix integrations/codex
       - run: npm run build:plugin
       - run: npm run test:plugin

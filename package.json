@@ -1,6 +1,6 @@
 {
   "name": "appdock",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "Create desktop apps and installable web exports from local projects",
   "author": "GoldRock AI",
   "license": "MIT",
@@ -8,6 +8,9 @@
   "scripts": {
     "start": "electron .",
     "test": "node scripts/unit-tests.cjs",
+    "preview:site": "node scripts/preview-site.cjs",
+    "build:site": "node scripts/build-site.cjs",
+    "test:design": "node scripts/run-design-check.cjs",
     "smoke": "electron . --smoke-test",
     "test:projects": "electron . --project-smoke",
     "inspect": "node src/cli.cjs inspect",

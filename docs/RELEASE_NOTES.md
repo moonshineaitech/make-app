@@ -1,4 +1,16 @@
-# Make App 0.8.1 — coding-tool integration preview
+# Make App 0.9.0 — a clearer way to open your work
+
+The creator and complete product website now share a new interface: warm translucent materials, locally bundled Geist typography, precise iconography and a quieter hierarchy. Project selection, output format and saving stay in one view. System, light and dark appearance modes carry through to the launch and terminal screens.
+
+- Responsive layouts, readable supporting text, visible keyboard focus, reduced-motion support and forced-color fallbacks.
+- A complete static website with an interactive sample-project preview, coding-tool tabs, device guidance, FAQs and a platform-specific download chooser. The preview uses the actual app renderer without reading files, creating apps or running project code.
+- The download chooser uses published GitHub assets and explains when builds remain in draft review. No remote fonts, analytics, account or application backend.
+- Stale project-inspection responses cannot enable creation for a newly typed folder. Switching projects clears outdated results and requirements.
+- A bounded native Electron design check covers 15 responsive/theme combinations, automated accessibility rules, preview sizing and creation, cancellation, invalid-folder and website-control states. Native acceptance separately creates and launches generated apps on all five desktop targets.
+
+See docs/INTERFACE.md for website preview, hosting and verification instructions.
+
+## Coding-tool integrations
 
 Ask your coding tool to make an app for the current project. The Codex plugin now chooses a fresh output name automatically and includes the updated run-project skill. The same engine is available through MCP and a JSON command-line interface.
 

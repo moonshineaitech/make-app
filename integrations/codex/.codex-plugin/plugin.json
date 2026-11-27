@@ -1,6 +1,6 @@
 {
   "name": "make-app",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "Create desktop apps and installable web exports from local projects.",
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",

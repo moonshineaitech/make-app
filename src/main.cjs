@@ -1,4 +1,4 @@
-const {app,BrowserWindow,ipcMain,dialog,shell,session,protocol,net,Notification,Menu,nativeImage,Tray,safeStorage}=require('electron');
+const {app,BrowserWindow,ipcMain,dialog,shell,session,protocol,net,Notification,Menu,nativeImage,Tray,safeStorage,nativeTheme}=require('electron');
 const fs=require('node:fs/promises');
 const syncFs=require('node:fs');
 const path=require('node:path');
@@ -155,14 +155,14 @@ async function shortcuts(record){
 }
 async function openDirect(record){
  directError=null;record.runtimeTrusted=true;
- launchProgress=new BrowserWindow({width:650,height:440,title:record.name,show:false,autoHideMenuBar:true,backgroundColor:'#171a20',webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false,preload:path.join(__dirname,'direct-preload.cjs')}});
+ launchProgress=new BrowserWindow({width:650,height:480,title:record.name,show:false,autoHideMenuBar:true,backgroundColor:nativeTheme.shouldUseDarkColors?'#181a1e':'#f4f3f0',webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false,preload:path.join(__dirname,'direct-preload.cjs')}});
  lockSession(launchProgress.webContents.session);launchProgress.webContents.setWindowOpenHandler(()=>({action:'deny'}));launchProgress.webContents.on('will-navigate',event=>event.preventDefault());await launchProgress.loadFile(path.join(__dirname,'ui/direct.html'));launchProgress.show();launchProgress.on('close',()=>app.quit());
  try{if(record.kind!=='url'){const fresh=await inspect({source:standalone.source,target:standalone.selectedTarget});if(fresh.kind==='selection'||fresh.plan?.configured===false)throw new Error('This project now needs a different entry point. Make its executable again.');Object.assign(record,fresh,{name:standalone.name,runtimeTrusted:true,executionMode:'project'});delete record.originRoot;delete record.originSource;record.version=await core.fingerprint(record.root,{cache:true});}await save();await launch(record.id);if(record.plan?.mode==='native'){const state=running.get(record.id);const child=state?.engine?.children.get('app');child?.once('exit',()=>{closeApp(record.id);app.quit();});}launchProgress.destroy();launchProgress=null;if(process.env.APPDOCK_DIRECT_TEST)await require('./direct-smoke.cjs').run({app,record,state:running.get(record.id),closeApp});}
  catch(error){directError=error;launchProgress?.webContents.send('direct-state',{error:error.message,log:jobs.get(record.id)?.log||''});}
 }
 ipcMain.handle('direct',async(event,method)=>{if(!await trustedDocument(event,launchProgress?.webContents,path.join(__dirname,'ui/direct.html')))throw new Error('Unauthorized app request');if(method==='info')return{name:standalone.name,error:directError?.message,log:jobs.get(standalone.id)?.log||''};if(method==='close'){await jobs.get(standalone.id)?.engine?.stop();closeApp(standalone.id);app.quit();return;}if(method==='retry'){if(!directError)throw new Error('Launch is already in progress');launchProgress.destroy();launchProgress=null;await openDirect(find(standalone.id));return;}throw new Error('Unknown app operation');});
 let creator,creatorBusy=false,createdExecutable,creatorController;
-function showCreator(){if(creator&&!creator.isDestroyed()){creator.show();creator.focus();return;}creator=new BrowserWindow({width:900,height:820,minWidth:440,minHeight:600,title:'Make App',backgroundColor:'#171a20',autoHideMenuBar:true,webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false,preload:path.join(__dirname,'creator-preload.cjs')}});lockSession(creator.webContents.session);creator.webContents.setWindowOpenHandler(()=>({action:'deny'}));creator.webContents.on('will-navigate',event=>event.preventDefault());creator.on('close',()=>creatorController?.abort(new Error('Creation cancelled.')));creator.loadFile(path.join(__dirname,'ui/creator.html'));}
+function showCreator(){if(creator&&!creator.isDestroyed()){creator.show();creator.focus();return;}creator=new BrowserWindow({width:1000,height:860,minWidth:440,minHeight:650,title:'Make App',backgroundColor:nativeTheme.shouldUseDarkColors?'#181a1e':'#f4f3f0',autoHideMenuBar:true,webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false,preload:path.join(__dirname,'creator-preload.cjs')}});lockSession(creator.webContents.session);creator.webContents.setWindowOpenHandler(()=>({action:'deny'}));creator.webContents.on('will-navigate',event=>event.preventDefault());creator.on('close',()=>creatorController?.abort(new Error('Creation cancelled.')));creator.loadFile(path.join(__dirname,'ui/creator.html'));}
 ipcMain.handle('creator',async(event,method,payload)=>{
  if(!await trustedDocument(event,creator?.webContents,path.join(__dirname,'ui/creator.html')))throw new Error('Unauthorized executable builder request');
  if(method==='choose'){const result=await dialog.showOpenDialog(creator,{title:'Choose a project',properties:['openDirectory']});return result.canceled?null:result.filePaths[0];}
@@ -181,7 +181,7 @@ ipcMain.handle('creator',async(event,method,payload)=>{
  throw new Error('Unknown executable builder operation');
 });
 function showLibrary(){if(library&&!library.isDestroyed()){library.show();library.focus();return;}
-  library=new BrowserWindow({width:1320,height:880,minWidth:900,minHeight:650,title:'AppDock',icon:icon(),backgroundColor:'#171a20',autoHideMenuBar:true,webPreferences:{preload:path.join(__dirname,'preload.cjs'),sandbox:true,contextIsolation:true,nodeIntegration:false}});
+  library=new BrowserWindow({width:1320,height:880,minWidth:900,minHeight:650,title:'Make App',icon:icon(),backgroundColor:nativeTheme.shouldUseDarkColors?'#181a1e':'#f4f3f0',autoHideMenuBar:true,webPreferences:{preload:path.join(__dirname,'preload.cjs'),sandbox:true,contextIsolation:true,nodeIntegration:false}});
   lockSession(library.webContents.session);library.webContents.setWindowOpenHandler(()=>({action:'deny'}));library.webContents.on('will-navigate',e=>e.preventDefault());library.loadFile(path.join(__dirname,'ui','index.html'));
 }
 function logJob(job,text){job.log=(job.log+text).slice(-70000);if(launchProgress&&!launchProgress.isDestroyed())launchProgress.webContents.send('direct-state',{log:job.log});changed();}

@@ -1,7 +1,51 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'"><title>Make App</title><link rel="stylesheet" href="creator.css"></head>
-<body><main><header><div class="wordmark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 9h16M8 5v4"/></svg>Make App</div><span class="platform" id="platform">Local execution</span></header><h1>Open what you build.</h1><p class="intro">Choose a project. Create its desktop app, or a web app for any device.</p>
-<form id="creator-form"><section aria-labelledby="project-heading"><h2 id="project-heading"><span>1</span> Choose your project</h2><label for="source">Project folder</label><div class="folder-row"><input id="source" placeholder="Choose a project folder" autocomplete="off" spellcheck="false" aria-describedby="detected"><button id="browse" type="button" class="secondary">Browse…</button></div><label for="saved">Saved Codex projects</label><select id="saved"><option value="">Select a project</option></select><div id="entry-area" hidden><label for="entry">Executable entry point</label><select id="entry"></select></div><p id="detected" class="detected" role="status">Setup is detected from your project files. No config required.</p></section>
-<section aria-labelledby="output-heading"><h2 id="output-heading"><span>2</span> Choose your output</h2><fieldset><legend class="sr-only">App format</legend><label class="format"><input type="radio" name="format" value="desktop" checked><span><strong id="desktop-label">Desktop app</strong><small id="desktop-description">Runs locally on this computer</small></span></label><label class="format"><input type="radio" name="format" value="web"><span><strong>Installable web app</strong><small>iPhone, iPad, Android, Chromebook and desktop browsers</small></span></label></fieldset><p class="hint" id="web-hint" hidden>Requires an existing static web build. Server-side code needs its own host.</p><label for="name">App name</label><input id="name" placeholder="Detected from your project" autocomplete="off" maxlength="70"></section>
-<section class="review" aria-labelledby="review-heading"><h2 id="review-heading"><span>3</span> Ready to create</h2><p id="scope">The desktop app uses your existing folder and handles setup when opened. Keep that folder in place.</p><dl id="facts" hidden><div><dt>Project</dt><dd id="fact-kind"></dd></div><div><dt>First launch</dt><dd id="fact-setup"></dd></div><div><dt>Source copies</dt><dd id="fact-copy">None</dd></div></dl><p class="hint" id="requirements"></p><p class="hint" id="credentials"></p></section>
-<div class="actions"><button id="make" type="submit" class="primary" disabled>Create app…</button><button id="cancel" type="button" class="secondary" hidden>Cancel</button></div><progress id="busy-progress" aria-label="Creating app" hidden></progress><p id="status" class="status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p><button id="reveal" type="button" class="secondary" hidden>Show saved app</button><details id="progress" hidden><summary>Creation details</summary><pre id="log"></pre></details></form><footer>No account · No API key · Project code runs only when you open the desktop app</footer></main><script src="creator.js"></script></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'">
+<title>Make App</title><link rel="stylesheet" href="design.css"><link rel="stylesheet" href="creator.css">
+</head>
+<body>
+<main class="creator-shell">
+  <header class="app-header">
+    <div class="brand"><img src="assets/brand.png" alt="" width="29" height="29">Make App</div>
+    <div class="header-actions"><span class="local-label"><span class="icon i-lock" aria-hidden="true"></span>On your computer</span><button id="appearance" type="button" class="icon-button" aria-label="Switch appearance" title="Change appearance"><span class="icon i-sun" aria-hidden="true"></span></button></div>
+  </header>
+  <div id="preview-note" class="preview-note" hidden><span class="icon i-window" aria-hidden="true"></span>Interactive preview · no files are read or created</div>
+  <div class="creator-intro"><h1>Your project. Now an app.</h1><p class="intro">Choose a project, then save its app.</p></div>
+  <form id="creator-form" novalidate>
+    <div class="workspace glass">
+      <section class="project-section" aria-labelledby="project-heading">
+        <div class="section-heading"><h2 id="project-heading">Your project</h2><span class="step-label">01</span></div>
+        <label for="source">Project folder</label>
+        <div class="folder-row"><span class="icon i-folder" aria-hidden="true"></span><input id="source" placeholder="Choose a project folder" autocomplete="off" spellcheck="false" aria-describedby="detected"><button id="browse" type="button" class="button secondary">Browse<span class="icon i-up-right" aria-hidden="true"></span></button></div>
+        <div class="saved-field"><label for="saved">Or pick a saved Codex project</label><select id="saved"><option value="">Select a project</option></select></div>
+        <div id="entry-area" hidden><label for="entry">Executable entry point</label><select id="entry"></select></div>
+        <div class="detection"><span id="detection-icon" class="icon i-code" aria-hidden="true"></span><p id="detected" role="status">Setup is detected automatically.</p></div>
+        <p class="field-note" id="requirements"></p><p class="field-note" id="credentials"></p>
+      </section>
+      <section class="output-section" aria-labelledby="output-heading">
+        <div class="section-heading"><h2 id="output-heading">Make it an app</h2><span class="step-label">02</span></div>
+        <fieldset><legend class="sr-only">App format</legend>
+          <label class="format"><input type="radio" name="format" value="desktop" checked><span class="format-icon"><span class="icon i-monitor" aria-hidden="true"></span></span><span class="format-copy"><strong id="desktop-label">Desktop app</strong><small id="desktop-description">One click to open on this computer</small></span><span class="choice-check" aria-hidden="true"><span class="icon i-check"></span></span></label>
+          <label class="format"><input type="radio" name="format" value="web"><span class="format-icon"><span class="icon i-globe" aria-hidden="true"></span></span><span class="format-copy"><strong>Installable web app</strong><small>For phones, tablets and browsers</small></span><span class="choice-check" aria-hidden="true"><span class="icon i-check"></span></span></label>
+        </fieldset>
+        <p class="field-note" id="web-hint" hidden>Uses an existing static web build. Backend services need their own host.</p>
+        <label for="name">App name</label><input id="name" placeholder="A name that feels like yours" autocomplete="off" maxlength="70">
+      </section>
+      <section class="review" aria-labelledby="review-heading">
+        <div class="review-title"><span class="icon i-shield" aria-hidden="true"></span><h2 id="review-heading">Your project stays yours.</h2></div>
+        <p id="scope">The app opens your existing project folder. Setup is handled on first launch. Keep that folder in place.</p>
+        <dl id="facts" hidden><div><dt>Detected project</dt><dd id="fact-kind"></dd></div><div><dt>First launch</dt><dd id="fact-setup"></dd></div><div><dt>Source copies</dt><dd id="fact-copy">None</dd></div></dl>
+      </section>
+    </div>
+    <div class="creation-bar"><div class="output-receipt"><span class="receipt-icon"><span class="icon i-window" aria-hidden="true"></span></span><div><strong id="output-name">Your next app</strong><span id="output-caption">Choose where to save it next</span></div></div><div class="actions"><button id="cancel" type="button" class="button secondary" hidden>Cancel</button><button id="make" type="submit" class="button primary" disabled><span id="make-label">Create app</span><span class="icon i-arrow" aria-hidden="true"></span></button></div></div>
+    <progress id="busy-progress" aria-label="Creating app" hidden></progress>
+    <div class="result-area"><p id="status" class="status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p><button id="reveal" type="button" class="button secondary" hidden><span class="icon i-folder" aria-hidden="true"></span><span id="reveal-label">Show saved app</span></button></div>
+    <details id="progress" hidden><summary>Creation details</summary><pre id="log"></pre></details>
+  </form>
+  <footer class="app-footer"><span><span class="icon i-shield" aria-hidden="true"></span>No account. No API key.</span><span id="platform">Local execution</span></footer>
+  <p class="execution-note">Creating an app doesn’t run your project. Opening the desktop app does.</p>
+</main>
+<script src="appearance.js"></script><script src="creator-demo.js"></script><script src="creator.js"></script>
+</body></html>
