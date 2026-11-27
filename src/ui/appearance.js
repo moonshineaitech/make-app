@@ -52,13 +52,13 @@
     for (const [id, name] of themes) {
       const button = document.createElement('button');
       button.type = 'button'; button.className = 'theme-choice';
-      button.dataset.themeChoice = id; button.setAttribute('aria-pressed', 'false');
+      button.dataset.themeChoice = id; button.dataset.collection=(window.makeAppStudioThemes||[]).some(t=>t.id===id)?'studio':'original';button.setAttribute('aria-label',name); button.setAttribute('aria-pressed', 'false');
       const image = document.createElement('img');
       image.src = (window.makeAppStudioThemes||[]).some(theme=>theme.id===id)?'assets/studio/'+id+'-thumb.jpg':'assets/aero/'+id+'-thumb.jpg'; image.alt = ''; image.width = 320; image.height = 200; image.loading = 'lazy';
       const caption = document.createElement('span'); caption.className = 'theme-choice-caption';
       const title = document.createElement('strong'); title.textContent = name;
       const check = document.createElement('span'); check.className = 'icon i-circle-check'; check.setAttribute('aria-hidden', 'true');
-      caption.append(title, check); button.append(image, caption);
+      caption.append(title, check); button.append(image, caption);const edition=document.createElement('small');edition.textContent=button.dataset.collection==='original'?'Original · complete interface':'Studio collection';button.append(edition);
       button.addEventListener('click', () => choose(id)); choices.append(button);
     }
     trigger.addEventListener('click', () => {

@@ -14,6 +14,14 @@ The static website includes an interactive version of the actual creator rendere
 
 Ten additional appearances use original photorealistic generated art and new responsive compositions: Sapphire Reef, Sakura Glass, Solar Atelier, Jade Observatory, Lunar Archive, Rainforest Lab, Lavender Signal, Pacific Terminal, Champagne Orbit and Arctic Iris. Both collections retain native text, fields and actions. Theme search, a random theme button, compact spacing and reduced motion are available. Keyboard focus and Escape use native dialog behavior.
 
+## Complete original interfaces
+
+The **Original designs** shortcut opens the ten original designs directly. The chooser separates **Original collection**, **Studio collection** and **All 20**. Selecting an original carries its original glass, source illustrations and window materials through all twelve utility screens. The measured creator composition is retained. The original families keep distinct navigation and pane structures: side navigation for Botanical Canopy and Meadow OS; glass review panes for Midnight Tide, Pearl Current and Cobalt Hydro; wide navigation for Stratosphere and Aurora Lake; three-column Citrus Circuit; warm Sunset Estuary; and separated Glacial Quartz panes.
+
+The original shells include a live project receipt where the composition has room for it, a return-to-creator action, theme switching and native window controls. At narrow widths, navigation becomes horizontally scrollable and content stacks. Non-persistent URLs such as `?style=botanical_canopy&view=projects` open a particular complete original screen for review.
+
+`npm run test:originals` is a bounded check of all 120 utility screens at desktop and mobile widths (240 view states), the ten original creators, collection filtering, creation and ten overview accessibility scans. It does not replace native engine or physical-device acceptance.
+
 ## Preview and build
 
 ```sh

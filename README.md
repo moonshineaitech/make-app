@@ -33,6 +33,14 @@ The second collection adds Sapphire Reef, Sakura Glass, Solar Atelier, Jade Obse
 
 ![Ten additional Make App layouts](docs/assets/make-app-studio.jpg)
 
+## The original collection, completed
+
+The original ten designs remain intact: Midnight Tide, Botanical Canopy, Stratosphere, Pearl Current, Citrus Circuit, Cobalt Hydro, Aurora Lake, Sunset Estuary, Glacial Quartz and Meadow OS. Each now includes the original creator **plus twelve matching app screens**, using its own glass materials, imagery, navigation and project receipt. Choose **Original designs** in the app to open this collection. The newer Studio collection remains available beside it.
+
+![The completed original collection](docs/assets/make-app-originals.jpg)
+
+The original creator artwork and measured controls are preserved. The surrounding screens share real project and creation state; they are functional interfaces rather than screenshots.
+
 ## Choose your download
 
 **Release status:** binary assets remain private while a release is a draft. The source and CI results are public. Desktop builds use native acceptance on each target; check the validation page and release assets before choosing a build.

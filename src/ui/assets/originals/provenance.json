@@ -1,0 +1,526 @@
+{
+  "purpose": "Reusable source artwork and glass materials for complete original interfaces",
+  "source": "Existing ten approved concept clean plates; original creator artwork is unchanged",
+  "assets": [
+    {
+      "path": "midnight_tide-signature.jpg",
+      "sourceTheme": "midnight_tide",
+      "sourceRectangle": [
+        1000,
+        268,
+        405,
+        272
+      ],
+      "role": "Original illustration",
+      "bytes": 35658,
+      "sha256": "7904bd1779cc34d1c81da686257ff88b77e1dfaa6fd7fc44250a9cb2d5151164"
+    },
+    {
+      "path": "midnight_tide-brand.jpg",
+      "sourceTheme": "midnight_tide",
+      "sourceRectangle": [
+        39,
+        19,
+        46,
+        45
+      ],
+      "role": "Original brand ornament",
+      "bytes": 2387,
+      "sha256": "215cfd85c93b8ee4da9db53c50e3cf44994c79e4523aa187bbaa8db594250211"
+    },
+    {
+      "path": "midnight_tide-chrome.jpg",
+      "sourceTheme": "midnight_tide",
+      "sourceRectangle": [
+        404,
+        10,
+        514,
+        63
+      ],
+      "role": "Text-free titlebar material",
+      "bytes": 6051,
+      "sha256": "952b21b51162745bb5e0e1fdc647ec430eee5d7d340eab42d54a344c4c8178f0"
+    },
+    {
+      "path": "midnight_tide-action.jpg",
+      "sourceTheme": "midnight_tide",
+      "sourceRectangle": [
+        1122,
+        902,
+        64,
+        85
+      ],
+      "role": "Text-free central gloss material",
+      "bytes": 1700,
+      "sha256": "8fafa3bba3489212a034bb4564be818fdcfb3f95ccda93767bfe07a39c9bab8f"
+    },
+    {
+      "path": "botanical_canopy-signature.jpg",
+      "sourceTheme": "botanical_canopy",
+      "sourceRectangle": [
+        225,
+        125,
+        138,
+        138
+      ],
+      "role": "Original illustration",
+      "bytes": 8213,
+      "sha256": "4984ffc40c0b2afcbc3869cd70d9b20a53a7937ab81f9d2afc91756c507a823d"
+    },
+    {
+      "path": "botanical_canopy-brand.jpg",
+      "sourceTheme": "botanical_canopy",
+      "sourceRectangle": [
+        225,
+        125,
+        138,
+        138
+      ],
+      "role": "Original brand ornament",
+      "bytes": 8213,
+      "sha256": "4984ffc40c0b2afcbc3869cd70d9b20a53a7937ab81f9d2afc91756c507a823d"
+    },
+    {
+      "path": "botanical_canopy-chrome.jpg",
+      "sourceTheme": "botanical_canopy",
+      "sourceRectangle": [
+        404,
+        10,
+        514,
+        63
+      ],
+      "role": "Text-free titlebar material",
+      "bytes": 6856,
+      "sha256": "ee2695b4e8ceef2b306f0a8889b4f497c893baa631b7f2ff61f893dc96b25942"
+    },
+    {
+      "path": "botanical_canopy-action.jpg",
+      "sourceTheme": "botanical_canopy",
+      "sourceRectangle": [
+        882,
+        909,
+        76,
+        85
+      ],
+      "role": "Text-free central gloss material",
+      "bytes": 2197,
+      "sha256": "fe5ce640eecb78a5466f3467a3e7fc36a0193a852e95215148a387e8a15bcfd4"
+    },
+    {
+      "path": "stratosphere-signature.jpg",
+      "sourceTheme": "stratosphere",
+      "sourceRectangle": [
+        1090,
+        128,
+        290,
+        180
+      ],
+      "role": "Original illustration",
+      "bytes": 19951,
+      "sha256": "f65eb7d8487ee16c4ac2b6ba13b5a79b57a2b46b49af6ea48b960fd66626c886"
+    },
+    {
+      "path": "stratosphere-brand.jpg",
+      "sourceTheme": "stratosphere",
+      "sourceRectangle": [
+        45,
+        11,
+        46,
+        46
+      ],
+      "role": "Original brand ornament",
+      "bytes": 2430,
+      "sha256": "0a2d758692af1d7f9fdd3fe3f6968c4463bf3d16a031295f14c8534056005fca"
+    },
+    {
+      "path": "stratosphere-chrome.jpg",
+      "sourceTheme": "stratosphere",
+      "sourceRectangle": [
+        404,
+        10,
+        514,
+        63
+      ],
+      "role": "Text-free titlebar material",
+      "bytes": 5630,
+      "sha256": "f879cb63a8abf273690c31d7c44953f18b35c66af61ee0c217bb97128d9bf7ee"
+    },
+    {
+      "path": "stratosphere-action.jpg",
+      "sourceTheme": "stratosphere",
+      "sourceRectangle": [
+        1125,
+        893,
+        64,
+        97
+      ],
+      "role": "Text-free central gloss material",
+      "bytes": 1880,
+      "sha256": "8b0326dd8f7f625f68b6853df54cb0a171d62a8c76d3d42f78f0101c4736eb61"
+    },
+    {
+      "path": "pearl_current-signature.jpg",
+      "sourceTheme": "pearl_current",
+      "sourceRectangle": [
+        1115,
+        714,
+        270,
+        224
+      ],
+      "role": "Original illustration",
+      "bytes": 21257,
+      "sha256": "92f27e364e9cb3f48144b5cf525bf3b770825ccb3727e739574720a99afd8633"
+    },
+    {
+      "path": "pearl_current-brand.jpg",
+      "sourceTheme": "pearl_current",
+      "sourceRectangle": [
+        98,
+        40,
+        44,
+        41
+      ],
+      "role": "Original brand ornament",
+      "bytes": 1940,
+      "sha256": "4222511852bddd8d37ebc2cce9aa26a2d742b750cd6fbc9a0ea2fa69d5beb551"
+    },
+    {
+      "path": "pearl_current-chrome.jpg",
+      "sourceTheme": "pearl_current",
+      "sourceRectangle": [
+        440,
+        29,
+        485,
+        64
+      ],
+      "role": "Text-free titlebar material",
+      "bytes": 7440,
+      "sha256": "0420091c0967c7bea9897a5329c08e19b27cc7238f7e8f0c631efa6d54fe1804"
+    },
+    {
+      "path": "pearl_current-action.jpg",
+      "sourceTheme": "pearl_current",
+      "sourceRectangle": [
+        478,
+        841,
+        106,
+        91
+      ],
+      "role": "Text-free central gloss material",
+      "bytes": 2661,
+      "sha256": "ac16298962965db4754f8711f3c10aa694e0f7bc464bc63fe37d497fe025e061"
+    },
+    {
+      "path": "citrus_circuit-signature.jpg",
+      "sourceTheme": "citrus_circuit",
+      "sourceRectangle": [
+        84,
+        177,
+        189,
+        159
+      ],
+      "role": "Original illustration",
+      "bytes": 10591,
+      "sha256": "99ed2db1af7d0e754d7f0b11f5d5855a0becd53f3b0ada3aaf0ad1d4c1b208c5"
+    },
+    {
+      "path": "citrus_circuit-brand.jpg",
+      "sourceTheme": "citrus_circuit",
+      "sourceRectangle": [
+        56,
+        105,
+        45,
+        38
+      ],
+      "role": "Original brand ornament",
+      "bytes": 1426,
+      "sha256": "3e772abfdd5e1ead56ff5946e45dd4d15bf2324e4542db1002bb36154752f64b"
+    },
+    {
+      "path": "citrus_circuit-chrome.jpg",
+      "sourceTheme": "citrus_circuit",
+      "sourceRectangle": [
+        414,
+        86,
+        498,
+        75
+      ],
+      "role": "Text-free titlebar material",
+      "bytes": 8546,
+      "sha256": "73b570e294a699efee23b4eeed5f33c1853c544bdbd549722a9b096d6d989b6e"
+    },
+    {
+      "path": "citrus_circuit-action.jpg",
+      "sourceTheme": "citrus_circuit",
+      "sourceRectangle": [
+        1193,
+        684,
+        48,
+        93
+      ],
+      "role": "Text-free central gloss material",
+      "bytes": 1523,
+      "sha256": "c7c12858d858f3f845bf9c208b7d3e386beadff7cee1f4eab4f477446548a39f"
+    },
+    {
+      "path": "cobalt_hydro-signature.jpg",
+      "sourceTheme": "cobalt_hydro",
+      "sourceRectangle": [
+        1020,
+        150,
+        385,
+        382
+      ],
+      "role": "Original illustration",
+      "bytes": 45170,
+      "sha256": "606042d26c650ef93a65dd198a13524e3a6864d2733d67bfac33a04eddaeb832"
+    },
+    {
+      "path": "cobalt_hydro-brand.jpg",
+      "sourceTheme": "cobalt_hydro",
+      "sourceRectangle": [
+        77,
+        77,
+        46,
+        46
+      ],
+      "role": "Original brand ornament",
+      "bytes": 2437,
+      "sha256": "06ec556f4b7398ffb55b08c55b3179990ef54b41434f7ef070c9605448c7f8e6"
+    },
+    {
+      "path": "cobalt_hydro-chrome.jpg",
+      "sourceTheme": "cobalt_hydro",
+      "sourceRectangle": [
+        417,
+        65,
+        496,
+        69
+      ],
+      "role": "Text-free titlebar material",
+      "bytes": 10087,
+      "sha256": "127c2b0fbe6dedb4503bf1a9e7eecab0f0a1d1cf6cc22e8811d643d2428fadce"
+    },
+    {
+      "path": "cobalt_hydro-action.jpg",
+      "sourceTheme": "cobalt_hydro",
+      "sourceRectangle": [
+        1158,
+        836,
+        57,
+        87
+      ],
+      "role": "Text-free central gloss material",
+      "bytes": 1756,
+      "sha256": "0b9fa293e937eb2b0d66dda319058544b185ff15abf2360dfeb802c68e1c1b3b"
+    },
+    {
+      "path": "aurora_lake-signature.jpg",
+      "sourceTheme": "aurora_lake",
+      "sourceRectangle": [
+        1040,
+        375,
+        340,
+        252
+      ],
+      "role": "Original illustration",
+      "bytes": 33065,
+      "sha256": "6cc2e8f38ced51a0bfddbddd5ed7144391ba20d249c615ac74485c5aed1ee9e1"
+    },
+    {
+      "path": "aurora_lake-brand.jpg",
+      "sourceTheme": "aurora_lake",
+      "sourceRectangle": [
+        49,
+        30,
+        55,
+        54
+      ],
+      "role": "Original brand ornament",
+      "bytes": 2493,
+      "sha256": "76b696b3837112e0bc12f01f253784183ddb0e947083734bbe6ff518a70a3a26"
+    },
+    {
+      "path": "aurora_lake-chrome.jpg",
+      "sourceTheme": "aurora_lake",
+      "sourceRectangle": [
+        404,
+        10,
+        514,
+        63
+      ],
+      "role": "Text-free titlebar material",
+      "bytes": 6354,
+      "sha256": "f0433074faaf35381e56e1db35e33ddb47a199a838ba5029f90fc1b27c7fbdb6"
+    },
+    {
+      "path": "aurora_lake-action.jpg",
+      "sourceTheme": "aurora_lake",
+      "sourceRectangle": [
+        1191,
+        844,
+        48,
+        76
+      ],
+      "role": "Text-free central gloss material",
+      "bytes": 1378,
+      "sha256": "164b00c0155d4fd7021ae9a8b076b83a382a15aafc0e47ad0960a354fed8f0ab"
+    },
+    {
+      "path": "sunset_estuary-signature.jpg",
+      "sourceTheme": "sunset_estuary",
+      "sourceRectangle": [
+        40,
+        145,
+        1405,
+        135
+      ],
+      "role": "Original illustration",
+      "bytes": 27009,
+      "sha256": "6f5f3413971a3455db3ea9e3f166bc1a7ad0ac4920b4b01bdb88773b2168b7c8"
+    },
+    {
+      "path": "sunset_estuary-brand.jpg",
+      "sourceTheme": "sunset_estuary",
+      "sourceRectangle": [
+        59,
+        82,
+        42,
+        42
+      ],
+      "role": "Original brand ornament",
+      "bytes": 1809,
+      "sha256": "4911c498bb73541c629f5c3ddf4b0e652c31043a7de37fba738a2cf956278976"
+    },
+    {
+      "path": "sunset_estuary-chrome.jpg",
+      "sourceTheme": "sunset_estuary",
+      "sourceRectangle": [
+        414,
+        61,
+        498,
+        76
+      ],
+      "role": "Text-free titlebar material",
+      "bytes": 8821,
+      "sha256": "58671edfbce9f1408b6f258bab56d681543e50a431914d218148b229a5a276f0"
+    },
+    {
+      "path": "sunset_estuary-action.jpg",
+      "sourceTheme": "sunset_estuary",
+      "sourceRectangle": [
+        1137,
+        865,
+        57,
+        96
+      ],
+      "role": "Text-free central gloss material",
+      "bytes": 1718,
+      "sha256": "89ecbb4dd2d6b64cd061082efd2f17e17ffb369914085275741c3dc137c0ddb9"
+    },
+    {
+      "path": "glacial_quartz-signature.jpg",
+      "sourceTheme": "glacial_quartz",
+      "sourceRectangle": [
+        1100,
+        105,
+        330,
+        220
+      ],
+      "role": "Original illustration",
+      "bytes": 35239,
+      "sha256": "74e5cd65239bbcbb9c6ddbfbc5c1a09c5c380a30bac37f85587574562d7f484a"
+    },
+    {
+      "path": "glacial_quartz-brand.jpg",
+      "sourceTheme": "glacial_quartz",
+      "sourceRectangle": [
+        45,
+        22,
+        46,
+        44
+      ],
+      "role": "Original brand ornament",
+      "bytes": 2059,
+      "sha256": "4b15d77edb455d97a80d11861be87e28cddd6607c2cc63aa38a07ce5e2eacb95"
+    },
+    {
+      "path": "glacial_quartz-chrome.jpg",
+      "sourceTheme": "glacial_quartz",
+      "sourceRectangle": [
+        404,
+        10,
+        514,
+        63
+      ],
+      "role": "Text-free titlebar material",
+      "bytes": 6559,
+      "sha256": "815dabe181ceb72723d9a7c34cc8cf5e304cf3b752d14ff467a8aac2c6167343"
+    },
+    {
+      "path": "glacial_quartz-action.jpg",
+      "sourceTheme": "glacial_quartz",
+      "sourceRectangle": [
+        1185,
+        839,
+        53,
+        91
+      ],
+      "role": "Text-free central gloss material",
+      "bytes": 1486,
+      "sha256": "8a614b84c01c61f2237600aad7a94267ecf4dd64145501abce562206a9c24fb3"
+    },
+    {
+      "path": "meadow_os-signature.jpg",
+      "sourceTheme": "meadow_os",
+      "sourceRectangle": [
+        42,
+        366,
+        239,
+        416
+      ],
+      "role": "Original illustration",
+      "bytes": 37985,
+      "sha256": "94e748c6af03bb8f3b1bc419beca68da515fee4c399ce5a12be72d4207da9ff7"
+    },
+    {
+      "path": "meadow_os-brand.jpg",
+      "sourceTheme": "meadow_os",
+      "sourceRectangle": [
+        63,
+        65,
+        57,
+        56
+      ],
+      "role": "Original brand ornament",
+      "bytes": 2713,
+      "sha256": "ab44ee0424f2d510e47c77af97e02f526848103deda33ad1ee93407df38b9a29"
+    },
+    {
+      "path": "meadow_os-chrome.jpg",
+      "sourceTheme": "meadow_os",
+      "sourceRectangle": [
+        414,
+        40,
+        498,
+        102
+      ],
+      "role": "Text-free titlebar material",
+      "bytes": 12163,
+      "sha256": "07cbeeec9cfd15cffd23c5950c851e3a03a83767269edcbe0a75f4e0878efbe3"
+    },
+    {
+      "path": "meadow_os-action.jpg",
+      "sourceTheme": "meadow_os",
+      "sourceRectangle": [
+        1171,
+        783,
+        49,
+        100
+      ],
+      "role": "Text-free central gloss material",
+      "bytes": 1749,
+      "sha256": "d7836ee7ff33e06d99485c4b9753b418271639ebdc14bfc724525cee4af18bb6"
+    }
+  ]
+}

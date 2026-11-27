@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceVersion": "0.12.0",
+  "sourceVersion": "0.12.1",
   "generatedForReview": true,
   "contentBasis": "Committed Git blob bytes (LF for text), excluding this manifest",
   "files": [
@@ -36,13 +36,13 @@
     },
     {
       "path": ".github/workflows/verify.yml",
-      "bytes": 1171,
-      "sha256": "0aef2fffbc7f0f9b7c06243b6e6e8f4a8e2d571358d6b084e8f252fa3d380fce"
+      "bytes": 1207,
+      "sha256": "160891a1b494d96cb72b37985f1fd36a862efc7497edaa033d238f4da83deed7"
     },
     {
       "path": ".gitignore",
-      "bytes": 316,
-      "sha256": "8043f0ec55d122aca5754ee805bcb464c6db7ca554ae2180844c959b6c7c3cab"
+      "bytes": 331,
+      "sha256": "e7f7242484aafe51fd53b31d78dfea46106e3c7a013a17eb597ed13b67f83985"
     },
     {
       "path": "ADAPTERS.md",
@@ -71,8 +71,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13966,
-      "sha256": "c4a5da89810a955770f2ebb57691b59363f25db65505ec85695114c1daeec5c3"
+      "bytes": 14727,
+      "sha256": "ed8f357cc3aba0a83743669349f6e04354baa26cab5f544d4ac3f721b456bec1"
     },
     {
       "path": "SECURITY.md",
@@ -106,8 +106,8 @@
     },
     {
       "path": "docs/INTERFACE.md",
-      "bytes": 7333,
-      "sha256": "b2d1bbd842339b550cf187a6456d116147c95bffeb4403787b85e1aacaa1baa9"
+      "bytes": 8675,
+      "sha256": "bd514f8745ef88a34b70ba73820fab5aef1e304a4aa5aee2bb11e9227ae8c619"
     },
     {
       "path": "docs/OPENAI_SUBMISSION.md",
@@ -133,6 +133,11 @@
       "path": "docs/assets/make-app-light.png",
       "bytes": 199643,
       "sha256": "d1793272b34cb7d0d54b7c6d3b115e5193eaee98ce5ee36e69f5cd58944a010a"
+    },
+    {
+      "path": "docs/assets/make-app-originals.jpg",
+      "bytes": 318988,
+      "sha256": "48c320e181667273f897a6316bbd89a10d8c071e7d542bf063fbc01b51f4552c"
     },
     {
       "path": "docs/assets/make-app-studio.jpg",
@@ -327,7 +332,7 @@
     {
       "path": "integrations/codex/.codex-plugin/plugin.json",
       "bytes": 1420,
-      "sha256": "3d988e5a8707647a11cf8f7b494ecacc5d4223e7a620821c00142c56ce29354a"
+      "sha256": "faaf6b7c5425ad4942c8e9566d97a7bb6cc4478a78ac282d641bea1c095787f5"
     },
     {
       "path": "integrations/codex/.mcp.json",
@@ -352,17 +357,17 @@
     {
       "path": "integrations/codex/package-lock.json",
       "bytes": 6756,
-      "sha256": "18a98de4b970c737150fad339594e8b5faf3bab222f3957dc4de8945a373259d"
+      "sha256": "f1f5976b876612dc2b7eb06246a6208441c31a96013f5cb2e97e42f0c63537c8"
     },
     {
       "path": "integrations/codex/package.json",
       "bytes": 437,
-      "sha256": "01cc9af57f877b2af2057300d3417240aef69e5a84f9e846d3e61156b9680716"
+      "sha256": "5053653b2841b9c12469b723f17677a90e3a72100ca5016b50e7911954eb5cea"
     },
     {
       "path": "integrations/codex/plugin.json",
       "bytes": 1799,
-      "sha256": "ccfd1a9b793e250d10412710c163de63b3e7c32d6290e69e830c5a15ed3e99c9"
+      "sha256": "464f0bb81344f54bfd2a19ad083d8b927cf14c986c3fb9c0cb130c51b74d5229"
     },
     {
       "path": "integrations/codex/scripts/harnesses.cjs",
@@ -437,12 +442,12 @@
     {
       "path": "package-lock.json",
       "bytes": 119130,
-      "sha256": "d92778dcdcf807666866d830c0b0c505232637207ed424dff3f4bad0916ad4f4"
+      "sha256": "1ecf8ab1afb04a6dfc0aa7d9fcf526d4f93b9422d672b41397157c0b7fc34bdf"
     },
     {
       "path": "package.json",
-      "bytes": 4364,
-      "sha256": "6f6ad72028df1a3b326998afee3477314606fe7eb098b9590794eca516b6f493"
+      "bytes": 4435,
+      "sha256": "af87a45b0dd07327cab85eccd0d26e82bea9285bb40b6c57e23c62b985d2c7fd"
     },
     {
       "path": "qa/README.md",
@@ -463,6 +468,11 @@
       "path": "qa/local-validation-0.8.json",
       "bytes": 1105,
       "sha256": "d1047fd504ecb1c0898b18b9612c1dfff70e874c4fb6bec9cd99eb8e9118579a"
+    },
+    {
+      "path": "qa/originals-smoke.json",
+      "bytes": 68390,
+      "sha256": "0796cd3519c3ae8ae7fbb609be6f48011d4adfa986ac17ea44d969ef95c88deb"
     },
     {
       "path": "qa/views-smoke.json",
@@ -486,8 +496,8 @@
     },
     {
       "path": "scripts/build-site.cjs",
-      "bytes": 1640,
-      "sha256": "39821a013c03706a7306352533d2028c016535fae8c6c83a0bb856d473d2c00e"
+      "bytes": 1681,
+      "sha256": "b4cc85d308bcc7ea0019f7e0392d786c50836a35bc778a2fef960278e979d5e6"
     },
     {
       "path": "scripts/check-public-source.cjs",
@@ -531,8 +541,8 @@
     },
     {
       "path": "scripts/run-design-check.cjs",
-      "bytes": 534,
-      "sha256": "c0b57ce4414958fcaf6316f21d49e5091357f686241f81cc9c0f72919ec48f7a"
+      "bytes": 598,
+      "sha256": "d8c77c7be75c7484d2d13c2f4e35ff17ec631af1cc2e5457ff19ccb2a8d86640"
     },
     {
       "path": "scripts/test-compiled-services.cjs",
@@ -573,6 +583,11 @@
       "path": "scripts/verify-design.cjs",
       "bytes": 13501,
       "sha256": "1d5819ece664b69f87227a6531a164b0bb19d61ad927cce0aa9fd37344d9a893"
+    },
+    {
+      "path": "scripts/verify-originals.cjs",
+      "bytes": 5756,
+      "sha256": "43be51b78bb6005cd5470e9809ae30979d1dc2232cabcae1d03436223c9fe90b"
     },
     {
       "path": "scripts/verify-release-assets.cjs",
@@ -886,13 +901,13 @@
     },
     {
       "path": "src/ui/app-views.js",
-      "bytes": 23630,
-      "sha256": "211b1e200c1ec9f6e803db9565eb510ea8d70b8119803e3e6ac895f237c07384"
+      "bytes": 24213,
+      "sha256": "1ad0934eca3ebda3d9d80a3598f89512b00c993133b1c1e268b1ccd2a0a3b503"
     },
     {
       "path": "src/ui/appearance.js",
-      "bytes": 5552,
-      "sha256": "626462f1300482f81a3060d68233557a44a3fb57063c2e9811f2454ec988a1df"
+      "bytes": 5871,
+      "sha256": "5282476ee921b3f00637b3a23d9827a160438505a273b8f5d629e19c86404c75"
     },
     {
       "path": "src/ui/arguments.js",
@@ -1223,6 +1238,211 @@
       "path": "src/ui/assets/licenses/lucide.txt",
       "bytes": 3208,
       "sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57"
+    },
+    {
+      "path": "src/ui/assets/originals/aurora_lake-action.jpg",
+      "bytes": 1378,
+      "sha256": "164b00c0155d4fd7021ae9a8b076b83a382a15aafc0e47ad0960a354fed8f0ab"
+    },
+    {
+      "path": "src/ui/assets/originals/aurora_lake-brand.jpg",
+      "bytes": 2493,
+      "sha256": "76b696b3837112e0bc12f01f253784183ddb0e947083734bbe6ff518a70a3a26"
+    },
+    {
+      "path": "src/ui/assets/originals/aurora_lake-chrome.jpg",
+      "bytes": 6354,
+      "sha256": "f0433074faaf35381e56e1db35e33ddb47a199a838ba5029f90fc1b27c7fbdb6"
+    },
+    {
+      "path": "src/ui/assets/originals/aurora_lake-signature.jpg",
+      "bytes": 33065,
+      "sha256": "6cc2e8f38ced51a0bfddbddd5ed7144391ba20d249c615ac74485c5aed1ee9e1"
+    },
+    {
+      "path": "src/ui/assets/originals/botanical_canopy-action.jpg",
+      "bytes": 2197,
+      "sha256": "fe5ce640eecb78a5466f3467a3e7fc36a0193a852e95215148a387e8a15bcfd4"
+    },
+    {
+      "path": "src/ui/assets/originals/botanical_canopy-brand.jpg",
+      "bytes": 8213,
+      "sha256": "4984ffc40c0b2afcbc3869cd70d9b20a53a7937ab81f9d2afc91756c507a823d"
+    },
+    {
+      "path": "src/ui/assets/originals/botanical_canopy-chrome.jpg",
+      "bytes": 6856,
+      "sha256": "ee2695b4e8ceef2b306f0a8889b4f497c893baa631b7f2ff61f893dc96b25942"
+    },
+    {
+      "path": "src/ui/assets/originals/botanical_canopy-signature.jpg",
+      "bytes": 8213,
+      "sha256": "4984ffc40c0b2afcbc3869cd70d9b20a53a7937ab81f9d2afc91756c507a823d"
+    },
+    {
+      "path": "src/ui/assets/originals/citrus_circuit-action.jpg",
+      "bytes": 1523,
+      "sha256": "c7c12858d858f3f845bf9c208b7d3e386beadff7cee1f4eab4f477446548a39f"
+    },
+    {
+      "path": "src/ui/assets/originals/citrus_circuit-brand.jpg",
+      "bytes": 1426,
+      "sha256": "3e772abfdd5e1ead56ff5946e45dd4d15bf2324e4542db1002bb36154752f64b"
+    },
+    {
+      "path": "src/ui/assets/originals/citrus_circuit-chrome.jpg",
+      "bytes": 8546,
+      "sha256": "73b570e294a699efee23b4eeed5f33c1853c544bdbd549722a9b096d6d989b6e"
+    },
+    {
+      "path": "src/ui/assets/originals/citrus_circuit-signature.jpg",
+      "bytes": 10591,
+      "sha256": "99ed2db1af7d0e754d7f0b11f5d5855a0becd53f3b0ada3aaf0ad1d4c1b208c5"
+    },
+    {
+      "path": "src/ui/assets/originals/cobalt_hydro-action.jpg",
+      "bytes": 1756,
+      "sha256": "0b9fa293e937eb2b0d66dda319058544b185ff15abf2360dfeb802c68e1c1b3b"
+    },
+    {
+      "path": "src/ui/assets/originals/cobalt_hydro-brand.jpg",
+      "bytes": 2437,
+      "sha256": "06ec556f4b7398ffb55b08c55b3179990ef54b41434f7ef070c9605448c7f8e6"
+    },
+    {
+      "path": "src/ui/assets/originals/cobalt_hydro-chrome.jpg",
+      "bytes": 10087,
+      "sha256": "127c2b0fbe6dedb4503bf1a9e7eecab0f0a1d1cf6cc22e8811d643d2428fadce"
+    },
+    {
+      "path": "src/ui/assets/originals/cobalt_hydro-signature.jpg",
+      "bytes": 45170,
+      "sha256": "606042d26c650ef93a65dd198a13524e3a6864d2733d67bfac33a04eddaeb832"
+    },
+    {
+      "path": "src/ui/assets/originals/glacial_quartz-action.jpg",
+      "bytes": 1486,
+      "sha256": "8a614b84c01c61f2237600aad7a94267ecf4dd64145501abce562206a9c24fb3"
+    },
+    {
+      "path": "src/ui/assets/originals/glacial_quartz-brand.jpg",
+      "bytes": 2059,
+      "sha256": "4b15d77edb455d97a80d11861be87e28cddd6607c2cc63aa38a07ce5e2eacb95"
+    },
+    {
+      "path": "src/ui/assets/originals/glacial_quartz-chrome.jpg",
+      "bytes": 6559,
+      "sha256": "815dabe181ceb72723d9a7c34cc8cf5e304cf3b752d14ff467a8aac2c6167343"
+    },
+    {
+      "path": "src/ui/assets/originals/glacial_quartz-signature.jpg",
+      "bytes": 35239,
+      "sha256": "74e5cd65239bbcbb9c6ddbfbc5c1a09c5c380a30bac37f85587574562d7f484a"
+    },
+    {
+      "path": "src/ui/assets/originals/meadow_os-action.jpg",
+      "bytes": 1749,
+      "sha256": "d7836ee7ff33e06d99485c4b9753b418271639ebdc14bfc724525cee4af18bb6"
+    },
+    {
+      "path": "src/ui/assets/originals/meadow_os-brand.jpg",
+      "bytes": 2713,
+      "sha256": "ab44ee0424f2d510e47c77af97e02f526848103deda33ad1ee93407df38b9a29"
+    },
+    {
+      "path": "src/ui/assets/originals/meadow_os-chrome.jpg",
+      "bytes": 12163,
+      "sha256": "07cbeeec9cfd15cffd23c5950c851e3a03a83767269edcbe0a75f4e0878efbe3"
+    },
+    {
+      "path": "src/ui/assets/originals/meadow_os-signature.jpg",
+      "bytes": 37985,
+      "sha256": "94e748c6af03bb8f3b1bc419beca68da515fee4c399ce5a12be72d4207da9ff7"
+    },
+    {
+      "path": "src/ui/assets/originals/midnight_tide-action.jpg",
+      "bytes": 1700,
+      "sha256": "8fafa3bba3489212a034bb4564be818fdcfb3f95ccda93767bfe07a39c9bab8f"
+    },
+    {
+      "path": "src/ui/assets/originals/midnight_tide-brand.jpg",
+      "bytes": 2387,
+      "sha256": "215cfd85c93b8ee4da9db53c50e3cf44994c79e4523aa187bbaa8db594250211"
+    },
+    {
+      "path": "src/ui/assets/originals/midnight_tide-chrome.jpg",
+      "bytes": 6051,
+      "sha256": "952b21b51162745bb5e0e1fdc647ec430eee5d7d340eab42d54a344c4c8178f0"
+    },
+    {
+      "path": "src/ui/assets/originals/midnight_tide-signature.jpg",
+      "bytes": 35658,
+      "sha256": "7904bd1779cc34d1c81da686257ff88b77e1dfaa6fd7fc44250a9cb2d5151164"
+    },
+    {
+      "path": "src/ui/assets/originals/pearl_current-action.jpg",
+      "bytes": 2661,
+      "sha256": "ac16298962965db4754f8711f3c10aa694e0f7bc464bc63fe37d497fe025e061"
+    },
+    {
+      "path": "src/ui/assets/originals/pearl_current-brand.jpg",
+      "bytes": 1940,
+      "sha256": "4222511852bddd8d37ebc2cce9aa26a2d742b750cd6fbc9a0ea2fa69d5beb551"
+    },
+    {
+      "path": "src/ui/assets/originals/pearl_current-chrome.jpg",
+      "bytes": 7440,
+      "sha256": "0420091c0967c7bea9897a5329c08e19b27cc7238f7e8f0c631efa6d54fe1804"
+    },
+    {
+      "path": "src/ui/assets/originals/pearl_current-signature.jpg",
+      "bytes": 21257,
+      "sha256": "92f27e364e9cb3f48144b5cf525bf3b770825ccb3727e739574720a99afd8633"
+    },
+    {
+      "path": "src/ui/assets/originals/provenance.json",
+      "bytes": 13276,
+      "sha256": "989289cefc08e983e3d20a5296374fe805b94c1d139607b4a194e1502d2957c6"
+    },
+    {
+      "path": "src/ui/assets/originals/stratosphere-action.jpg",
+      "bytes": 1880,
+      "sha256": "8b0326dd8f7f625f68b6853df54cb0a171d62a8c76d3d42f78f0101c4736eb61"
+    },
+    {
+      "path": "src/ui/assets/originals/stratosphere-brand.jpg",
+      "bytes": 2430,
+      "sha256": "0a2d758692af1d7f9fdd3fe3f6968c4463bf3d16a031295f14c8534056005fca"
+    },
+    {
+      "path": "src/ui/assets/originals/stratosphere-chrome.jpg",
+      "bytes": 5630,
+      "sha256": "f879cb63a8abf273690c31d7c44953f18b35c66af61ee0c217bb97128d9bf7ee"
+    },
+    {
+      "path": "src/ui/assets/originals/stratosphere-signature.jpg",
+      "bytes": 19951,
+      "sha256": "f65eb7d8487ee16c4ac2b6ba13b5a79b57a2b46b49af6ea48b960fd66626c886"
+    },
+    {
+      "path": "src/ui/assets/originals/sunset_estuary-action.jpg",
+      "bytes": 1718,
+      "sha256": "89ecbb4dd2d6b64cd061082efd2f17e17ffb369914085275741c3dc137c0ddb9"
+    },
+    {
+      "path": "src/ui/assets/originals/sunset_estuary-brand.jpg",
+      "bytes": 1809,
+      "sha256": "4911c498bb73541c629f5c3ddf4b0e652c31043a7de37fba738a2cf956278976"
+    },
+    {
+      "path": "src/ui/assets/originals/sunset_estuary-chrome.jpg",
+      "bytes": 8821,
+      "sha256": "58671edfbce9f1408b6f258bab56d681543e50a431914d218148b229a5a276f0"
+    },
+    {
+      "path": "src/ui/assets/originals/sunset_estuary-signature.jpg",
+      "bytes": 27009,
+      "sha256": "6f5f3413971a3455db3ea9e3f166bc1a7ad0ac4920b4b01bdb88773b2168b7c8"
     },
     {
       "path": "src/ui/assets/photographic/aurora_lake/art.png",
@@ -2066,8 +2286,8 @@
     },
     {
       "path": "src/ui/creator.html",
-      "bytes": 10982,
-      "sha256": "92f98a2bc8ce9b00f23877ed1a8a24708ee6a3755fb1dd2ab4d2557166a5bec6"
+      "bytes": 11737,
+      "sha256": "228d4d352b03217072977ac2e3eb3e3184989471540efecd267b9b6d34913fd7"
     },
     {
       "path": "src/ui/creator.js",
@@ -2093,6 +2313,16 @@
       "path": "src/ui/index.html",
       "bytes": 11148,
       "sha256": "6a4563910a242799137ada94f1d8d23548987227b60b5ea41197c8eda4810331"
+    },
+    {
+      "path": "src/ui/original-views.css",
+      "bytes": 16130,
+      "sha256": "e7a0ca8ee36bc94c3f602efb678bf6d1343208c13196df1fa2f19fe94fa70145"
+    },
+    {
+      "path": "src/ui/original-views.js",
+      "bytes": 4736,
+      "sha256": "aef7e8ba0162cf229270b6c3e43e608cbfab66639503be7661390973bce3adbb"
     },
     {
       "path": "src/ui/photo-scenes.css",

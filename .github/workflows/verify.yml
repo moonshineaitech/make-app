@@ -33,6 +33,7 @@ jobs:
       - run: npm run test:design
       - run: npm run test:aero
       - run: npm run test:views
+      - run: npm run test:originals
       - run: npm ci --prefix integrations/codex
       - run: npm run build:plugin
       - run: npm run test:plugin
