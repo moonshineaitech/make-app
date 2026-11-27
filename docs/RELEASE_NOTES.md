@@ -1,4 +1,14 @@
-# Make App 0.9.1 — a clearer way to open your work
+# Make App 0.10.0 — ten atmospheres, one click
+
+Open **Themes** to choose Midnight Tide, Botanical Canopy, Stratosphere, Pearl Current, Citrus Circuit, Cobalt Hydro, Aurora Lake, Sunset Estuary, Glacial Quartz or Meadow OS. Each appearance includes locally bundled scenery, optical glass materials and a coordinated palette. Classic keeps system, light and dark modes. Existing preferences are preserved; new profiles start in Midnight Tide.
+
+- The thumbnail chooser supports keyboard navigation, Escape dismissal and focus restoration. Choices persist locally and synchronize between windows in the same profile. Theme changes preserve the project, output format, name and active creation.
+- The ten backgrounds, thumbnails and three glass ornaments add approximately 2.9 MB, require no network access and contain no project content. Unsupported storage falls back to a session-only choice.
+- Larger labels, inputs and supporting copy, stronger contrast, 200% zoom support and narrow-window layouts keep the new materials readable. Theme color schemes override an opposing OS palette explicitly.
+- The complete website retains a full-size interactive creator preview and the same theme chooser. The preview labels its sample projects and cannot read files or create executables.
+- Automated Aero verification covers every theme at four widths, chooser states, persistence, invalid preferences and creation. The existing native creator, website and five-target desktop acceptance remain separate checks.
+
+## Existing desktop and integration capabilities
 
 The creator and complete product website now share a new interface: warm translucent materials, locally bundled Geist typography, precise iconography and a quieter hierarchy. Project selection, output format and saving stay in one view. System, light and dark appearance modes carry through to the launch and terminal screens.
 

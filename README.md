@@ -8,7 +8,7 @@ Open what you build. Choose a local project and create its desktop app, or expor
 
 ![Make App creator](docs/assets/make-app-windows.png)
 
-The redesigned creator, light/dark appearance and complete product website share a restrained glass interface. [Preview, build and verify the website](docs/INTERFACE.md) with `npm run preview:site`.
+The creator includes ten selectable Frutiger Aero themes and a Classic appearance. The complete product website includes the same interactive renderer. [Preview, build and verify the website](docs/INTERFACE.md) with `npm run preview:site`.
 
 ## Start here
 
@@ -21,9 +21,15 @@ A desktop app opens the selected project directly and prepares its dependencies 
 
 A web export copies an existing static build into a new folder. Upload that folder to any static HTTPS host, then open its URL on your devices. Supported browsers offer **Install App** or **Add to Home Screen**. Offline access starts after the first successful visit and service-worker installation. Backend services, external APIs and authentication still need their own connectivity and hosting.
 
+## Make it yours
+
+Open **Themes** in the app to switch between ten Frutiger Aero designs, from midnight water and aurora glass to botanical green, pearl and sunlit skies. Themes are included offline and your choice is remembered. Classic also offers system, light and dark appearance. Changing a theme preserves your selected project and creation progress. [Interface and accessibility details](docs/INTERFACE.md).
+
+![Ten selectable Make App themes](docs/assets/make-app-themes.png)
+
 ## Choose your download
 
-**Release status:** binary assets remain private while a release is a draft. The source and CI results are public. The 0.8 desktop builds use native acceptance on each target; check the validation page and release assets before choosing a build.
+**Release status:** binary assets remain private while a release is a draft. The source and CI results are public. Desktop builds use native acceptance on each target; check the validation page and release assets before choosing a build.
 
 | Computer | Converter asset | Codex plugin asset |
 | --- | --- | --- |

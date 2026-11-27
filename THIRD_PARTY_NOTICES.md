@@ -14,6 +14,10 @@ Downloaded project runtimes, compilers, package managers and project dependencie
 - Lucide 1.82.0 — ISC, Lucide contributors; the upstream distribution also includes Feather notices. Original notices are included in src/ui/assets/licenses/lucide.txt.
 - Exact upstream package URLs, versions and integrity checks are recorded in src/ui/assets/provenance.json. These assets are shared by the desktop interface and static website.
 
+## Decorative interface artwork
+
+The ten Aero scene backgrounds were generated for Make App using the built-in image-generation tool. They contain no project content. JPEG backgrounds and chooser thumbnails are bundled locally; hashes and generation-method notes are recorded in src/ui/assets/aero/provenance.json. Existing brand artwork, font and icon licenses above continue to apply.
+
 ## Terminal components
 
 - node-pty 1.1.0 — MIT, Microsoft Corporation; bundled LICENSE and third_party/conpty license apply to native terminal components. https://github.com/microsoft/node-pty

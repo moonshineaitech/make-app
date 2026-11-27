@@ -16,3 +16,104 @@ body.is-embedded{background:transparent;background-image:none}.is-embedded .crea
 .is-embedded label:not(.format){font-size:11px}.is-embedded input:not([type=radio]),.is-embedded select{font-size:11px}.is-embedded .format strong{font-size:11px}.is-embedded .format small,.is-embedded .field-note,.is-embedded .review>p{font-size:10px}.is-embedded .review-title h2,.is-embedded .detection p{font-size:11px}.is-embedded dt{font-size:9px}.is-embedded dd{font-size:10px}.is-embedded .app-footer{font-size:9px}.is-embedded .output-receipt strong{font-size:11px}.is-embedded .output-receipt div>span{font-size:10px}
 @media(min-width:560px) and (max-width:700px){.is-embedded .workspace{grid-template-columns:1.08fr 1fr}.is-embedded .project-section{border-right:1px solid var(--line);border-bottom:0}}
 body{transition:background-color .2s,color .2s}.workspace{transition:background-color .2s,border-color .2s,box-shadow .2s}.result-area{animation:result-in .2s ease-out}body[data-phase=creating] #make .icon{animation:turn 1.4s linear infinite}@keyframes result-in{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+
+/* The installed app and embedded preview use the same readable scale. */
+html{scroll-padding-block:28px 120px}
+body{font-size:16px;line-height:1.6}
+.creator-shell{padding:24px 32px 28px}
+.app-header{margin-bottom:28px}
+.app-header .brand{font-size:20px;font-weight:600}
+.app-header .icon-button{width:44px;height:44px;min-height:44px}
+.local-label{font-size:13px}
+h1{font-size:36px;font-weight:560;letter-spacing:-1.4px;line-height:1.15}
+p.intro{font-size:16px;line-height:1.6;margin:12px 0 26px}
+.project-section,.output-section{padding:22px 24px}
+.section-heading{margin-bottom:18px}
+.section-heading h2{font-size:16px;font-weight:600}
+.step-label{font-size:13px}
+label:not(.format){font-size:14px;font-weight:550;line-height:1.5;margin:15px 0 8px}
+input:not([type=radio]),select{font-size:16px;min-height:48px;padding:12px}
+.folder-row input{font:14px/1.5 var(--mono);padding:9px 8px;min-height:42px}
+.folder-row .button{font-size:14px;min-height:42px;padding:9px 12px}
+.saved-field{margin-top:16px}
+.detection{margin-top:18px}
+.detection p{font-size:14px;line-height:1.6}
+.field-note{font-size:14px;line-height:1.65;margin-top:9px}
+.format{min-height:86px;padding:14px;gap:13px;border-radius:12px}
+.format strong{font-size:15px;font-weight:600;line-height:1.4}
+.format small{font-size:13px;line-height:1.5;margin-top:5px}
+.format-icon{width:38px;height:38px}
+.choice-check{width:18px;height:18px}
+.review{padding:18px 24px 20px}
+.review-title h2{font-size:14px;font-weight:600}
+.review>p{font-size:14px;line-height:1.65;max-width:76ch}
+dl{margin-top:15px;padding-top:13px}
+dt{font-size:13px;line-height:1.5}
+dd{font-size:14px;line-height:1.5;font-weight:550}
+.creation-bar{position:sticky;bottom:12px;z-index:3;padding:14px;margin-top:20px;border:1px solid var(--line);border-radius:15px;background:var(--solid);box-shadow:0 6px 28px -14px #202b4540}
+.output-receipt strong{font-size:14px;max-width:370px}
+.output-receipt div>span{font-size:13px;line-height:1.5}
+.actions .button{font-size:15px;min-height:48px}
+#make{min-width:166px;padding:13px 20px}
+.status{font-size:15px;line-height:1.65}
+#reveal{font-size:14px;min-height:44px;white-space:normal;text-align:left}
+details,summary{font-size:14px}
+pre{font-size:13px;line-height:1.7}
+.app-footer,.execution-note{font-size:13px;line-height:1.65}
+.app-footer{margin-top:22px}
+.execution-note{margin-top:10px;max-width:76ch}
+.preview-note{font-size:13px;line-height:1.5;padding:10px 12px;margin-bottom:22px}
+.is-embedded{background:var(--canvas)!important;background-image:none}
+.is-embedded .creator-shell{padding:26px}
+.is-embedded .app-header{margin-bottom:22px}
+.is-embedded .brand{font-size:20px}
+.is-embedded .brand img{width:29px;height:29px}
+.is-embedded h1{font-size:32px;line-height:1.2;letter-spacing:-1px}
+.is-embedded p.intro{font-size:16px;line-height:1.6;margin-top:9px}
+.is-embedded .preview-note{font-size:13px;padding:10px 12px;margin-bottom:22px}
+.is-embedded .local-label{font-size:13px}
+.is-embedded .workspace{grid-template-columns:1fr}
+.is-embedded .project-section{border-right:0;border-bottom:1px solid var(--line)}
+.is-embedded .project-section,.is-embedded .output-section{padding:22px 24px}
+.is-embedded .section-heading h2{font-size:16px}
+.is-embedded label:not(.format){font-size:14px}
+.is-embedded input:not([type=radio]),.is-embedded select{font-size:16px}
+.is-embedded .folder-row input{font-size:14px}
+.is-embedded .format strong{font-size:15px}
+.is-embedded .format small{font-size:13px}
+.is-embedded .field-note,.is-embedded .detection p{font-size:14px}
+.is-embedded .review{padding:18px 24px 20px}
+.is-embedded .review-title h2,.is-embedded .review>p{font-size:14px}
+.is-embedded dt{font-size:13px}.is-embedded dd{font-size:14px}
+.is-embedded .creation-bar{position:static;padding:14px;gap:16px}
+.is-embedded .output-receipt strong{font-size:14px;max-width:320px}
+.is-embedded .output-receipt div>span{font-size:13px}
+.is-embedded #make{font-size:15px;min-width:166px;padding:13px 20px}
+.is-embedded .app-footer,.is-embedded .execution-note{font-size:13px}
+@media(min-width:800px){
+  .is-embedded .workspace{grid-template-columns:1.08fr 1fr}
+  .is-embedded .project-section{border-right:1px solid var(--line);border-bottom:0}
+}
+@media(max-width:700px){
+  .creator-shell{padding:20px}.app-header{margin-bottom:24px}
+  h1{font-size:32px;line-height:1.2}p.intro{margin-bottom:24px}
+  .project-section,.output-section{padding:22px 20px}.review{padding:18px 20px}
+  .creation-bar{position:static;align-items:center;flex-wrap:wrap}
+  .is-embedded .creator-shell{padding:22px}
+  .is-embedded .project-section,.is-embedded .output-section{padding:22px 20px}
+  .is-embedded .review{padding:18px 20px}
+  .is-embedded .creation-bar{flex-wrap:wrap}
+}
+@media(max-width:420px){
+  .creator-shell,.is-embedded .creator-shell{padding:18px}
+  h1,.is-embedded h1{font-size:28px;letter-spacing:-.8px}
+  .project-section,.output-section,.is-embedded .project-section,.is-embedded .output-section{padding:20px 16px}
+  .review,.is-embedded .review{padding:18px 16px}
+  .folder-row>.icon{display:none}.folder-row input{padding-left:5px}
+  .format{gap:10px;padding:12px}.format-icon{width:32px;height:32px}
+  .creation-bar{align-items:stretch}.output-receipt strong{max-width:210px}
+  .app-footer{align-items:flex-start;flex-wrap:wrap;gap:8px}
+  .is-embedded .output-receipt{display:none}
+  .actions{gap:8px}.actions .button{padding:12px}
+  #make,.is-embedded #make{min-width:0;flex:1;padding:12px}
+}

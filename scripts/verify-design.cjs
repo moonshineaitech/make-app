@@ -31,12 +31,13 @@ async function evaluate(win, code) { return win.webContents.executeJavaScript(co
 async function scan(win, surface, theme, width) {
   const violations = await evaluate(win, `axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}}).then(r=>r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})))`);
   const layout = await evaluate(win, `({width:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth})`);
-  return { surface, theme, width, actualWidth: layout.width, horizontalOverflow: layout.overflow, violations };
+  const readability = await evaluate(win, `(()=>{const values=[];function inspect(doc){for(const element of doc.body.querySelectorAll('*')){if(element.closest('.sr-only,[aria-hidden="true"]')||!element.getClientRects().length)continue;const css=doc.defaultView.getComputedStyle(element);if(css.visibility==='hidden'||css.display==='none')continue;if([...element.childNodes].some(node=>node.nodeType===3&&node.textContent.trim())){const size=parseFloat(css.fontSize);values.push({selector:element.id?'#'+element.id:element.tagName.toLowerCase()+'.'+[...element.classList].join('.'),size});}}for(const frame of doc.querySelectorAll('iframe'))if(frame.contentDocument?.body)inspect(frame.contentDocument);}inspect(document);return{minimum:Math.min(...values.map(value=>value.size)),belowMinimum:values.filter(value=>value.size<13)}})()`);
+  return { surface, theme, width, actualWidth: layout.width, zoom:win.webContents.getZoomFactor(), horizontalOverflow: layout.overflow, readability, violations };
 }
 async function stable(win) {
   // Hidden native windows may suspend rAF. Keep the animation settling wait bounded.
   await delay(280);
-  await evaluate(win, `document.getAnimations().forEach(animation=>animation.finish());true`);
+  await evaluate(win, `document.getAnimations().filter(animation=>Number.isFinite(animation.effect.getComputedTiming().endTime)).forEach(animation=>animation.finish());true`);
 }
 async function capture(win, name) { await stable(win); await fs.writeFile(path.join(output, name), (await win.webContents.capturePage()).toPNG()); }
 app.whenReady().then(async () => {
@@ -47,12 +48,13 @@ app.whenReady().then(async () => {
   for (const theme of ['light', 'dark']) {
     nativeTheme.themeSource = theme;
     const win = new BrowserWindow({ show: false, width: 1000, height: 900, webPreferences: { preload: path.join(root, 'src/creator-preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false, backgroundThrottling: false } });
-    await win.loadURL(origin + '/app/creator.html'); await until(() => evaluate(win, `!document.getElementById('make').disabled`), 'project inspection');
+    await win.loadURL(origin + '/app/creator.html?theme=' + theme); await until(() => evaluate(win, `!document.getElementById('make').disabled`), 'project inspection');
     await evaluate(win, 'document.fonts.ready'); await evaluate(win, axe);
     assert.equal(await evaluate(win, 'window.makeApp.preview'), undefined, 'The browser demo must not replace native IPC');
     for (const width of [1000, 900, 520, 390, 320]) { win.setContentSize(width, 1050); await stable(win); checks.push(await scan(win, 'creator', theme, width)); }
     win.setContentSize(1000, 900); await capture(win, 'app-' + theme + '.png');
     if (theme === 'light') {
+      win.webContents.setZoomFactor(2);await stable(win);checks.push(await scan(win,'creator-200-percent','light',1000));win.webContents.setZoomFactor(1);await stable(win);
       await evaluate(win, `document.getElementById('name').value='My App';document.getElementById('name').dispatchEvent(new Event('input'));document.getElementById('make').click();true`);
       await until(() => evaluate(win, `!document.getElementById('reveal').hidden`), 'success state');
       assert.equal(madePayload.name, 'My App'); await evaluate(win, `document.getElementById('reveal').click();true`); assert.equal(revealCalls, 1);
@@ -60,6 +62,7 @@ app.whenReady().then(async () => {
       await evaluate(win, `document.querySelector('input[value="web"]').click();true`); assert.equal(await evaluate(win, `document.getElementById('make-label').textContent`), 'Export web app');
       creationMode = 'wait'; await evaluate(win, `document.getElementById('make').click();true`); await until(() => Promise.resolve(!!pendingMake), 'pending creation');
       assert.equal(await evaluate(win, `document.getElementById('source').disabled`), true);
+      win.setContentSize(320,900);await stable(win);checks.push(await scan(win,'creator-busy','light',320));win.setContentSize(1000,900);
       await evaluate(win, `document.getElementById('cancel').click();true`); await until(() => evaluate(win, `!document.getElementById('source').disabled`), 'cancellation');
       assert.match(await evaluate(win, `document.getElementById('status').textContent`), /cancelled/);
       creationMode = 'success';
@@ -85,15 +88,23 @@ app.whenReady().then(async () => {
   site.setContentSize(1440, 1000); await stable(site);
   await until(() => evaluate(site, `(()=>{const frame=document.getElementById('app-demo');return Math.abs(frame.clientHeight-frame.contentDocument.querySelector('.creator-shell').getBoundingClientRect().height-2)<5})()`), 'desktop preview resize');
   await capture(site, 'website-desktop.png');
+  site.webContents.setZoomFactor(2);await stable(site);
+  await until(()=>evaluate(site,`(()=>{const frame=document.getElementById('app-demo');return Math.abs(frame.clientHeight-frame.contentDocument.querySelector('.creator-shell').getBoundingClientRect().height-2)<5})()`),'zoomed preview resize');
+  checks.push(await scan(site,'website-200-percent','light',1440));site.webContents.setZoomFactor(1);await stable(site);
+  nativeTheme.themeSource='dark';await site.loadURL(origin+'/');await until(()=>evaluate(site,`document.getElementById('app-demo').contentDocument?.body.dataset.phase==='ready'`),'light preview under dark system appearance');await stable(site);await evaluate(site,axe);
+  assert.equal(await evaluate(site,`getComputedStyle(document.getElementById('app-demo').contentDocument.documentElement).colorScheme`),'light','Explicit light appearance must not inherit a dark canvas');
+  checks.push(await scan(site,'website-dark-system','light',1440));
+  nativeTheme.themeSource='light';
   await evaluate(site, `window.fetch=async()=>({ok:true,json:async()=>[]});document.querySelector('[data-download]').click();true`);
   await until(() => evaluate(site, `document.getElementById('release-status').textContent.includes('maintainer review')`), 'draft download state');
   assert.equal(await evaluate(site, `document.getElementById('download-native').hidden`), true, 'Drafts must not become broken public download links');
   await capture(site, 'website-downloads.png');
+  checks.push(await scan(site,'website-downloads','light',1440));
   await evaluate(site, `document.getElementById('close-download').click();document.querySelector('[data-agent="cursor"]').click();true`);
   assert.equal(await evaluate(site, `document.getElementById('agent-context').textContent`), 'In your Cursor chat');
   await evaluate(site, `document.querySelector('.faq-list summary').click();true`); assert.equal(await evaluate(site, `document.querySelector('.faq-list details').open`), true);
-  const report = { passed: checks.every(check => !check.horizontalOverflow && !check.violations.length), fixture: 'Controlled UI IPC and public release fixtures; native app creation is verified by desktop acceptance separately', checks, behavior: { success: true, reveal: true, webChoice: true, cancellation: true, staleInspectionRejected: true, invalidSource: true, draftDownloadsHonest: true, harnessTabs: true, faq: true }, physicalMobileTested: false };
+  const report = { passed: checks.every(check => !check.horizontalOverflow && !check.violations.length && !check.readability.belowMinimum.length), fixture: 'Controlled UI IPC and public release fixtures; native app creation is verified by desktop acceptance separately', checks, behavior: { success: true, reveal: true, webChoice: true, cancellation: true, staleInspectionRejected: true, invalidSource: true, draftDownloadsHonest: true, harnessTabs: true, faq: true, readableAt200Percent:true, lightPreviewOnDarkSystem:true }, physicalMobileTested: false };
   await fs.writeFile(path.join(output, 'verification.json'), JSON.stringify(report, null, 2));
-  console.log(JSON.stringify({ passed: report.passed, checks: checks.length, violations: checks.reduce((sum, check) => sum + check.violations.length, 0), overflow: checks.filter(check => check.horizontalOverflow).length, output }));
+  console.log(JSON.stringify({ passed: report.passed, checks: checks.length, violations: checks.reduce((sum, check) => sum + check.violations.length, 0), overflow: checks.filter(check => check.horizontalOverflow).length, undersizedText:checks.reduce((sum,check)=>sum+check.readability.belowMinimum.length,0), output }));
   site.destroy(); server.close(); app.exit(report.passed ? 0 : 1);
 }).catch(error => { console.error(error); app.exit(1); });

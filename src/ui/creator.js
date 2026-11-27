@@ -27,7 +27,7 @@ function render() {
 }
 function setBusy(value) {
   busy = value;
-  document.querySelectorAll('input,select,#browse').forEach(input => { input.disabled = value; });
+  document.querySelectorAll('#creator-form input,#creator-form select,#browse').forEach(input => { input.disabled = value; });
   $('cancel').hidden = !value; $('cancel').disabled = false;
   $('busy-progress').hidden = !value;
   document.querySelector('main').setAttribute('aria-busy', String(value));

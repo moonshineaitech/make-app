@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'">
-<title>Make App</title><link rel="stylesheet" href="design.css"><link rel="stylesheet" href="creator.css">
+<title>Make App</title><script src="appearance.js"></script><link rel="stylesheet" href="design.css"><link rel="stylesheet" href="creator.css"><link rel="stylesheet" href="aero.css">
 </head>
 <body>
 <main class="creator-shell">
   <header class="app-header">
     <div class="brand"><img src="assets/brand.png" alt="" width="29" height="29">Make App</div>
-    <div class="header-actions"><span class="local-label"><span class="icon i-lock" aria-hidden="true"></span>On your computer</span><button id="appearance" type="button" class="icon-button" aria-label="Switch appearance" title="Change appearance"><span class="icon i-sun" aria-hidden="true"></span></button></div>
+    <div class="header-actions"><span class="local-label"><span class="icon i-lock" aria-hidden="true"></span>On your computer</span><button id="appearance" type="button" class="theme-trigger" aria-haspopup="dialog" aria-controls="theme-picker"><span class="icon i-sun" aria-hidden="true"></span><span>Themes</span><span class="icon i-chevron" aria-hidden="true"></span></button></div>
   </header>
   <div id="preview-note" class="preview-note" hidden><span class="icon i-window" aria-hidden="true"></span>Interactive preview · no files are read or created</div>
   <div class="creator-intro"><h1>Your project. Now an app.</h1><p class="intro">Choose a project, then save its app.</p></div>
@@ -31,7 +31,7 @@
           <label class="format"><input type="radio" name="format" value="web"><span class="format-icon"><span class="icon i-globe" aria-hidden="true"></span></span><span class="format-copy"><strong>Installable web app</strong><small>For phones, tablets and browsers</small></span><span class="choice-check" aria-hidden="true"><span class="icon i-check"></span></span></label>
         </fieldset>
         <p class="field-note" id="web-hint" hidden>Uses an existing static web build. Backend services need their own host.</p>
-        <label for="name">App name</label><input id="name" placeholder="A name that feels like yours" autocomplete="off" maxlength="70">
+        <label for="name">App name</label><input id="name" placeholder="For example, Focus Notes" autocomplete="off" maxlength="70">
       </section>
       <section class="review" aria-labelledby="review-heading">
         <div class="review-title"><span class="icon i-shield" aria-hidden="true"></span><h2 id="review-heading">Your project stays yours.</h2></div>
@@ -47,5 +47,11 @@
   <footer class="app-footer"><span><span class="icon i-shield" aria-hidden="true"></span>No account. No API key.</span><span id="platform">Local execution</span></footer>
   <p class="execution-note">Creating an app doesn’t run your project. Opening the desktop app does.</p>
 </main>
-<script src="appearance.js"></script><script src="creator-demo.js"></script><script src="creator.js"></script>
+<dialog id="theme-picker" class="theme-picker" aria-labelledby="theme-title" aria-describedby="theme-description">
+  <div class="theme-picker-header"><div><p class="theme-eyebrow">MAKE IT YOURS</p><h2 id="theme-title">A different atmosphere.</h2><p id="theme-description">Ten worlds. The same simple way to make an app.</p></div><button id="close-themes" class="icon-button" type="button" aria-label="Close themes"><span class="icon i-x" aria-hidden="true"></span></button></div>
+  <div id="theme-options" class="theme-options" role="group" aria-label="Choose a theme"></div>
+  <div class="classic-controls"><div><strong>Classic appearance</strong><p>A quiet canvas, with no scenery.</p></div><label class="sr-only" for="classic-appearance">Classic color mode</label><select id="classic-appearance"><option value="system">Match system</option><option value="light">Light</option><option value="dark">Dark</option></select><button id="use-classic" class="button secondary" type="button" aria-pressed="false">Use Classic</button></div>
+  <p id="theme-status" class="theme-status" role="status" aria-live="polite"></p>
+</dialog>
+<script src="creator-demo.js"></script><script src="creator.js"></script>
 </body></html>

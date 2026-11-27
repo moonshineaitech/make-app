@@ -1,0 +1,124 @@
+{
+  "created": "2026-11-27",
+  "method": "Built-in image generation; decorative artwork commissioned for Make App",
+  "format": "Full scene JPEG at quality 88; 320x200 chooser thumbnails; 512x512 transparent PNG ornaments",
+  "networkRequired": false,
+  "containsProjectContent": false,
+  "files": [
+    {
+      "file": "aurora_lake-thumb.jpg",
+      "bytes": 10451,
+      "sha256": "3d3d26db4e16a13b1e69ba27fa88c18f6337fc8853ba5ed3351967919012f1dc"
+    },
+    {
+      "file": "aurora_lake.jpg",
+      "bytes": 158422,
+      "sha256": "a2e6df62ddfd9ec2a569adf4551e54b92733e393b2d52b96f5b9fadec5bf2896"
+    },
+    {
+      "file": "botanical_canopy-thumb.jpg",
+      "bytes": 11522,
+      "sha256": "14025eda193c5c2a37e7fb6794e49814b732e1c93f2a92e902abcf6c4bd9874f"
+    },
+    {
+      "file": "botanical_canopy.jpg",
+      "bytes": 136279,
+      "sha256": "8d5e869d728b1d08f108861bc9e1d7327cf160ee9836f58654b707bb621512c0"
+    },
+    {
+      "file": "citrus_circuit-thumb.jpg",
+      "bytes": 15976,
+      "sha256": "125041dae27b69e7797fd726ee69696bf7aa68db7271fbe2a5da8d157740d5c9"
+    },
+    {
+      "file": "citrus_circuit.jpg",
+      "bytes": 195193,
+      "sha256": "c73695432201fc0ac0ea75ad79224bf0e1f821b427f10ab9a9330a89c535850e"
+    },
+    {
+      "file": "cobalt_hydro-thumb.jpg",
+      "bytes": 16149,
+      "sha256": "18349bececb040a2ff21a5a0c8983224bf83418de529f71182270fbc67a6b3fd"
+    },
+    {
+      "file": "cobalt_hydro.jpg",
+      "bytes": 191328,
+      "sha256": "a6226d1efd4fdbcfef9bb2bbb189810050f2ce7075a32cb307b0783c158fba19"
+    },
+    {
+      "file": "glacial_quartz-thumb.jpg",
+      "bytes": 12983,
+      "sha256": "4b343561929619599ef260c95fa4fa93a11070b9f69dba76d300d8cf289cd465"
+    },
+    {
+      "file": "glacial_quartz.jpg",
+      "bytes": 159856,
+      "sha256": "b904af3bd8d41d5e41a34236a483b09b378a3cc9608a5623193f29b9fb4264f0"
+    },
+    {
+      "file": "glass-folder.png",
+      "bytes": 422587,
+      "sha256": "04ee8ac4e481c4152be8b19d894efcb6afa12e9f9a81d530a07281c856144500"
+    },
+    {
+      "file": "glass-pearl.png",
+      "bytes": 300455,
+      "sha256": "7dcf064e76dd788f440a41226d0936830449fff0ea67843f88fac45f110d0198"
+    },
+    {
+      "file": "glass-tiles.png",
+      "bytes": 360515,
+      "sha256": "836663579cd7f0bf574f830a62ce4ed7e0cfe523462251a274cbcfe793207f58"
+    },
+    {
+      "file": "meadow_os-thumb.jpg",
+      "bytes": 16125,
+      "sha256": "603772c192f72243983e86a677e4a18583aba33bcbc4913ea5e06fbbc89e05ad"
+    },
+    {
+      "file": "meadow_os.jpg",
+      "bytes": 188998,
+      "sha256": "57c48cc6aabb0c2de3277d6a9c858f3d5026198c90643a9b50571b8861525bab"
+    },
+    {
+      "file": "midnight_tide-thumb.jpg",
+      "bytes": 12406,
+      "sha256": "cbe8daf3e4425773b2bf62e28643afe2189391f8820e0ef7095f930318ddbf40"
+    },
+    {
+      "file": "midnight_tide.jpg",
+      "bytes": 148323,
+      "sha256": "87e16ae340b413397dfb0ee217cd030a6899c38fab3cbf1ec9af32b964c05019"
+    },
+    {
+      "file": "pearl_current-thumb.jpg",
+      "bytes": 12718,
+      "sha256": "82cfea6fb0d758e21206ba6e55397af2315a27592eb5de48a0a3bc9f39fb0ac9"
+    },
+    {
+      "file": "pearl_current.jpg",
+      "bytes": 153136,
+      "sha256": "95f87ce3c1117d36a63c0b61f9d5883d340a14bae78f434fb5b8a6509517a514"
+    },
+    {
+      "file": "stratosphere-thumb.jpg",
+      "bytes": 14431,
+      "sha256": "3392ac384244ed6ec0f574f0e57cea9e000d5452167fc4aefc37eceb742ddd88"
+    },
+    {
+      "file": "stratosphere.jpg",
+      "bytes": 168414,
+      "sha256": "dda807366fcf82f3fdcdc676fb00dccb6562f1dd57b434558d32a2c6b3eb9b0e"
+    },
+    {
+      "file": "sunset_estuary-thumb.jpg",
+      "bytes": 17729,
+      "sha256": "d9a110fec38092af5560bfd1bac6726714f901c895d640a5ac29bdbea0e67b8a"
+    },
+    {
+      "file": "sunset_estuary.jpg",
+      "bytes": 237106,
+      "sha256": "414c7bdfd59e9ff32487bdc5494b2211aaf38f32f2fd42a5b6dd55d0c4a164fb"
+    }
+  ]
+}

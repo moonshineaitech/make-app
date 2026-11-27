@@ -7,7 +7,7 @@ const infoReady=tool.info().then(info=>{
  if(mode==='worker')$('run').textContent='Start services';
 });
 function openTerminal(){
- if(!terminal){terminal=new Terminal({screenReaderMode:true,scrollback:1000,fontSize:13,fontFamily:'Consolas, monospace',theme:{background:'#11151b',foreground:'#ced8e8'},linkHandler:{activate(){}}});fit=new FitAddon.FitAddon();terminal.loadAddon(fit);terminal.open($('terminal'));terminal.onData(text=>tool.input(text).catch(error=>$('status').textContent=error.message));new ResizeObserver(()=>{if(usingTerminal){fit.fit();tool.resize({columns:Math.min(400,Math.max(20,terminal.cols)),rows:Math.min(200,Math.max(5,terminal.rows))}).catch(()=>{});}}).observe($('terminal'));}
+ if(!terminal){terminal=new Terminal({screenReaderMode:true,scrollback:1000,fontSize:15,fontFamily:'Consolas, monospace',theme:{background:'#11151b',foreground:'#ced8e8'},linkHandler:{activate(){}}});fit=new FitAddon.FitAddon();terminal.loadAddon(fit);terminal.open($('terminal'));terminal.onData(text=>tool.input(text).catch(error=>$('status').textContent=error.message));new ResizeObserver(()=>{if(usingTerminal){fit.fit();tool.resize({columns:Math.min(400,Math.max(20,terminal.cols)),rows:Math.min(200,Math.max(5,terminal.rows))}).catch(()=>{});}}).observe($('terminal'));}
  terminal.reset();fit.fit();terminal.focus();return{columns:Math.min(400,Math.max(20,terminal.cols)),rows:Math.min(200,Math.max(5,terminal.rows))};
 }
 tool.onOutput(text=>{$('log').textContent=($('log').textContent+text).slice(-70000);$('log').scrollTop=$('log').scrollHeight;});

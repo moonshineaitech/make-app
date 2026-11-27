@@ -31,6 +31,7 @@ jobs:
       - run: npm test
       - run: npm run build:site
       - run: npm run test:design
+      - run: npm run test:aero
       - run: npm ci --prefix integrations/codex
       - run: npm run build:plugin
       - run: npm run test:plugin
