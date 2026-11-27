@@ -34,6 +34,7 @@
     if (classic) classic.setAttribute('aria-pressed', String(style === 'classic'));
     const select = document.getElementById('classic-appearance');
     if (select) select.value = preference;
+    window.dispatchEvent(new Event('make-app:appearance'));
   }
   function choose(value) {
     if (!validStyle(value)) return;

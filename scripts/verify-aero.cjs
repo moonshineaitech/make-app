@@ -31,6 +31,10 @@ app.whenReady().then(async()=>{
   win.setContentSize(1487,1058);await win.loadURL(url+'?style='+theme);
   await until(()=>evaluate(win,"document.body.dataset.phase==='ready'&&!document.getElementById('make').disabled"),theme+' ready');await evaluate(win,'document.fonts.ready');
   await evaluate(win,axe);await scan(theme,1487);await capture(win,theme+'.png');
+  await evaluate(win,"document.getElementById('project-details').click();true");
+  assert.equal(await evaluate(win,"document.getElementById('project-information').open"),true,'Project requirements remain available in photographic layouts');
+  assert.ok(await evaluate(win,"document.getElementById('project-information-content').innerText.includes('Node.js')"));
+  await evaluate(win,"document.getElementById('close-project-information').click();true");
   const source=await evaluate(win,"document.getElementById('source').value");
   for(const width of [1000,390,320]){win.setContentSize(width,1058);await scan(theme,width);}
   if(theme==='midnight_tide'||theme==='meadow_os')await capture(win,theme+'-mobile.png');
@@ -53,6 +57,7 @@ app.whenReady().then(async()=>{
     await evaluate(win,"document.getElementById('appearance').click();document.querySelector('[data-theme-choice=botanical_canopy]').click();document.getElementById('close-themes').click();true");
     assert.equal(await evaluate(win,"document.body.dataset.phase"),'creating','Changing theme must not restart or reset creation');
     assert.equal(await evaluate(win,"document.getElementById('cancel').hidden"),false);
+    assert.equal(await evaluate(win,"document.getElementById('scene-sidebar-choice').disabled"),true,'The duplicate saved-project control must also lock during creation');
   }
   await until(()=>evaluate(win,"document.body.dataset.phase==='success'"),'creation complete');
   assert.equal(await evaluate(win,"document.getElementById('source').value"),source);

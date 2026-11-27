@@ -23,7 +23,7 @@ A web export copies an existing static build into a new folder. Upload that fold
 
 ## Make it yours
 
-Open **Themes** in the app to switch between ten Frutiger Aero designs, from midnight water and aurora glass to botanical green, pearl and sunlit skies. Themes are included offline and your choice is remembered. Classic also offers system, light and dark appearance. Changing a theme preserves your selected project and creation progress. [Interface and accessibility details](docs/INTERFACE.md).
+Click the **Make App** wordmark (or press **Alt+T**) in a photographic theme to switch between ten Frutiger Aero designs, from midnight water and aurora glass to botanical green, pearl and sunlit skies. Themes are included offline and your choice is remembered. Classic also offers system, light and dark appearance. Changing a theme preserves your selected project and creation progress. [Interface and accessibility details](docs/INTERFACE.md).
 
 ![Ten selectable Make App themes](docs/assets/make-app-themes.png)
 

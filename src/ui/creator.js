@@ -24,10 +24,11 @@ function render() {
   const name = $('name').value.trim();
   $('output-name').textContent = name ? name + (web ? ' · web export' : platform?.extension || '') : 'Your next app';
   $('output-caption').textContent = web ? 'Export to a folder of your choice' : 'Choose where to save it next';
+  window.dispatchEvent(new Event('make-app:render'));
 }
 function setBusy(value) {
   busy = value;
-  document.querySelectorAll('#creator-form input,#creator-form select,#browse').forEach(input => { input.disabled = value; });
+  document.querySelectorAll('#creator-form input,#creator-form select,#browse,#entry').forEach(input => { input.disabled = value; });
   $('cancel').hidden = !value; $('cancel').disabled = false;
   $('busy-progress').hidden = !value;
   document.querySelector('main').setAttribute('aria-busy', String(value));

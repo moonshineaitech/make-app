@@ -1,12 +1,13 @@
 // A browser-only demonstration of the real renderer. Never replaces Electron IPC.
 (() => {
   if (window.makeApp || !['http:', 'https:'].includes(location.protocol)) return;
+  const windows = /Win/.test(navigator.platform), linux = /Linux/.test(navigator.platform);
   const samples = [
     {path:'/Projects/Focus Notes',name:'Focus Notes',label:'TypeScript web app',requirements:['Node.js','npm'],webAvailable:true},
     {path:'/Projects/Image Tools',name:'Image Tools',label:'Python command-line tool',requirements:['Python'],webAvailable:false},
     {path:'/Projects/Orbit',name:'Orbit',label:'Rust application',requirements:['Rust','Cargo'],webAvailable:false}
   ];
-  const windows = /Win/.test(navigator.platform), linux = /Linux/.test(navigator.platform);
+  for(const sample of samples)if(windows)sample.path='C:'+sample.path;
   const name = windows ? 'Windows' : linux ? 'Linux' : 'macOS', extension = windows ? '.exe' : linux ? '.run' : '.app';
   let progress = () => {}, sourceCallback = () => {}, cancelled = false;
   const delay = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -26,7 +27,7 @@
   document.querySelector('.local-label').textContent='Browser preview';
   if(parent!==window)document.body.classList.add('is-embedded');
   if(parent!==window&&'ResizeObserver' in window){
-    new ResizeObserver(()=>parent.postMessage({type:'make-app:size',height:Math.ceil(document.querySelector('.creator-shell').getBoundingClientRect().height)+2},location.origin)).observe(document.querySelector('.creator-shell'));
+    new ResizeObserver(()=>parent.postMessage({type:'make-app:size',height:Math.ceil(document.getElementById('creator-viewport').getBoundingClientRect().height)+(document.documentElement.dataset.photo?60:2)},location.origin)).observe(document.getElementById('creator-viewport'));
   }
   window.addEventListener('message',event=>{
     if(event.origin!==location.origin||event.source!==parent)return;

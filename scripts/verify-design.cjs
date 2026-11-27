@@ -88,6 +88,11 @@ app.whenReady().then(async () => {
   site.setContentSize(1440, 1000); await stable(site);
   await until(() => evaluate(site, `(()=>{const frame=document.getElementById('app-demo');return Math.abs(frame.clientHeight-frame.contentDocument.querySelector('.creator-shell').getBoundingClientRect().height-2)<5})()`), 'desktop preview resize');
   await capture(site, 'website-desktop.png');
+  await evaluate(site, `(()=>{const d=document.getElementById('app-demo').contentDocument;d.getElementById('appearance').click();d.querySelector('[data-theme-choice=midnight_tide]').click();d.getElementById('close-themes').click()})()`);
+  await until(()=>evaluate(site,`(()=>{const f=document.getElementById('app-demo'),d=f.contentDocument;return d.documentElement.dataset.photo==='midnight_tide'&&Math.abs(f.clientHeight-d.getElementById('creator-viewport').getBoundingClientRect().height-60)<5})()`),'photographic embedded preview resize');
+  checks.push(await scan(site,'website-photographic-preview','light',1440));
+  await capture(site,'website-photographic-preview.png');
+  await evaluate(site,`(()=>{const d=document.getElementById('app-demo').contentDocument;d.getElementById('appearance').click();d.getElementById('use-classic').click();d.getElementById('close-themes').click()})()`);
   site.webContents.setZoomFactor(2);await stable(site);
   await until(()=>evaluate(site,`(()=>{const frame=document.getElementById('app-demo');return Math.abs(frame.clientHeight-frame.contentDocument.querySelector('.creator-shell').getBoundingClientRect().height-2)<5})()`),'zoomed preview resize');
   checks.push(await scan(site,'website-200-percent','light',1440));site.webContents.setZoomFactor(1);await stable(site);

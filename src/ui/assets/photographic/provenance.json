@@ -1,0 +1,727 @@
+{
+  "schemaVersion": 1,
+  "source": "Ten Make App Aero concepts selected by the user",
+  "sourceCanvas": {
+    "width": 1487,
+    "height": 1058
+  },
+  "method": "Original scene artwork and cropped control materials. Built-in image generation removed lettering from material plates; source pixels outside editable regions were preserved. All wording, fields, selected states and actions are native HTML. Caption and pictogram graphics are cropped from the original concepts.",
+  "fonts": "Locally bundled Geist; live letter bounds measured against source lettering",
+  "files": [
+    {
+      "path": "aurora_lake/art.png",
+      "bytes": 1727031,
+      "sha256": "a3f3ca1d5b41f59ea9b1850499b72c303d8e23212234db325313a2d0f0cffe10"
+    },
+    {
+      "path": "aurora_lake/browse.png",
+      "bytes": 8780,
+      "sha256": "4bb85136d9e7d617e90dc774d034188c9e3629970004ece2bec03e8d9b61f1b3"
+    },
+    {
+      "path": "aurora_lake/close.png",
+      "bytes": 3387,
+      "sha256": "824cb52d9f3a108834958d79130863808add58b025e1b1e7b157341c403e519f"
+    },
+    {
+      "path": "aurora_lake/desktop.png",
+      "bytes": 29155,
+      "sha256": "598f35be9ef58308f43d078d6238ee52cd043dd8088120b4591dbf192d8aa15a"
+    },
+    {
+      "path": "aurora_lake/desktopMark.png",
+      "bytes": 3918,
+      "sha256": "25aea87e1c32a3cc12a73a20535322c3138fc8aa93fc5f31084de6deec347c8d"
+    },
+    {
+      "path": "aurora_lake/detected.png",
+      "bytes": 3152,
+      "sha256": "dec6db5da6ff0a2e18d6686485f7be00446769a5aa2b6d783fa07219475be100"
+    },
+    {
+      "path": "aurora_lake/make.png",
+      "bytes": 34726,
+      "sha256": "d56ca05bf2368da4d06bc00258cb4815115db59f51c0d6713f4cddb677051e44"
+    },
+    {
+      "path": "aurora_lake/maximize.png",
+      "bytes": 2846,
+      "sha256": "a4526bbae2f27e613d707e441ec28bc3507f5593ab6ff3f989c892fb3f233e6c"
+    },
+    {
+      "path": "aurora_lake/minimize.png",
+      "bytes": 2580,
+      "sha256": "ceb9cf580379e525111d15ea04ecae325fedf73533a43e722a4d59c1f51f9c2a"
+    },
+    {
+      "path": "aurora_lake/name.png",
+      "bytes": 38859,
+      "sha256": "2bee713a2e79f045590a09f121e13c54fa40bd252ac9305e071d283cae3ac28a"
+    },
+    {
+      "path": "aurora_lake/saved.png",
+      "bytes": 42933,
+      "sha256": "6c8c638edf30611bee36d72ae6e1fb85c40ad1fd266d1128f1eeb637585e16d9"
+    },
+    {
+      "path": "aurora_lake/source.png",
+      "bytes": 51969,
+      "sha256": "460c82833699bf0e9d4662a2089e922923ca294353f62e0dc089d9326f6bb007"
+    },
+    {
+      "path": "aurora_lake/web.png",
+      "bytes": 29109,
+      "sha256": "cc97480555e61e233901f2a4526f5eff08e2d1e1b3ff94ef5244380a348099e6"
+    },
+    {
+      "path": "aurora_lake/webMark.png",
+      "bytes": 3376,
+      "sha256": "ad37bf678c9abe4e2fc4864ccb216d469cc042318e6b0ba15e66bb3eb63ef95c"
+    },
+    {
+      "path": "botanical_canopy/art.png",
+      "bytes": 1376018,
+      "sha256": "0ce0274a77ff38458b23935ab5d7f181848f668e4e8a2bad931e1e0adc4bd682"
+    },
+    {
+      "path": "botanical_canopy/browse.png",
+      "bytes": 15163,
+      "sha256": "41acd4468cfe9cb8a596b5408fa348aa79307b0246553a5ad6bdff2ac2da28c2"
+    },
+    {
+      "path": "botanical_canopy/close.png",
+      "bytes": 5209,
+      "sha256": "33cb704d41237d2c5e85a635d0dd4e959dd20fa32d0feb08659253addf7078ab"
+    },
+    {
+      "path": "botanical_canopy/desktop.png",
+      "bytes": 33791,
+      "sha256": "92782b760e7ec97d01208b5264416f50032b8254ff4313d50f6a218dc4d8ec46"
+    },
+    {
+      "path": "botanical_canopy/desktopMark.png",
+      "bytes": 2943,
+      "sha256": "cc83a5eddfde5b9fc0abb44e0e333171b4eaf44f22063dbbaa5c62178f9f117e"
+    },
+    {
+      "path": "botanical_canopy/detected.png",
+      "bytes": 2599,
+      "sha256": "5420e3fae51d133bb4881ceb18ef6f6210c6efb1d234af98b75db9f61cca0e96"
+    },
+    {
+      "path": "botanical_canopy/make.png",
+      "bytes": 57834,
+      "sha256": "ca2b50312cccf784997aba087a73e50cb15c2227312cae7d3ca0ecdd0e2bfb1d"
+    },
+    {
+      "path": "botanical_canopy/maximize.png",
+      "bytes": 3378,
+      "sha256": "52a165f508b98ccbc24e98f3b7c1ffbb219d318eeb013651f280cc3721c537a5"
+    },
+    {
+      "path": "botanical_canopy/minimize.png",
+      "bytes": 3007,
+      "sha256": "b7ff533dbb6821e8fde8c78a85d862706cef2c353ca1fd8a9e8dcb99ed60f043"
+    },
+    {
+      "path": "botanical_canopy/name.png",
+      "bytes": 39403,
+      "sha256": "70a9e28398ab474717b73da529f85aeb0820ae7afcce288e5161a84df67423b9"
+    },
+    {
+      "path": "botanical_canopy/saved.png",
+      "bytes": 40502,
+      "sha256": "d47ad29b3c7d6bc03d7643fe57bd636247dd6133264e1c6a320f99dc8d94e200"
+    },
+    {
+      "path": "botanical_canopy/sidebarChoice.png",
+      "bytes": 14387,
+      "sha256": "d14e4cf8a5a181a91b254eca7fe6b8a0445e3b0a3dd5746a32eac869c662bb69"
+    },
+    {
+      "path": "botanical_canopy/sidebarProject.png",
+      "bytes": 20924,
+      "sha256": "b736f86abd611f9f89affd17d022aaf56066860d1096c9bbfb755c927759fa3e"
+    },
+    {
+      "path": "botanical_canopy/sidebarSaved.png",
+      "bytes": 13389,
+      "sha256": "8b06607e94e86a9551bcbd77fd02069a70df42ed29bc70fc29f31ef50e7e102d"
+    },
+    {
+      "path": "botanical_canopy/source.png",
+      "bytes": 30315,
+      "sha256": "d2916aa1533081f379e7105eb40a2f10f0e4e8aaff9ac3d95c7b98d7e3a1ad23"
+    },
+    {
+      "path": "botanical_canopy/web.png",
+      "bytes": 33055,
+      "sha256": "bc125adaa7e0702ff53e1751e55a7c6247d7f49861aea16a8e0239c2948dc557"
+    },
+    {
+      "path": "botanical_canopy/webMark.png",
+      "bytes": 2024,
+      "sha256": "1e14046636051303733c3a04fcf96b90299d240eddb33cf4ebd604f8cf2d302c"
+    },
+    {
+      "path": "citrus_circuit/art.png",
+      "bytes": 1686584,
+      "sha256": "f462d9f759ee34565fc2c8ff63438afbe3532ae24e5cd83b736fc09d84cb9ab1"
+    },
+    {
+      "path": "citrus_circuit/browse.png",
+      "bytes": 7358,
+      "sha256": "08d374d625994154c4908fd21c9f595cb9083eab4ffbb3806c52bb1a2fd8baa8"
+    },
+    {
+      "path": "citrus_circuit/close.png",
+      "bytes": 5704,
+      "sha256": "42b1fecd44ca0ed4239c9ee2964b371ad20824fff69fd3908cbb39510ce1b35c"
+    },
+    {
+      "path": "citrus_circuit/desktop.png",
+      "bytes": 29406,
+      "sha256": "0e5cfdc0f3ab8a6d57d6edb2e864c32fdbfee2f65db19ac8db6acc49654ebdc8"
+    },
+    {
+      "path": "citrus_circuit/desktopMark.png",
+      "bytes": 2814,
+      "sha256": "fa31abccef414a9cafd71751f2ed8f4252f6594fafa96e94ef6a67dcc665c18a"
+    },
+    {
+      "path": "citrus_circuit/detected.png",
+      "bytes": 2279,
+      "sha256": "b52fd50ba0f0b76dd03a7fa3a574b5222d7c7a24b1efe3463f39161dae385e73"
+    },
+    {
+      "path": "citrus_circuit/make.png",
+      "bytes": 40839,
+      "sha256": "9930fe5817968ef1d46ef8f2b9343653ba44d0133ba54e19cf28d688810db094"
+    },
+    {
+      "path": "citrus_circuit/maximize.png",
+      "bytes": 3970,
+      "sha256": "33d6499aa6ed5bf3e7590916313db1504fe9900a369469c633d09553e8f5e697"
+    },
+    {
+      "path": "citrus_circuit/minimize.png",
+      "bytes": 3588,
+      "sha256": "9be6cd0d4db7de57ed0b2ef1e8db23d60d3648528458588b49da9b3f5d9a9c8f"
+    },
+    {
+      "path": "citrus_circuit/name.png",
+      "bytes": 19326,
+      "sha256": "b869885228f180867a1e6a37213f891191f4194797c23085c2fac5fdc9420e86"
+    },
+    {
+      "path": "citrus_circuit/saved.png",
+      "bytes": 21670,
+      "sha256": "3bb39e17ac51476a3b054f05d90b75aacaedc2265e961c8d2ff33dc22c2b651f"
+    },
+    {
+      "path": "citrus_circuit/source.png",
+      "bytes": 18935,
+      "sha256": "bb51798092b609c00497f469e2f2df05fcb48bbd896a8f6b2220cc2c2ebb8f9c"
+    },
+    {
+      "path": "citrus_circuit/web.png",
+      "bytes": 26942,
+      "sha256": "6bdb0112419dd1fe85af40fd41ded712aab2cf572e326a48dbb9482b35038ad9"
+    },
+    {
+      "path": "citrus_circuit/webMark.png",
+      "bytes": 1934,
+      "sha256": "0f007a5487608fcde2292ad4d5f3f07695bd4866f4e34fa47e83ed560011bc6f"
+    },
+    {
+      "path": "cobalt_hydro/art.png",
+      "bytes": 1553702,
+      "sha256": "9f26bdbd50ec26e5129717484b74cb44a58628266e7baf352af62d7f666f8bbe"
+    },
+    {
+      "path": "cobalt_hydro/browse.png",
+      "bytes": 10291,
+      "sha256": "8761bccfb168bb850f791d336449af962753c01650f2bbb520509fd4754ecca8"
+    },
+    {
+      "path": "cobalt_hydro/close.png",
+      "bytes": 6063,
+      "sha256": "9865b3d14566017aafeda65e085fee3498ac73a22d6ea67ad420e8adf9b2da6c"
+    },
+    {
+      "path": "cobalt_hydro/desktop.png",
+      "bytes": 37962,
+      "sha256": "9f45b993020ac03fdffc30fd95b88d9f171c63184825a8c662315b681afc3017"
+    },
+    {
+      "path": "cobalt_hydro/desktopMark.png",
+      "bytes": 3423,
+      "sha256": "ec7f9c4bbee44ab36ad5b83a55e951b11188fd48d1c62af3fa59c298a7771a75"
+    },
+    {
+      "path": "cobalt_hydro/detected.png",
+      "bytes": 2351,
+      "sha256": "d895eab52fbb449bca05a6f4988dcc08ddfcef9ff627cb6f5204e9948c2c9d3f"
+    },
+    {
+      "path": "cobalt_hydro/make.png",
+      "bytes": 41256,
+      "sha256": "47d1596488213c7842d6fc3afb96fbbbd5099a7b17d6ce49bace3c7b73c3cdac"
+    },
+    {
+      "path": "cobalt_hydro/maximize.png",
+      "bytes": 3931,
+      "sha256": "84b7a28d8668013725e349fcfe9a2d53b6cb63510c95d8941034c316e059ca5e"
+    },
+    {
+      "path": "cobalt_hydro/minimize.png",
+      "bytes": 3618,
+      "sha256": "2b997cfae99ad02d5eaa765a5f2289b7977102ab86985208d4e0da7ca5176d84"
+    },
+    {
+      "path": "cobalt_hydro/name.png",
+      "bytes": 41333,
+      "sha256": "5eb2d509b986891b0ade604fcb3d4ea131203436de09415cbb9e25f1b8824e57"
+    },
+    {
+      "path": "cobalt_hydro/saved.png",
+      "bytes": 38692,
+      "sha256": "282722b86deb0d4dbf9d7d9d6c400f9a88d357dcbbb27a262be96475ce740c54"
+    },
+    {
+      "path": "cobalt_hydro/source.png",
+      "bytes": 56151,
+      "sha256": "ec8ce9fb893019b109d5c96cb1d62f823c4c1bbabb2a0b487dfc7f884f299fec"
+    },
+    {
+      "path": "cobalt_hydro/web.png",
+      "bytes": 42339,
+      "sha256": "ebcccc8651e8b7867be714b5665c34688eb5bb2f76f0442f65336598fb7f9db3"
+    },
+    {
+      "path": "cobalt_hydro/webMark.png",
+      "bytes": 3240,
+      "sha256": "5a675326769aa751cd1f6384717efd07417e15b07cacf24927aa240045f1d04b"
+    },
+    {
+      "path": "glacial_quartz/art.png",
+      "bytes": 1488173,
+      "sha256": "1ffbe53599e3db6bb9ecf78f869de43a0d09cd64236aae4b8d4c2eea1222a793"
+    },
+    {
+      "path": "glacial_quartz/browse.png",
+      "bytes": 8756,
+      "sha256": "fffabbb0d55805c089415681b2a593bc5d9222b77c2db284b94ef16b163702fd"
+    },
+    {
+      "path": "glacial_quartz/close.png",
+      "bytes": 5323,
+      "sha256": "574272d89ced0cf87878ef71d1d79a02706329c93b34994c246aa431926185a0"
+    },
+    {
+      "path": "glacial_quartz/desktop.png",
+      "bytes": 33641,
+      "sha256": "bcea5a69e8ba9cb56977aee60069c1e281dd0c6ddac29722aba3ea319ffe326f"
+    },
+    {
+      "path": "glacial_quartz/desktopMark.png",
+      "bytes": 2835,
+      "sha256": "76531faf0a67c4d10357b2ef871ac758241edc7e676a8937a89c1344f3131945"
+    },
+    {
+      "path": "glacial_quartz/detected.png",
+      "bytes": 2926,
+      "sha256": "a984887b951684974f22b2cbdc4a8333c4c1d914b2cc5a6969abd762fd4c3da1"
+    },
+    {
+      "path": "glacial_quartz/make.png",
+      "bytes": 42949,
+      "sha256": "5d67c63eed74576ddfc31a5f77c94bf75161f07c3abe4e672e04ed84cc20a5e3"
+    },
+    {
+      "path": "glacial_quartz/maximize.png",
+      "bytes": 3493,
+      "sha256": "49e935924c2d18041152f21c4b41c45f64063f3151ab98cb0248e81d0de9620e"
+    },
+    {
+      "path": "glacial_quartz/minimize.png",
+      "bytes": 3068,
+      "sha256": "ebdb5e83b071dfb19dde29de40ed0af077f6ffd5d0ea133b7a1fe82d5903c816"
+    },
+    {
+      "path": "glacial_quartz/name.png",
+      "bytes": 44748,
+      "sha256": "c12d7c3d3708171d27b589edd9f91866fc31ea40ea897797a4a46b375bcc4f99"
+    },
+    {
+      "path": "glacial_quartz/saved.png",
+      "bytes": 33714,
+      "sha256": "cb294559d71068ebc468133de7de08f13d350569e0008c15839655c76d8142e5"
+    },
+    {
+      "path": "glacial_quartz/source.png",
+      "bytes": 35548,
+      "sha256": "c0f158502ab935d6755460b7be1ae205ceac182ad2ea792d864046a5aebd700f"
+    },
+    {
+      "path": "glacial_quartz/web.png",
+      "bytes": 33631,
+      "sha256": "3a8cfa5eed9383bf51b5c33e80f4498079fbe56e1489c5b7b021ced84ca3567f"
+    },
+    {
+      "path": "glacial_quartz/webMark.png",
+      "bytes": 2284,
+      "sha256": "3205a7e6ca2db0b64895bcdc4ccce51926e3802b205f6ce45838a937fac13206"
+    },
+    {
+      "path": "meadow_os/art.png",
+      "bytes": 1752912,
+      "sha256": "ce36e8da51e15374b6864b38172f79deacfb0db85828fbca727d2f7cb4ebeb77"
+    },
+    {
+      "path": "meadow_os/browse.png",
+      "bytes": 7462,
+      "sha256": "f9bdf859640b4cd3ac1826706e03263fbf44bb23687b29ba17deae9e65849e21"
+    },
+    {
+      "path": "meadow_os/close.png",
+      "bytes": 5224,
+      "sha256": "eee8b5b00ee5df7c9328d1117269b316cd265529d136bf46b97c3668333bbd3b"
+    },
+    {
+      "path": "meadow_os/desktop.png",
+      "bytes": 32903,
+      "sha256": "510c11dfdd152b9a99a12fb6f0887dd368ebd836e072cf3eb1d6fae393f454bd"
+    },
+    {
+      "path": "meadow_os/desktopMark.png",
+      "bytes": 4278,
+      "sha256": "b057464e78eeb31941c17fa20b19cdd0c8effab797f100ca5ea366b0a6136b14"
+    },
+    {
+      "path": "meadow_os/detected.png",
+      "bytes": 3921,
+      "sha256": "58112e7ac96b80bad3957e89cb92fa838773ae56a0dda599f3b9f28dd2078883"
+    },
+    {
+      "path": "meadow_os/make.png",
+      "bytes": 46843,
+      "sha256": "bfb42e2ac6abbe68d5a40c15ac4460be06696d855de4eab4b427504f35ee9ee1"
+    },
+    {
+      "path": "meadow_os/maximize.png",
+      "bytes": 3659,
+      "sha256": "56239e73229f5c02356d8486e91b92b4b4732d94c06990ca36a7535727d4ba44"
+    },
+    {
+      "path": "meadow_os/minimize.png",
+      "bytes": 2887,
+      "sha256": "02776e4b0688b6fd5de7292c21b545f8497afc22dcf6691baed4834c56d85d75"
+    },
+    {
+      "path": "meadow_os/name.png",
+      "bytes": 22273,
+      "sha256": "c5bc7358a0eb13c2741e046decb1cf1858b52e503345d9e3a6103a58b5931252"
+    },
+    {
+      "path": "meadow_os/saved.png",
+      "bytes": 27236,
+      "sha256": "a6958c06c7654e48e87d7db6cbd7144ccdd758105bcdfb5650f4ece0b4b9b162"
+    },
+    {
+      "path": "meadow_os/source.png",
+      "bytes": 30947,
+      "sha256": "f2cc6a562528c717b496c717209e682ad47fcacbd4c73fb8da65f4696665b309"
+    },
+    {
+      "path": "meadow_os/web.png",
+      "bytes": 29373,
+      "sha256": "d3dcf468a42f6f63a74d4485b78930b95a7c92230f0fb3e27f8235f92c942ccf"
+    },
+    {
+      "path": "meadow_os/webMark.png",
+      "bytes": 3064,
+      "sha256": "aa1c4d85bdf84b2f267464f622b61dff3ba38ab5d0b0454dd815387b96951e82"
+    },
+    {
+      "path": "midnight_tide/art.png",
+      "bytes": 1392021,
+      "sha256": "0de3be6f0821aa295342c4890d0d313fc484630397b2b82505de6a15b48966c2"
+    },
+    {
+      "path": "midnight_tide/browse.png",
+      "bytes": 11515,
+      "sha256": "669084b0b82f6a11ecd65c6f8531af6e6d3ace4e5c443d8089d4c745725ef901"
+    },
+    {
+      "path": "midnight_tide/close.png",
+      "bytes": 3634,
+      "sha256": "0b76a319638f6b46881841c0730c037e7fb902c36d5ce5960ba2696bb1060ce8"
+    },
+    {
+      "path": "midnight_tide/desktop.png",
+      "bytes": 32604,
+      "sha256": "855bca43862f0edabe18758dcabe7840c5b259c6f77a3a7c1ea88ce5864c8a9e"
+    },
+    {
+      "path": "midnight_tide/desktopMark.png",
+      "bytes": 3380,
+      "sha256": "f38a33f809b59a9d9988eb1568e9351630552d62a5d10962ea5ff09180922f05"
+    },
+    {
+      "path": "midnight_tide/detected.png",
+      "bytes": 3274,
+      "sha256": "fa01ec6b3b89a08567e4345a7c6feb995992548f7875bbbaf23d361f6f317bc1"
+    },
+    {
+      "path": "midnight_tide/make.png",
+      "bytes": 43781,
+      "sha256": "d5448ada8f0f1a60afc6ec5399b3b97113581c62fc5a804d8eafa3f7bedc2329"
+    },
+    {
+      "path": "midnight_tide/maximize.png",
+      "bytes": 2917,
+      "sha256": "591a96653932bef4e9ba755366bcf2931343bc97289040e1ee447241f95a08b5"
+    },
+    {
+      "path": "midnight_tide/minimize.png",
+      "bytes": 2494,
+      "sha256": "ab73e5bbb808571e2e972f936120aee188ca8d4198480200d2329084da3c7f9a"
+    },
+    {
+      "path": "midnight_tide/name.png",
+      "bytes": 44123,
+      "sha256": "0e6cf7f01c4937d576729ed814fb447dc15eeb9b2523eaeca80837076d46a359"
+    },
+    {
+      "path": "midnight_tide/saved.png",
+      "bytes": 39329,
+      "sha256": "477a57873927cd90a5a85fbcb85a24812ef9d2ba696018858c000d26c29174e8"
+    },
+    {
+      "path": "midnight_tide/source.png",
+      "bytes": 36307,
+      "sha256": "126d5e29c2dcda3964eee020368f080caa419626fc3bcc45fa882438dec997c0"
+    },
+    {
+      "path": "midnight_tide/web.png",
+      "bytes": 30503,
+      "sha256": "5dee788d5635c02232b73bae7afe2606db6afde331a02a5d39c2a17a17374910"
+    },
+    {
+      "path": "midnight_tide/webMark.png",
+      "bytes": 3118,
+      "sha256": "3fcd6592d499b4c1638ab6cfa99852f77aaec8ed04d153b5acc35d27034b1580"
+    },
+    {
+      "path": "pearl_current/art.png",
+      "bytes": 1544055,
+      "sha256": "5d2a8b8a92f01b7fe854de005191845f8413a6ed02531a0b0a1a78960597e13d"
+    },
+    {
+      "path": "pearl_current/browse.png",
+      "bytes": 12875,
+      "sha256": "880b630169c4007a43b443a5fe189478e05534d073b29d3789c45ed839276364"
+    },
+    {
+      "path": "pearl_current/close.png",
+      "bytes": 5291,
+      "sha256": "50766065f4042f095d6c95110490e89243cb45b65250e3864bcc2600d86b7a2c"
+    },
+    {
+      "path": "pearl_current/desktop.png",
+      "bytes": 32595,
+      "sha256": "3aec5bebb4ba76679247fc1c275976dfce8ae79d2bfc45b66280ef0cd23c2b18"
+    },
+    {
+      "path": "pearl_current/desktopMark.png",
+      "bytes": 3376,
+      "sha256": "d9628612e1358d990caf8dc7cd3aec3c048bef3abdaedd444984964204098a77"
+    },
+    {
+      "path": "pearl_current/detected.png",
+      "bytes": 2803,
+      "sha256": "35ff2d41b6d974803e1db63048d4e189e64f0dbcb57161801a0f8cc8afd3cd17"
+    },
+    {
+      "path": "pearl_current/make.png",
+      "bytes": 87657,
+      "sha256": "9d3fd12ca6dbe6650c6c35e94341fc95bc9f9bdd1f55e5189bab16c3e94189e4"
+    },
+    {
+      "path": "pearl_current/maximize.png",
+      "bytes": 3566,
+      "sha256": "98130514b4cdc3b81a7cda198e2099af22bb343ee048192fbb305a2175ecefb6"
+    },
+    {
+      "path": "pearl_current/minimize.png",
+      "bytes": 2948,
+      "sha256": "9ea70aeb56ef3cc37924b757136271118ef03e9034f6238786deda318ff3ba6f"
+    },
+    {
+      "path": "pearl_current/name.png",
+      "bytes": 42139,
+      "sha256": "a4e9559c9ea092320c9a42fd9d982a73178b3362afcacf69c5fe9be936fe9e5a"
+    },
+    {
+      "path": "pearl_current/saved.png",
+      "bytes": 37617,
+      "sha256": "02d21b16b678dcaf95395fbf5a983cd27cdc74c75fab1729bba590612cfd73e0"
+    },
+    {
+      "path": "pearl_current/source.png",
+      "bytes": 53406,
+      "sha256": "df78c5ef93f95027cbb90b1ffbdf8111a2627cf1a99f661e159d9613a7dfa484"
+    },
+    {
+      "path": "pearl_current/web.png",
+      "bytes": 29956,
+      "sha256": "60985131c2572043138412753c2c62c072730560dc55b682660ae0f1f59e67a1"
+    },
+    {
+      "path": "pearl_current/webMark.png",
+      "bytes": 2896,
+      "sha256": "2b6b844686d267bd0d732279c4665493e6249936aa0d444826e0926ed8759c98"
+    },
+    {
+      "path": "stratosphere/art.png",
+      "bytes": 1362718,
+      "sha256": "01b922852882cddfd27ff7ff69baa5799c18693ceebe0066da088075c3b42a0e"
+    },
+    {
+      "path": "stratosphere/browse.png",
+      "bytes": 16734,
+      "sha256": "b1a73a95592512717631029270713482f1223308703510b0776ee1d7d562fc6e"
+    },
+    {
+      "path": "stratosphere/close.png",
+      "bytes": 4749,
+      "sha256": "f92f3afb280f08489801f0b421abac30a7785ce2ae2fdec7f09fdbe9877f53b7"
+    },
+    {
+      "path": "stratosphere/desktop.png",
+      "bytes": 35695,
+      "sha256": "9bc0d15b86a342a15b38629b09575b4b8c6b0acc982c6e7eac1f4d6c1d054328"
+    },
+    {
+      "path": "stratosphere/desktopMark.png",
+      "bytes": 3026,
+      "sha256": "aba35d897106e769a24aa7614f5f31eca72fdd2d5d5d7a5ae912a7e8860345e5"
+    },
+    {
+      "path": "stratosphere/detected.png",
+      "bytes": 2759,
+      "sha256": "9840700ba2909cd72096e73dc224347b3cfda1ebfc91e37c7c7f45ce0f30ae38"
+    },
+    {
+      "path": "stratosphere/make.png",
+      "bytes": 56978,
+      "sha256": "a2ef7e4af1615434e00b32d51a30c38c9a0ae516bff6bb4fb60d48ecbc4a2449"
+    },
+    {
+      "path": "stratosphere/maximize.png",
+      "bytes": 3765,
+      "sha256": "662d233aaceb2d76815e184603f3d96c5f18f10f629810b12a3155e2dbf67670"
+    },
+    {
+      "path": "stratosphere/minimize.png",
+      "bytes": 3251,
+      "sha256": "60ab21c0636f43e13032db7bca02b0d74705174ffd7fb246cba9e2e55b912a7d"
+    },
+    {
+      "path": "stratosphere/name.png",
+      "bytes": 50716,
+      "sha256": "c279e46b1c44b525565fd7a92aa4b9bc3f278d65baf2539ebe9fc1b2215d9991"
+    },
+    {
+      "path": "stratosphere/saved.png",
+      "bytes": 24016,
+      "sha256": "e349eeb63ba91e963b54fdee2a3b80bdbe6ffafe91612f5a402865ab57d053eb"
+    },
+    {
+      "path": "stratosphere/source.png",
+      "bytes": 49559,
+      "sha256": "909c7939f6a9c0adc4b3a1eded2750e9bd7b30ca4fd0874126feeaad831135ee"
+    },
+    {
+      "path": "stratosphere/web.png",
+      "bytes": 33220,
+      "sha256": "13bbc89c7b00d4d0f12fe6b61fad054a44a2bf048f7a81df3acf365594760f7d"
+    },
+    {
+      "path": "stratosphere/webMark.png",
+      "bytes": 2436,
+      "sha256": "644e080d5a95b8f6b999b8378b28881d1471bed1f6059b1ce09e5888c25926d5"
+    },
+    {
+      "path": "sunset_estuary/art.png",
+      "bytes": 1634839,
+      "sha256": "33b3d5b371d5cc0b9a424441de555342ff7222be5d951730b2e57b86e8006640"
+    },
+    {
+      "path": "sunset_estuary/browse.png",
+      "bytes": 8893,
+      "sha256": "d1399aec9a35c310cd2c1daf39ff1e579649ac23e16816739f9e4771dbe895df"
+    },
+    {
+      "path": "sunset_estuary/close.png",
+      "bytes": 6061,
+      "sha256": "4151b0f9c7496395fa738e8f5a52ce046237f76e70fb1630f556607a2d31b4e1"
+    },
+    {
+      "path": "sunset_estuary/desktop.png",
+      "bytes": 37766,
+      "sha256": "0487a4063d6c3c0ebe44cdaf4a34d804fe6b7f94161cb2e7c1d3f0acfeaaf112"
+    },
+    {
+      "path": "sunset_estuary/desktopMark.png",
+      "bytes": 2834,
+      "sha256": "4c1d3f39696157c8fcf5ccbf10834649989b9ab0494abe62e138741117bba79e"
+    },
+    {
+      "path": "sunset_estuary/detected.png",
+      "bytes": 2803,
+      "sha256": "6355cf1e305c5a0d4d465c353db0a779e9b61a4829aa7982f51b96994ab7fbfb"
+    },
+    {
+      "path": "sunset_estuary/make.png",
+      "bytes": 48336,
+      "sha256": "526a34ec489f98fcee6f4d9889bb0ab8c7dd16758e2fca6ac69b15c7abf9139e"
+    },
+    {
+      "path": "sunset_estuary/maximize.png",
+      "bytes": 2886,
+      "sha256": "4fe2c30ee2a63803cc5f62be7a4ae5f4cd0fc62d64b6bd5f91ca93f3a15a4f5d"
+    },
+    {
+      "path": "sunset_estuary/minimize.png",
+      "bytes": 2476,
+      "sha256": "f953175ed39d7acc9c5d701e09b3aceda91399285be21cdacb1d9696669e3d98"
+    },
+    {
+      "path": "sunset_estuary/name.png",
+      "bytes": 33285,
+      "sha256": "afd63f2bf0b666e4d2ccd5827e616fe99897b1c96e9ef0f59bfb581c38d95d5a"
+    },
+    {
+      "path": "sunset_estuary/saved.png",
+      "bytes": 27971,
+      "sha256": "ba120932e58e762a5e0f572ddf6adf797563ae458e79197bb6a883b74ab046cd"
+    },
+    {
+      "path": "sunset_estuary/source.png",
+      "bytes": 34323,
+      "sha256": "2c16c075c2e4759eb70454537f46f959875834eff2ca338b4f174e5c1e57b8c7"
+    },
+    {
+      "path": "sunset_estuary/web.png",
+      "bytes": 34645,
+      "sha256": "7b3d41a320626d958884817d02b03ee07fc0ea18b2baa3e26d0d92ae40658e58"
+    },
+    {
+      "path": "sunset_estuary/webMark.png",
+      "bytes": 1781,
+      "sha256": "308f3e0faa2da25ada0a4fe32a698c5c10e04384a94710386583c8e9e8fd338f"
+    }
+  ]
+}

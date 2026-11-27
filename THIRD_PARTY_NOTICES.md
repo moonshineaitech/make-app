@@ -23,3 +23,5 @@ The ten Aero scene backgrounds were generated for Make App using the built-in im
 - node-pty 1.1.0 — MIT, Microsoft Corporation; bundled LICENSE and third_party/conpty license apply to native terminal components. https://github.com/microsoft/node-pty
 - xterm.js 6.0.0 and fit addon 0.11.0 — MIT, xterm.js contributors. https://github.com/xtermjs/xterm.js
 - node-addon-api — MIT, Node.js contributors (dependency of node-pty). Package license files are included with distributed dependencies.
+
+The photographic creator materials use the same original generated concepts. Text-free plates were edited using the built-in image-generation tool, then source artwork and control materials were extracted for live HTML controls. Asset hashes and the reconstruction method are in src/ui/assets/photographic/provenance.json.

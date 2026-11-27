@@ -34,68 +34,68 @@
 :root[data-aero=meadow_os][data-theme]{--wallpaper:url('assets/aero/meadow_os.jpg');--canvas:#deeed4;--solid:#fdfff9;--surface:rgba(250,255,247,.96);--subtle:#edf5e6;--ink:#203e2a;--secondary:#3c614a;--muted:#4c6d55;--line:#adc7a8;--accent:#326d00;--accent-soft:#e9f7d7;--accent-line:#7aa544;--button:#397b00;--glass-border:#f0ffdd;--hero:rgba(248,255,243,.9);--chrome:rgba(221,247,211,.95)}
 
 /* Wallpaper remains in the margins; text sits on quiet, high-contrast materials. */
-:root[data-aero] body{background-color:var(--canvas);background-image:var(--wallpaper);background-size:cover;background-position:center top;background-attachment:fixed}
-:root[data-aero] body.is-embedded{background-color:var(--canvas)!important;background-image:var(--wallpaper)!important;background-size:cover}
-:root[data-aero] .creator-shell{max-width:1440px;padding:24px 28px 28px}
-:root[data-aero] .app-header{min-height:66px;margin-bottom:0;padding:10px 18px;border:1px solid var(--glass-border);border-radius:18px 18px 0 0;background:var(--chrome);box-shadow:var(--shadow);backdrop-filter:blur(24px)}
-:root[data-aero] .brand{font-size:23px;letter-spacing:-.4px}
-:root[data-aero] .brand img{width:34px;height:34px;filter:drop-shadow(0 2px 3px #003d6b35)}
-:root[data-aero] .creator-intro{padding:34px 30px 30px;background:var(--hero);backdrop-filter:blur(10px);border-inline:1px solid var(--glass-border)}
-:root[data-aero] h1{font-size:clamp(30px,3.6vw,48px);letter-spacing:-1.4px;font-weight:600;line-height:1.16;text-wrap:balance}
-:root[data-aero] p.intro{margin:10px 0 0;font-size:17px;color:var(--secondary)}
-:root[data-aero] .workspace{border-radius:0 0 20px 20px;border-color:var(--glass-border);background:var(--surface);box-shadow:var(--shadow);backdrop-filter:blur(24px) saturate(1.1)}
-:root[data-aero] .project-section,:root[data-aero] .output-section{padding:25px 28px}
-:root[data-aero] .section-heading h2{font-size:20px;letter-spacing:-.3px}
-:root[data-aero] label:not(.format):not(.sr-only){font-size:16px}
-:root[data-aero] input:not([type=radio]),:root[data-aero] select{font-size:17px}
-:root[data-aero] .folder-row input{font:15px/1.5 var(--mono)}
-:root[data-aero] .step-label{font-family:var(--font);color:var(--secondary)}
-:root[data-aero] .folder-row,:root[data-aero] input:not([type=radio]),:root[data-aero] select{box-shadow:inset 0 2px 4px #193b5010;border-color:var(--line)}
-:root[data-aero] .folder-row input{box-shadow:none;border:0}
-:root[data-aero] .button.secondary,:root[data-aero] .theme-trigger{background:linear-gradient(var(--gloss),transparent 58%),var(--solid);box-shadow:var(--sheen);border-color:var(--line)}
-:root[data-aero] .format{border-radius:14px;background:var(--solid);box-shadow:inset 0 1px 0 var(--glass-border),0 2px 4px #123c4a0a}
-:root[data-aero] .format:has(input:checked){background:linear-gradient(var(--gloss),transparent 55%),var(--accent-soft);border-color:var(--accent-line);box-shadow:inset 0 1px 0 var(--glass-border),inset 0 0 0 1px var(--accent-line),0 3px 9px #123b4b15}
-:root[data-aero] .format-icon{background:var(--solid);color:var(--accent);border-color:var(--accent-line);box-shadow:inset 0 1px 0 var(--glass-border)}
-:root[data-aero] .format strong{font-size:17px}
-:root[data-aero] .format:has(input:checked) .choice-check{color:var(--solid)}
-:root[data-aero] .review{background:var(--subtle)}
-:root[data-aero] .review-title h2{font-size:15px}
-:root[data-aero] .creation-bar{background:var(--chrome);border-color:var(--glass-border);box-shadow:var(--shadow);backdrop-filter:blur(24px);border-radius:20px;padding:17px 20px;margin-top:18px}
-:root[data-aero] #make{border-radius:28px;min-height:54px;min-width:190px;font-size:18px;font-weight:650;background:linear-gradient(#ffffff42,transparent 49%,#00000012 50%,transparent),var(--button);border:1px solid var(--accent-line);box-shadow:inset 0 1px 1px #ffffffd9,inset 0 0 0 2px #ffffff30,0 4px 10px #003b5030;color:var(--button-ink)}
-:root[data-aero] #make:hover:not(:disabled){filter:brightness(1.09);box-shadow:inset 0 1px 1px #fff,inset 0 0 0 2px #ffffff30,0 5px 18px #003b5040}
-:root[data-aero] #make:disabled{background:var(--solid);color:var(--secondary);border-color:var(--line);opacity:.8;box-shadow:none;filter:none}
-:root[data-aero] .app-footer{margin-top:18px;padding:12px 18px;background:var(--hero);border:1px solid var(--glass-border);border-radius:12px;backdrop-filter:blur(16px)}
-:root[data-aero] .execution-note{background:var(--hero);border-radius:10px;padding:10px 16px;max-width:none;color:var(--secondary);backdrop-filter:blur(16px)}
-:root[data-aero] .preview-note{margin:0;border-radius:0;border-inline:1px solid var(--glass-border);background:var(--solid);color:var(--secondary)}
-:root[data-aero] .result-area:not(:has(.status:empty)){background:var(--solid);border:1px solid var(--line);border-radius:12px;padding:16px}
-:root[data-aero] details{background:var(--solid);border:1px solid var(--line);border-radius:12px;padding:0 16px}
-:root[data-aero] .output-section{background:color-mix(in srgb,var(--accent-soft) 24%,transparent)}
-:root[data-aero=botanical_canopy][data-theme] .app-header{border-left:6px solid #78a93b}
-:root[data-aero=botanical_canopy][data-theme] .creator-intro{border-left:6px solid #78a93b;padding-left:23px}
-:root[data-aero=pearl_current][data-theme] .workspace{border-radius:0 0 28px 28px}
-:root[data-aero=pearl_current][data-theme] .format,:root[data-aero=pearl_current][data-theme] .creation-bar{border-radius:22px}
-:root[data-aero=cobalt_hydro][data-theme] .output-section{background:var(--accent-soft)}
-:root[data-aero=glacial_quartz][data-theme] .workspace{gap:14px;background:transparent;border:0;box-shadow:none;backdrop-filter:none;overflow:visible}
-:root[data-aero=glacial_quartz][data-theme] .project-section,:root[data-aero=glacial_quartz][data-theme] .output-section,:root[data-aero=glacial_quartz][data-theme] .review{border:1px solid var(--glass-border);border-radius:20px;background:var(--surface);backdrop-filter:blur(20px);box-shadow:var(--shadow)}
-:root[data-aero=glacial_quartz][data-theme] .creator-intro{border:1px solid var(--glass-border);border-radius:0 0 20px 20px;margin-bottom:14px}
-:root[data-aero=meadow_os][data-theme] .creator-intro{padding-block:40px}
-:root[data-aero=midnight_tide][data-theme] .creator-intro,:root[data-aero=aurora_lake][data-theme] .creator-intro{background:var(--hero)}
+:root[data-aero]:not([data-photo]) body{background-color:var(--canvas);background-image:var(--wallpaper);background-size:cover;background-position:center top;background-attachment:fixed}
+:root[data-aero]:not([data-photo]) body.is-embedded{background-color:var(--canvas)!important;background-image:var(--wallpaper)!important;background-size:cover}
+:root[data-aero]:not([data-photo]) .creator-shell{max-width:1440px;padding:24px 28px 28px}
+:root[data-aero]:not([data-photo]) .app-header{min-height:66px;margin-bottom:0;padding:10px 18px;border:1px solid var(--glass-border);border-radius:18px 18px 0 0;background:var(--chrome);box-shadow:var(--shadow);backdrop-filter:blur(24px)}
+:root[data-aero]:not([data-photo]) .brand{font-size:23px;letter-spacing:-.4px}
+:root[data-aero]:not([data-photo]) .brand img{width:34px;height:34px;filter:drop-shadow(0 2px 3px #003d6b35)}
+:root[data-aero]:not([data-photo]) .creator-intro{padding:34px 30px 30px;background:var(--hero);backdrop-filter:blur(10px);border-inline:1px solid var(--glass-border)}
+:root[data-aero]:not([data-photo]) h1{font-size:clamp(30px,3.6vw,48px);letter-spacing:-1.4px;font-weight:600;line-height:1.16;text-wrap:balance}
+:root[data-aero]:not([data-photo]) p.intro{margin:10px 0 0;font-size:17px;color:var(--secondary)}
+:root[data-aero]:not([data-photo]) .workspace{border-radius:0 0 20px 20px;border-color:var(--glass-border);background:var(--surface);box-shadow:var(--shadow);backdrop-filter:blur(24px) saturate(1.1)}
+:root[data-aero]:not([data-photo]) .project-section,:root[data-aero]:not([data-photo]) .output-section{padding:25px 28px}
+:root[data-aero]:not([data-photo]) .section-heading h2{font-size:20px;letter-spacing:-.3px}
+:root[data-aero]:not([data-photo]) label:not(.format):not(.sr-only){font-size:16px}
+:root[data-aero]:not([data-photo]) input:not([type=radio]),:root[data-aero]:not([data-photo]) select{font-size:17px}
+:root[data-aero]:not([data-photo]) .folder-row input{font:15px/1.5 var(--mono)}
+:root[data-aero]:not([data-photo]) .step-label{font-family:var(--font);color:var(--secondary)}
+:root[data-aero]:not([data-photo]) .folder-row,:root[data-aero]:not([data-photo]) input:not([type=radio]),:root[data-aero]:not([data-photo]) select{box-shadow:inset 0 2px 4px #193b5010;border-color:var(--line)}
+:root[data-aero]:not([data-photo]) .folder-row input{box-shadow:none;border:0}
+:root[data-aero]:not([data-photo]) .button.secondary,:root[data-aero]:not([data-photo]) .theme-trigger{background:linear-gradient(var(--gloss),transparent 58%),var(--solid);box-shadow:var(--sheen);border-color:var(--line)}
+:root[data-aero]:not([data-photo]) .format{border-radius:14px;background:var(--solid);box-shadow:inset 0 1px 0 var(--glass-border),0 2px 4px #123c4a0a}
+:root[data-aero]:not([data-photo]) .format:has(input:checked){background:linear-gradient(var(--gloss),transparent 55%),var(--accent-soft);border-color:var(--accent-line);box-shadow:inset 0 1px 0 var(--glass-border),inset 0 0 0 1px var(--accent-line),0 3px 9px #123b4b15}
+:root[data-aero]:not([data-photo]) .format-icon{background:var(--solid);color:var(--accent);border-color:var(--accent-line);box-shadow:inset 0 1px 0 var(--glass-border)}
+:root[data-aero]:not([data-photo]) .format strong{font-size:17px}
+:root[data-aero]:not([data-photo]) .format:has(input:checked) .choice-check{color:var(--solid)}
+:root[data-aero]:not([data-photo]) .review{background:var(--subtle)}
+:root[data-aero]:not([data-photo]) .review-title h2{font-size:15px}
+:root[data-aero]:not([data-photo]) .creation-bar{background:var(--chrome);border-color:var(--glass-border);box-shadow:var(--shadow);backdrop-filter:blur(24px);border-radius:20px;padding:17px 20px;margin-top:18px}
+:root[data-aero]:not([data-photo]) #make{border-radius:28px;min-height:54px;min-width:190px;font-size:18px;font-weight:650;background:linear-gradient(#ffffff42,transparent 49%,#00000012 50%,transparent),var(--button);border:1px solid var(--accent-line);box-shadow:inset 0 1px 1px #ffffffd9,inset 0 0 0 2px #ffffff30,0 4px 10px #003b5030;color:var(--button-ink)}
+:root[data-aero]:not([data-photo]) #make:hover:not(:disabled){filter:brightness(1.09);box-shadow:inset 0 1px 1px #fff,inset 0 0 0 2px #ffffff30,0 5px 18px #003b5040}
+:root[data-aero]:not([data-photo]) #make:disabled{background:var(--solid);color:var(--secondary);border-color:var(--line);opacity:.8;box-shadow:none;filter:none}
+:root[data-aero]:not([data-photo]) .app-footer{margin-top:18px;padding:12px 18px;background:var(--hero);border:1px solid var(--glass-border);border-radius:12px;backdrop-filter:blur(16px)}
+:root[data-aero]:not([data-photo]) .execution-note{background:var(--hero);border-radius:10px;padding:10px 16px;max-width:none;color:var(--secondary);backdrop-filter:blur(16px)}
+:root[data-aero]:not([data-photo]) .preview-note{margin:0;border-radius:0;border-inline:1px solid var(--glass-border);background:var(--solid);color:var(--secondary)}
+:root[data-aero]:not([data-photo]) .result-area:not(:has(.status:empty)){background:var(--solid);border:1px solid var(--line);border-radius:12px;padding:16px}
+:root[data-aero]:not([data-photo]) details{background:var(--solid);border:1px solid var(--line);border-radius:12px;padding:0 16px}
+:root[data-aero]:not([data-photo]) .output-section{background:color-mix(in srgb,var(--accent-soft) 24%,transparent)}
+:root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .app-header{border-left:6px solid #78a93b}
+:root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .creator-intro{border-left:6px solid #78a93b;padding-left:23px}
+:root[data-aero=pearl_current][data-theme]:not([data-photo]) .workspace{border-radius:0 0 28px 28px}
+:root[data-aero=pearl_current][data-theme]:not([data-photo]) .format,:root[data-aero=pearl_current][data-theme]:not([data-photo]) .creation-bar{border-radius:22px}
+:root[data-aero=cobalt_hydro][data-theme]:not([data-photo]) .output-section{background:var(--accent-soft)}
+:root[data-aero=glacial_quartz][data-theme]:not([data-photo]) .workspace{gap:14px;background:transparent;border:0;box-shadow:none;backdrop-filter:none;overflow:visible}
+:root[data-aero=glacial_quartz][data-theme]:not([data-photo]) .project-section,:root[data-aero=glacial_quartz][data-theme]:not([data-photo]) .output-section,:root[data-aero=glacial_quartz][data-theme]:not([data-photo]) .review{border:1px solid var(--glass-border);border-radius:20px;background:var(--surface);backdrop-filter:blur(20px);box-shadow:var(--shadow)}
+:root[data-aero=glacial_quartz][data-theme]:not([data-photo]) .creator-intro{border:1px solid var(--glass-border);border-radius:0 0 20px 20px;margin-bottom:14px}
+:root[data-aero=meadow_os][data-theme]:not([data-photo]) .creator-intro{padding-block:40px}
+:root[data-aero=midnight_tide][data-theme]:not([data-photo]) .creator-intro,:root[data-aero=aurora_lake][data-theme]:not([data-photo]) .creator-intro{background:var(--hero)}
 @media(min-width:1100px){
-  :root[data-aero=citrus_circuit][data-theme] .workspace{grid-template-columns:1.1fr 1.1fr .85fr}
-  :root[data-aero=citrus_circuit][data-theme] .review{grid-column:auto;border-top:0;border-left:1px solid var(--line);padding:25px 22px}
-  :root[data-aero=citrus_circuit][data-theme] .review dl{grid-template-columns:1fr;gap:14px}
-  :root[data-aero=aurora_lake][data-theme] .workspace{grid-template-columns:1fr}
-  :root[data-aero=aurora_lake][data-theme] .project-section{display:grid;grid-template-columns:1fr 1fr;column-gap:28px;border-right:0;border-bottom:1px solid var(--line)}
-  :root[data-aero=aurora_lake][data-theme] .project-section .section-heading{grid-column:1/-1;margin-bottom:0}
-  :root[data-aero=aurora_lake][data-theme] .project-section>label,:root[data-aero=aurora_lake][data-theme] .folder-row{grid-column:1}
-  :root[data-aero=aurora_lake][data-theme] .saved-field{grid-column:2;grid-row:2/4;margin:0;align-self:end}
-  :root[data-aero=aurora_lake][data-theme] #entry-area,:root[data-aero=aurora_lake][data-theme] .detection,:root[data-aero=aurora_lake][data-theme] .field-note{grid-column:1/-1}
-  :root[data-aero=aurora_lake][data-theme] .output-section{display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
-  :root[data-aero=aurora_lake][data-theme] .output-section .section-heading{grid-column:1/-1}
-  :root[data-aero=aurora_lake][data-theme] .output-section fieldset{grid-column:1;grid-row:2/4;grid-template-columns:1fr 1fr}
-  :root[data-aero=aurora_lake][data-theme] .output-section label[for=name]{grid-column:2;grid-row:2;margin-top:0}
-  :root[data-aero=aurora_lake][data-theme] #name{grid-column:2;grid-row:3}
-  :root[data-aero=aurora_lake][data-theme] .output-section .field-note{grid-row:4}
+  :root[data-aero=citrus_circuit][data-theme]:not([data-photo]) .workspace{grid-template-columns:1.1fr 1.1fr .85fr}
+  :root[data-aero=citrus_circuit][data-theme]:not([data-photo]) .review{grid-column:auto;border-top:0;border-left:1px solid var(--line);padding:25px 22px}
+  :root[data-aero=citrus_circuit][data-theme]:not([data-photo]) .review dl{grid-template-columns:1fr;gap:14px}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .workspace{grid-template-columns:1fr}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .project-section{display:grid;grid-template-columns:1fr 1fr;column-gap:28px;border-right:0;border-bottom:1px solid var(--line)}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .project-section .section-heading{grid-column:1/-1;margin-bottom:0}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .project-section>label,:root[data-aero=aurora_lake][data-theme]:not([data-photo]) .folder-row{grid-column:1}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .saved-field{grid-column:2;grid-row:2/4;margin:0;align-self:end}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) #entry-area,:root[data-aero=aurora_lake][data-theme]:not([data-photo]) .detection,:root[data-aero=aurora_lake][data-theme]:not([data-photo]) .field-note{grid-column:1/-1}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .output-section{display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .output-section .section-heading{grid-column:1/-1}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .output-section fieldset{grid-column:1;grid-row:2/4;grid-template-columns:1fr 1fr}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .output-section label[for=name]{grid-column:2;grid-row:2;margin-top:0}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) #name{grid-column:2;grid-row:3}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .output-section .field-note{grid-row:4}
 }
 
 /* A keyboard-accessible, native modal. Thumbnails are the actual bundled scenery. */
@@ -125,38 +125,38 @@
 .classic-controls .button{font-size:14px}
 .classic-controls .button[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft)}
 .theme-status{font-size:13px;color:var(--secondary);margin:18px 0 0;min-height:21px}
-:root[data-aero] body:not(:has(.creator-shell))>main{padding:28px 30px;background:var(--surface);border:1px solid var(--glass-border);border-radius:20px;box-shadow:var(--shadow);backdrop-filter:blur(24px)}
+:root[data-aero]:not([data-photo]) body:not(:has(.creator-shell))>main{padding:28px 30px;background:var(--surface);border:1px solid var(--glass-border);border-radius:20px;box-shadow:var(--shadow);backdrop-filter:blur(24px)}
 @media(max-width:900px){.theme-options{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){
-  :root[data-aero] .creator-shell{padding:16px}
-  :root[data-aero] .app-header{padding:10px 14px;gap:10px}
-  :root[data-aero] .creator-intro{padding:25px 22px}
-  :root[data-aero] .project-section,:root[data-aero] .output-section{padding:23px 22px}
-  :root[data-aero] .creation-bar{padding:16px;position:static}
-  :root[data-aero] .workspace{grid-template-columns:1fr}
-  :root[data-aero] #make{min-width:0;font-size:17px}
+  :root[data-aero]:not([data-photo]) .creator-shell{padding:16px}
+  :root[data-aero]:not([data-photo]) .app-header{padding:10px 14px;gap:10px}
+  :root[data-aero]:not([data-photo]) .creator-intro{padding:25px 22px}
+  :root[data-aero]:not([data-photo]) .project-section,:root[data-aero]:not([data-photo]) .output-section{padding:23px 22px}
+  :root[data-aero]:not([data-photo]) .creation-bar{padding:16px;position:static}
+  :root[data-aero]:not([data-photo]) .workspace{grid-template-columns:1fr}
+  :root[data-aero]:not([data-photo]) #make{min-width:0;font-size:17px}
   .theme-picker{padding:22px;width:calc(100% - 24px);max-height:calc(100dvh - 24px)}
   .theme-picker h2{font-size:25px}.classic-controls{flex-wrap:wrap}.classic-controls>div{flex-basis:100%}
 }
 @media(max-width:420px){
-  :root[data-aero] .creator-shell{padding:10px}
-  :root[data-aero] .app-header .brand{font-size:19px;gap:8px}
-  :root[data-aero] .brand img{width:27px;height:27px}
-  :root[data-aero] .creator-intro{padding:24px 20px}
-  :root[data-aero] h1{font-size:29px;letter-spacing:-.9px}
-  :root[data-aero] p.intro{font-size:16px}
-  :root[data-aero] .project-section,:root[data-aero] .output-section{padding:22px 18px}
-  :root[data-aero] .format{padding:12px;gap:10px}
-  :root[data-aero] .format strong{font-size:15px}
+  :root[data-aero]:not([data-photo]) .creator-shell{padding:10px}
+  :root[data-aero]:not([data-photo]) .app-header .brand{font-size:19px;gap:8px}
+  :root[data-aero]:not([data-photo]) .brand img{width:27px;height:27px}
+  :root[data-aero]:not([data-photo]) .creator-intro{padding:24px 20px}
+  :root[data-aero]:not([data-photo]) h1{font-size:29px;letter-spacing:-.9px}
+  :root[data-aero]:not([data-photo]) p.intro{font-size:16px}
+  :root[data-aero]:not([data-photo]) .project-section,:root[data-aero]:not([data-photo]) .output-section{padding:22px 18px}
+  :root[data-aero]:not([data-photo]) .format{padding:12px;gap:10px}
+  :root[data-aero]:not([data-photo]) .format strong{font-size:15px}
   .theme-trigger{padding:9px 10px;gap:6px}.theme-trigger .i-chevron{display:none}
   .theme-picker{padding:18px}.theme-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .theme-picker-header{gap:12px}.theme-picker h2{font-size:23px}
   .classic-controls{gap:12px}.classic-controls select{min-width:0;width:100%;flex:1 0 100%}.classic-controls .button{width:100%}
 }
 @media(forced-colors:active){
-  :root[data-aero] body,:root[data-aero] body.is-embedded{background:Canvas!important}
-  :root[data-aero] .workspace,:root[data-aero] .creator-intro,:root[data-aero] .app-header,:root[data-aero] .creation-bar{background:Canvas;backdrop-filter:none}
-  :root[data-aero] #make{background:ButtonFace;color:ButtonText;border:1px solid ButtonText;box-shadow:none}
+  :root[data-aero]:not([data-photo]) body,:root[data-aero]:not([data-photo]) body.is-embedded{background:Canvas!important}
+  :root[data-aero]:not([data-photo]) .workspace,:root[data-aero]:not([data-photo]) .creator-intro,:root[data-aero]:not([data-photo]) .app-header,:root[data-aero]:not([data-photo]) .creation-bar{background:Canvas;backdrop-filter:none}
+  :root[data-aero]:not([data-photo]) #make{background:ButtonFace;color:ButtonText;border:1px solid ButtonText;box-shadow:none}
   .theme-choice[aria-pressed=true]{outline:2px solid Highlight}.theme-choice img{forced-color-adjust:none}
 }
 
@@ -172,44 +172,44 @@
 :root[data-aero=sunset_estuary][data-theme]{--ornament:url('assets/aero/glass-pearl.png');--button:#4bcebc;--button-ink:#043e3b}
 :root[data-aero=glacial_quartz][data-theme]{--button:#82ddfb;--button-ink:#0c425b}
 :root[data-aero=meadow_os][data-theme]{--ornament:url('assets/aero/glass-folder.png');--ornament-filter:hue-rotate(-40deg);--button:#a0e532;--button-ink:#284900}
-:root[data-aero] .app-header{background:linear-gradient(#ffffff40,#ffffff05 49%,#0037430a 50%),var(--chrome);box-shadow:inset 0 1px 0 #fffffff0,inset 0 0 0 2px #ffffff25,var(--shadow)}
-:root[data-aero] .creator-intro{position:relative;isolation:isolate;overflow:hidden}
-:root[data-aero] .creator-intro::before{content:'';position:absolute;inset:0;z-index:-1;background-image:var(--wallpaper);background-size:cover;background-position:center 26%;opacity:.36}
-:root[data-aero] .creator-intro::after{content:'';position:absolute;right:30px;top:0;width:210px;height:100%;background:var(--ornament) center/contain no-repeat;filter:var(--ornament-filter);pointer-events:none}
-:root[data-aero] .creator-intro h1,:root[data-aero] .creator-intro p{position:relative;z-index:1;max-width:calc(100% - 215px)}
-:root[data-aero] .folder-row,:root[data-aero] .format,:root[data-aero] input:not([type=radio]),:root[data-aero] select{border-radius:12px;box-shadow:inset 0 1px 1px #ffffff70,inset 0 -2px 3px #0a395010,0 1px 2px #082c4612}
-:root[data-aero] .folder-row input{box-shadow:none}
-:root[data-aero] .format:has(input:checked){box-shadow:inset 0 1px 0 #ffffffc0,inset 0 0 0 1px var(--accent-line),0 3px 10px color-mix(in srgb,var(--accent-line) 28%,transparent)}
-:root[data-aero] .creation-bar{background:linear-gradient(#ffffff25,#ffffff00 48%),var(--chrome);box-shadow:inset 0 1px 0 #ffffffb0,inset 0 0 0 2px #ffffff18,var(--shadow)}
-:root[data-aero] #make{font-size:21px;min-width:250px;min-height:58px;box-shadow:inset 0 2px 2px #ffffffe0,inset 0 0 0 2px #ffffff55,inset 0 -3px 5px #04414b30,0 4px 13px #003b5030}
-:root[data-aero] #make:disabled{box-shadow:none}
-:root[data-aero=aurora_lake][data-theme] .creator-intro::before{opacity:.72;background-position:center 20%}
-:root[data-aero=aurora_lake][data-theme] .creator-intro{min-height:206px;background:#062632}
-:root[data-aero=aurora_lake][data-theme] .creator-intro h1,:root[data-aero=aurora_lake][data-theme] .creator-intro p{text-shadow:0 2px 7px #001b25}
-:root[data-aero=meadow_os][data-theme] .creator-intro{min-height:206px}
+:root[data-aero]:not([data-photo]) .app-header{background:linear-gradient(#ffffff40,#ffffff05 49%,#0037430a 50%),var(--chrome);box-shadow:inset 0 1px 0 #fffffff0,inset 0 0 0 2px #ffffff25,var(--shadow)}
+:root[data-aero]:not([data-photo]) .creator-intro{position:relative;isolation:isolate;overflow:hidden}
+:root[data-aero]:not([data-photo]) .creator-intro::before{content:'';position:absolute;inset:0;z-index:-1;background-image:var(--wallpaper);background-size:cover;background-position:center 26%;opacity:.36}
+:root[data-aero]:not([data-photo]) .creator-intro::after{content:'';position:absolute;right:30px;top:0;width:210px;height:100%;background:var(--ornament) center/contain no-repeat;filter:var(--ornament-filter);pointer-events:none}
+:root[data-aero]:not([data-photo]) .creator-intro h1,:root[data-aero]:not([data-photo]) .creator-intro p{position:relative;z-index:1;max-width:calc(100% - 215px)}
+:root[data-aero]:not([data-photo]) .folder-row,:root[data-aero]:not([data-photo]) .format,:root[data-aero]:not([data-photo]) input:not([type=radio]),:root[data-aero]:not([data-photo]) select{border-radius:12px;box-shadow:inset 0 1px 1px #ffffff70,inset 0 -2px 3px #0a395010,0 1px 2px #082c4612}
+:root[data-aero]:not([data-photo]) .folder-row input{box-shadow:none}
+:root[data-aero]:not([data-photo]) .format:has(input:checked){box-shadow:inset 0 1px 0 #ffffffc0,inset 0 0 0 1px var(--accent-line),0 3px 10px color-mix(in srgb,var(--accent-line) 28%,transparent)}
+:root[data-aero]:not([data-photo]) .creation-bar{background:linear-gradient(#ffffff25,#ffffff00 48%),var(--chrome);box-shadow:inset 0 1px 0 #ffffffb0,inset 0 0 0 2px #ffffff18,var(--shadow)}
+:root[data-aero]:not([data-photo]) #make{font-size:21px;min-width:250px;min-height:58px;box-shadow:inset 0 2px 2px #ffffffe0,inset 0 0 0 2px #ffffff55,inset 0 -3px 5px #04414b30,0 4px 13px #003b5030}
+:root[data-aero]:not([data-photo]) #make:disabled{box-shadow:none}
+:root[data-aero=aurora_lake][data-theme]:not([data-photo]) .creator-intro::before{opacity:.72;background-position:center 20%}
+:root[data-aero=aurora_lake][data-theme]:not([data-photo]) .creator-intro{min-height:206px;background:#062632}
+:root[data-aero=aurora_lake][data-theme]:not([data-photo]) .creator-intro h1,:root[data-aero=aurora_lake][data-theme]:not([data-photo]) .creator-intro p{text-shadow:0 2px 7px #001b25}
+:root[data-aero=meadow_os][data-theme]:not([data-photo]) .creator-intro{min-height:206px}
 @media(min-width:1100px){
-  :root[data-aero=midnight_tide][data-theme] .workspace,:root[data-aero=pearl_current][data-theme] .workspace{grid-template-columns:1.6fr .9fr}
-  :root[data-aero=midnight_tide][data-theme] .project-section,:root[data-aero=pearl_current][data-theme] .project-section{grid-column:1;grid-row:1;border-bottom:1px solid var(--line);border-right:0;padding-block:20px}
-  :root[data-aero=midnight_tide][data-theme] .output-section,:root[data-aero=pearl_current][data-theme] .output-section{grid-column:1;grid-row:2;padding-block:20px}
-  :root[data-aero=midnight_tide][data-theme] .output-section fieldset,:root[data-aero=pearl_current][data-theme] .output-section fieldset{grid-template-columns:1fr 1fr}
-  :root[data-aero=midnight_tide][data-theme] .review,:root[data-aero=pearl_current][data-theme] .review{grid-column:2;grid-row:1/3;border-top:0;border-left:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
-  :root[data-aero=midnight_tide][data-theme] .review dl,:root[data-aero=pearl_current][data-theme] .review dl{grid-template-columns:1fr;gap:17px}
-  :root[data-aero=midnight_tide][data-theme] .review::before,:root[data-aero=pearl_current][data-theme] .review::after{content:'';display:block;width:100%;height:200px;background:var(--ornament) center/contain no-repeat;flex:none}
-  :root[data-aero=midnight_tide][data-theme] .creator-intro::after,:root[data-aero=pearl_current][data-theme] .creator-intro::after{display:none}
-  :root[data-aero=midnight_tide][data-theme] .creator-intro h1,:root[data-aero=pearl_current][data-theme] .creator-intro h1{max-width:none}
-  :root[data-aero=botanical_canopy][data-theme] .creator-shell{display:grid;grid-template-columns:175px minmax(0,1fr);position:relative}
-  :root[data-aero=botanical_canopy][data-theme] .app-header,:root[data-aero=botanical_canopy][data-theme] .preview-note{grid-column:1/-1}
-  :root[data-aero=botanical_canopy][data-theme] .creator-intro,:root[data-aero=botanical_canopy][data-theme] #creator-form,:root[data-aero=botanical_canopy][data-theme] .app-footer,:root[data-aero=botanical_canopy][data-theme] .execution-note{grid-column:2}
-  :root[data-aero=botanical_canopy][data-theme] .creator-shell::before{content:'';position:absolute;left:22px;top:220px;width:175px;height:200px;background:var(--ornament) center/contain no-repeat;filter:var(--ornament-filter)}
-  :root[data-aero=botanical_canopy][data-theme] .creator-intro::after{display:none}
-  :root[data-aero=botanical_canopy][data-theme] .creator-intro h1,:root[data-aero=botanical_canopy][data-theme] .creator-intro p{max-width:none}
+  :root[data-aero=midnight_tide][data-theme]:not([data-photo]) .workspace,:root[data-aero=pearl_current][data-theme]:not([data-photo]) .workspace{grid-template-columns:1.6fr .9fr}
+  :root[data-aero=midnight_tide][data-theme]:not([data-photo]) .project-section,:root[data-aero=pearl_current][data-theme]:not([data-photo]) .project-section{grid-column:1;grid-row:1;border-bottom:1px solid var(--line);border-right:0;padding-block:20px}
+  :root[data-aero=midnight_tide][data-theme]:not([data-photo]) .output-section,:root[data-aero=pearl_current][data-theme]:not([data-photo]) .output-section{grid-column:1;grid-row:2;padding-block:20px}
+  :root[data-aero=midnight_tide][data-theme]:not([data-photo]) .output-section fieldset,:root[data-aero=pearl_current][data-theme]:not([data-photo]) .output-section fieldset{grid-template-columns:1fr 1fr}
+  :root[data-aero=midnight_tide][data-theme]:not([data-photo]) .review,:root[data-aero=pearl_current][data-theme]:not([data-photo]) .review{grid-column:2;grid-row:1/3;border-top:0;border-left:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
+  :root[data-aero=midnight_tide][data-theme]:not([data-photo]) .review dl,:root[data-aero=pearl_current][data-theme]:not([data-photo]) .review dl{grid-template-columns:1fr;gap:17px}
+  :root[data-aero=midnight_tide][data-theme]:not([data-photo]) .review::before,:root[data-aero=pearl_current][data-theme]:not([data-photo]) .review::after{content:'';display:block;width:100%;height:200px;background:var(--ornament) center/contain no-repeat;flex:none}
+  :root[data-aero=midnight_tide][data-theme]:not([data-photo]) .creator-intro::after,:root[data-aero=pearl_current][data-theme]:not([data-photo]) .creator-intro::after{display:none}
+  :root[data-aero=midnight_tide][data-theme]:not([data-photo]) .creator-intro h1,:root[data-aero=pearl_current][data-theme]:not([data-photo]) .creator-intro h1{max-width:none}
+  :root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .creator-shell{display:grid;grid-template-columns:175px minmax(0,1fr);position:relative}
+  :root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .app-header,:root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .preview-note{grid-column:1/-1}
+  :root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .creator-intro,:root[data-aero=botanical_canopy][data-theme]:not([data-photo]) #creator-form,:root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .app-footer,:root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .execution-note{grid-column:2}
+  :root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .creator-shell::before{content:'';position:absolute;left:22px;top:220px;width:175px;height:200px;background:var(--ornament) center/contain no-repeat;filter:var(--ornament-filter)}
+  :root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .creator-intro::after{display:none}
+  :root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .creator-intro h1,:root[data-aero=botanical_canopy][data-theme]:not([data-photo]) .creator-intro p{max-width:none}
 }
 @media(max-width:700px){
-  :root[data-aero] .creator-intro::after{display:none}
-  :root[data-aero] .creator-intro h1,:root[data-aero] .creator-intro p{max-width:none}
-  :root[data-aero] #make{min-width:0;font-size:18px}
-  :root[data-aero=aurora_lake][data-theme] .creator-intro,:root[data-aero=meadow_os][data-theme] .creator-intro{min-height:0}
+  :root[data-aero]:not([data-photo]) .creator-intro::after{display:none}
+  :root[data-aero]:not([data-photo]) .creator-intro h1,:root[data-aero]:not([data-photo]) .creator-intro p{max-width:none}
+  :root[data-aero]:not([data-photo]) #make{min-width:0;font-size:18px}
+  :root[data-aero=aurora_lake][data-theme]:not([data-photo]) .creator-intro,:root[data-aero=meadow_os][data-theme]:not([data-photo]) .creator-intro{min-height:0}
 }
 @media(forced-colors:active){
-  :root[data-aero] .creator-intro::before,:root[data-aero] .creator-intro::after,:root[data-aero] .review::before,:root[data-aero] .review::after,:root[data-aero] .creator-shell::before{display:none}
+  :root[data-aero]:not([data-photo]) .creator-intro::before,:root[data-aero]:not([data-photo]) .creator-intro::after,:root[data-aero]:not([data-photo]) .review::before,:root[data-aero]:not([data-photo]) .review::after,:root[data-aero]:not([data-photo]) .creator-shell::before{display:none}
 }

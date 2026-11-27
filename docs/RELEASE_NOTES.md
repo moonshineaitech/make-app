@@ -1,4 +1,10 @@
-# Make App 0.10.0 — ten atmospheres, one click
+# Make App 0.11.0 — photographic Aero interfaces
+
+The ten selected Aero concepts now use their original scenic artwork, glass frames, pictograms and button materials, with measured 1487 × 1058 layouts. Project paths, saved projects, app names, output choices and creation actions remain real editable controls. Each design retains its own composition, including Botanical’s sidebar, Citrus’s three columns and Pearl’s creation summary.
+
+Click the Make App wordmark or press Alt+T to change themes. The native creator uses the illustrated titlebar with working minimize, maximize/restore and close controls. Click the detected project to review requirements and entry points. Narrow windows, zoom and forced colors retain the responsive form. The website uses the same renderer and clearly labeled samples.
+
+## Previous: Make App 0.10.0 — ten atmospheres, one click
 
 Open **Themes** to choose Midnight Tide, Botanical Canopy, Stratosphere, Pearl Current, Citrus Circuit, Cobalt Hydro, Aurora Lake, Sunset Estuary, Glacial Quartz or Meadow OS. Each appearance includes locally bundled scenery, optical glass materials and a coordinated palette. Classic keeps system, light and dark modes. Existing preferences are preserved; new profiles start in Midnight Tide.
 
