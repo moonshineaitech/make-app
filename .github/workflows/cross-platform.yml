@@ -53,12 +53,13 @@ jobs:
         shell: bash
         run: node scripts/ci-package.cjs
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
         with:
           name: make-app-${{ runner.os }}-${{ runner.arch }}
           path: |
             public-release/*
             qa/desktop-*.json
             qa/cold-start-*.json
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 1
           compression-level: 0

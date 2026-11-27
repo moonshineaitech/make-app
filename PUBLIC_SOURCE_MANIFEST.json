@@ -31,8 +31,8 @@
     },
     {
       "path": ".github/workflows/cross-platform.yml",
-      "bytes": 2260,
-      "sha256": "93d25010f89f18a976ba4b68b53ae4b5e1e3eacf4a636294602e27f9a8050d87"
+      "bytes": 2280,
+      "sha256": "b35139e9605bf77baf560259e77fa9b9426b89ea217ee98c78c26f52d8630f9f"
     },
     {
       "path": ".github/workflows/verify.yml",
@@ -526,8 +526,8 @@
     },
     {
       "path": "scripts/cold-start-acceptance.cjs",
-      "bytes": 3551,
-      "sha256": "a1394ce7efe351b68448ead1a543a1ff991ffc80fb8f268e9b2d6b6dd8e2788d"
+      "bytes": 3973,
+      "sha256": "9b56dfcf4d07871269049fa7ac2b97bf0e174e2fafd79594476204110ab61cae"
     },
     {
       "path": "scripts/desktop-acceptance.cjs",
@@ -696,8 +696,8 @@
     },
     {
       "path": "src/direct-smoke.cjs",
-      "bytes": 2263,
-      "sha256": "8f053761cba158dbd93811e34bb86cb930b78a2699daf038a92d3cf9702339a3"
+      "bytes": 2465,
+      "sha256": "734cc8e239374cda26ca60d5599c8b015d2d8e4aedc42fd55c277f7e64779bbd"
     },
     {
       "path": "src/engine.cjs",
