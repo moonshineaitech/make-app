@@ -92,7 +92,7 @@ On one actual project containing 1,875 files and about 806 MB of source/build co
 
 ## Verification and limits
 
-The current local suite passes 80 regression tests and three plugin tests. Three actual project executables opened their app windows with zero additional setup/approval clicks, then stopped their processes; source fingerprints stayed unchanged. The creator passed automated accessibility checks in both themes at 320, 520 and 900 pixels. A web export rendered at phone/tablet/desktop sizes and reloaded offline after its server stopped. These are browser-engine checks, not physical iPhone/Android or manual screen-reader certification.
+The current local suite passes 82 regression tests and three plugin tests. Three actual project executables opened their app windows with zero additional setup/approval clicks, then stopped their processes; source fingerprints stayed unchanged. The creator passed automated accessibility checks in both themes at 320, 520 and 900 pixels. A web export rendered at phone/tablet/desktop sizes and reloaded offline after its server stopped. These are browser-engine checks, not physical iPhone/Android or manual screen-reader certification.
 
 Read [validation evidence and open gates](docs/VALIDATION.md) and the [native CI runs](https://github.com/moonshineaitech/make-app/actions/workflows/cross-platform.yml). Native build success, unit tests, desktop launch acceptance and physical-device acceptance are reported separately. Compatibility varies by framework. The preview is not a filesystem or network sandbox: project code runs with your account's permissions.
 

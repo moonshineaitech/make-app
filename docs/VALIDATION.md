@@ -4,7 +4,7 @@ Verification records apply to a particular build, source commit and environment.
 
 ## Local Windows evidence
 
-- 80 regression tests passed, with zero skipped tests.
+- 82 regression tests passed, with zero skipped tests.
 - Three plugin protocol/integrity tests passed.
 - Three actual project executables opened their app windows with zero extra setup/approval clicks, then stopped their managed processes. Original source fingerprints remained unchanged. These tests used an intermediate 0.8 development executable; final release binaries are gated independently by native matrix acceptance.
 - The creator passed automated WCAG-tagged checks in light/dark themes at 320, 520 and 900 pixels, without horizontal overflow.

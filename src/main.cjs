@@ -7,6 +7,7 @@ const {pathToFileURL}=require('node:url');
 const {spawn}=require('node:child_process');
 const tcp=require('node:net');
 const core=require('./core.cjs');
+const {isMainFrame,trustedDocument}=require('./ipc-origin.cjs');
 const runtime=require('./runtime.cjs');
 const {ProjectSession}=require('./engine.cjs');
 const managed=require('./managed.cjs');
@@ -159,11 +160,11 @@ async function openDirect(record){
  try{if(record.kind!=='url'){const fresh=await inspect({source:standalone.source,target:standalone.selectedTarget});if(fresh.kind==='selection'||fresh.plan?.configured===false)throw new Error('This project now needs a different entry point. Make its executable again.');Object.assign(record,fresh,{name:standalone.name,runtimeTrusted:true,executionMode:'project'});delete record.originRoot;delete record.originSource;record.version=await core.fingerprint(record.root,{cache:true});}await save();await launch(record.id);if(record.plan?.mode==='native'){const state=running.get(record.id);const child=state?.engine?.children.get('app');child?.once('exit',()=>{closeApp(record.id);app.quit();});}launchProgress.destroy();launchProgress=null;if(process.env.APPDOCK_DIRECT_TEST)await require('./direct-smoke.cjs').run({app,record,state:running.get(record.id),closeApp});}
  catch(error){directError=error;launchProgress?.webContents.send('direct-state',{error:error.message,log:jobs.get(record.id)?.log||''});}
 }
-ipcMain.handle('direct',async(event,method)=>{if(!launchProgress||event.sender!==launchProgress.webContents||event.senderFrame!==event.sender.mainFrame||event.senderFrame.url!==pathToFileURL(path.join(__dirname,'ui/direct.html')).href)throw new Error('Unauthorized app request');if(method==='info')return{name:standalone.name,error:directError?.message,log:jobs.get(standalone.id)?.log||''};if(method==='close'){await jobs.get(standalone.id)?.engine?.stop();closeApp(standalone.id);app.quit();return;}if(method==='retry'){if(!directError)throw new Error('Launch is already in progress');launchProgress.destroy();launchProgress=null;await openDirect(find(standalone.id));return;}throw new Error('Unknown app operation');});
+ipcMain.handle('direct',async(event,method)=>{if(!await trustedDocument(event,launchProgress?.webContents,path.join(__dirname,'ui/direct.html')))throw new Error('Unauthorized app request');if(method==='info')return{name:standalone.name,error:directError?.message,log:jobs.get(standalone.id)?.log||''};if(method==='close'){await jobs.get(standalone.id)?.engine?.stop();closeApp(standalone.id);app.quit();return;}if(method==='retry'){if(!directError)throw new Error('Launch is already in progress');launchProgress.destroy();launchProgress=null;await openDirect(find(standalone.id));return;}throw new Error('Unknown app operation');});
 let creator,creatorBusy=false,createdExecutable,creatorController;
 function showCreator(){if(creator&&!creator.isDestroyed()){creator.show();creator.focus();return;}creator=new BrowserWindow({width:900,height:820,minWidth:440,minHeight:600,title:'Make App',backgroundColor:'#171a20',autoHideMenuBar:true,webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false,preload:path.join(__dirname,'creator-preload.cjs')}});lockSession(creator.webContents.session);creator.webContents.setWindowOpenHandler(()=>({action:'deny'}));creator.webContents.on('will-navigate',event=>event.preventDefault());creator.on('close',()=>creatorController?.abort(new Error('Creation cancelled.')));creator.loadFile(path.join(__dirname,'ui/creator.html'));}
 ipcMain.handle('creator',async(event,method,payload)=>{
- if(!creator||event.sender!==creator.webContents||event.senderFrame!==event.sender.mainFrame||event.senderFrame.url!==pathToFileURL(path.join(__dirname,'ui/creator.html')).href)throw new Error('Unauthorized executable builder request');
+ if(!await trustedDocument(event,creator?.webContents,path.join(__dirname,'ui/creator.html')))throw new Error('Unauthorized executable builder request');
  if(method==='choose'){const result=await dialog.showOpenDialog(creator,{title:'Choose a project',properties:['openDirectory']});return result.canceled?null:result.filePaths[0];}
  if(method==='capabilities')return require('./platform.cjs').capabilities();
  if(method==='cancel'){creatorController?.abort(new Error('Creation cancelled.'));return;}
@@ -189,7 +190,7 @@ async function setup(record,{prepared=false}={}){requireSupervisor();
   await syncVersion(record);if(!record.runtimeTrusted)throw new Error('Approve this runtime version before dependency setup.');
   closeApp(record.id);
   const job={status:'running',type:'setup',controller:new AbortController(),log:'Setting up '+record.name+'…\n',process:null};jobs.set(record.id,job);changed();
-  try{if(record.automatic&&!prepared)await prepareAutomatic(record,text=>logJob(job,text),{forceFresh:true});await require('./setup-key.cjs').detachDependencies(record);if(record.kind==='project'){job.engine=await engine(record,text=>logJob(job,text));await job.engine.tasks(job.engine.plan.setup,'setup');}else await runtime.setup(record,job,text=>logJob(job,text));record.version=await core.fingerprint(versionRoot(record),{cache:!strict});record.needsInstall=false;record.setupKey=await require('./setup-key.cjs').remember(record);record.runtimeTrusted=true;record.grants={};await save();job.status='complete';logJob(job,'Dependencies prepared. Build and launch verification are still required.\n');if(!prepared)await require('./workspaces.cjs').release(record);}
+  try{if(record.automatic&&!prepared)await prepareAutomatic(record,text=>logJob(job,text),{forceFresh:true});await require('./setup-key.cjs').detachDependencies(record);if(record.kind==='project'){job.engine=await engine(record,text=>logJob(job,text));await job.engine.tasks(job.engine.plan.setup,'setup');}else await runtime.setup(record,job,text=>logJob(job,text));record.version=await core.fingerprint(versionRoot(record));record.needsInstall=false;record.setupKey=await require('./setup-key.cjs').remember(record);record.runtimeTrusted=true;record.grants={};await save();job.status='complete';logJob(job,'Dependencies prepared. Build and launch verification are still required.\n');if(!prepared)await require('./workspaces.cjs').release(record);}
   catch(e){await job.engine?.stop();await require('./workspaces.cjs').reject(record,e);stopProcess(job);job.status='failed';job.failure=e.appdockFailure||require('./failures.cjs').classify(e,{phase:'setup',output:job.log});record.lastFailure=job.failure;logJob(job,e.message+'\n');await save();throw e;}finally{changed();}
 }
 async function buildProject(record){
@@ -205,7 +206,7 @@ async function exportApp(record,destination){
 }
 ipcMain.handle('library',async(event,method,payload)=>{
   if(event.sender.isDestroyed())return null;
-  if(!library||library.isDestroyed()||event.sender!==library.webContents||event.senderFrame!==library.webContents.mainFrame)throw new Error('Unauthorized library request.');
+  if(!library||library.isDestroyed()||event.sender!==library.webContents||!isMainFrame(event))throw new Error('Unauthorized library request.');
   if(method==='pendingProject'){const value=pendingProject;pendingProject=null;return value;}
   switch(method){
     case 'list':return records.map(r=>{const job=jobs.get(r.id);return{...r,windowOpen:running.has(r.id),running:r.kind==='project'?!!running.get(r.id)?.engine?.children.size:running.has(r.id),completed:running.get(r.id)?.result?.mode==='tool'&&running.get(r.id)?.result?.code===0,lastError:r.lastError||running.get(r.id)?.engine?.failed?.message,services:running.get(r.id)?.engine?.statuses||{},logs:running.get(r.id)?.logs||'',job:job?{status:job.status,type:job.type,log:job.log,result:job.result,cancellable:!!(job.controller||job.engine||job.process)}:null};});
@@ -246,7 +247,7 @@ ipcMain.handle('library',async(event,method,payload)=>{
 ipcMain.handle('tool',async(event,method,payload)=>{
   const pair=[...running.entries()].find(([_id,s])=>s.win.webContents===event.sender);if(!pair)throw new Error('Unknown tool');
   const[id,state]=pair,record=find(id);
-  if(!['tool','project'].includes(record.kind)||event.senderFrame!==event.sender.mainFrame||event.senderFrame.url!==pathToFileURL(path.join(__dirname,'ui','tool.html')).href)throw new Error('Unauthorized tool request');
+  if(!['tool','project'].includes(record.kind)||!await trustedDocument(event,state.win.webContents,path.join(__dirname,'ui','tool.html')))throw new Error('Unauthorized tool request');
   if(method==='info')return{name:record.name,source:record.source,mode:record.plan?.mode||'tool',terminalSupported:record.kind==='project'&&require('./terminal.cjs').supported(),terminal:record.plan?.terminal===true};
   if(method==='status')return{services:state.engine?.statuses||{},logs:state.logs||'',active:!!state.toolRun||!!state.engine?.children.size};
   if(method==='input'){const child=state.engine?.children.get('app')||state.process;if(typeof payload!=='string'||payload.length>65536)throw new Error('Input must be text up to 64 KB.');if(!child?.stdin?.writable)throw new Error('No running process is accepting input.');await new Promise((resolve,reject)=>child.stdin.write(payload,error=>error?reject(error):resolve()));return;}
@@ -276,7 +277,7 @@ ipcMain.handle('tool',async(event,method,payload)=>{
 ipcMain.handle('native',async(event,method,payload)=>{
   const pair=[...running.entries()].find(([_id,s])=>s.win.webContents===event.sender);if(!pair)throw new Error('Unknown app');
   const [id,state]=pair,record=find(id);
-  if(record.kind!=='static'||event.senderFrame!==event.sender.mainFrame||new URL(event.senderFrame.url).host!==id||new URL(event.senderFrame.url).protocol!=='appdock:')throw new Error('Native bridge is limited to the local app main frame.');
+  if(record.kind!=='static'||!isMainFrame(event)||new URL(event.senderFrame.url).host!==id||new URL(event.senderFrame.url).protocol!=='appdock:')throw new Error('Native bridge is limited to the local app main frame.');
   if(method==='info')return{name:record.name,version:record.version,platform:process.platform};
   if(!['notify','pin','readFile','writeFile','tray'].includes(method))throw new Error('Unknown native capability');
   if(await syncVersion(record)){state.win.setAlwaysOnTop(false);changed();throw new Error('Project updated. Reload before requesting native access.');}

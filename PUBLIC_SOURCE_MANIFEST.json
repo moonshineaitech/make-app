@@ -40,8 +40,8 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 226,
-      "sha256": "42ec88f49d5553e3916d78f7b36a9553396044524b3ceacada5835a4e898ba08"
+      "bytes": 262,
+      "sha256": "93d22ed71ba4a0d3153078de113f60a44fa67a6d408f51cc2f19ba6592263659"
     },
     {
       "path": "ADAPTERS.md",
@@ -71,7 +71,7 @@
     {
       "path": "README.md",
       "bytes": 11451,
-      "sha256": "0cb948db638a18eb92cf61fdb5d79aa548726b4b9ff3615855819c95b6e0da7f"
+      "sha256": "f29d46fd9238bf5884060b0db6b768688e120aa859b699498ce71643f91769a5"
     },
     {
       "path": "SECURITY.md",
@@ -116,7 +116,7 @@
     {
       "path": "docs/VALIDATION.md",
       "bytes": 3098,
-      "sha256": "8766885a6b381f0b9d085d578e35e601c58bdeb7649f912c670deeee53bb1aae"
+      "sha256": "924abccb270e876b7a1d4dfeeb651d4e0fed504db49d595001e52929fa41f2fa"
     },
     {
       "path": "docs/assets/make-app-light.png",
@@ -300,8 +300,8 @@
     },
     {
       "path": "integrations/codex/.codex-plugin/plugin.json",
-      "bytes": 1239,
-      "sha256": "44487f9eb6b84f06235993d5d8ddf48fab6357fde5f5ccd63c1f23f99cdbc3b5"
+      "bytes": 1419,
+      "sha256": "8b84c1a13545dda14d55c4e459b9d79db7a5c01b64af740f68c11b6bac363790"
     },
     {
       "path": "integrations/codex/.mcp.json",
@@ -335,8 +335,8 @@
     },
     {
       "path": "integrations/codex/plugin.json",
-      "bytes": 1610,
-      "sha256": "2e6e8de73ca24fa91a2d74e1569cb45bb0bbc15512e7408eb80ed051ca810cb3"
+      "bytes": 1798,
+      "sha256": "8a5fd22ae05b03478bf51bd950093b1b39715fd912ba12987803b02f439e2adb"
     },
     {
       "path": "integrations/codex/scripts/install.cjs",
@@ -345,8 +345,8 @@
     },
     {
       "path": "integrations/codex/server/index.cjs",
-      "bytes": 6199,
-      "sha256": "6b340d694f4d48827e7bc2b1201604689e5e3e6158261ff28f93c1ccd3766ed3"
+      "bytes": 6267,
+      "sha256": "21ac0317c2bf7a7ed954a411325d1cedbe750cb05aded06e32a39f7e867554cf"
     },
     {
       "path": "integrations/codex/skills/run-project/SKILL.md",
@@ -404,11 +404,6 @@
       "sha256": "356efe8773a0ddd0d16982675ae74f00b10bde86f84fe5ea61217e4942e151b6"
     },
     {
-      "path": "qa/desktop-win32-x64.json",
-      "bytes": 179,
-      "sha256": "e2c094979718521583d6ff6a4a0156b536932d37ecc8a78f3ade9067c9e96748"
-    },
-    {
       "path": "qa/fingerprint-performance-0.8.json",
       "bytes": 312,
       "sha256": "5af12ae395044bb2b0581b3744cc577b0c6b2d1f4132905f315597e7ed3c7b7f"
@@ -416,7 +411,7 @@
     {
       "path": "qa/local-validation-0.8.json",
       "bytes": 1083,
-      "sha256": "02f31e24c970dfd9e6bb9db25550e0eaab289faf1b41db1ebc6eb2efa46d7c3c"
+      "sha256": "46d087660c4b285e4fea096de22be1fd8551804b995f4caf7be8b5fe6ab98db4"
     },
     {
       "path": "scripts/assemble-plugin.cjs",
@@ -619,6 +614,11 @@
       "sha256": "d3e49782194840e6c283359705b46f7c03f88e17171b42d5bfd8e9f12688a000"
     },
     {
+      "path": "src/ipc-origin.cjs",
+      "bytes": 1043,
+      "sha256": "055116085f73eba7bcae5e1c507a16db6a255a2e151c4b13b355d5b68c498b16"
+    },
+    {
       "path": "src/language-smoke.cjs",
       "bytes": 2247,
       "sha256": "cdc72460eb9876f7bf0eb45b843a1597fcd3b9b08501639c2cbe7f3e9a3a8ba5"
@@ -630,13 +630,13 @@
     },
     {
       "path": "src/mac-app.cjs",
-      "bytes": 3127,
-      "sha256": "d64b6d91a05d7e793fce37d3676fd163372f9d3919648173601948cd61f20e0f"
+      "bytes": 3093,
+      "sha256": "0790f7c236e69d4e3186aa5c8224c2bfb6d9142b2bb22fb427c6a6002d167c56"
     },
     {
       "path": "src/main.cjs",
-      "bytes": 52514,
-      "sha256": "f78ed159b519eb2a33205a61857c07c84dcfa586e302ad0ca8b48b94c4636aa4"
+      "bytes": 52301,
+      "sha256": "f0d7650a4c6bd2c62b0ab4cc12d6342910afadf4ac8f422dbed0b7e9d229e1a8"
     },
     {
       "path": "src/managed.cjs",
@@ -890,8 +890,8 @@
     },
     {
       "path": "test/portable.test.cjs",
-      "bytes": 7202,
-      "sha256": "12f32b4a0a467d71b4442df029cac31f57b59eb0f604eb7e977e93883b6bd25c"
+      "bytes": 8769,
+      "sha256": "8955f3cf2de3bcda93a9e1e2dc9373cf453cae0618f353ac28046dcce68cb260"
     },
     {
       "path": "test/projects.test.cjs",

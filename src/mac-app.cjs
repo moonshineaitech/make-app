@@ -18,7 +18,7 @@ async function makeBundle(template,destination,spec,{signal,onLog=()=>{},signBun
   const resources=path.join(pending,'Contents/Resources');await fs.writeFile(path.join(resources,'make-app-project.json'),JSON.stringify(spec),{mode:0o600});
   const plist=path.join(pending,'Contents/Info.plist');
   if(signBundle)await signBundle(pending,spec);else{
-   for(const [key,value]of [['CFBundleDisplayName',spec.record.name],['CFBundleName',spec.record.name],['CFBundleIdentifier','app.makeapp.project.'+spec.record.id]])await execute('/usr/bin/plutil',['-replace',key,'-string',value,plist],{signal});
+   for(const [key,value]of [['CFBundleDisplayName',spec.record.name],['CFBundleIdentifier','app.makeapp.project.'+spec.record.id]])await execute('/usr/bin/plutil',['-replace',key,'-string',value,plist],{signal});
    await execute('/usr/bin/codesign',['--force','--deep','--sign','-',pending],{signal});
   }
   signal?.throwIfAborted();await fs.rename(pending,destination);return{executable:destination,name:spec.record.name,format:'app',platform:'darwin',arch:process.arch,sourceCopied:false,requiresAppDockInstallation:false,requiresExistingProjectFolder:true,executionStarted:false};

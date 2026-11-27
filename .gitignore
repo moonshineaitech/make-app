@@ -15,3 +15,6 @@ integrations/codex/server/runtime/
 .env
 .env.*
 !.env.example
+
+qa/sbom.cdx.json
+qa/desktop-*.json

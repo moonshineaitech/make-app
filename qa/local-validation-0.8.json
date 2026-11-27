@@ -2,7 +2,7 @@
   "version": "0.8.0",
   "environment": "Existing Windows x64 development host",
   "regressionTests": {
-    "passed": 80,
+    "passed": 82,
     "failed": 0,
     "skipped": 0
   },
