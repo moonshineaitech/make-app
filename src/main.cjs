@@ -77,9 +77,9 @@ async function startRuntime(record,state){
   while(Date.now()<deadline){if(state.failure)throw new Error(state.failure+'\n'+state.logs);if(state.win.isDestroyed())throw new Error('App closed during startup.');try{const response=await fetch(url,{signal:AbortSignal.timeout(1200)});if(response.status<500)return url;}catch{}await new Promise(r=>setTimeout(r,350));}
   throw new Error('Project did not become ready within 60 seconds.\n'+state.logs);
 }
-async function syncVersion(record){
+async function syncVersion(record,{strict=true}={}){
   if(record.kind==='url')return false;
-  const v=await core.fingerprint(versionRoot(record));
+  const v=await core.fingerprint(versionRoot(record),{cache:!strict});
   if(v===record.version)return false;
   record.version=v;revokeNative(record);if(!['static','url'].includes(record.kind))record.runtimeTrusted=false;
   await save();return true;
@@ -103,7 +103,7 @@ async function launch(id){
   starting.add(id);const record=find(id);let state,launchJob;
   try {
     if(!['static','url'].includes(record.kind))requireSupervisor();
-    await syncVersion(record);
+    await syncVersion(record,{strict:!standalone?.directLaunch});
     if(!['static','url'].includes(record.kind)&&!record.runtimeTrusted)throw new Error('This project changed. Use its menu to approve the new runtime version.');
     if(record.automatic){const job={status:'running',type:'setup',controller:new AbortController(),log:'Preparing '+record.name+'…\n'};jobs.set(record.id,job);try{await prepareAutomatic(record,text=>logJob(job,text));job.status='complete';}catch(error){job.status='failed';logJob(job,error.message);throw error;}changed();}
     if(record.kind==='project'&&record.needsInstall){if(process.env.APPDOCK_TEST_NO_SETUP==='1')throw new Error('Installed dependencies are unavailable; this verification run does not install or change project dependencies.');await setup(record,{prepared:true});}
@@ -156,7 +156,7 @@ async function openDirect(record){
  directError=null;record.runtimeTrusted=true;
  launchProgress=new BrowserWindow({width:650,height:440,title:record.name,show:false,autoHideMenuBar:true,backgroundColor:'#171a20',webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false,preload:path.join(__dirname,'direct-preload.cjs')}});
  lockSession(launchProgress.webContents.session);launchProgress.webContents.setWindowOpenHandler(()=>({action:'deny'}));launchProgress.webContents.on('will-navigate',event=>event.preventDefault());await launchProgress.loadFile(path.join(__dirname,'ui/direct.html'));launchProgress.show();launchProgress.on('close',()=>app.quit());
- try{if(record.kind!=='url'){const fresh=await inspect({source:standalone.source,target:standalone.selectedTarget});if(fresh.kind==='selection'||fresh.plan?.configured===false)throw new Error('This project now needs a different entry point. Make its executable again.');Object.assign(record,fresh,{name:standalone.name,runtimeTrusted:true,executionMode:'project'});delete record.originRoot;delete record.originSource;record.version=await core.fingerprint(record.root);}await save();await launch(record.id);if(record.plan?.mode==='native'){const state=running.get(record.id);const child=state?.engine?.children.get('app');child?.once('exit',()=>{closeApp(record.id);app.quit();});}launchProgress.destroy();launchProgress=null;if(process.env.APPDOCK_DIRECT_TEST)await require('./direct-smoke.cjs').run({app,record,state:running.get(record.id),closeApp});}
+ try{if(record.kind!=='url'){const fresh=await inspect({source:standalone.source,target:standalone.selectedTarget});if(fresh.kind==='selection'||fresh.plan?.configured===false)throw new Error('This project now needs a different entry point. Make its executable again.');Object.assign(record,fresh,{name:standalone.name,runtimeTrusted:true,executionMode:'project'});delete record.originRoot;delete record.originSource;record.version=await core.fingerprint(record.root,{cache:true});}await save();await launch(record.id);if(record.plan?.mode==='native'){const state=running.get(record.id);const child=state?.engine?.children.get('app');child?.once('exit',()=>{closeApp(record.id);app.quit();});}launchProgress.destroy();launchProgress=null;if(process.env.APPDOCK_DIRECT_TEST)await require('./direct-smoke.cjs').run({app,record,state:running.get(record.id),closeApp});}
  catch(error){directError=error;launchProgress?.webContents.send('direct-state',{error:error.message,log:jobs.get(record.id)?.log||''});}
 }
 ipcMain.handle('direct',async(event,method)=>{if(!launchProgress||event.sender!==launchProgress.webContents||event.senderFrame!==event.sender.mainFrame||event.senderFrame.url!==pathToFileURL(path.join(__dirname,'ui/direct.html')).href)throw new Error('Unauthorized app request');if(method==='info')return{name:standalone.name,error:directError?.message,log:jobs.get(standalone.id)?.log||''};if(method==='close'){await jobs.get(standalone.id)?.engine?.stop();closeApp(standalone.id);app.quit();return;}if(method==='retry'){if(!directError)throw new Error('Launch is already in progress');launchProgress.destroy();launchProgress=null;await openDirect(find(standalone.id));return;}throw new Error('Unknown app operation');});
@@ -189,7 +189,7 @@ async function setup(record,{prepared=false}={}){requireSupervisor();
   await syncVersion(record);if(!record.runtimeTrusted)throw new Error('Approve this runtime version before dependency setup.');
   closeApp(record.id);
   const job={status:'running',type:'setup',controller:new AbortController(),log:'Setting up '+record.name+'…\n',process:null};jobs.set(record.id,job);changed();
-  try{if(record.automatic&&!prepared)await prepareAutomatic(record,text=>logJob(job,text),{forceFresh:true});await require('./setup-key.cjs').detachDependencies(record);if(record.kind==='project'){job.engine=await engine(record,text=>logJob(job,text));await job.engine.tasks(job.engine.plan.setup,'setup');}else await runtime.setup(record,job,text=>logJob(job,text));record.version=await core.fingerprint(versionRoot(record));record.needsInstall=false;record.setupKey=await require('./setup-key.cjs').remember(record);record.runtimeTrusted=true;record.grants={};await save();job.status='complete';logJob(job,'Dependencies prepared. Build and launch verification are still required.\n');if(!prepared)await require('./workspaces.cjs').release(record);}
+  try{if(record.automatic&&!prepared)await prepareAutomatic(record,text=>logJob(job,text),{forceFresh:true});await require('./setup-key.cjs').detachDependencies(record);if(record.kind==='project'){job.engine=await engine(record,text=>logJob(job,text));await job.engine.tasks(job.engine.plan.setup,'setup');}else await runtime.setup(record,job,text=>logJob(job,text));record.version=await core.fingerprint(versionRoot(record),{cache:!strict});record.needsInstall=false;record.setupKey=await require('./setup-key.cjs').remember(record);record.runtimeTrusted=true;record.grants={};await save();job.status='complete';logJob(job,'Dependencies prepared. Build and launch verification are still required.\n');if(!prepared)await require('./workspaces.cjs').release(record);}
   catch(e){await job.engine?.stop();await require('./workspaces.cjs').reject(record,e);stopProcess(job);job.status='failed';job.failure=e.appdockFailure||require('./failures.cjs').classify(e,{phase:'setup',output:job.log});record.lastFailure=job.failure;logJob(job,e.message+'\n');await save();throw e;}finally{changed();}
 }
 async function buildProject(record){

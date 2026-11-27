@@ -88,7 +88,8 @@ async function detectInternal(input,options={}) {
   return require('./projects.cjs').record(source,{mode:'tool',configured:false,run:['your-runtime','your-entrypoint'],requirements:[],notes:['No automatic entry point was found. Set the actual build and run commands in the launch plan before running.']},'Configure project');
 }
 async function detect(input,options={}){let record=await detectInternal(input,options);if(record.plan?.configured===false)record=await require('./adapters.cjs').discover(record.root,options.adapterDirectory)||record;record.executionSummary=require('./execution-plan.cjs').describe(record);return record;}
-async function fingerprint(root) {
+async function fingerprint(root, { cache = false, cacheRoot, signal, onStats } = {}) {
+  root=await fs.realpath(root);const content=await require('./fingerprint-cache.cjs').open(root,{enabled:cache,cacheRoot,signal});
   const rootNames=await fs.readdir(root),generated=new Set([...(rootNames.includes('Cargo.toml')?['target']:[]),...(rootNames.some(n=>/\.(?:csproj|fsproj|vbproj)$/.test(n))?['bin','obj']:[])]);const hash = crypto.createHash('sha256'); let count=0;
   async function walk(dir) {
     const entries = (await fs.readdir(dir, {withFileTypes:true})).sort((a,b)=>a.name.localeCompare(b.name));
@@ -96,12 +97,12 @@ async function fingerprint(root) {
       if ((ignored.has(entry.name)&&!['bin','obj','target','dist'].includes(entry.name)) || (dir===root&&generated.has(entry.name)) || entry.name.startsWith('.env') || entry.name.endsWith('.log')) continue;
       if (++count > 100000) throw new Error('Project exceeds 100,000 source files. Import a specific subproject or compiled output.');
       const full = path.join(dir,entry.name);
-      hash.update(path.relative(root,full));
+      signal?.throwIfAborted();hash.update(entry.isSymbolicLink()?'L':entry.isDirectory()?'D':entry.isFile()?'F':'?');const relative=path.relative(root,full);hash.update(String(Buffer.byteLength(relative))+':'+relative+'\0');
       if (entry.isSymbolicLink()) { hash.update(await fs.readlink(full)); continue; }
       if (entry.isDirectory()) await walk(full);
-      else {for await (const chunk of require('node:fs').createReadStream(full))hash.update(chunk);}
+      else if(entry.isFile())hash.update(await content.digest(full,relative));else throw new Error('Unsupported source entry: '+relative);
     }
   }
-  await walk(root); return hash.digest('hex');
+  await walk(root);await content.finish();onStats?.(content.stats);return hash.digest('hex');
 }
 module.exports={inside,resolveAsset,safeUrl,safeName,detect,fingerprint};

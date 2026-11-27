@@ -206,7 +206,7 @@ async function existing(record, dataRoot, { settingsFingerprint, onLog = () => {
     const stateRoot = path.join(folder, 'direct', planKey);
     await fs.mkdir(path.join(folder, 'data'), { recursive: true });
     await fs.mkdir(stateRoot, { recursive: true });
-    const identity = crypto.createHash('sha256').update(JSON.stringify({ source: await require('./core.cjs').fingerprint(root), dependencies: await require('./setup-key.cjs').dependencyKey({ ...record, root, originRoot: root }), settingsFingerprint })).digest('hex');
+    const identity = crypto.createHash('sha256').update(JSON.stringify({ source: await require('./core.cjs').fingerprint(root,{cache:record.directLaunch===true,signal}), dependencies: await require('./setup-key.cjs').dependencyKey({ ...record, root, originRoot: root }), settingsFingerprint })).digest('hex');
     const verified = await read(path.join(stateRoot, 'verified.json'));
     const result = { ...record, root, source, originRoot: root, originSource: source, stateRoot, workspaceFolder: folder, workspaceMode: 'project', workspaceGeneration: 'existing-folder', workspaceIdentity: identity, workspaceReused: verified?.identity === identity, workspaceVerified: verified?.identity === identity, workspaceLease: token, staged: false, executionMode: 'project' };
     delete result.previousWorkspace; delete result.usePreviousEnvironment;

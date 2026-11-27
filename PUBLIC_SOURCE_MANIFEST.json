@@ -405,8 +405,8 @@
     },
     {
       "path": "scripts/assemble-plugin.cjs",
-      "bytes": 4601,
-      "sha256": "32e7e5a246bff6f6e770d1448275002b4a370039ec4e53e298b1f3a4c71965d9"
+      "bytes": 4621,
+      "sha256": "9117689ab0d7d71c8a9304f6c47718ab3e755d817a909097c096f2d9b816ccb1"
     },
     {
       "path": "scripts/build-launcher.cjs",
@@ -430,8 +430,8 @@
     },
     {
       "path": "scripts/desktop-acceptance.cjs",
-      "bytes": 3049,
-      "sha256": "a0272ea96a5af359509a19589181e21b115511658ff1f995ae80135839b8aeac"
+      "bytes": 3382,
+      "sha256": "20594efada2815adee59b77136747a1309093e00bce756c766992e0b1b25f05a"
     },
     {
       "path": "scripts/export-public-source.cjs",
@@ -505,8 +505,8 @@
     },
     {
       "path": "src/core.cjs",
-      "bytes": 10398,
-      "sha256": "46c2f6a069a1a0b24fe51005e6a14c0eeeaa126cf6c13b00103dd806559b969a"
+      "bytes": 10847,
+      "sha256": "45ca36c423de4fea1f0dcace44f994ecbeffe5bc84e09db7631cb7376c421a94"
     },
     {
       "path": "src/creator-preload.cjs",
@@ -545,8 +545,8 @@
     },
     {
       "path": "src/executable.cjs",
-      "bytes": 4772,
-      "sha256": "dcf23856746468fbdd42ced64e6eaf4d816bbf6e3d8c6485c91d1c1fb50e798a"
+      "bytes": 4792,
+      "sha256": "8277d9ca53980c704bf9fdb9160258313c306e6cd9462962b4fc9ab0c31a75d6"
     },
     {
       "path": "src/execution-plan.cjs",
@@ -562,6 +562,11 @@
       "path": "src/failures.cjs",
       "bytes": 3052,
       "sha256": "6c6a613135af0a280927e39990f3ba5d911e53797499444d3c840680dfce2f47"
+    },
+    {
+      "path": "src/fingerprint-cache.cjs",
+      "bytes": 2427,
+      "sha256": "1f087e18dfe41ba475022b87fd1dd7a4a88fed706fdfce933dbc2a901c961b39"
     },
     {
       "path": "src/icon.ico",
@@ -605,8 +610,8 @@
     },
     {
       "path": "src/main.cjs",
-      "bytes": 52417,
-      "sha256": "e350c2293a741a9557c2cef6844259291256282f21cfdecac879d47f154b2d91"
+      "bytes": 52514,
+      "sha256": "f78ed159b519eb2a33205a61857c07c84dcfa586e302ad0ca8b48b94c4636aa4"
     },
     {
       "path": "src/managed.cjs",
@@ -810,8 +815,8 @@
     },
     {
       "path": "src/workspaces.cjs",
-      "bytes": 15252,
-      "sha256": "4ac837b743311bc5cde0b63288e6ed9f4b8bd8f246e18b40df2ef0e7392ed189"
+      "bytes": 15294,
+      "sha256": "98be31436e7bf3859281efb5394972bbfd602627bddf444b742a16708a0588cf"
     },
     {
       "path": "test/adapters.test.cjs",
@@ -860,8 +865,8 @@
     },
     {
       "path": "test/portable.test.cjs",
-      "bytes": 5210,
-      "sha256": "943c7e41d06e03e5edb1c86423f2f39147470e40a2a5464dc29b78c6d86e5a27"
+      "bytes": 6106,
+      "sha256": "06bbb3643305c21c0e277b2d67994aebef2c0607dcdc079133e1aaad58602c89"
     },
     {
       "path": "test/projects.test.cjs",
