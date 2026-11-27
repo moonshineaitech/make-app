@@ -7,7 +7,7 @@ const root = path.resolve(__dirname, '..'), output = path.resolve(process.env.MA
 app.setPath('userData', path.join(output, 'profile'));
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function until(fn, label) { const end = Date.now() + 15000; while (Date.now() < end) { if (await fn()) return; await delay(35); } throw new Error('Timed out: ' + label); }
-let pendingMake, creationMode = 'success', madePayload, revealCalls = 0;
+let pendingMake, creationMode = 'success', madePayload, revealCalls = 0, openCalls = 0;
 ipcMain.handle('creator', async (event, method, args) => {
   if (method === 'capabilities') return { ...require('../src/platform.cjs').capabilities() };
   if (method === 'initial') return 'C:/Projects/Focus Notes';
@@ -26,6 +26,7 @@ ipcMain.handle('creator', async (event, method, args) => {
   }
   if (method === 'cancel') { pendingMake?.({ cancelled: true }); pendingMake = null; return; }
   if (method === 'reveal') { revealCalls++; return; }
+  if (method === 'open-created') { openCalls++; return {opened:true}; }
 });
 async function evaluate(win, code) { return win.webContents.executeJavaScript(code); }
 async function scan(win, surface, theme, width) {
@@ -58,6 +59,7 @@ app.whenReady().then(async () => {
       await evaluate(win, `document.getElementById('name').value='My App';document.getElementById('name').dispatchEvent(new Event('input'));document.getElementById('make').click();true`);
       await until(() => evaluate(win, `!document.getElementById('reveal').hidden`), 'success state');
       assert.equal(madePayload.name, 'My App'); await evaluate(win, `document.getElementById('reveal').click();true`); assert.equal(revealCalls, 1);
+      assert.equal(madePayload.askSave,false);assert.equal(await evaluate(win,`document.getElementById('make-label').textContent`),'Open app');await evaluate(win,`document.getElementById('make').click();true`);await until(()=>openCalls===1,'open the created app');
       await capture(win, 'app-success.png');
       await evaluate(win, `document.querySelector('input[value="web"]').click();true`); assert.equal(await evaluate(win, `document.getElementById('make-label').textContent`), 'Export web app');
       creationMode = 'wait'; await evaluate(win, `document.getElementById('make').click();true`); await until(() => Promise.resolve(!!pendingMake), 'pending creation');

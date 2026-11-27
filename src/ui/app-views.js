@@ -139,7 +139,7 @@
  function about(){
   header('MAKE APP','Made to be opened.','A free, local way to turn your existing project into a desktop app or static web export.');
   const feature=node('div','view-feature about-feature'),image=node('img');image.src=themeImage();image.alt='';const body=node('div','view-feature-copy');body.append(node('p','view-eyebrow','INDEPENDENT · OPEN SOURCE'),node('h2','', 'Your project stays yours.'),node('p','', 'No Make App account. No Make App API key. Your original folder stays in place.'),button('Explore the source',()=>guide('source'),'primary','i-up-right'));feature.append(image,body);content.append(feature);
-  facts([['Desktop','Windows · macOS · Linux'],['Web exports','Phones · tablets · browsers'],['License','MIT'],['Release','0.16 preview']]);
+  facts([['Desktop','Windows · macOS · Linux'],['Web exports','Phones · tablets · browsers'],['License','MIT'],['Release','0.17 preview']]);
   content.append(card('Built with care','An independent project. Publisher signing, notarization and physical-device acceptance remain separate release checks.','i-shield'));
  }
  const renderers={overview,projects:projectView,details,outputs,setup,activity,results,connections,designs,preferences,help,about};

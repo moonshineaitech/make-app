@@ -1,6 +1,6 @@
 const $ = id => document.getElementById(id);
 const api = window.makeApp;
-let selected, busy = false, sequence = 0, timer, nameEdited = false, platform;
+let selected, busy = false, sequence = 0, timer, nameEdited = false, platform, completed, busyOperation;
 const format = () => document.querySelector('input[name="format"]:checked').value;
 const phase = value => { document.body.dataset.phase = value; };
 function eligible() {
@@ -9,7 +9,7 @@ function eligible() {
 function render() {
   const web = format() === 'web';
   $('make').disabled = busy || !eligible();
-  $('make-label').textContent = busy ? (web ? 'Exporting…' : 'Creating…') : (web ? 'Export web app' : 'Create app');
+  $('make-label').textContent = busy ? (busyOperation==='open'?'Opening…':web ? 'Exporting…' : 'Creating…') : completed&&!api.preview&&!web?'Open app':web ? 'Export web app' : 'Create app';
   $('make').querySelector('.icon').className = 'icon ' + (busy ? 'i-loader' : 'i-arrow');
   $('web-hint').hidden = !web;
   $('web-hint').textContent = web && selected && !selected.webAvailable
@@ -22,16 +22,17 @@ function render() {
   $('fact-copy').textContent = web ? 'Static assets only' : 'None';
   $('fact-setup').textContent = web ? 'HTTPS hosting' : selected?.setupTasks || selected?.buildTasks ? 'Automatic setup' : 'Open directly';
   const name = $('name').value.trim();
-  $('output-name').textContent = name ? name + (web ? ' · web export' : platform?.extension || '') : 'Your next app';
-  $('output-caption').textContent = web ? 'Export to a folder of your choice' : 'Choose where to save it next';
+  $('output-name').textContent = completed?.executable?.split(/[\\/]/).at(-1) || (name ? name + (web ? ' · web export' : platform?.extension || '') : 'Your next app');
+  $('output-caption').textContent = web ? 'Export to a folder of your choice' : api.preview?'Desktop app · browser preview':completed?.savedToDesktop?'Saved on your Desktop':$('ask-save').checked?'Choose a save location':'Saves to Desktop automatically';
+  $('ask-save').closest('.save-choice').hidden=web||!!api.preview;
   window.dispatchEvent(new Event('make-app:render'));
   window.dispatchEvent(new CustomEvent('make-app:state',{detail:{selected,busy,platform,format:format(),source:$('source').value,name:$('name').value,phase:document.body.dataset.phase}}));
 }
-function setBusy(value) {
-  busy = value;
-  document.querySelectorAll('#creator-form input,#creator-form select,#browse,#entry').forEach(input => { input.disabled = value; });
-  $('cancel').hidden = !value; $('cancel').disabled = false;
-  $('busy-progress').hidden = !value;
+function setBusy(value,operation='create') {
+  busy = value;busyOperation=operation;
+  document.querySelectorAll('#creator-form input,#creator-form select,#browse,#entry,#ask-save').forEach(input => { input.disabled = value; });
+  $('cancel').hidden = !value||operation==='open'; $('cancel').disabled = false;
+  $('busy-progress').hidden = !value||operation==='open';
   document.querySelector('main').setAttribute('aria-busy', String(value));
   render();
 }
@@ -41,7 +42,7 @@ function status(text, error = false) {
   if (error) { phase('error'); $('status').focus(); }
 }
 function clearResult() {
-  status(''); $('reveal').hidden = true; $('progress').hidden = true;
+  completed=null;status(''); $('reveal').hidden = true; $('progress').hidden = true;
   $('progress').open = false; $('log').textContent = '';
 }
 async function inspect() {
@@ -68,12 +69,14 @@ async function inspect() {
     $('facts').hidden = false; $('fact-kind').textContent = result.label || result.mode;
     $('requirements').textContent = result.requirements?.length ? 'Uses ' + result.requirements.join(' and ') + '. Downloads may be needed on first launch.' : '';
     $('credentials').textContent = result.requiredEnvironment?.length ? 'Required project settings: ' + result.requiredEnvironment.join(', ') : '';
+    if(!api.preview&&!result.selection&&result.configured!==false)try{localStorage.setItem('make-app-last-project',$('source').value);}catch{}
     phase('ready'); render();
   } catch (error) {
     if (request !== sequence) return;
     selected = null; phase('error'); $('source').setAttribute('aria-invalid', 'true');
     $('detection-icon').className = 'icon i-help'; $('detected').textContent = error.message;
     $('facts').hidden = true; $('entry-area').hidden = true; render();
+    if(!api.preview)try{if(localStorage.getItem('make-app-last-project')===$('source').value)localStorage.removeItem('make-app-last-project');}catch{}
   }
 }
 async function openSource(source) {
@@ -102,19 +105,25 @@ $('source').oninput = () => {
   timer = setTimeout(() => { $('entry').value = ''; nameEdited = false; inspect(); }, 300);
 };
 $('entry').onchange = inspect;
-$('name').oninput = () => { nameEdited = true; render(); };
+$('name').oninput = () => { nameEdited = true; clearResult();phase(selected?'ready':'idle');render(); };
+$('ask-save').onchange=()=>{clearResult();phase(selected?'ready':'idle');render();};
 for (const input of document.querySelectorAll('input[name="format"]')) input.onchange = () => { clearResult(); phase(selected ? 'ready' : 'idle'); render(); };
 $('creator-form').onsubmit = async event => {
   event.preventDefault(); if (busy || !eligible()) return;
+  if(completed&&!api.preview&&format()!=='web'){
+    setBusy(true,'open');status('Opening '+completed.name+'…');
+    try{await api.openCreated();status(completed.name+' is opening. You can close Make App.');}
+    catch(error){status(error.message,true);}finally{setBusy(false);}return;
+  }
   clearResult(); setBusy(true); phase('creating'); status(format() === 'web' ? 'Exporting your web app…' : 'Making room for your next app…');
   try {
-    const result = await api.make({ source: $('source').value, name: $('name').value, target: $('entry').value || undefined, format: format() });
+    const result = await api.make({ source: $('source').value, name: $('name').value, target: $('entry').value || undefined, format: format(),askSave:$('ask-save').checked });
     if (result.cancelled) { phase('ready'); status('Creation cancelled. Your existing files are unchanged.'); return; }
-    phase('success');
+    completed=result;phase('success');
     window.dispatchEvent(new CustomEvent('make-app:created',{detail:{...result,source:$('source').value,createdAt:Date.now()}}));
     const filename = result.executable?.split(/[\\/]/).at(-1) || result.name + '.' + result.format;
     status(result.preview ? 'Preview complete. Download Make App to create this file on your computer.'
-      : result.format === 'web' ? 'Web app exported. Host the folder over HTTPS to use it on your devices.' : filename + ' is ready. Open it whenever you like.');
+      : result.format === 'web' ? 'Web app exported. Host the folder over HTTPS to use it on your devices.' : filename + ' is ready'+(result.savedToDesktop?' on your Desktop':'')+'. Click Open app to use it.');
     $('reveal-label').textContent = result.preview ? 'Get Make App' : 'Show saved app'; $('reveal').hidden = false;
   } catch (error) { status(error.message, true); }
   finally { setBusy(false); }
@@ -125,6 +134,6 @@ $('cancel').onclick = async () => {
 };
 api.onProgress(text => { $('progress').hidden = false; $('log').textContent = ($('log').textContent + text).slice(-12000);window.dispatchEvent(new Event('make-app:progress')); });
 $('reveal').onclick = () => api.reveal().catch(error => status(error.message, true));
-api.initial().then(openSource).catch(error => status(error.message, true)); api.onSource(openSource);
+api.initial().then(source=>{if(!source&&!api.preview)try{source=localStorage.getItem('make-app-last-project');}catch{}return openSource(source);}).catch(error => status(error.message, true)); api.onSource(openSource);
 phase('idle'); render();
 window.addEventListener('make-app:open-project',event=>openSource(event.detail?.path));

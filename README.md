@@ -1,6 +1,6 @@
 # Make App
 
-Open what you build. Choose a local project and create its desktop app, or export a static web app for phones, tablets and browsers.
+Turn a local project into an app you can double-click. Make App detects its setup and runs it on your computer. No website or hosted workspace is required.
 
 **Free · MIT licensed · Local execution · No account or API key**
 
@@ -14,8 +14,10 @@ The creator includes twenty selectable Frutiger Aero themes and a Classic appear
 
 1. Download the converter for your computer from **Releases**.
 2. Open it and choose a folder, or pick a saved Codex project.
-3. Select **Desktop app** or **Installable web app**. Choose an entry point if the project has several.
-4. Review the detected requirements, name the app and save it.
+3. Click **Create app**. A fresh executable is saved on your Desktop automatically.
+4. Click **Open app**. Next time, double-click the Desktop file.
+
+Make App remembers your last project. Setup is detected automatically; choose an entry point only when a project has several. Existing Desktop files are preserved. To choose another destination, enable **Ask where to save the desktop app** in Project details.
 
 A desktop app opens the selected project directly and prepares its dependencies when needed. **Keep the original project folder in place.** The desktop output is a local launcher, not a source-inclusive package for another computer. The converter can be removed after creating it.
 

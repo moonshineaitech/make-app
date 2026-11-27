@@ -55,6 +55,7 @@
 :root[data-photo] #busy-progress{position:absolute;height:5px;margin:0;z-index:10}
 :root[data-photo] .result-area{display:flex;position:absolute;left:50px;bottom:36px;width:650px;gap:16px;padding:18px 22px;border:1px solid var(--glass-border);border-radius:16px;background:var(--solid);box-shadow:var(--shadow);z-index:12}
 :root[data-photo] .result-area:has(.status:empty){display:none}
+:root[data-photo] body:is([data-phase=creating],[data-phase=success],[data-phase=error])>.view-launcher{display:none}
 :root[data-photo] .status{font-size:20px;line-height:1.5}
 :root[data-photo] #reveal{font-size:17px}
 :root[data-photo] #cancel{display:block;position:absolute;right:50px;bottom:134px;z-index:12;min-width:130px;font-size:20px}

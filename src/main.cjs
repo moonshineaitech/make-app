@@ -161,7 +161,7 @@ async function openDirect(record){
  catch(error){directError=error;launchProgress?.webContents.send('direct-state',{error:error.message,log:jobs.get(record.id)?.log||''});}
 }
 ipcMain.handle('direct',async(event,method)=>{if(!await trustedDocument(event,launchProgress?.webContents,path.join(__dirname,'ui/direct.html')))throw new Error('Unauthorized app request');if(method==='info')return{name:standalone.name,error:directError?.message,log:jobs.get(standalone.id)?.log||''};if(method==='close'){await jobs.get(standalone.id)?.engine?.stop();closeApp(standalone.id);app.quit();return;}if(method==='retry'){if(!directError)throw new Error('Launch is already in progress');launchProgress.destroy();launchProgress=null;await openDirect(find(standalone.id));return;}throw new Error('Unknown app operation');});
-let creator,creatorBusy=false,createdExecutable,creatorController;
+let creator,creatorBusy=false,createdExecutable,createdFormat,creatorController;
 function showCreator(){if(creator&&!creator.isDestroyed()){creator.show();creator.focus();return;}const area=require('electron').screen.getPrimaryDisplay().workAreaSize;const scale=Math.min(1,area.width/1487,area.height/1058);creator=new BrowserWindow({frame:false,width:Math.floor(1487*scale),height:Math.floor(1058*scale),minWidth:Math.min(440,area.width),minHeight:Math.min(650,area.height),title:'Make App',backgroundColor:nativeTheme.shouldUseDarkColors?'#181a1e':'#f4f3f0',autoHideMenuBar:true,webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false,preload:path.join(__dirname,'creator-preload.cjs')}});lockSession(creator.webContents.session);creator.webContents.setWindowOpenHandler(()=>({action:'deny'}));creator.webContents.on('will-navigate',event=>event.preventDefault());creator.on('close',()=>creatorController?.abort(new Error('Creation cancelled.')));creator.loadFile(path.join(__dirname,'ui/creator.html'));}
 ipcMain.handle('creator',async(event,method,payload)=>{
  if(!await trustedDocument(event,creator?.webContents,path.join(__dirname,'ui/creator.html')))throw new Error('Unauthorized executable builder request');
@@ -174,11 +174,20 @@ ipcMain.handle('creator',async(event,method,payload)=>{
  if(method==='projects')return managed.codexProjects();
  if(method==='inspect'){const record=await inspect(payload);return{name:record.name,label:record.label,configured:record.plan?.configured!==false,selection:record.kind==='selection',targets:record.targets,selectedTarget:record.selectedTarget,webAvailable:!!await require('./web-export.cjs').webRoot(payload.source),mode:record.plan?.mode||record.kind,requirements:record.plan?.requirements||[],setupTasks:record.plan?.setup?.length||0,buildTasks:record.plan?.build?.length||0,requiredEnvironment:record.plan?.requiredEnv||[],message:record.kind==='selection'?'Choose a project inside this workspace.':record.plan?.configured===false?'Choose the executable entry point.':record.label};}
  if(method==='reveal'){if(createdExecutable)shell.showItemInFolder(createdExecutable);return;}
+ if(method==='open-created'){
+  if(creatorBusy)throw new Error('Finish creating the app first.');
+  if(!createdExecutable||createdFormat==='web')throw new Error('Create a desktop app first.');
+  await fs.access(createdExecutable);
+  const command=require('./platform.cjs').builderCommand(createdExecutable);
+  await new Promise((resolve,reject)=>{const child=spawn(command.command,command.args,{detached:true,stdio:'ignore',windowsHide:true});child.once('error',reject);child.once('spawn',()=>{child.unref();resolve();});});
+  return{opened:true};
+ }
  if(method==='make'){if(creatorBusy)throw new Error('An app is already being created.');creatorBusy=true;creatorController=new AbortController();try{const name=core.safeName(payload.name||path.basename(payload.source)),web=payload.format==='web',info=require('./platform.cjs').host();let destination;
   if(web){const choice=await dialog.showOpenDialog(creator,{title:'Choose where to save the web app',properties:['openDirectory','createDirectory']});if(choice.canceled)return{cancelled:true};destination=path.join(choice.filePaths[0],name+'-web');}
-  else{const choice=await dialog.showSaveDialog(creator,{title:'Save app',defaultPath:path.join(app.getPath('desktop'),name+info.extension),filters:[{name:info.name+' app',extensions:[info.extension.slice(1)]}]});if(choice.canceled)return{cancelled:true};destination=choice.filePath;}
-  const options={name,target:payload.target,overwrite:true,signal:creatorController.signal,onLog:text=>{if(!creator.isDestroyed())creator.webContents.send('creator-progress',text);}};
-  const built=await (web?require('./web-export.cjs').exportWeb:require('./executable.cjs').make)(payload.source,destination,options);createdExecutable=built.executable;return built;
+  else if(payload.askSave===true){const choice=await dialog.showSaveDialog(creator,{title:'Save app',defaultPath:path.join(app.getPath('desktop'),name+info.extension),filters:[{name:info.name+' app',extensions:[info.extension.slice(1)]}]});if(choice.canceled)return{cancelled:true};destination=choice.filePath;}
+  else destination=await require('./output-path.cjs').freshOutput(app.getPath('desktop'),name,info.extension);
+  const options={name,target:payload.target,overwrite:web||payload.askSave===true,signal:creatorController.signal,onLog:text=>{if(!creator.isDestroyed())creator.webContents.send('creator-progress',text);}};
+  const built=await (web?require('./web-export.cjs').exportWeb:require('./executable.cjs').make)(payload.source,destination,options);createdExecutable=built.executable;createdFormat=web?'web':'desktop';return{...built,savedToDesktop:!web&&payload.askSave!==true};
  }finally{creatorBusy=false;creatorController=null;}}
  throw new Error('Unknown executable builder operation');
 });

@@ -1,4 +1,12 @@
-# Make App 0.16.0 — eight Aero refinements
+# Make App 0.17.0 — a shorter local desktop flow
+
+Choose a project, create its app, then use Open app from the same primary button. Desktop creation now saves a fresh file on your Desktop by default, without a save-location prompt or overwriting existing apps. An optional Ask where to save choice remains available. The last successfully inspected native project is restored on the next start, without running it automatically.
+
+Creation still does not execute project code. Open app is a separate user action and starts only the desktop output created by this converter session. Closing the converter leaves the opened app independent. Every native target checks the real desktop create/open/shutdown path, zero save prompts, ordinary launch and an empty-cache runtime download. Browser demonstrations remain clearly labeled and do not open local executables.
+
+The existing designs and optional integrations are retained. No account, hosted workspace or website is needed to use the desktop converter. Preview builds remain unsigned; macOS publisher notarization is separate.
+
+## Previous: Make App 0.16.0 — eight Aero refinements
 
 Eight cumulative passes refine the approved photographic direction: composition and materials; desktop navigation; project workspace; current-atmosphere exhibits; tactile controls and truthful creation feedback; complete website and download flow; quieter glass motion with an explicit preview; and small-screen, keyboard and assistive-display refinements. All twenty themes, twelve utility views, original creator compositions and bundled artwork remain.
 
