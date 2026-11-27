@@ -1,0 +1,10 @@
+{
+  "scope": "One existing TypeScript project on the development Windows host",
+  "files": 1875,
+  "coldMilliseconds": 2718,
+  "warmMilliseconds": 292,
+  "coldBytesRead": 805820396,
+  "warmBytesRead": 0,
+  "equalFingerprints": true,
+  "measurement": "Content fingerprinting only; not whole-app launch latency"
+}

@@ -1,15 +1,21 @@
-name: Build draft release
+name: Create verified draft release
 on:
   workflow_dispatch:
+    inputs:
+      verified_run:
+        description: Successful Build and exercise desktop apps run ID for this exact commit
+        required: true
+        type: string
 permissions:
   contents: read
+  actions: read
 concurrency:
-  group: release-${{ github.ref }}
+  group: draft-release-${{ github.ref }}
   cancel-in-progress: false
 jobs:
-  windows:
-    runs-on: windows-latest
-    timeout-minutes: 45
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -18,89 +24,45 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 24
-          cache: npm
-          cache-dependency-path: |
-            package-lock.json
-            integrations/codex/package-lock.json
-      - name: Validate release tag and commit
-        run: node scripts/validate-release-tag.cjs
-      - run: npm ci
-      - run: npm run public:check
-      - run: npm run build:supervisor
-      - run: npm run build:launcher
-      - run: npm test
-      - run: npm ci --prefix integrations/codex
-      - run: npm run build:plugin
-      - run: npm run test:plugin
-      - run: npm audit --audit-level=moderate
-      - run: npm audit --prefix integrations/codex --audit-level=moderate
-      - name: Build unsigned converter
-        run: npm run build -- --publish never
+      - run: node scripts/validate-release-tag.cjs
+      - run: node scripts/verify-build-run.cjs
         env:
-          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
-      - name: Create and run an app through the converter
-        shell: pwsh
-        run: |
-          function Invoke-Acceptance($executable, $arguments) {
-            $options=@{FilePath=$executable;WindowStyle='Hidden';PassThru=$true}
-            if ($arguments) { $options.ArgumentList=$arguments }
-            $process=Start-Process @options
-            if (!$process.WaitForExit(120000)) { Stop-Process -Id $process.Id -Force; throw 'Converter acceptance timed out' }
-            if ($process.ExitCode -ne 0) { throw "Converter acceptance failed: $($process.ExitCode)" }
-          }
-          $version=node -p 'require("./package.json").version'
-          $env:APPDOCK_DATA=Join-Path $env:RUNNER_TEMP 'make-app-creator-acceptance'
-          $env:APPDOCK_CREATOR_SOURCE=(Resolve-Path 'examples/languages/javascript').Path
-          $env:APPDOCK_CREATOR_OUTPUT=Join-Path $env:RUNNER_TEMP 'Make App Acceptance.exe'
-          $env:APPDOCK_CREATOR_RESULT=Join-Path $env:RUNNER_TEMP 'make-app-creator-result.json'
-          Invoke-Acceptance "release/Make-App-$version-Windows.exe" '--creator-smoke'
-          $creator=Get-Content -Raw -LiteralPath $env:APPDOCK_CREATOR_RESULT | ConvertFrom-Json
-          if (!$creator.passed -or !$creator.createdThroughDesktopUI) { throw 'Desktop conversion failed' }
-          $env:APPDOCK_DATA=Join-Path $env:RUNNER_TEMP 'make-app-generated-acceptance'
-          $env:APPDOCK_TOOLCACHE=Join-Path $env:RUNNER_TEMP 'make-app-tool-cache'
-          $env:APPDOCK_DIRECT_TEST=Join-Path $env:RUNNER_TEMP 'make-app-direct-result.json'
-          $env:APPDOCK_DIRECT_EXPECT_TEXT='APPDOCK_SUM=0'
-          Invoke-Acceptance $env:APPDOCK_CREATOR_OUTPUT $null
-          $direct=Get-Content -Raw -LiteralPath $env:APPDOCK_DIRECT_TEST | ConvertFrom-Json
-          if (!$direct.passed -or !$direct.stopped -or $direct.executionApprovalClicks -ne 0) { throw 'Generated app acceptance failed' }
-      - name: Package public assets
-        shell: pwsh
-        run: |
-          $env:APPDOCK_PLUGIN_NODE=node -p 'process.execPath'
-          $version=node -p 'require("./package.json").version'
-          $env:APPDOCK_PLUGIN_BUILDER=(Resolve-Path "release/Make-App-$version-Windows.exe").Path
-          New-Item -ItemType Directory -Path qa -Force | Out-Null
-          npm sbom --sbom-format cyclonedx --omit dev > qa/sbom.cdx.json
-          npm run package:release
+          GH_TOKEN: ${{ github.token }}
+          VERIFIED_RUN: ${{ inputs.verified_run }}
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: make-app-windows-preview
-          path: public-release/*
-          if-no-files-found: error
+          name: verified-build-record
+          path: verified-build.json
+          retention-days: 1
   draft:
-    needs: windows
-    runs-on: windows-latest
-    timeout-minutes: 10
+    needs: verify
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: write
-      id-token: write
-      attestations: write
+      actions: read
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
-          name: make-app-windows-preview
-          path: public-release
-      - name: Attest the artifacts built in this run
-        uses: actions/attest-build-provenance@43d14bc2b83dec42d39ecae14e916627a18bb661
+          name: verified-build-record
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
-          subject-path: public-release/*
-      - name: Create draft prerelease with all assets
-        shell: pwsh
+          pattern: make-app-*
+          run-id: ${{ inputs.verified_run }}
+          github-token: ${{ github.token }}
+          path: artifacts
+          merge-multiple: true
+      - run: node scripts/verify-release-assets.cjs
+      - name: Create draft with verified assets
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $version=node -p 'require("./package.json").version'
-          gh release create "v$version" public-release/* --repo $env:GITHUB_REPOSITORY --target $env:GITHUB_SHA --title "Make App $version — Windows preview" --notes-file docs/RELEASE_NOTES.md --draft --prerelease
+          version=$(node -p 'require("./package.json").version')
+          gh release create "v$version" artifacts/public-release/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Make App $version — Desktop and web preview" --notes-file docs/RELEASE_NOTES.md --draft --prerelease

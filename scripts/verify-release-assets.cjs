@@ -1,0 +1,12 @@
+const fs=require('node:fs/promises'),sync=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+async function main(){
+ const folder=path.resolve('artifacts/public-release'),names=await fs.readdir(folder),manifests=names.filter(n=>/^release-manifest-(win32|darwin|linux)-(x64|arm64)\.json$/.test(n));if(manifests.length!==5)throw new Error('Expected five platform manifests.');
+ const allowed=new Set(),platforms=new Set();for(const name of manifests){const m=JSON.parse(await fs.readFile(path.join(folder,name),'utf8'));if(m.version!==require('../package.json').version||!['win32/x64','darwin/x64','darwin/arm64','linux/x64','linux/arm64'].includes(m.platform+'/'+m.arch))throw new Error('Invalid platform manifest');platforms.add(m.platform+'/'+m.arch);allowed.add(name);allowed.add(`SHA256SUMS-${m.platform}-${m.arch}.txt`);
+  const system={win32:'Windows',darwin:'macOS',linux:'Linux'}[m.platform],expected=[`Make-App-${system}-${m.arch}.`+(m.platform==='win32'?'exe':m.platform==='darwin'?'zip':'AppImage'),`Make-App-Codex-Plugin-${system}-${m.arch}.`+(m.platform==='win32'?'zip':'tar.gz'),`sbom-${m.platform}-${m.arch}.cdx.json`];
+  if(m.files.length!==3||expected.some(n=>!m.files.some(f=>f.name===n)))throw new Error('Incomplete platform assets');
+  for(const item of m.files){if(!expected.includes(item.name)||path.basename(item.name)!==item.name||!/^[a-f0-9]{64}$/.test(item.sha256))throw new Error('Unexpected release file');const file=path.join(folder,item.name);if((await fs.stat(file)).size!==item.bytes)throw new Error('Asset size mismatch');const hash=crypto.createHash('sha256');for await(const chunk of sync.createReadStream(file))hash.update(chunk);if(hash.digest('hex')!==item.sha256)throw new Error('Asset checksum mismatch: '+item.name);allowed.add(item.name);}
+  const checks=await fs.readFile(path.join(folder,`SHA256SUMS-${m.platform}-${m.arch}.txt`),'utf8');for(const item of m.files)if(!checks.split(/\r?\n/).includes(item.sha256+'  '+item.name))throw new Error('Checksum list mismatch');
+ }
+ if(platforms.size!==5||names.some(n=>!allowed.has(n)))throw new Error('Unexpected, missing or duplicate release assets.');await fs.copyFile('verified-build.json',path.join(folder,'BUILD-VERIFICATION.json'));console.log('Verified every downloaded release asset against its platform manifest.');
+}
+main().catch(error=>{console.error(error.message);process.exitCode=1;});

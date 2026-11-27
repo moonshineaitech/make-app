@@ -11,3 +11,5 @@ Runtime, SDK and dependency preparation can contact publisher download services 
 The optional local Codex plugin reads selected project files, reports detection results and creates the output file you request. Tool inputs and results pass through your Codex client; its privacy settings and terms apply. Make App does not add a separate relay server. Do not include credentials in tool arguments, issue reports, screenshots or public launchers.
 
 GitHub hosts the source, downloads and issue tracker and applies its own policies. Public issues are public: redact personal paths, source code and tokens before posting. See SECURITY.md for private vulnerability reports.
+
+Direct launchers can cache file metadata and content hashes locally to avoid rereading unchanged files. This cache contains relative filenames and hashes, not source contents. Native capability approval checks read source contents freshly. Static web exports copy public assets to a selected new directory for hosting; review those assets before publishing. Make App does not upload them automatically.

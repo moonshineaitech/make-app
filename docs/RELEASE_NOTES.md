@@ -1,9 +1,17 @@
-# Make App 0.7.0 — free Windows preview
+# Make App 0.8.0 — desktop and web preview
 
-Choose a local project and create its own one-click executable. No Make App installation, account or API key is required.
+Choose a project and create a native desktop app, or export an existing static web build for phones, tablets and browsers. No Make App account, API key or hosted platform is required.
 
-Download **Make-App-Windows-x64.exe** for the converter, or **Make-App-Codex-Plugin-Windows-x64.zip** for the one-click Codex installer. The plugin bundle includes Node and the converter. Checksums and an SBOM accompany the release.
+Seven areas improved:
 
-Keep the original source folder: this preview creates local launchers, not source-inclusive portable apps for another computer. First launch may prepare dependencies or download a runtime/SDK. Python currently requires an installed interpreter. Project code runs under your account permissions.
+1. Native Windows EXE, macOS application-bundle and Linux executable output, plus installable static web exports.
+2. OS/architecture-aware SDK selection, installed Node reuse and missing Python preparation.
+3. Incremental direct-launch hashing, Unix process supervision, cancellation and atomic output. On one 1,875-file actual project, warm hashing was 9.3 times faster (2,718 ms to 292 ms); this is not an end-to-end launch speed guarantee.
+4. Project/output/review UI with detected requirements, accurate formats, progress and cancellation.
+5. Responsive light/dark layouts, keyboard controls, accessible status/error handling and high-contrast/reduced-motion support.
+6. Safer static exports with file-type filtering, hidden-file/source exclusions, symlink refusal, scoped offline caches and common credential-signature checks.
+7. Complete OS-specific Codex plugin bundles and native build/launch acceptance on five desktop targets, with checksums and dependency inventories.
 
-The Windows x64 preview is unsigned. Signing, clean-machine and manual accessibility acceptance remain open. The Codex plugin is independent and is not an approved OpenAI Directory listing.
+Download the converter or complete plugin bundle matching your OS/architecture. The plugin archive includes Node and the converter. Extract it to a stable folder and run its Install Codex Plugin script. Desktop apps require their original project folder. Web exports require HTTPS hosting and do not execute backend/native code in a phone browser.
+
+This is an unsigned, non-notarized preview. Signing, clean-machine, physical mobile-device and manual accessibility acceptance remain separate gates. The independent local plugin is not an approved OpenAI Directory listing. Build verification records identify the exact source commit and native workflow used for release assets.

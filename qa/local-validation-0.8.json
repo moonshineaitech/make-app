@@ -1,0 +1,52 @@
+{
+  "version": "0.8.0",
+  "environment": "Existing Windows x64 development host",
+  "regressionTests": {
+    "passed": 80,
+    "failed": 0,
+    "skipped": 0
+  },
+  "pluginTests": {
+    "passed": 3,
+    "failed": 0
+  },
+  "actualProjectDevelopmentBuilds": {
+    "passed": 3,
+    "setupClicks": 0,
+    "executionApprovalClicks": 0,
+    "stopped": true,
+    "sourceUnchanged": true,
+    "scope": "Intermediate 0.8 executable, separate from final native release acceptance"
+  },
+  "creatorAccessibility": {
+    "automatedViolations": 0,
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "widths": [
+      320,
+      520,
+      900
+    ],
+    "horizontalOverflow": false
+  },
+  "webExport": {
+    "responsiveWidths": [
+      390,
+      768,
+      1280
+    ],
+    "controlledServiceWorker": true,
+    "offlineReload": true,
+    "storagePreserved": true,
+    "nativeMobileDeviceTested": false
+  },
+  "notCertified": [
+    "publisher signing",
+    "clean-machine acceptance",
+    "manual screen-reader testing",
+    "physical mobile devices",
+    "all legacy native capabilities"
+  ]
+}

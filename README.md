@@ -1,105 +1,134 @@
 # Make App
 
-Turn a local project into a Windows executable. Choose a folder, save an `.exe`, and double-click it to open your app.
+Open what you build. Choose a local project and create its desktop app, or export a static web app for phones, tablets and browsers.
 
-**Free and open source · MIT license · Windows x64 preview**
+**Free · MIT licensed · Local execution · No account or API key**
 
-[Get the Windows preview](https://github.com/moonshineaitech/make-app/releases) · [Install the Codex plugin](docs/CODEX.md) · [How it works](docs/HOW_IT_WORKS.md)
+[Downloads](https://github.com/moonshineaitech/make-app/releases) · [Codex plugin](docs/CODEX.md) · [Device support](docs/CROSS_PLATFORM.md) · [Validation](docs/VALIDATION.md)
 
-![The Make App converter](docs/assets/make-app-windows.png)
-
-## Downloads
-
-**Release status:** v0.7.0 is being prepared as a draft. The source is public; GitHub makes the binary assets publicly downloadable when a maintainer publishes the draft. The versioned links below are the intended download URLs after publication.
-
-| What you want | Download | What to do |
-| --- | --- | --- |
-| Use the converter | [Windows x64 executable](https://github.com/moonshineaitech/make-app/releases/download/v0.7.0/Make-App-Windows-x64.exe) | Open the file; no installer or administrator rights needed |
-| Use it from Codex | [Complete Codex plugin ZIP](https://github.com/moonshineaitech/make-app/releases/download/v0.7.0/Make-App-Codex-Plugin-Windows-x64.zip) | Extract everything, then double-click `Install Codex Plugin.cmd` |
-| Check a download | [SHA-256 checksums](https://github.com/moonshineaitech/make-app/releases/download/v0.7.0/SHA256SUMS.txt) | Compare the downloaded file's hash with the matching entry |
-| Inspect dependencies | [CycloneDX SBOM](https://github.com/moonshineaitech/make-app/releases/download/v0.7.0/sbom.cdx.json) | Review the converter's npm runtime dependency inventory |
-
-Use the release assets above rather than GitHub's **Code → Download ZIP** for normal use. The source ZIP is for development and does not contain the converter binary or bundled plugin dependencies.
+![Make App creator](docs/assets/make-app-windows.png)
 
 ## Start here
 
-1. Download **Make-App-Windows-x64.exe** from Releases and open it. No installation is needed.
-2. Choose your project folder, or select a saved Codex project.
-3. Select an entry point if your project has several, then click **Make executable**.
-4. Save the file and double-click it. Setup progress appears when needed, followed by your app.
+1. Download the converter for your computer from **Releases**.
+2. Open it and choose a folder, or pick a saved Codex project.
+3. Select **Desktop app** or **Installable web app**. Choose an entry point if the project has several.
+4. Review the detected requirements, name the app and save it.
 
-No Make App account or API key is required. Your project and development tools can have their own requirements.
+A desktop app opens the selected project directly and prepares its dependencies when needed. **Keep the original project folder in place.** The desktop output is a local launcher, not a source-inclusive package for another computer. The converter can be removed after creating it.
 
-**Keep the original project folder in place.** This preview creates local launchers that follow that folder. It does not bundle the complete project for a different computer. Generated files are currently about 110 MB because they include a desktop runtime; installed runtime and SDK caches are shared between apps.
+A web export copies an existing static build into a new folder. Upload that folder to any static HTTPS host, then open its URL on your devices. Supported browsers offer **Install App** or **Add to Home Screen**. Offline access starts after the first successful visit and service-worker installation. Backend services, external APIs and authentication still need their own connectivity and hosting.
+
+## Choose your download
+
+**Release status:** binary assets remain private while a release is a draft. The source and CI results are public. The 0.8 desktop builds use native acceptance on each target; check the validation page and release assets before choosing a build.
+
+| Computer | Converter asset | Codex plugin asset |
+| --- | --- | --- |
+| Windows x64 | `Make-App-Windows-x64.exe` | `Make-App-Codex-Plugin-Windows-x64.zip` |
+| macOS, Apple Silicon | `Make-App-macOS-arm64.zip` | `Make-App-Codex-Plugin-macOS-arm64.tar.gz` |
+| macOS, Intel | `Make-App-macOS-x64.zip` | `Make-App-Codex-Plugin-macOS-x64.tar.gz` |
+| Linux x64 | `Make-App-Linux-x64.AppImage` | `Make-App-Codex-Plugin-Linux-x64.tar.gz` |
+| Linux ARM64 | `Make-App-Linux-arm64.AppImage` | `Make-App-Codex-Plugin-Linux-arm64.tar.gz` |
+
+Use the assets on the [release page](https://github.com/moonshineaitech/make-app/releases). GitHub's **Code → Download ZIP** contains development source, without the converter or complete plugin dependencies. Each platform bundle includes its own checksum list, release manifest and runtime dependency SBOM. Signing and notarization remain release gates; this is an unsigned preview.
+
+On macOS, extract the ZIP and open **Make App.app**. On Linux, allow the AppImage to run as a program, then open it. The generated Linux `.run` file is executable and includes its desktop runtime; its launcher supports extraction without requiring FUSE. Windows uses an `.exe`. Build apps on their target desktop OS; Make App does not cross-compile arbitrary projects.
 
 ## Use it from Codex
 
-Download **Make-App-Codex-Plugin-Windows-x64.zip**, extract the whole folder, and double-click **Install Codex Plugin.cmd**. Open a new Codex chat and ask:
+Download the plugin archive matching your OS and architecture. Extract the entire archive to a folder you will keep, then run its **Install Codex Plugin** script. Codex must already be installed. The archive includes Node and the converter, so there is no global Node installation, API key, administrator step or manual MCP configuration.
 
-> Make an executable for this project.
+Open a new Codex chat and ask:
 
-The bundle includes Node and the converter. No manual MCP configuration or global Node installation is required. Codex must already be installed. [Install, update and remove the plugin](docs/CODEX.md).
+> Make a desktop app for this project.
 
-## What it recognizes
+For a static web build:
 
-| Stack | Recognized workflows | Important limits |
+> Export this project as an installable web app.
+
+The plugin can inspect projects without executing their code. It offers `inspect_project`, `list_projects`, `make_executable` and `open_project`. The creation tool accepts a desktop or web format. [Installation, updates and removal](docs/CODEX.md).
+
+## Device support
+
+| Device | What it can use |
+| --- | --- |
+| Windows, macOS and Linux computers | Native converter, Codex plugin and generated apps for their OS |
+| iPhone and iPad | Hosted web exports in Safari and compatible browsers; home-screen installation where supported |
+| Android phones and tablets | Hosted web exports; browser installation where supported |
+| Chromebooks | Hosted web exports; Linux desktop support depends on the device's Linux environment |
+| Other modern browser devices | Hosted web exports, subject to browser capabilities |
+
+The converter runs on desktop operating systems. A phone browser cannot run an arbitrary desktop executable, compiler, native game or backend service. Web export is available when an existing static build is detected in the chosen folder or its `dist`, `build`, `out` or `public` directory. Native platform SDKs, GPUs, hardware access and external services remain project requirements. [Support boundaries and formats](docs/CROSS_PLATFORM.md).
+
+## Languages and setup
+
+| Stack | Recognized workflows | Setup behavior |
 | --- | --- | --- |
-| Rust | Cargo binaries, executable selection and standalone programs | Native frameworks and platform SDKs vary |
-| TypeScript / JavaScript | Package scripts, CLI entry points, web frontends and local services | Unusual scripts or monorepos can need project adjustments |
-| Python | Common script, console, web and desktop entry points | A compatible Python interpreter must already be installed |
-| Go | Module projects and executable targets, including services | Native dependencies and assets remain project requirements |
-| C# / .NET | Console, ASP.NET and supported Windows GUI projects | Requires the appropriate target framework and host capabilities |
-| Java | Source entry points and recognized project layouts | Maven/Gradle and framework coverage varies |
-| C / C++ | Single-file compilation and CMake executable targets | Compiler, native-library and asset requirements still apply |
-| Ruby | Script entries and declared Bundler workflows | Native-extension builds are not universally validated |
+| Rust | Cargo binaries, workspaces and standalone programs | Uses installed Rust or a private verified toolchain; native libraries and platform SDKs may be required |
+| TypeScript / JavaScript | Package scripts, CLI entry points, local services and common frontend layouts | Compatible installed or private Node runtime, lockfile-aware npm/pnpm/Yarn setup and pinned TypeScript runner |
+| Python | Common scripts, web, console and desktop entry points | Uses available Python 3 or provisions private CPython when missing; unusual version constraints need a compatible interpreter |
+| Go | Modules and executable targets, including services | Uses installed or private Go SDK |
+| C# / .NET | Console, ASP.NET and recognized GUI projects | SDK selection and private preparation; Windows-specific frameworks require Windows |
+| Java | Source entries and recognized layouts | Uses installed or private JDK; Maven/Gradle and framework coverage varies |
+| C / C++ | Single-file programs and CMake executable targets | Private Zig compiler and recognized CMake/Ninja workflows; project-specific native libraries may still need setup |
+| Ruby | Script entries and Bundler workflows | Private Windows Ruby or an installed Ruby/Bundler environment on macOS/Linux |
 
-Common web, native GUI and service layouts are supported at different levels. Detection uses project files and does not run source code. Multi-target projects ask you to choose an entry point.
+Detection reads project files and does not execute source. Libraries without runnable entry points are identified instead of receiving invented commands. Multi-target projects ask you to select an entry point. Setup can download SDKs and execute the project's declared installation/build steps when the generated desktop app is opened.
 
-Compatibility depends on the project and framework. First launch can download a runtime/SDK and install dependencies. Python currently needs a compatible installed interpreter. Native Apple targets require their supported operating system and SDKs. Credentials, databases, hardware requirements and external services are not supplied automatically.
+## What changed in 0.8
 
-## What has been checked
+Seven areas received implementation changes:
 
-The local Windows baseline has 72 regression tests, ten language examples across nine families, and three actual project executables that opened their app windows and stopped their processes. These are local observations, not clean-machine certification or proof every application works. [Validation scope and release status](docs/VALIDATION.md).
+- **Device reach:** native desktop formats and static web export with a manifest, mobile icons and scoped offline caching.
+- **Setup:** OS/architecture-aware SDK selection and automatic private Python preparation when no suitable interpreter is available.
+- **Launch speed and reliability:** incremental hashing for direct launchers, process-group supervision on macOS/Linux, bounded cancellation and atomic output writes. Native permission checks continue to read source contents freshly.
+- **Interface:** a concise project/output/review flow, detected requirements, entry selection, progress, cancellation and accurate saved-file messages.
+- **Accessibility:** keyboard form controls, status/error announcements, visible focus, 44-pixel controls, responsive layouts, light/dark themes and reduced-motion/forced-color support.
+- **Export safety:** no source clones for desktop output; web export excludes hidden files and source/dependency folders, refuses symlinks, checks common embedded credential signatures and writes only to a new destination. These checks do not prove every build is free of secrets.
+- **Distribution:** five native build targets, OS-specific complete plugin archives, checksum manifests, dependency inventories and end-to-end CI that creates and runs an app.
 
-The preview is unsigned, so Windows can show a publisher warning. Compare your download with **SHA256SUMS.txt**. Run generated apps only from projects you trust: project code and setup scripts run with your account's permissions and can update the original folder. Make App is not a filesystem/network security sandbox.
+On one actual project containing 1,875 files and about 806 MB of source/build content, warm fingerprinting fell from 2,718 ms to 292 ms: **9.3× faster**, with zero unchanged file content reread. This measures hashing on the development Windows host, not total launch time or all projects.
 
-## How your app runs
+## Verification and limits
 
-A generated `.exe` contains a small Windows launcher, the desktop runtime and the selected project's launch settings. It checks its embedded payload, reuses a shared local runtime cache, reads the current project files and runs the inferred setup/build/start sequence. Apps keep their own state and can share cached SDKs.
+The current local suite passes 80 regression tests and three plugin tests. Three actual project executables opened their app windows with zero additional setup/approval clicks, then stopped their processes; source fingerprints stayed unchanged. The creator passed automated accessibility checks in both themes at 320, 520 and 900 pixels. A web export rendered at phone/tablet/desktop sizes and reloaded offline after its server stopped. These are browser-engine checks, not physical iPhone/Android or manual screen-reader certification.
 
-Web projects open in their own window with their local services running. Native GUI applications retain their original interface. CLI tools get an output/input window, with an interactive terminal available on Windows x64. Closing a managed app stops its owned process tree.
-
-This is local execution, not hosting or deployment. Creating the `.exe` does not execute project code; opening it does. No full source clone is created by the normal workflow. See [the execution model](docs/HOW_IT_WORKS.md) and [privacy policy](PRIVACY.md).
+Read [validation evidence and open gates](docs/VALIDATION.md) and the [native CI runs](https://github.com/moonshineaitech/make-app/actions/workflows/cross-platform.yml). Native build success, unit tests, desktop launch acceptance and physical-device acceptance are reported separately. Compatibility varies by framework. The preview is not a filesystem or network sandbox: project code runs with your account's permissions.
 
 ## Troubleshooting
 
 | Symptom | Next step |
 | --- | --- |
-| The download link is unavailable | Check [Releases](https://github.com/moonshineaitech/make-app/releases). Draft assets become public only after the release is published. |
-| The Codex installer cannot find Codex | Install or update the Windows Codex desktop app, then rerun the installer. [Manual installation](docs/CODEX.md#manual-alternative) is available for other CLI setups. |
-| Files are missing after extracting the plugin | Extract the entire ZIP, keeping its folders together, then rerun `Install Codex Plugin.cmd`. |
-| A generated app cannot find its project | Restore the original source folder or create another executable for its new location. |
-| Setup needs a credential, database or external service | Configure that project's prerequisites. Make App does not supply accounts, credentials or cloud infrastructure. |
-| Several executable entry points are detected | Select the intended target. A library without an entry point needs an executable consumer. |
-| You need to send an app to another computer | This preview requires the original source folder. Source-inclusive portable distribution is not implemented yet. |
+| Several executables are detected | Select the program you intend to run |
+| Web export is unavailable | Build the frontend first, or select the folder containing its built `index.html` |
+| A web export needs an API | Host that backend separately and configure the frontend's API URL |
+| A desktop app cannot find its project | Restore the folder to its original location or create a new app for the relocated folder |
+| First launch is preparing tools | Keep the progress window open; subsequent apps reuse compatible runtime/SDK caches |
+| A project needs credentials | Supply its required environment variables through its supported setup; Make App does not provide service accounts |
+| Plugin installation cannot find Codex | Install/update Codex and retry; its CLI must be discoverable |
+| An output already exists | Choose a new name; web exports and macOS bundles preserve existing directories |
+| Linux lacks a required system library | Install the desktop library required by Electron or the project; see the launch error |
 
-For a bug report, include the version, Windows version, project type, expected result and a small public reproduction. Redact credentials, personal paths and private source. [Report a bug](https://github.com/moonshineaitech/make-app/issues/new/choose) or use [private security reporting](SECURITY.md) for vulnerabilities.
+Creation can be cancelled. Failed or cancelled creation removes temporary output and leaves existing apps intact. Keep plugin files in their extracted folder while installed. Use its matching **Uninstall Codex Plugin** script to remove only Make App.
 
-## Develop
+## Development
 
-Use Node 24 LTS and Git on Windows x64. Release ZIP packaging also uses Python 3.
+Use Node.js 24 and an installed Rust compiler to build native launchers. Native packages are built on their corresponding OS. Linux desktop tests require a working graphical session or Xvfb.
 
 ```sh
 npm ci
+npm run public:check
 npm run build:supervisor
 npm run build:launcher
 npm test
 npm ci --prefix integrations/codex
 npm run build:plugin
 npm run test:plugin
-npm run build
+npm run build -- --publish never
+node scripts/desktop-acceptance.cjs
 ```
 
-Native helper builds prepare a private Rust toolchain if needed. Source and release dependencies are locked; use the existing lockfiles. `npm run public:check` checks tracked public source for accidental binary/data inclusion. [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Privacy](PRIVACY.md) · [License](LICENSE).
+The Windows supervisor build can prepare a private Rust toolchain. Unix native launcher builds use the installed `rustc`. `npm run build` selects the host's converter format. Packaging a complete plugin archive requires `APPDOCK_PLUGIN_NODE` and `APPDOCK_PLUGIN_BUILDER`; macOS also specifies the converter ZIP via `APPDOCK_CONVERTER_ASSET`. See [release workflow](.github/workflows/cross-platform.yml).
 
-This is an independent project. The local Codex integration is not an OpenAI-endorsed or public-directory-approved plugin.
+[Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Privacy](PRIVACY.md) · [Third-party notices](THIRD_PARTY_NOTICES.md) · [MIT license](LICENSE)

@@ -4,7 +4,7 @@ AppDock's application code and native process supervisor are MIT licensed; see L
 
 The packaged desktop runtime includes Electron/Chromium and their accompanying license files. The application includes smol-toml (BSD-3-Clause), with its original license in the bundled dependency directory. The Codex plugin includes the MCP SDK and Zod with their dependency licenses.
 
-The Windows supervisor links the Rust standard library. Its library copyright notices and referenced licenses are included under resources/bin/RUST-STANDARD-LIBRARY-NOTICES.html and resources/bin/licenses in the desktop distribution. The native source and notices are also provided in the source package.
+The Windows process supervisor and native Windows/Linux launchers link the Rust standard library. Its library copyright notices and referenced licenses are included under resources/bin/RUST-STANDARD-LIBRARY-NOTICES.html and resources/bin/licenses in the desktop distribution. The Rust source is provided in the source package; notices are copied from the compiling toolchain during packaging.
 
 Downloaded project runtimes, compilers, package managers and project dependencies are separate components with their own licenses. They are downloaded from their publishers during approved setup and are not all bundled in the AppDock executable. A runtime dependency SBOM is included in qa/sbom.cdx.json. This inventory does not establish the licensing or safety of projects opened with AppDock.
 

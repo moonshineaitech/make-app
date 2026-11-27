@@ -1,13 +1,19 @@
 # Releasing
 
-The public repository is source-only. Put the converter, plugin ZIP, checksums and SBOM in GitHub Releases. Do not attach personal project executables or private acceptance logs.
+The public repository contains source and sanitized evidence. Keep converter/plugin binaries in GitHub Releases. Never attach private project executables or raw private acceptance data.
 
-Build and verify before creating a tag. `npm run package:release` uses `APPDOCK_PLUGIN_NODE` and `APPDOCK_PLUGIN_BUILDER` to package the tested binaries, plus Python 3 to create the ZIP. The release manifest lists the exact artifact hashes.
+## Native builds
 
-The release workflow creates a draft prerelease and uploads all assets. It does not publish the release automatically. Review the downloaded files, checksum manifest, workflow results and limitations before publication. Enable immutable releases and private vulnerability reporting in repository settings. When immutability is enabled, attach all assets before publishing; publish changes as a new tag instead of replacing existing files.
+Run **Build and exercise desktop apps** for the intended source commit. Its five native jobs compile helpers, run regressions/plugin tests/audits, build the host converter, create and launch a real app, then package the converter and complete plugin archive. Platform manifests contain the exact asset sizes and hashes. Temporary Actions artifacts use one-day retention.
 
-Actions are pinned to full commit SHAs, checkout credentials are not persisted, ordinary verification has read-only permissions, and only the release job can write release assets/attestations. Hosted attestations exist only after a successful hosted build. They do not establish a reproducible-build assurance level.
+The local packager takes `APPDOCK_PLUGIN_NODE` and `APPDOCK_PLUGIN_BUILDER`; macOS also takes `APPDOCK_CONVERTER_ASSET` pointing to the converter ZIP. Python 3 creates ZIP/tar archives. Symlinks remain internal to the macOS/plugin bundle and are validated by its integrity inventory.
 
-The unsigned preview must remain labeled as such. Do not call it production-ready while signing, clean-machine and manual accessibility acceptance remain open. X announcement drafts are provided separately; posting them is a publisher action.
+## Draft release
 
-References: https://docs.github.com/en/code-security/concepts/supply-chain-security/immutable-releases and https://docs.github.com/en/actions/reference/security/secure-use.
+Fast-forward the tested source commit to `main`, then run **Create verified draft release** on that same commit with its successful native workflow run ID. The preflight requires all five platform jobs to pass and all five artifacts to be available. The release job downloads only those assets and checks every file against its expected platform manifest and checksum list before creating a draft prerelease.
+
+The release workflow does not rebuild unreviewed source or publish the draft. Its `BUILD-VERIFICATION.json` links the exact commit and native jobs; it is a verification receipt, not a cryptographic provenance or reproducible-build certification. Review downloaded assets, hashes, limitations and OS trust behavior before publishing. When immutable releases are enabled, attach every asset before publication; ship later changes under a new version.
+
+Workflow actions are pinned to full commit SHAs; checkout credentials are not persisted. Build jobs are read-only. Only the separate draft job has release-write permission. It validates source/run identity before downloading assets and runs only the repository's asset verification code.
+
+Keep unsigned previews labeled accurately. Do not call the application production-ready while signing, clean-machine and manual accessibility gates are open. X announcements and OpenAI Directory submission remain separate publisher actions.

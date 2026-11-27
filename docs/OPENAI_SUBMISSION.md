@@ -2,7 +2,7 @@
 
 This plugin requires local filesystem access and starts a local stdio MCP server. It is desktop-only, not a remote web connector. A public HTTPS relay would not make local project files safely available and is not part of this design.
 
-The package has a portable `plugin.json`, `mcp.json`, a compatibility `.codex-plugin/plugin.json`, four narrowly scoped tools, a run-project skill, no authentication requirement and bundled Windows dependencies.
+The package has a portable `plugin.json`, `mcp.json`, a compatibility `.codex-plugin/plugin.json`, four narrowly scoped tools, a run-project skill, no authentication requirement and complete platform-specific dependencies.
 
 Before submission:
 

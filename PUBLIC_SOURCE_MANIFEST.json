@@ -25,13 +25,13 @@
     },
     {
       "path": ".github/workflows/build.yml",
-      "bytes": 4930,
-      "sha256": "d479fadf5cdfc50f27db0cb592d18639a3fed8878fcad850ec75a6f58490b875"
+      "bytes": 2388,
+      "sha256": "c31e12d91b89452565f3fa0d280c63ed522e6aabe9076a57bec0cf59cc640bf2"
     },
     {
       "path": ".github/workflows/cross-platform.yml",
-      "bytes": 2168,
-      "sha256": "99f03758b8f37ad3434daa5f72dd3ad0200f72c0918452f8e67b375f9229f555"
+      "bytes": 2227,
+      "sha256": "fb14ad56b1b936ef063cc4988ab8c7549b472a41599bf13713013df8c42d8d8e"
     },
     {
       "path": ".github/workflows/verify.yml",
@@ -65,53 +65,58 @@
     },
     {
       "path": "PRIVACY.md",
-      "bytes": 1451,
-      "sha256": "78d64ed7a1fe4f308097339d8747eb392f4d13b603dfb45d3f2bcf4594ffd813"
+      "bytes": 1855,
+      "sha256": "7fac5e86d5f8c02f03d22a758773bd6b2842a214dd098d72377fbafbd0f8951d"
     },
     {
       "path": "README.md",
-      "bytes": 8431,
-      "sha256": "85ac4c5febcb3006e97c1f629ebf171e6e9c4864175bab5f2f48b9bc19493c68"
+      "bytes": 11451,
+      "sha256": "0cb948db638a18eb92cf61fdb5d79aa548726b4b9ff3615855819c95b6e0da7f"
     },
     {
       "path": "SECURITY.md",
-      "bytes": 1029,
-      "sha256": "3f89ad75dbea6a9bbddef11f074971c56c6d559d098b852ebc3bf14c2014e0bd"
+      "bytes": 1420,
+      "sha256": "d60626ecea646c0550ef0cce1234a74ec03344034e4970e4c0d0078e9b799f6f"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
-      "bytes": 1546,
-      "sha256": "46993860a9435a4f6259792cf7fc20df1b3ac38bd4e7a6545a0a7d71cc82616d"
+      "bytes": 1634,
+      "sha256": "de3488e284febfc32742a58242bb36bddd03c5e0e04af8455cd66b7f81dd4c35"
     },
     {
       "path": "docs/CODEX.md",
-      "bytes": 2850,
-      "sha256": "76a4cfeb806d855da7281f8f6c80f0f137b083543df8e0b46e576fe4ca39ab68"
+      "bytes": 3090,
+      "sha256": "00de47562ae4138abaf2b445408465ceb6f37b100a8558d5d4262e348cbf2bc1"
+    },
+    {
+      "path": "docs/CROSS_PLATFORM.md",
+      "bytes": 3715,
+      "sha256": "46a46517a9ec50e120f95a845ee698bcc5f4669e327c866ba6b63cee2bd8a80b"
     },
     {
       "path": "docs/HOW_IT_WORKS.md",
-      "bytes": 1548,
-      "sha256": "2e325b26dc6a5c1855317af5142cb99c9c2b9433b911b5f7cb416ebf895bb9b7"
+      "bytes": 2049,
+      "sha256": "90e39b5c9efba7e8665d0da795d3c7327a4a3ad0da50816f4ea85461c02ab1a9"
     },
     {
       "path": "docs/OPENAI_SUBMISSION.md",
-      "bytes": 1845,
-      "sha256": "ac3b9c9f72cb094d912fa8c7dd8055f79355c6075f7d88956dae7df7cd0be05f"
+      "bytes": 1856,
+      "sha256": "22c34a1763302b757613e0adaa32a72c3b8f33fe526918af0fcdb6fe97fcd3c1"
     },
     {
       "path": "docs/RELEASE_NOTES.md",
-      "bytes": 886,
-      "sha256": "4374b422e0284bc69e7a9df039b8619c6d6a240c009ae2582c1e3ffdfb9ea886"
+      "bytes": 1913,
+      "sha256": "df8665ec6156fca9491c82456c8b09777c330f2022a1668691a21f2c9ffe0fc6"
     },
     {
       "path": "docs/RELEASING.md",
-      "bytes": 1610,
-      "sha256": "3b1c6793ecf7451f6d626fb3cf345301203d6a6ceee1f1b1001d34d5052544ac"
+      "bytes": 2283,
+      "sha256": "3908e24b7d90d8e75cbd37b26f2c431b370615e049fade68e9cd6845823b34ca"
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 1593,
-      "sha256": "b19a7a1b875611d77e2586b679f83732d29def9999f626373e5d953f56dcc88f"
+      "bytes": 3098,
+      "sha256": "8766885a6b381f0b9d085d578e35e601c58bdeb7649f912c670deeee53bb1aae"
     },
     {
       "path": "docs/assets/make-app-light.png",
@@ -125,8 +130,8 @@
     },
     {
       "path": "electron-builder.config.cjs",
-      "bytes": 897,
-      "sha256": "5b2cd67a2da156318bd0ee21a6d743584d9283a96aeee30a324becf74a984db4"
+      "bytes": 1043,
+      "sha256": "204b733ff974fd59362dec8bdb7ce37d4303b905911e3a19990a552f91d67160"
     },
     {
       "path": "electron-builder.production.cjs",
@@ -404,14 +409,24 @@
       "sha256": "e2c094979718521583d6ff6a4a0156b536932d37ecc8a78f3ade9067c9e96748"
     },
     {
+      "path": "qa/fingerprint-performance-0.8.json",
+      "bytes": 312,
+      "sha256": "5af12ae395044bb2b0581b3744cc577b0c6b2d1f4132905f315597e7ed3c7b7f"
+    },
+    {
+      "path": "qa/local-validation-0.8.json",
+      "bytes": 1083,
+      "sha256": "02f31e24c970dfd9e6bb9db25550e0eaab289faf1b41db1ebc6eb2efa46d7c3c"
+    },
+    {
       "path": "scripts/assemble-plugin.cjs",
-      "bytes": 4621,
-      "sha256": "9117689ab0d7d71c8a9304f6c47718ab3e755d817a909097c096f2d9b816ccb1"
+      "bytes": 4669,
+      "sha256": "b353af2f4ffcaca85c87d84528c79dea172aaacd2f1827ba17f72c1d9628fb3e"
     },
     {
       "path": "scripts/build-launcher.cjs",
-      "bytes": 915,
-      "sha256": "7596ffd3af0fc766eb7470143291962ae63d444b023f7a9a3a917dcec0f65db4"
+      "bytes": 1308,
+      "sha256": "d39a76aea073bca838cb31defe7004244c0ceed04cf5ad899ef26307939e0829"
     },
     {
       "path": "scripts/build-process-broker.cjs",
@@ -479,6 +494,16 @@
       "sha256": "42053083385ad2e0ad4914a326483758f8422d1b97b2605e67fa2d370b8ea1e9"
     },
     {
+      "path": "scripts/verify-build-run.cjs",
+      "bytes": 2024,
+      "sha256": "aaaab3d077c5a837649698890eda1afd0a29aec6f85d8dea2ea3fdee93891f05"
+    },
+    {
+      "path": "scripts/verify-release-assets.cjs",
+      "bytes": 2411,
+      "sha256": "d02cb994b2327dd5780d8e2884029d3fc95ebcb9ec7d28c1dc14ec86d2bfe010"
+    },
+    {
       "path": "src/adapters.cjs",
       "bytes": 2855,
       "sha256": "d37cbdabae363c69caa369fa73b75a942e18df4e0e59611834e34eb143429029"
@@ -515,8 +540,8 @@
     },
     {
       "path": "src/creator-smoke.cjs",
-      "bytes": 1875,
-      "sha256": "895d03c4b5cfa54517d70ba1ef2916b1743d910a7f811b6a2240598db05e45da"
+      "bytes": 2412,
+      "sha256": "48508333db09df1418735e9f303a569f97e7cd525fdc7d39c7c31c0b6e126128"
     },
     {
       "path": "src/diagnostics.cjs",
@@ -810,8 +835,8 @@
     },
     {
       "path": "src/web-export.cjs",
-      "bytes": 7732,
-      "sha256": "870533198cb5d28f1784222fa0ddaf97c7c2789cf61a56e5d155b986e4e58e66"
+      "bytes": 7932,
+      "sha256": "ce10299870e7e52a604210c323d123b279aa94b257968d45744df9cae505a5a4"
     },
     {
       "path": "src/workspaces.cjs",
@@ -865,8 +890,8 @@
     },
     {
       "path": "test/portable.test.cjs",
-      "bytes": 6554,
-      "sha256": "2bae2511f91ea612a8ef8d981182cf01057bab211bdcd8d5db77dd8c9a1f312e"
+      "bytes": 7202,
+      "sha256": "12f32b4a0a467d71b4442df029cac31f57b59eb0f604eb7e977e93883b6bd25c"
     },
     {
       "path": "test/projects.test.cjs",

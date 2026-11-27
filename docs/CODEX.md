@@ -1,38 +1,42 @@
-# Codex installation
+# Make App for Codex
 
-## Recommended: the release bundle
+The independent local plugin turns a selected project into a desktop app or exports an existing static web build. It does not require an OpenAI API key or a Make App account. It is not an approved OpenAI Plugin Directory listing.
 
-1. Download [Make-App-Codex-Plugin-Windows-x64.zip](https://github.com/moonshineaitech/make-app/releases/download/v0.7.0/Make-App-Codex-Plugin-Windows-x64.zip) from the matching [GitHub release](https://github.com/moonshineaitech/make-app/releases). Draft assets are available only to maintainers until publication.
-2. Extract the entire ZIP into a folder you will keep.
-3. Double-click **Install Codex Plugin.cmd**. It verifies the package bytes and uses Codex's plugin CLI to register the local marketplace and install `make-app@make-app`.
-4. Open a new Codex chat and ask: **Make an executable for this project.**
+## Install
 
-This action installs only this plugin. It does not replace your Codex configuration file, install other plugins, change Windows execution policy, or require administrator rights. It includes Node and Make App. Codex itself needs to be installed and support local plugins.
+1. Open [Releases](https://github.com/moonshineaitech/make-app/releases) and download the complete **Codex Plugin** archive for your OS and architecture. Draft assets become public only when the maintainer publishes the release.
+2. Extract the entire archive to a folder you will keep.
+3. Run its installer:
 
-Keep the extracted folder while the plugin is installed. For updates, download and extract the new bundle, then run its installer. To remove the plugin, run **Uninstall Codex Plugin.cmd**, then delete the extracted folder if desired. Uninstall leaves the marketplace registration and unrelated plugins in place.
+| OS | Installer |
+| --- | --- |
+| Windows | Double-click `Install Codex Plugin.cmd` |
+| macOS | Open `Install Codex Plugin.command` |
+| Linux | Run `sh "Install Codex Plugin.sh"` from the extracted directory |
 
-## Manual alternative
+Codex must already be installed. Node and the converter are included. The installer validates the bundle's integrity inventory, finds Codex, registers the local marketplace and installs `make-app@make-app`. It uses supported plugin CLI commands without editing configuration files manually or changing your execution policy. When installed, open a new chat.
 
-From the extracted release folder:
+> Make a desktop app for this project.
 
-```sh
-codex plugin marketplace add "<absolute path to marketplace>"
-codex plugin add make-app@make-app
-```
+> Export this project's static web build as an installable web app.
 
-For a source checkout, install Node 24, run `npm ci --prefix integrations/codex`, then `npm run build:plugin`. Source packages need a built converter or `APPDOCK_BUILDER` pointing to one; the release bundle supplies it automatically.
+## Tools
 
-## Tools and access
+| Tool | Purpose |
+| --- | --- |
+| `inspect_project` | Read detected language, targets and setup requirements without running project code or returning environment values |
+| `list_projects` | Discover saved local Codex projects; arbitrary folders are supported too |
+| `make_executable` | Create a desktop app by default; set `format: "web"` to export a static build |
+| `open_project` | Open the desktop converter with the chosen project selected |
 
-- `inspect_project`: read project files to infer requirements and entry points; no project execution.
-- `list_projects`: best-effort saved Codex project discovery; manual folder selection remains available.
-- `make_executable`: create one selected `.exe`; existing outputs are refused. Creation does not execute the project.
-- `open_project`: open the converter with a selected project; no project execution.
+Desktop output must match the current host: `.exe` on Windows, `.app` on macOS, `.run` on Linux. Web output is a new absolute directory. Creation does not execute project code. Opening a generated desktop app runs its project/setup scripts with your account permissions. The original project folder must remain in place.
 
-Opening a generated executable runs that project's setup/build/run commands. The source folder must remain available. Inputs and tool results are shared with the Codex client you use; see its privacy settings. No Make App server or API key is involved.
+## Update or remove
 
-## OpenAI Directory status
+Run the matching **Uninstall Codex Plugin** script before replacing/deleting the extracted archive. Then extract the newer version into a stable folder and run its installer. Uninstall removes only `make-app@make-app`, retaining unrelated plugins and project files. The local marketplace registration may remain.
 
-The release bundle is a local plugin, not a public-directory listing. Desktop-only local MCP submissions require OpenAI allowlisting, verified publisher access, clean desktop installation testing and review. The repository includes a submission preparation guide; it does not claim approval.
+Use the complete platform bundle. A source checkout is for development and lacks bundled dependencies/runtime until built. If discovery fails, ensure `codex` is installed and accessible; advanced users can set `CODEX_EXECUTABLE`. Normal installs need no override or global Node.
 
-Official references: [plugin packaging](https://developers.openai.com/plugins/build/plugins), [desktop-only submission](https://developers.openai.com/plugins/deploy/desktop-only).
+## Publishing status
+
+Local marketplace installation and public OpenAI Directory distribution are separate. The source includes portable and compatibility manifests, an icon, privacy/security documentation and [submission preparation](OPENAI_SUBMISSION.md). A public Directory listing still requires the applicable publisher and local-execution review. See [OpenAI plugin packaging](https://developers.openai.com/plugins/build/plugins).
