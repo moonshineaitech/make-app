@@ -2,10 +2,10 @@
 const {EventEmitter}=require('node:events');
 const {PassThrough,Writable}=require('node:stream');
 const path=require('node:path');
-function supported(){return process.platform==='win32'&&process.arch==='x64'&&!!require('./process-broker.cjs').location();}
+function supported(){return ['darwin','linux'].includes(process.platform)||(process.platform==='win32'&&process.arch==='x64'&&!!require('./process-broker.cjs').location());}
 function dimensions(columns=100,rows=30){if(!Number.isInteger(columns)||columns<20||columns>400||!Number.isInteger(rows)||rows<5||rows>200)throw new Error('Terminal size must be 20–400 columns and 5–200 rows.');return{columns,rows};}
 function spawn(command,args,options,size={}){
- if(!supported())throw new Error('Interactive terminals currently require the Windows x64 process supervisor.');
+ if(!supported())throw new Error('Interactive terminals are unavailable on this OS/architecture.');
  const checked=dimensions(size.columns,size.rows),allowed=/^(?:systemroot|windir|comspec|temp|tmp|path|pathext|home|userprofile|localappdata|appdata|programdata|username|userdomain|number_of_processors|processor_architecture|os)$/i;
  const hostEnvironment={...Object.fromEntries(Object.entries(process.env).filter(([name])=>allowed.test(name))),ELECTRON_RUN_AS_NODE:'1',APPDOCK_PROCESS_BROKER:require('./process-broker.cjs').location()};
  const host=require('./process-broker.cjs').spawn(process.execPath,[path.join(__dirname,'terminal-worker.cjs')],{cwd:options.cwd,env:hostEnvironment,windowsHide:true,stdio:['pipe','pipe','pipe']});

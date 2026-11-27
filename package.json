@@ -1,7 +1,7 @@
 {
   "name": "appdock",
-  "version": "0.7.0",
-  "description": "Create one-click Windows executables from local projects",
+  "version": "0.8.0",
+  "description": "Create desktop apps and installable web exports from local projects",
   "author": "GoldRock AI",
   "license": "MIT",
   "main": "src/main.cjs",
@@ -11,7 +11,7 @@
     "smoke": "electron . --smoke-test",
     "test:projects": "electron . --project-smoke",
     "inspect": "node src/cli.cjs inspect",
-    "build": "electron-builder --win portable --x64",
+    "build": "electron-builder --config electron-builder.config.cjs",
     "build:plugin": "node scripts/assemble-plugin.cjs",
     "test:plugin": "node --test integrations/codex/test/*.cjs",
     "test:languages": "node scripts/test-languages.cjs",
@@ -22,7 +22,10 @@
     "test:package-managers": "node scripts/test-package-managers.cjs",
     "build:launcher": "node scripts/build-launcher.cjs",
     "public:check": "node scripts/check-public-source.cjs",
-    "package:release": "node scripts/package-public-release.cjs"
+    "package:release": "node scripts/package-public-release.cjs",
+    "build:windows": "electron-builder --win portable --x64 --config electron-builder.config.cjs",
+    "build:mac": "electron-builder --mac zip --config electron-builder.config.cjs",
+    "build:linux": "electron-builder --linux AppImage --config electron-builder.config.cjs"
   },
   "devDependencies": {
     "axe-core": "^4.14.1",

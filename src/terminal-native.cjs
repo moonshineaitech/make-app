@@ -1,15 +1,15 @@
 const { EventEmitter } = require('node:events');
 const { PassThrough, Writable } = require('node:stream');
-function supported() { return process.platform === 'win32' && process.arch === 'x64' && !!require('./process-broker.cjs').location(); }
+function supported() { return ['darwin','linux'].includes(process.platform)||(process.platform === 'win32' && process.arch === 'x64' && !!require('./process-broker.cjs').location()); }
 function dimensions(columns = 100, rows = 30) {
   if (!Number.isInteger(columns) || columns < 20 || columns > 400 || !Number.isInteger(rows) || rows < 5 || rows > 200) throw new Error('Terminal size must be 20–400 columns and 5–200 rows.');
   return { columns, rows };
 }
 function spawn(command, args, options, size = {}) {
-  if (!supported()) throw new Error('Interactive terminals currently require the Windows x64 process supervisor.');
+  if (!supported()) throw new Error('Interactive terminals are unavailable on this OS/architecture.');
   const { columns, rows } = dimensions(size.columns, size.rows);
   const broker = require('./process-broker.cjs').location();
-  const pty = require('node-pty').spawn(broker, ['--terminal', ...(options.windowsVerbatimArguments ? ['--windows-verbatim'] : []), command, ...args], {
+  const pty = require('node-pty').spawn(process.platform==='win32'?broker:command, process.platform==='win32'?['--terminal', ...(options.windowsVerbatimArguments ? ['--windows-verbatim'] : []), command, ...args]:args, {
     name: 'xterm-256color', cols: columns, rows, cwd: options.cwd,
     env: { ...options.env, APPDOCK_OWNER_PID: String(process.pid), TERM: 'xterm-256color' }, useConpty: true, useConptyDll: true,
   });

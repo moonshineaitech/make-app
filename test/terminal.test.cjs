@@ -1,6 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=require('node:os'),path=require('node:path');
 const terminal=require('../src/terminal.cjs'),{ProjectSession}=require('../src/engine.cjs');
-const windows=process.platform==='win32'&&process.arch==='x64';
+const windows=terminal.supported();
 async function until(check){const deadline=Date.now()+7000;while(Date.now()<deadline){if(await check())return;await new Promise(r=>setTimeout(r,40));}throw new Error('Terminal condition timed out');}
 test('terminal validates dimensions and recipe setting',()=>{assert.throws(()=>terminal.dimensions(0,30));assert.throws(()=>terminal.dimensions(80,999));assert.deepEqual(terminal.dimensions(),{columns:100,rows:30});assert.throws(()=>require('../src/projects.cjs').validate({mode:'tool',run:['node'],terminal:'yes'}));});
 test('terminal exposes real TTY, Unicode, raw input, resize and clean exit',{skip:!windows},async()=>{

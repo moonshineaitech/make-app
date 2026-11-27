@@ -21,6 +21,7 @@ function kill(child){
 async function launch(command,args,options){
   const broker=options.appdockTerminal?{spawn:(command,args,opts)=>require('./terminal.cjs').spawn(command,args,opts,options.terminalSize)}:require('./process-broker.cjs');
   if(['pnpm','yarn'].includes(command)&&options.env?.['APPDOCK_PM_'+command.toUpperCase()])return broker.spawn(options.env.APPDOCK_NODE,[options.env['APPDOCK_PM_'+command.toUpperCase()],...args],options);
+  if(options.env?.APPDOCK_PYTHON&&['python','python3'].includes(command))return broker.spawn(options.env.APPDOCK_PYTHON,args,options);
   if(options.env?.APPDOCK_NODE&&command==='node')return broker.spawn(options.env.APPDOCK_NODE,args,options);
   if(options.env?.APPDOCK_NODE&&options.env.APPDOCK_NPM&&/^(npm|npm\.cmd)$/i.test(command))return broker.spawn(options.env.APPDOCK_NODE,[options.env.APPDOCK_NPM,...args],options);
   const file=await executable(command,options.env,options.cwd);if(!file)throw new Error(`Missing executable: ${command}. Install it or set an absolute path in the project recipe.`);
@@ -39,7 +40,7 @@ class ProjectSession{
   async context(){if(!this.mainPort)this.mainPort=await port();for(const service of this.plan.services)if(!this.ports[service.id])this.ports[service.id]=await port();return{root:this.record.root,state:this.record.stateRoot||path.join(this.record.root,'.appdock'),appId:this.record.id||'project',port:this.mainPort,ports:this.ports,env:this.env};}
   setState(id,status,details={}){this.statuses[id]={status,...details};this.receipt.event(this.phase,{task:id,status});this.receipt.flush().catch(error=>this.log('[AppDock] Could not persist run status: '+error.message+'\n'));this.onState({...this.statuses});}
   async preflight(){
-    const requirements=[];for(const name of new Set(this.plan.requirements)){const location=['pnpm','yarn'].includes(name)&&this.env['APPDOCK_PM_'+name.toUpperCase()]?this.env['APPDOCK_PM_'+name.toUpperCase()]:name==='node'&&this.env.APPDOCK_NODE?this.env.APPDOCK_NODE:name==='npm'&&this.env.APPDOCK_NPM?this.env.APPDOCK_NPM:await executable(name,this.env,this.record.root);requirements.push({name,available:!!location,path:location});}
+    const requirements=[];for(const name of new Set(this.plan.requirements)){const location=['pnpm','yarn'].includes(name)&&this.env['APPDOCK_PM_'+name.toUpperCase()]?this.env['APPDOCK_PM_'+name.toUpperCase()]:['python','python3'].includes(name)&&this.env.APPDOCK_PYTHON?this.env.APPDOCK_PYTHON:name==='node'&&this.env.APPDOCK_NODE?this.env.APPDOCK_NODE:name==='npm'&&this.env.APPDOCK_NPM?this.env.APPDOCK_NPM:await executable(name,this.env,this.record.root);requirements.push({name,available:!!location,path:location});}
     const missingEnv=this.plan.requiredEnv.filter(name=>!this.env[name]);
     const issues=this.plan.configured===false?['Set this project’s actual build and run commands in its launch plan.']:[];
     return{ready:requirements.every(x=>x.available)&&missingEnv.length===0&&!issues.length,requirements,missingEnv,issues,mode:this.plan.mode,services:this.plan.services.map(s=>({id:s.id,dependsOn:s.dependsOn})),setup:this.plan.setup,build:this.plan.build,run:this.plan.run,notes:this.plan.notes||[]};

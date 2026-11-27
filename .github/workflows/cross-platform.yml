@@ -1,0 +1,61 @@
+name: Build and exercise desktop apps
+on:
+  push:
+    branches: [feat/cross-platform-0.8]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: desktop-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-15, macos-15-intel, ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run public:check
+      - run: npm run build:supervisor
+      - run: npm run build:launcher
+      - name: Verify portable SHA-256 vectors
+        shell: bash
+        run: |
+          rustc --test native/src/sha256.rs -o "${RUNNER_TEMP}/sha256-test${{ runner.os == 'Windows' && '.exe' || '' }}"
+          "${RUNNER_TEMP}/sha256-test${{ runner.os == 'Windows' && '.exe' || '' }}"
+      - run: npm test
+      - run: npm ci --prefix integrations/codex
+      - run: npm run build:plugin
+      - run: npm run test:plugin
+      - run: npm audit --audit-level=moderate
+      - run: npm audit --prefix integrations/codex --audit-level=moderate
+      - name: Build converter for this host
+        run: npm run build -- --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Exercise desktop flow
+        if: runner.os != 'Linux'
+        run: node scripts/desktop-acceptance.cjs
+      - name: Exercise desktop flow under X11
+        if: runner.os == 'Linux'
+        run: xvfb-run -a node scripts/desktop-acceptance.cjs
+      - name: Package complete plugin and converter
+        shell: bash
+        run: node scripts/ci-package.cjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: make-app-${{ runner.os }}-${{ runner.arch }}
+          path: |
+            public-release/*
+            qa/desktop-*.json
+          if-no-files-found: error

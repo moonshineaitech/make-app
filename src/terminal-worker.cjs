@@ -6,4 +6,4 @@ readline.createInterface({input:process.stdin,crlfDelay:Infinity}).on('line',lin
  else if(message.type==='input'){if(typeof message.data!=='string'||message.data.length>65536)throw new Error('Terminal input exceeds 64 KB.');terminal.stdin.write(message.data);}
  else if(message.type==='resize')terminal.resize(message.columns,message.rows);
  else if(message.type==='pause')terminal.pause();else if(message.type==='resume')terminal.resume();else throw new Error('Unknown terminal request.');
- }catch(error){send({type:'error',message:error.message});process.exit(1);}}).on('close',()=>process.exit(130));
+ }catch(error){send({type:'error',message:error.message});process.exit(1);}}).on('close',()=>{terminal?.kill();setTimeout(()=>process.exit(130),200);});process.once('SIGTERM',()=>{terminal?.kill();setTimeout(()=>process.exit(130),200);});

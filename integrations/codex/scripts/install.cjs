@@ -4,14 +4,14 @@ async function digest(file){const hash=crypto.createHash('sha256');for await(con
 async function verifyBundle(root){
  const manifest=JSON.parse(await fs.readFile(path.join(root,'bundle-integrity.json'),'utf8'));if(manifest.schemaVersion!==1||!Array.isArray(manifest.files)||manifest.files.length<5)throw new Error('The plugin integrity manifest is incomplete. Download the complete release ZIP.');
  const realRoot=await fs.realpath(root);
- for(const entry of manifest.files){const file=path.resolve(root,entry.path);if(!within(root,file)||!/^[a-f0-9]{64}$/.test(entry.sha256))throw new Error('Invalid path or checksum in the plugin package.');const stat=await fs.lstat(file);if(!within(realRoot,await fs.realpath(file))||!stat.isFile()||stat.isSymbolicLink()||stat.size!==entry.bytes||await digest(file)!==entry.sha256)throw new Error('A plugin file is missing or damaged: '+entry.path);}
+ for(const entry of manifest.files){const file=path.resolve(root,entry.path);if(!within(root,file)||(!entry.symlink&&!/^[a-f0-9]{64}$/.test(entry.sha256)))throw new Error('Invalid path or checksum in the plugin package.');const stat=await fs.lstat(file);if(entry.symlink){if(!stat.isSymbolicLink()||await fs.readlink(file)!==entry.symlink||!within(realRoot,await fs.realpath(file)))throw new Error('Invalid bundled symbolic link: '+entry.path);continue;}if(!within(realRoot,await fs.realpath(file))||!stat.isFile()||stat.isSymbolicLink()||stat.size!==entry.bytes||await digest(file)!==entry.sha256)throw new Error('A plugin file is missing or damaged: '+entry.path);}
 }
 function plan(pluginRoot,operation){
  if(!['install','uninstall'].includes(operation))throw new Error('Choose install or uninstall.');const marketplace=path.resolve(pluginRoot,'../..');
  return operation==='install'?[['plugin','marketplace','add',marketplace],['plugin','add','make-app@make-app']]:[['plugin','remove','make-app@make-app']];
 }
 async function locate(env=process.env){
- const candidates=[env.CODEX_EXECUTABLE,...String(env.PATH||env.Path||'').split(path.delimiter).flatMap(folder=>[path.join(folder,'codex.exe'),path.join(folder,'codex')]),...(env.LOCALAPPDATA?[path.join(env.LOCALAPPDATA,'Microsoft/WindowsApps/codex.exe')]:[])].filter(Boolean);
+ const candidates=[env.CODEX_EXECUTABLE,...(process.platform==='darwin'?['/Applications/Codex.app/Contents/Resources/codex','/Applications/Codex.app/Contents/Resources/codex.native']:[]),...String(env.PATH||env.Path||'').split(path.delimiter).flatMap(folder=>[path.join(folder,'codex.exe'),path.join(folder,'codex')]),...(env.LOCALAPPDATA?[path.join(env.LOCALAPPDATA,'Microsoft/WindowsApps/codex.exe')]:[])].filter(Boolean);
  for(const file of candidates)try{if((await fs.stat(file)).isFile())return path.resolve(file);}catch{}
  if(process.platform==='win32'){
   const powershell=path.join(env.SystemRoot||'C:/Windows','System32/WindowsPowerShell/v1.0/powershell.exe');

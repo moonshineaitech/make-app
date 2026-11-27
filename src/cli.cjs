@@ -5,10 +5,11 @@ const {validate}=require('./projects.cjs');
 const {ProjectSession}=require('./engine.cjs');
 const managed=require('./managed.cjs');
 async function main(){
- const [action,source,...options]=process.argv.slice(2);if(!action||!source)throw new Error('Usage: node src/cli.cjs make-executable|inspect|doctor|check|setup|build|run|validate <project> [--target=name] [--no-download] [--copy-source] [--terminal] [-- program arguments]');
+ const [action,source,...options]=process.argv.slice(2);if(!action||!source)throw new Error('Usage: node src/cli.cjs make-executable|export-web|inspect|doctor|check|setup|build|run|validate <project> [--target=name] [--no-download] [--copy-source] [--terminal] [-- program arguments]');
  const split=options.indexOf('--'),flags=split<0?options:options.slice(0,split),args=split<0?flags.filter(a=>!a.startsWith('--target=')&&a!=='--no-download'&&a!=='--copy-source'&&a!=='--terminal'):options.slice(split+1),target=flags.find(a=>a.startsWith('--target='))?.slice(9);
  if(action==='validate'){const value=validate(JSON.parse(await fs.readFile(source,'utf8')));console.log(JSON.stringify({valid:true,mode:value.mode,services:value.services.map(s=>s.id)},null,2));return;}
- if(action==='make-executable'){const output=options.find(value=>value.startsWith('--output='))?.slice(9);if(!output)throw new Error('Specify --output=/absolute/path/App.exe');console.log(JSON.stringify(await require('./executable.cjs').make(source,output,{target}),null,2));return;}
+ if(action==='export-web'){const output=options.find(value=>value.startsWith('--output='))?.slice(9);if(!output)throw new Error('Specify --output=/absolute/path/Web-App');console.log(JSON.stringify(await require('./web-export.cjs').exportWeb(source,output,{name:path.basename(source)}),null,2));return;}
+ if(action==='make-executable'){const output=options.find(value=>value.startsWith('--output='))?.slice(9);if(!output)throw new Error('Specify --output=/absolute/path/App');console.log(JSON.stringify(await require('./executable.cjs').make(source,output,{target}),null,2));return;}
  const adapterDirectory=path.join(process.env.APPDOCK_DATA||path.join(os.homedir(),'.appdock'),'adapters');if(action==='adapter-install'){console.log(JSON.stringify(await require('./adapters.cjs').install(path.resolve(source),adapterDirectory),null,2));return;}let record=await detect(path.resolve(source),{target,adapterDirectory});if(action==='inspect'){console.log(JSON.stringify(record,null,2));return;}
  if(record.kind==='selection')throw new Error('Choose a project inside this workspace: '+record.candidates.map(c=>c.path).join(', '));
  if(record.kind!=='project')throw new Error('Use the desktop app for this legacy/static adapter.');
