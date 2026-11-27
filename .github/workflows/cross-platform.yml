@@ -58,6 +58,7 @@ jobs:
           path: |
             public-release/*
             qa/desktop-*.json
+            qa/cold-start-*.json
           if-no-files-found: error
           retention-days: 1
           compression-level: 0

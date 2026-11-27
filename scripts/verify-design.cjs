@@ -81,12 +81,12 @@ app.whenReady().then(async () => {
   await site.loadURL(origin + '/'); await evaluate(site, 'document.fonts.ready'); await delay(300); await evaluate(site, axe);
   for (const width of [1440, 1024, 768, 390, 320]) {
     site.setContentSize(width, 1050); await stable(site);
-    await until(() => evaluate(site, `(()=>{const frame=document.getElementById('app-demo');const shell=frame.contentDocument?.querySelector('.creator-shell');return shell&&Math.abs(frame.clientHeight-shell.getBoundingClientRect().height-2)<5})()`), 'preview resize');
+    await until(() => evaluate(site, `(()=>{const frame=document.getElementById('app-demo');const shell=frame.contentDocument?.querySelector('.creator-shell');return shell&&Math.abs(frame.clientHeight-shell.getBoundingClientRect().height-(frame.contentDocument.documentElement.dataset.photo?60:2))<5})()`), 'preview resize');
     checks.push(await scan(site, 'website', 'light', width));
     if (width === 390) await capture(site, 'website-mobile.png');
   }
   site.setContentSize(1440, 1000); await stable(site);
-  await until(() => evaluate(site, `(()=>{const frame=document.getElementById('app-demo');return Math.abs(frame.clientHeight-frame.contentDocument.querySelector('.creator-shell').getBoundingClientRect().height-2)<5})()`), 'desktop preview resize');
+  await until(() => evaluate(site, `(()=>{const frame=document.getElementById('app-demo');return Math.abs(frame.clientHeight-frame.contentDocument.querySelector('.creator-shell').getBoundingClientRect().height-(frame.contentDocument.documentElement.dataset.photo?60:2))<5})()`), 'desktop preview resize');
   await capture(site, 'website-desktop.png');
   await evaluate(site, `(()=>{const d=document.getElementById('app-demo').contentDocument;d.getElementById('appearance').click();d.querySelector('[data-theme-choice=midnight_tide]').click();d.getElementById('close-themes').click()})()`);
   await until(()=>evaluate(site,`(()=>{const f=document.getElementById('app-demo'),d=f.contentDocument;return d.documentElement.dataset.photo==='midnight_tide'&&Math.abs(f.clientHeight-d.getElementById('creator-viewport').getBoundingClientRect().height-60)<5})()`),'photographic embedded preview resize');
@@ -94,12 +94,20 @@ app.whenReady().then(async () => {
   await capture(site,'website-photographic-preview.png');
   await evaluate(site,`(()=>{const d=document.getElementById('app-demo').contentDocument;d.getElementById('appearance').click();d.getElementById('use-classic').click();d.getElementById('close-themes').click()})()`);
   site.webContents.setZoomFactor(2);await stable(site);
-  await until(()=>evaluate(site,`(()=>{const frame=document.getElementById('app-demo');return Math.abs(frame.clientHeight-frame.contentDocument.querySelector('.creator-shell').getBoundingClientRect().height-2)<5})()`),'zoomed preview resize');
+  await until(()=>evaluate(site,`(()=>{const frame=document.getElementById('app-demo');return Math.abs(frame.clientHeight-frame.contentDocument.querySelector('.creator-shell').getBoundingClientRect().height-(frame.contentDocument.documentElement.dataset.photo?60:2))<5})()`),'zoomed preview resize');
   checks.push(await scan(site,'website-200-percent','light',1440));site.webContents.setZoomFactor(1);await stable(site);
   nativeTheme.themeSource='dark';await site.loadURL(origin+'/');await until(()=>evaluate(site,`document.getElementById('app-demo').contentDocument?.body.dataset.phase==='ready'`),'light preview under dark system appearance');await stable(site);await evaluate(site,axe);
+  await evaluate(site,`(()=>{const d=document.getElementById('app-demo').contentDocument;d.getElementById('appearance').click();d.getElementById('use-classic').click();d.getElementById('close-themes').click()})()`);
   assert.equal(await evaluate(site,`getComputedStyle(document.getElementById('app-demo').contentDocument.documentElement).colorScheme`),'light','Explicit light appearance must not inherit a dark canvas');
   checks.push(await scan(site,'website-dark-system','light',1440));
   nativeTheme.themeSource='light';
+  assert.equal(await evaluate(site,`document.querySelectorAll('.site-design-card').length`),20);
+  await evaluate(site,`document.querySelector('[data-design-collection=studio]').click();true`);
+  assert.equal(await evaluate(site,`[...document.querySelectorAll('.site-design-card')].filter(b=>!b.hidden).length`),10);
+  await evaluate(site,`document.getElementById('site-design-search').value='Sapphire';document.getElementById('site-design-search').dispatchEvent(new Event('input'));document.querySelector('[data-design=sapphire_reef]').click();true`);
+  await until(()=>evaluate(site,`document.getElementById('app-demo').contentDocument.documentElement.dataset.aero==='sapphire_reef'`),'website gallery applies the selected design');
+  assert.equal(await evaluate(site,`[...document.querySelectorAll('.site-design-card')].filter(b=>!b.hidden).length`),1);
+  checks.push(await scan(site,'website-live-design-gallery','light',1440));
   await evaluate(site, `window.fetch=async()=>({ok:true,json:async()=>[]});document.querySelector('[data-download]').click();true`);
   await until(() => evaluate(site, `document.getElementById('release-status').textContent.includes('maintainer review')`), 'draft download state');
   assert.equal(await evaluate(site, `document.getElementById('download-native').hidden`), true, 'Drafts must not become broken public download links');

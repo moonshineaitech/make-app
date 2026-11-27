@@ -55,6 +55,10 @@ Appearance now has larger previews, search, Original/Studio collection filters a
 
 ![The refined Make App workspace](docs/assets/make-app-workspace.jpg)
 
+The complete website uses matching Aero photography and glass materials. Its searchable gallery lets you try every design directly in the interactive preview, with Original/Studio filters and a clearly marked sample-project environment. Run `npm run preview:site` locally or build the static files with `npm run build:site`.
+
+Native release acceptance now includes a fresh runtime cache on every desktop target. Each platform manifest records the converter/CLI checks and the verified runtime download, project launch and shutdown. Windows uses its native ZIP extractor when available to reduce first-launch extraction time. Draft creation requires passing source/interface verification for the same commit.
+
 ## Choose your download
 
 **Release status:** binary assets remain private while a release is a draft. The source and CI results are public. Desktop builds use native acceptance on each target; check the validation page and release assets before choosing a build. [Hosting and storefront distribution](docs/DISTRIBUTION.md) covers direct downloads, itch.io, Whop and store requirements.

@@ -1,0 +1,66 @@
+/* The website shares the application's photographic Aero materials. */
+:root{--canvas:#f0f8fb;--solid:#fbfeff;--surface:#ffffffd9;--subtle:#e7f2f7;--ink:#143344;--secondary:#436274;--muted:#506d7d;--line:#b9cfd9;--accent:#006c80;--button:#006b7c;--button-ink:#fff;--glass-border:#dcfaff}
+body{background:var(--canvas);color:var(--ink)}
+.wrap{max-width:1280px}
+.site-header{padding-top:24px}
+.nav{max-width:1220px;padding:12px 14px 12px 24px;background:#0a4059d9;border:1px solid #a6e7f36b;backdrop-filter:blur(30px) saturate(1.35);box-shadow:inset 0 1px 0 #d5f8ff80,0 12px 40px #001a3026;border-radius:19px}
+.nav .brand{color:#f0fcff;font-size:22px;letter-spacing:-.7px}
+.nav-links>a{font-size:14px;color:#d8f4fc}
+.nav-links>a:hover{color:#fff}
+.nav-download{font-size:14px;padding:12px 18px;min-height:46px}
+.hero{display:flex;flex-direction:column;gap:48px;padding-top:68px;padding-bottom:72px;position:relative;isolation:isolate;max-width:1280px}
+.hero::before{content:'';position:absolute;inset:-160px calc(50% - 50vw) 0;z-index:-1;background:linear-gradient(180deg,#002b4190,#04334c70),url('app/assets/aero/midnight_tide.jpg') center/cover;pointer-events:none}
+.hero-copy{padding-bottom:0;max-width:900px;text-align:center}
+.hero-copy .release-pill{font-size:13px;padding:8px 12px;margin-bottom:24px;color:#ddf9ff;background:#0a475a99;border:1px solid #85cbd480;border-radius:20px;box-shadow:inset 0 1px 0 #d9faff36}
+.hero-copy .release-dot{background:#98f0db;box-shadow:0 0 0 3px #98f0db1f}
+.hero-copy h1{font-size:clamp(52px,6.5vw,88px);font-weight:550;line-height:1.04;letter-spacing:-4px;white-space:normal;color:#f1fcff;max-width:none;margin:0 0 25px}
+.hero-copy h1 span{color:#96e8ee}
+.hero-description{font-size:20px;line-height:1.7;color:#d6eff8;max-width:650px;margin:0 auto 28px}
+.hero-actions{justify-content:center;gap:12px}
+.hero-actions .button{font-size:15px;min-height:52px;padding:15px 22px;border-radius:28px}
+.hero .button.primary,.nav .button.primary,.closing .button.primary{background:url('app/assets/originals/midnight_tide-action.jpg') center/100% 100%,#50d8e3;color:#003c4c;border:1px solid #a2f6ff;box-shadow:inset 0 1px 0 #f2ffff,0 5px 18px #001b4050;font-weight:600}
+.hero-actions .quiet{color:#e8fbff;border:1px solid #b0edf86b;background:#104e6660}
+.hero-note{font-size:14px;line-height:1.75;color:#c7e9f4;margin:20px 0 0}.hero-note br{display:none}
+.hero-foot{justify-content:center;color:#c7e9f4;font-size:13px;margin-top:22px}
+.hero-product{width:100%;max-width:1220px}
+.hero-product::before{display:none}
+.preview-toolbar{margin:0 5px 14px;gap:15px}
+.preview-eyebrow{font-size:14px;color:#daf6ff}
+.preview-eyebrow .release-dot{background:#9ff6dc}
+.mode-switch{border:1px solid #b3e7f780;background:#07374dc9;border-radius:12px;padding:4px;gap:4px}
+.mode-switch button{font-size:13px;min-height:39px;padding:10px 15px;border-radius:8px;color:#d9f0fa}
+.mode-switch button[aria-pressed=true]{background:#e9fbff;color:#124354;box-shadow:0 2px 8px #001d3b20}
+.product-frame{padding:7px;border:1px solid #a3dff590;border-radius:25px;background:#c7f3ff45;box-shadow:inset 0 1px 0 #efffff9c,0 32px 70px #001d3b60;backdrop-filter:blur(22px)}
+.product-frame iframe{border-radius:18px;background:#052e43}
+.preview-bottom{margin-top:14px;font-size:13px;color:#c6e8f5}.preview-bottom a{color:#e1f9ff;min-height:40px}.preview-bottom a:hover{color:#fff}
+.language-strip{background:var(--solid);padding-top:29px;padding-bottom:30px;max-width:none;border-top:1px solid #bbd9e7;border-bottom:1px solid var(--line)}
+.language-strip p{font-size:14px;color:var(--secondary);margin-bottom:21px}.language-strip span{font-size:17px;color:#2f5267;font-weight:550}.language-strip>div{gap:22px 38px}
+.section-space{padding-top:96px;padding-bottom:96px}
+.section-intro .eyebrow,.integration-copy .eyebrow{font-size:13px;letter-spacing:1.6px;color:#436d7c}
+.section-intro h2{font-size:clamp(34px,3.8vw,49px);line-height:1.12;font-weight:550;letter-spacing:-1.8px}
+.section-intro>p:last-child{font-size:17px;line-height:1.75;color:var(--secondary);max-width:41ch}
+.how-section,.devices-section,.faq-section{gap:90px}
+.workflow li{padding:27px 0}.workflow-number{font-size:13px;color:#536d7a}.workflow h3{font-size:19px;color:var(--ink);margin-bottom:10px}.workflow p{font-size:16px;line-height:1.75;color:var(--secondary);max-width:37ch}.workflow li>.icon{width:22px;height:22px;color:var(--accent)}
+.integration-surface{background:linear-gradient(125deg,#073650eb,#0a495be8),url('app/assets/aero/aurora_lake.jpg') center/cover;border:1px solid #568fa4;border-radius:27px;padding:52px;gap:50px;box-shadow:inset 0 1px 0 #c2efff60,0 18px 44px #123f5420}
+.integration-copy .eyebrow{color:#a8e7e2}.integration-copy h2{font-size:40px;line-height:1.15;letter-spacing:-1.5px;color:#f2fcff}.integration-copy>p:not(.eyebrow){font-size:17px;line-height:1.8;color:#c3e2eb;max-width:35ch}.integration-copy>a{font-size:15px;color:#ddfbff}
+.agent-panel{background:#0b3548c9;border:1px solid #568394;border-radius:19px;padding:25px;box-shadow:inset 0 1px 0 #b9f7ff38,0 15px 40px #00152630}
+.agent-tabs>button{font-size:14px;min-height:43px;padding:10px;color:#c9e6f0}.agent-tabs>button[aria-pressed=true]{color:#f4ffff;background:#2c6476;box-shadow:inset 0 1px 0 #ffffff42}
+.prompt-heading{font-size:14px;color:#bcdfe9}.prompt-text{font-size:27px;line-height:1.5;max-width:400px;color:#f3fdff}.prompt-footer,.prompt-footer button{font-size:13px;color:#c3e7f0}.prompt-footer button{min-height:42px}.agent-capabilities,.agent-note{font-size:13px;line-height:1.8;color:#c5e2ec}.agent-capabilities .icon{color:#9debd7}
+.device-row{padding:23px 0;gap:19px}.device-row strong{font-size:19px}.device-row small{font-size:15px;color:var(--secondary);line-height:1.6}.device-icon{width:51px;height:51px;border:1px solid var(--line);background:#fff;border-radius:14px;color:#146982;box-shadow:inset 0 1px 0 #fff,0 3px 8px #123d5010}.device-link,.device-badge{font-size:13px;color:#365c70}.device-note{font-size:14px;line-height:1.8;color:var(--secondary)}
+.principles{gap:40px;padding-bottom:70px}.principles>div{padding:26px;border:1px solid var(--line);border-radius:18px;background:#ffffffa1;box-shadow:inset 0 1px 0 #fff}.principles h3{font-size:18px}.principles p{font-size:15px;line-height:1.8;max-width:none;color:var(--secondary)}.principles .icon{width:23px;height:23px;color:var(--accent)}
+.faq-list summary{font-size:17px;padding:24px 0;line-height:1.6}.faq-list details p{font-size:16px;line-height:1.8;color:var(--secondary)}.faq-list .icon{color:var(--accent);flex:none}
+.closing{padding-top:24px;padding-bottom:90px}.closing .eyebrow{font-size:13px;color:var(--secondary)}.closing h2{font-size:clamp(38px,5vw,64px);font-weight:550;letter-spacing:-2.1px}.closing .button{font-size:16px;min-height:54px;padding:15px 27px;border-radius:28px}.closing>p:last-child{font-size:14px;color:var(--secondary)}
+.site-footer .brand{font-size:20px}.site-footer>span,.site-footer>div a{font-size:13px;color:var(--secondary)}
+#download-dialog{background:#f4fcff;border:1px solid #a9cddc;box-shadow:inset 0 1px 0 #fff,0 25px 100px #002b4d55}.download-card h2{font-size:33px}.download-card>.eyebrow{font-size:13px;color:var(--secondary)}.dialog-intro{font-size:16px;line-height:1.6;color:var(--secondary)}.preview-disclosure{font-size:13px;line-height:1.7;color:var(--secondary)}.release-status{font-size:15px;line-height:1.75}.platform-picker label>span{font-size:15px}.platform-picker small{font-size:13px}.download-help a{font-size:13px}.download-link{font-size:15px}
+.design-showcase{border-bottom:1px solid var(--line)}
+.design-showcase-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:35px;margin-bottom:35px}.design-showcase-heading .section-intro>p:last-child{max-width:58ch}.design-showcase-heading>.button{font-size:14px;flex:none;margin-bottom:5px}
+.site-design-tools{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}.site-design-tools>div{display:flex;gap:4px;background:#e1edf3;border:1px solid #bbd1dd;border-radius:13px;padding:4px}.site-design-tools button{font:500 14px Geist,sans-serif;min-height:43px;padding:11px 20px;border-radius:9px;border:1px solid transparent;color:#345568;background:transparent}.site-design-tools button[aria-pressed=true]{background:#fff;border-color:#bfd2dd;color:#163a4b;box-shadow:0 2px 5px #123b5010}
+.site-design-tools input{font:16px Geist,sans-serif;min-height:53px;border:1px solid #b7cfdc;border-radius:13px;padding:13px 17px;background:#fff;color:#153c50;width:min(360px,100%)}
+#site-design-status{font-size:13px;color:var(--secondary);line-height:1.7;margin:18px 0 23px}
+.site-design-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.site-design-card{overflow:hidden;padding:0;text-align:left;border:1px solid #bed3dd;border-radius:18px;background:#fff;box-shadow:inset 0 1px 0 #fff,0 5px 18px #173b500a;color:#17394d;cursor:pointer;min-width:0}
+.site-design-card[aria-pressed=true]{outline:2px solid #087b8b;outline-offset:3px}.site-design-card img{display:block;width:100%;aspect-ratio:1.5;object-fit:cover}.site-design-card>span{display:block;padding:16px}.site-design-card strong{font:600 15px/1.5 Geist,sans-serif;display:block;letter-spacing:-.25px}.site-design-card small{font:400 13px/1.5 Geist,sans-serif;display:block;margin-top:5px;color:#506b7d}.site-design-card[hidden]{display:none}
+@media(max-width:1060px){.hero{gap:35px;padding-top:58px}.hero-copy h1{font-size:70px}.design-showcase-heading{align-items:flex-start}.site-design-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.how-section,.devices-section,.faq-section{gap:45px}.integration-surface{padding:36px;gap:30px}.agent-tabs>button{font-size:13px}.principles{gap:20px}.principles>div{padding:20px}}
+@media(max-width:760px){.hero{padding-top:40px;padding-bottom:42px;gap:30px}.hero-copy h1{font-size:56px;letter-spacing:-2.8px}.hero-description{font-size:18px}.hero-description br{display:none}.hero-note,.hero-foot{font-size:13px}.nav{padding:9px 10px 9px 15px}.nav .brand{font-size:19px}.nav-download{font-size:13px;padding:11px 13px}.preview-toolbar{flex-wrap:wrap}.preview-eyebrow{font-size:13px}.mode-switch button{font-size:13px;padding:9px 13px}.preview-bottom{font-size:13px;flex-wrap:wrap}.product-frame{padding:4px;border-radius:19px}.product-frame iframe{border-radius:14px}.section-space{padding-top:65px;padding-bottom:65px}.section-intro>p:last-child{font-size:16px}.section-intro h2{font-size:37px}.design-showcase-heading{flex-direction:column;gap:20px}.site-design-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.site-design-tools input{width:100%}.site-design-tools>div{width:100%}.site-design-tools button{flex:1;padding:11px}.site-design-card>span{padding:12px}.site-design-card strong{font-size:14px}.site-design-card small{font-size:13px}.integration-surface{padding:30px 22px;gap:28px}.integration-copy h2{font-size:35px}.integration-copy>p:not(.eyebrow){font-size:16px}.agent-panel{padding:20px}.agent-tabs>button{padding:10px 8px}.prompt-text{font-size:24px}.principles{gap:15px}.device-row strong{font-size:18px}.device-row small{font-size:14px}.device-link{font-size:13px}.site-footer>div{gap:20px}.language-strip>div{gap:18px 25px}.language-strip span{font-size:16px}}
+@media(max-width:380px){.hero-copy h1{font-size:48px;letter-spacing:-2.3px}.hero-actions{gap:10px}.hero-actions .button{font-size:14px;padding:14px 18px}.hero-foot{line-height:1.7}.site-design-grid{gap:12px}.site-design-card>span{padding:11px}.site-design-card strong{font-size:13px}.agent-tabs>button{font-size:13px}.device-link{font-size:13px}.site-footer>div{gap:17px}}
+@media(forced-colors:active){.hero::before{display:none}.hero-copy h1,.hero-copy h1 span,.hero-description,.hero-note,.hero-foot,.preview-eyebrow,.preview-bottom,.preview-bottom a,.nav .brand,.nav-links>a{color:CanvasText}.nav,.hero .button.primary,.nav .button.primary,.hero-actions .quiet,.product-frame,.site-design-card,.mode-switch,.site-design-tools>div,.integration-surface,.agent-panel{background:Canvas;border:1px solid CanvasText;color:CanvasText}.site-design-card[aria-pressed=true]{outline-color:Highlight}}

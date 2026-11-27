@@ -5,7 +5,7 @@ async function build({ destination = path.resolve(__dirname, '../web-dist') } = 
   const allowed = path.relative(root, destination);
   if (!allowed || allowed.startsWith('..') || path.isAbsolute(allowed)) throw new Error('Build the website inside this checkout.');
   await fs.mkdir(destination, { recursive: true });
-  for (const name of ['index.html', 'site.css', 'site.js']) await fs.copyFile(path.join(root, 'site', name), path.join(destination, name));
+  for (const name of ['index.html', 'site.css', 'aero-site.css', 'site.js']) await fs.copyFile(path.join(root, 'site', name), path.join(destination, name));
   const app = path.join(destination, 'app');
   await fs.mkdir(app, { recursive: true });
   for (const name of ['creator.html', 'creator.css', 'creator.js', 'creator-demo.js', 'appearance.js', 'design.css', 'aero.css', 'aero-scenes-data.js', 'aero-scenes.js', 'photo-scenes.css','studio-themes.js','studio-themes.css','app-views.js','app-views.css','original-views.js','original-views.css','workspace-polish.css','motion.js','motion.css']) await fs.copyFile(path.join(root, 'src/ui', name), path.join(app, name));

@@ -45,7 +45,9 @@ async function main(){
    const name=`sbom-${host.platform}-${host.arch}.cdx.json`;await fs.copyFile(path.join(base,'qa/sbom.cdx.json'),path.join(output,name));files.push({name,bytes:(await fs.stat(path.join(output,name))).size,sha256:await hash(path.join(output,name))});
   }
   await fs.writeFile(path.join(output,`SHA256SUMS-${host.platform}-${host.arch}.txt`),files.map(f=>f.sha256+'  '+f.name).join('\n')+'\n');
-  await fs.writeFile(path.join(output,`release-manifest-${host.platform}-${host.arch}.json`),JSON.stringify({version:pkg.version,platform:host.platform,arch:host.arch,unsignedPreview:true,desktopProjectFolderRequired:true,files},null,2)+'\n');
+  const coldFile=path.join(base,'qa',`cold-start-${host.platform}-${host.arch}.json`),desktopFile=path.join(base,'qa',`desktop-${host.platform}-${host.arch}.json`);
+  const validation={desktop:await fs.readFile(desktopFile,'utf8').then(JSON.parse,()=>null),coldStart:await fs.readFile(coldFile,'utf8').then(JSON.parse,()=>null)};
+  await fs.writeFile(path.join(output,`release-manifest-${host.platform}-${host.arch}.json`),JSON.stringify({version:pkg.version,platform:host.platform,arch:host.arch,unsignedPreview:true,desktopProjectFolderRequired:true,validation,files},null,2)+'\n');
   console.log(JSON.stringify({output,files}));
  }finally{await fs.rm(staging,{recursive:true,force:true});}
 }

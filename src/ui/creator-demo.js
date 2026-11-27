@@ -36,5 +36,11 @@
       input.checked=true;input.dispatchEvent(new Event('change'));
     }
     if(event.data?.type==='make-app:sample'&&Number.isInteger(event.data.index)&&samples[event.data.index])sourceCallback(samples[event.data.index].path);
+    if(event.data?.type==='make-app:theme'&&typeof event.data.theme==='string'&&/^[a-z_]+$/.test(event.data.theme)){
+      const choice=document.querySelector('[data-theme-choice="'+event.data.theme+'"]');if(!choice)return;
+      const views=document.getElementById('app-views'),activeView=views?.open?views.dataset.view:null;if(views?.open)views.close();
+      document.getElementById('appearance').click();choice.click();document.getElementById('close-themes').click();if(activeView)window.makeAppViews.open(activeView);
+    }
   });
+  window.addEventListener('make-app:appearance',()=>{if(parent!==window)parent.postMessage({type:'make-app:theme',theme:document.documentElement.dataset.aero},location.origin);});
 })();

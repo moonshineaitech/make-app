@@ -1,4 +1,14 @@
-# Make App 0.14.0 — a clearer Aero workspace
+# Make App 0.15.0 — complete Aero design and first-launch verification
+
+The complete website now shares the application's photographic Aero materials, readable typography and glass controls. Its live gallery includes all twenty designs, Original/Studio collection filters and search. Selecting a design updates the actual embedded interface; it remains a clearly labeled browser demonstration with sample projects.
+
+All twenty app designs and twelve utility views retain the refined workspace, direct saved-project access, keyboard-accessible compact navigation, and in-place Appearance library. Original photographic creator compositions and artwork are preserved. Both collections retain adjustable glass motion and operating-system reduced-motion support.
+
+Windows runtime setup uses the built-in native ZIP extractor when available, with the PowerShell fallback retained for compatible older environments. A new native acceptance phase starts with an empty runtime cache, bypasses an installed Node executable, downloads and verifies the official runtime, launches the original project with no setup clicks, and checks shutdown. Cold-runtime verification is required for every desktop target and embedded in each platform manifest. The cold test has a bounded setup-specific deadline; the ordinary launch smoke retains its shorter deadline.
+
+Draft creation now also requires successful source/interface verification for the exact native-build commit. Download files, complete coding-tool bundles, checksums, dependency inventories and platform manifests are built together. The release remains an unsigned, non-notarized preview; signing, physical-device and manual accessibility acceptance are separate gates. The website remains local unless its owner chooses to publish it.
+
+## Previous: Make App 0.14.0 — a clearer Aero workspace
 
 The overview now shows saved projects directly, alongside the current project's original glass illustration, output and detection status. Horizontal layouts use four primary destinations and a keyboard-accessible More menu. Existing sidebar compositions and all twelve utility views remain available.
 
@@ -18,7 +28,7 @@ Download the converter for your own operating system, or the complete coding-too
 
 Local 0.13 verification recorded 294 layout checks, 32 automated accessibility scans, all twenty motion themes and a native Windows creation smoke. Release assets are admitted separately by the exact-commit native five-target workflow and source verification; see BUILD-VERIFICATION.json for the release's actual evidence.
 
-This is an unsigned, non-notarized preview. Generated desktop launchers require the original project folder and a compatible computer. Web exports serve existing static builds; they do not make backend or native code run on phones. This independent integration is not an approved OpenAI Directory listing. See [distribution guidance](DISTRIBUTION.md).
+This is an unsigned, non-notarized preview. Generated desktop launchers require the original project folder and a compatible computer. Web exports serve existing static builds; they do not make backend or native code run on phones. This independent integration is not an approved OpenAI Directory listing. See [distribution guidance](https://github.com/moonshineaitech/make-app/blob/main/docs/DISTRIBUTION.md).
 
 ## Previous: Make App 0.11.0 — photographic Aero interfaces
 

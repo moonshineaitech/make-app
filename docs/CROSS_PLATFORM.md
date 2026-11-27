@@ -32,3 +32,5 @@ Windows x64 uses Job Objects. macOS/Linux use a pipe-owned supervisor and separa
 ## Release gates
 
 Unsigned previews require OS trust handling and are not notarized or certified for every desktop distribution. Physical iOS/Android, screen-reader/high-DPI, clean-machine acceptance and publisher signing remain separate gates. The CI workflow exercises actual packaged converter and generated-app launch paths for each listed desktop architecture.
+
+Acceptance includes a separate fresh-cache phase that bypasses installed Node, downloads and verifies a private runtime, runs the original JavaScript project with no setup clicks, and checks shutdown. Platform release manifests embed this evidence. This is a controlled native-runner check, not a claim of physical-device or publisher certification. Windows uses the native ZIP extractor when available, retaining the PowerShell fallback.

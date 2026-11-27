@@ -1,0 +1,19 @@
+// A real cold launch: a new tool cache and a non-Node executable at the front of
+// PATH make the app prepare its own verified runtime, even on Node-equipped CI.
+const fs=require('node:fs/promises'),path=require('node:path'),assert=require('node:assert/strict'),{spawn,execFile}=require('node:child_process');
+const {builderCommand}=require('../src/platform.cjs');
+async function verify({executable,root,report}){
+ const started=Date.now(),test=path.join(root,'cold-start'),cache=path.join(test,'tools'),bin=path.join(test,'path'),result=path.join(test,'direct.json');
+ await fs.mkdir(bin,{recursive:true});await assert.rejects(fs.stat(cache),{code:'ENOENT'});
+ const windows=process.platform==='win32',stub=path.join(bin,windows?'node.exe':'node');
+ await fs.copyFile(windows?path.join(process.env.SystemRoot||'C:\\Windows','System32','whoami.exe'):'/usr/bin/false',stub);if(!windows)await fs.chmod(stub,0o755);
+ const env={...process.env,PATH:bin+path.delimiter+(process.env.PATH||process.env.Path||''),APPDOCK_DATA:path.join(test,'profile'),APPDOCK_TOOLCACHE:cache,APPDOCK_DIRECT_TEST:result,APPDOCK_DIRECT_EXPECT_TEXT:'APPDOCK_SUM=0',APPDOCK_DIRECT_TIMEOUT_MS:'300000',...(process.platform==='linux'?{APPIMAGE_EXTRACT_AND_RUN:'1'}:{})};delete env.ELECTRON_RUN_AS_NODE;delete env.Path;
+ const command=builderCommand(executable,[]);let log='';await new Promise((resolve,reject)=>{const child=spawn(command.command,command.args,{env,windowsHide:true,stdio:['ignore','pipe','pipe']}),timer=setTimeout(()=>{child.kill();reject(Error('Cold desktop acceptance exceeded six minutes. '+log));},360000);for(const stream of [child.stdout,child.stderr])stream.on('data',b=>log=(log+b).slice(-8000));child.once('error',e=>{clearTimeout(timer);reject(e);});child.once('exit',code=>{clearTimeout(timer);code===0?resolve():reject(Error('Cold desktop acceptance failed: '+log));});});
+ const opened=JSON.parse(await fs.readFile(result,'utf8'));assert.ok(opened.passed&&opened.stopped&&opened.oneClick);assert.equal(opened.setupClicks,0);assert.equal(opened.executionApprovalClicks,0);
+ const suffix=windows&&process.arch==='x64'?'':'-'+process.platform+'-'+process.arch,info=JSON.parse(await fs.readFile(path.join(cache,'runtimes','node-24'+suffix,'installed.json'),'utf8'));
+ const relative=path.relative(cache,info.node);assert.ok(relative&&!relative.startsWith('..')&&!path.isAbsolute(relative),'Runtime must be installed in the initially empty cache');
+ const version=await new Promise((resolve,reject)=>execFile(info.node,['--version'],{windowsHide:true,timeout:10000},(e,out)=>e?reject(e):resolve(out.trim())));assert.match(version,/^v24\./);assert.equal(version,info.version);
+ const record={passed:true,version:require('../package.json').version,platform:process.platform,arch:process.arch,freshRuntimeCache:true,installedSystemNodeBypassed:true,downloadedRuntime:true,runtimeVersion:version,originalProjectLaunched:true,oneClick:true,setupClicks:0,executionApprovalClicks:0,stopped:true,elapsedMs:Date.now()-started};
+ await fs.mkdir(path.dirname(report),{recursive:true});await fs.writeFile(report,JSON.stringify(record,null,2)+'\n');assert.equal(path.relative(path.resolve(root),path.resolve(test)),'cold-start');assert.ok(!(await fs.lstat(test)).isSymbolicLink());await fs.rm(test,{recursive:true,force:true,maxRetries:5,retryDelay:200});console.log('Fresh-cache runtime download, project launch and shutdown passed on '+process.platform+'/'+process.arch+' in '+Math.round(record.elapsedMs/1000)+' seconds.');return record;
+}
+module.exports={verify};

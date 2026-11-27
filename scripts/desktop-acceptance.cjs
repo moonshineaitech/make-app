@@ -13,6 +13,8 @@ async function main(){
  const made=JSON.parse(await fs.readFile(creator,'utf8'));if(!made.passed||!made.createdThroughDesktopUI)throw new Error('Desktop creation did not pass.');
  console.log('Checking generated app on '+info.platform+'/'+info.arch);await invoke(output,[],{APPDOCK_DATA:path.join(root,'generated'),APPDOCK_TOOLCACHE:process.env.APPDOCK_TOOLCACHE||path.join(root,'tools'),APPDOCK_DIRECT_TEST:direct,APPDOCK_DIRECT_EXPECT_TEXT:'APPDOCK_SUM=0'});
  const opened=JSON.parse(await fs.readFile(direct,'utf8'));if(!opened.passed||!opened.stopped||opened.executionApprovalClicks!==0)throw new Error('Generated app acceptance did not pass.');
+ console.log('Checking a fresh runtime download and first launch on '+info.platform+'/'+info.arch);
+ await require('./cold-start-acceptance.cjs').verify({executable:output,root,report:path.join(base,'qa',`cold-start-${info.platform}-${info.arch}.json`)});
  console.log('Checking harness CLI with automatic output on '+info.platform+'/'+info.arch);
  const cliSource=path.join(root,'cli-project');await fs.cp(path.join(base,'examples/languages/javascript'),cliSource,{recursive:true});
  const readyFile=path.join(root,'parallel-ready');
@@ -35,7 +37,7 @@ async function main(){
  const failures=parallel.filter(result=>result.status==='rejected');if(failures.length)throw new AggregateError(failures.map(result=>result.reason),'Simultaneous generated apps failed');
  for(const file of parallelReports){const opened=JSON.parse(await fs.readFile(file,'utf8'));if(!opened.passed||!opened.stopped)throw new Error('Simultaneous generated apps did not launch and stop.');}
  await fs.rm(cliOutput,{recursive:true,force:true,maxRetries:5,retryDelay:100});
- await fs.mkdir(path.join(base,'qa'),{recursive:true});await fs.writeFile(path.join(base,'qa',`desktop-${info.platform}-${info.arch}.json`),JSON.stringify({passed:true,platform:info.platform,arch:info.arch,version,desktopConversion:true,directLaunch:true,stopped:true,sourceCopied:false,harnessCliCreation:true,automaticOutput:true,cliAppLaunch:true,simultaneousAppLaunches:true},null,2));console.log('Desktop and harness CLI conversion, simultaneous launch, output and shutdown passed on '+info.platform+'/'+info.arch);
+ await fs.mkdir(path.join(base,'qa'),{recursive:true});await fs.writeFile(path.join(base,'qa',`desktop-${info.platform}-${info.arch}.json`),JSON.stringify({passed:true,platform:info.platform,arch:info.arch,version,desktopConversion:true,directLaunch:true,coldRuntimeSetup:true,stopped:true,sourceCopied:false,harnessCliCreation:true,automaticOutput:true,cliAppLaunch:true,simultaneousAppLaunches:true},null,2));console.log('Desktop and harness CLI conversion, simultaneous launch, output and shutdown passed on '+info.platform+'/'+info.arch);
  // Only remove the generated output; keep result files for runner diagnostics.
  await fs.rm(output,{recursive:true,force:true,maxRetries:5,retryDelay:100});
 }
