@@ -125,6 +125,9 @@ async function update(id, { project = process.cwd(), pluginRoot = path.resolve(_
       if (!isDeepStrictEqual(getEntry(parse(next, spec), spec), entry)) throw new Error('Cannot append this MCP configuration safely.');
     } else {
       if (!state.block || !original.includes(state.block) || original.split(state.block).length !== 2) throw new Error('The installed TOML block was edited; it was left unchanged.');
+      // Project receipts are untrusted input. They cannot authorize removal of other tables.
+      const owned = { mcp_servers: { [key]: state.entry } };
+      if (!isDeepStrictEqual(parse(state.block, spec), owned)) throw new Error('The setup receipt includes unrelated settings; it was left unchanged.');
       next = original.replace(state.block, '');
       if (getEntry(parse(next, spec), spec) !== undefined) throw new Error('Cannot remove this MCP block safely.');
     }
@@ -142,7 +145,9 @@ async function update(id, { project = process.cwd(), pluginRoot = path.resolve(_
     catch (error) { await replace(root, stateRelative, receipt, null); throw error; }
   } else {
     // Delete a file created by us only if its entire contents still match our installed bytes.
-    await replace(root, relative, original, state.originalMissing && digest(original) === state.installedHash ? null : next);
+    let owned = { [key]: state.entry };
+    for (const part of [...spec.keys].reverse()) owned = { [part]: owned };
+    await replace(root, relative, original, state.originalMissing && digest(original) === state.installedHash && isDeepStrictEqual(config, owned) ? null : next);
     await replace(root, stateRelative, stateText, null);
   }
   return { harness: id, project: root, config: file, connected: operation === 'connect', changed: true,

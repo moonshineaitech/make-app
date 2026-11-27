@@ -70,6 +70,24 @@ test('Claude and current Copilot reuse their shared portable connection', async 
   await update('claude', { project: root, operation: 'disconnect' });
 });
 
+test('an untrusted setup receipt cannot delete unrelated TOML tables or JSON settings', async t => {
+  const root = await fixture(t); await update('codex', { project: root });
+  const tomlFile = path.join(root, '.codex/config.toml'), receiptFile = path.join(root, '.make-app/integrations/codex.json');
+  const content = (await fs.readFile(tomlFile, 'utf8')) + '\n[other]\nkeep = true\n';
+  const receipt = JSON.parse(await fs.readFile(receiptFile, 'utf8')); receipt.block = content;
+  await fs.writeFile(tomlFile, content); await fs.writeFile(receiptFile, JSON.stringify(receipt));
+  await assert.rejects(update('codex', { project: root, operation: 'disconnect' }), /unrelated settings/);
+  assert.equal(await fs.readFile(tomlFile, 'utf8'), content);
+  await update('cursor', { project: root });
+  const jsonFile = path.join(root, '.cursor/mcp.json'), jsonReceiptFile = path.join(root, '.make-app/integrations/cursor.json');
+  const json = JSON.parse(await fs.readFile(jsonFile, 'utf8')); json.unrelated = { keep: true };
+  const changed = JSON.stringify(json), jsonReceipt = JSON.parse(await fs.readFile(jsonReceiptFile, 'utf8'));
+  jsonReceipt.installedHash = require('node:crypto').createHash('sha256').update(changed).digest('hex');
+  await fs.writeFile(jsonFile, changed); await fs.writeFile(jsonReceiptFile, JSON.stringify(jsonReceipt));
+  await update('cursor', { project: root, operation: 'disconnect' });
+  assert.equal(JSON.parse(await fs.readFile(jsonFile, 'utf8')).unrelated.keep, true);
+});
+
 test('invalid JSONC, duplicate keys and wrong container types fail without editing files', async t => {
   const root = await fixture(t), file = path.join(root, '.mcp.json');
   for (const text of ['{invalid', '{"mcpServers":[],}', '{"mcpServers":{},"mcpServers":{}}']) {
