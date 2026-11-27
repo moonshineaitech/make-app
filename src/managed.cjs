@@ -14,7 +14,7 @@ async function download(url,file,onLog,signal){const response=await fetch(url,{s
 function nodePlatform(platform=process.platform,arch=process.arch){
   if(!['x64','arm64'].includes(arch)||!['win32','darwin','linux'].includes(platform))throw new Error(`Automatic Node setup does not support ${platform}/${arch}. Install the required runtime manually.`);
   const windows=platform==='win32',system=windows?'win':platform==='darwin'?'darwin':'linux';
-  return{windows,system,arch,extension:windows?'zip':'tar.gz',releaseFile:(platform==='darwin'?'osx':system)+'-'+arch+(windows?'-zip':'-tar'),node:windows?'node.exe':'bin/node',npm:windows?'node_modules/npm/bin/npm-cli.js':'lib/node_modules/npm/bin/npm-cli.js'};
+  return{windows,system,arch,extension:windows?'zip':'tar.gz',releaseFile:(platform==='darwin'?'osx':system)+'-'+arch+(windows?'-zip':platform==='darwin'?'-tar':''),node:windows?'node.exe':'bin/node',npm:windows?'node_modules/npm/bin/npm-cli.js':'lib/node_modules/npm/bin/npm-cli.js'};
 }
 async function nodeRuntime(dataRoot,major=24,onLog=()=>{},{signal,allowDownloads=true}={}){
   const platform=nodePlatform(),suffix=process.platform==='win32'&&process.arch==='x64'?'':'-'+process.platform+'-'+process.arch;

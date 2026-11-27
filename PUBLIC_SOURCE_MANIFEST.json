@@ -121,8 +121,8 @@
     },
     {
       "path": "docs/RELEASE_NOTES.md",
-      "bytes": 11996,
-      "sha256": "cea2ee800231d1df1d2fb1dc1a56a680366557f5339deab167022bc3f545e625"
+      "bytes": 12349,
+      "sha256": "cb9b434f923c83f170794557507d3aed67d3aa6557a0184f09c3735b2be747ba"
     },
     {
       "path": "docs/RELEASING.md",
@@ -696,8 +696,8 @@
     },
     {
       "path": "src/direct-smoke.cjs",
-      "bytes": 2465,
-      "sha256": "734cc8e239374cda26ca60d5599c8b015d2d8e4aedc42fd55c277f7e64779bbd"
+      "bytes": 2515,
+      "sha256": "bfdd71d595b6b2819974eb160d679c9a5ef6584223fc482de3cace5d8ff7ff8f"
     },
     {
       "path": "src/engine.cjs",
@@ -781,13 +781,13 @@
     },
     {
       "path": "src/main.cjs",
-      "bytes": 53242,
-      "sha256": "6c408a61c635b523e8146eaa545a0d3a0b62a0fef58cc341e88c34c39e594559"
+      "bytes": 53317,
+      "sha256": "2eb10194ed5c3cc4682a0b2eeead6b03d73be19ba79dfa4a3ee05544b567f7b8"
     },
     {
       "path": "src/managed.cjs",
-      "bytes": 14350,
-      "sha256": "c99e51e6b174da14e6bf18801ef3aa0ea585390d83c433c7a7139bc0c10bb301"
+      "bytes": 14373,
+      "sha256": "dce280e815461b34ba43ebba096a093cba9f1f64df3fcf8f16ca5265d6b784b7"
     },
     {
       "path": "src/output-path.cjs",
@@ -2466,8 +2466,8 @@
     },
     {
       "path": "test/integration.test.cjs",
-      "bytes": 1275,
-      "sha256": "fda60285d0a10b0e4b9ec449051c32260993c98ddabc14b261bff4ad35e0f554"
+      "bytes": 1515,
+      "sha256": "21ce4de856e20d7dfbbbcc582ac6b62717baafd945588067af54908937ff278c"
     },
     {
       "path": "test/languages.test.cjs",

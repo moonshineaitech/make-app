@@ -8,6 +8,8 @@ Windows runtime setup uses the built-in native ZIP extractor when available, wit
 
 Draft creation now also requires successful source/interface verification for the exact native-build commit. Download files, complete coding-tool bundles, checksums, dependency inventories and platform manifests are built together. The release remains an unsigned, non-notarized preview; signing, physical-device and manual accessibility acceptance are separate gates. The website remains local unless its owner chooses to publish it.
 
+Fresh-cache acceptance exposed and corrected the Linux Node release selector: the official index uses `linux-x64` and `linux-arm64`, while macOS uses the `-tar` suffix. Existing installed runtimes had hidden the Linux download failure. Failed setup now reaches the smoke report immediately, and native diagnostic artifacts are retained on failed jobs.
+
 ## Previous: Make App 0.14.0 — a clearer Aero workspace
 
 The overview now shows saved projects directly, alongside the current project's original glass illustration, output and detection status. Horizontal layouts use four primary destinations and a keyboard-accessible More menu. Existing sidebar compositions and all twelve utility views remain available.

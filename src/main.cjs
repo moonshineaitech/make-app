@@ -267,11 +267,11 @@ ipcMain.handle('tool',async(event,method,payload)=>{
   const output=text=>{if(!state.win.isDestroyed())state.win.webContents.send('tool-output',text);};
   if(record.kind==='project'){
     if(state.toolRun||state.engine?.children.size)throw new Error('Project is already running.');
-    state.toolRun=true;state.cancelToolRun=false;try{
+    state.toolRun=true;state.runError=null;state.cancelToolRun=false;try{
     state.logs='';state.pendingTerminalBytes=0;state.engine=await engine(record,(text,metadata)=>{state.logs=(state.logs+text).slice(-70000);if(!metadata?.terminal)output(text);},statuses=>{state.services=statuses;},{terminal,terminalSize,onTerminal:text=>{if(state.win.isDestroyed())return;state.pendingTerminalBytes+=Buffer.byteLength(text);state.win.webContents.send('tool-terminal',text);if(state.pendingTerminalBytes>65536)state.engine?.children.get('app')?.pause?.();}});
     if(state.cancelToolRun||state.win.isDestroyed()){await state.engine.stop();throw new Error('Operation cancelled.');}
     let result;try{result=await state.engine.start(payload);record.lastError=null;record.lastFailure=null;await save();}catch(error){record.lastError=error.message;record.lastFailure=error.appdockFailure;await save();throw error;}state.result=result;changed();return{...result,code:result.code||0};
-    }finally{state.toolRun=false;}
+    }catch(error){state.runError=error.message;throw error;}finally{state.toolRun=false;}
   }
   output('Running '+record.name+'…\n');
   let code=0;try{await runtime.runStep(command,[...args,...payload],record.root,state,output);}catch(e){code=1;output('\n'+e.message+'\n');stopProcess(state);}return{code};
