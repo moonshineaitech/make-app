@@ -38,13 +38,31 @@ jobs:
         run: npm run build -- --publish never
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
-      - name: Exercise converter runtime
+      - name: Create and run an app through the converter
         shell: pwsh
         run: |
-          $env:APPDOCK_DATA=Join-Path $env:RUNNER_TEMP 'make-app-desktop-smoke'
-          $process=Start-Process -FilePath 'release/win-unpacked/Make App.exe' -ArgumentList '--smoke-test' -WindowStyle Hidden -PassThru
-          if (!$process.WaitForExit(120000)) { Stop-Process -Id $process.Id -Force; throw 'Desktop smoke timed out' }
-          if ($process.ExitCode -ne 0) { throw 'Desktop smoke failed' }
+          function Invoke-Acceptance($executable, $arguments) {
+            $options=@{FilePath=$executable;WindowStyle='Hidden';PassThru=$true}
+            if ($arguments) { $options.ArgumentList=$arguments }
+            $process=Start-Process @options
+            if (!$process.WaitForExit(120000)) { Stop-Process -Id $process.Id -Force; throw 'Converter acceptance timed out' }
+            if ($process.ExitCode -ne 0) { throw "Converter acceptance failed: $($process.ExitCode)" }
+          }
+          $version=node -p 'require("./package.json").version'
+          $env:APPDOCK_DATA=Join-Path $env:RUNNER_TEMP 'make-app-creator-acceptance'
+          $env:APPDOCK_CREATOR_SOURCE=(Resolve-Path 'examples/languages/javascript').Path
+          $env:APPDOCK_CREATOR_OUTPUT=Join-Path $env:RUNNER_TEMP 'Make App Acceptance.exe'
+          $env:APPDOCK_CREATOR_RESULT=Join-Path $env:RUNNER_TEMP 'make-app-creator-result.json'
+          Invoke-Acceptance "release/Make-App-$version-Windows.exe" '--creator-smoke'
+          $creator=Get-Content -Raw -LiteralPath $env:APPDOCK_CREATOR_RESULT | ConvertFrom-Json
+          if (!$creator.passed -or !$creator.createdThroughDesktopUI) { throw 'Desktop conversion failed' }
+          $env:APPDOCK_DATA=Join-Path $env:RUNNER_TEMP 'make-app-generated-acceptance'
+          $env:APPDOCK_TOOLCACHE=Join-Path $env:RUNNER_TEMP 'make-app-tool-cache'
+          $env:APPDOCK_DIRECT_TEST=Join-Path $env:RUNNER_TEMP 'make-app-direct-result.json'
+          $env:APPDOCK_DIRECT_EXPECT_TEXT='APPDOCK_SUM=0'
+          Invoke-Acceptance $env:APPDOCK_CREATOR_OUTPUT $null
+          $direct=Get-Content -Raw -LiteralPath $env:APPDOCK_DIRECT_TEST | ConvertFrom-Json
+          if (!$direct.passed -or !$direct.stopped -or $direct.executionApprovalClicks -ne 0) { throw 'Generated app acceptance failed' }
       - name: Package public assets
         shell: pwsh
         run: |
