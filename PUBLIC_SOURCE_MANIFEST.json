@@ -342,7 +342,7 @@
     {
       "path": "integrations/codex/.codex-plugin/plugin.json",
       "bytes": 1420,
-      "sha256": "025032f3daa6efe8fbed95ab9e754cf11e74ef18da58058bdbb3479060826174"
+      "sha256": "587f5a748ab92441a0d81c59751396b5a76c77e31cf0e777025d2b0f9a905fe9"
     },
     {
       "path": "integrations/codex/.mcp.json",
@@ -367,17 +367,17 @@
     {
       "path": "integrations/codex/package-lock.json",
       "bytes": 6756,
-      "sha256": "d2b697a381a2fc6823d9b5d71fb1e4b3224bcf3b5d663b6ee1cee563844221af"
+      "sha256": "5c915cfd8a69c97a853fe171b88048b58e1b2fc417f5d21d3c53248513c3c894"
     },
     {
       "path": "integrations/codex/package.json",
       "bytes": 437,
-      "sha256": "2eaf0e26a4b8b9b069a9e51ecbc54cf23c77de763eaacbb354a6137fe3f54466"
+      "sha256": "1c340b5c24f09ee08c3e8fbd14cc3fe3533a684f3d69d79d8e33f4d54ecbd2bf"
     },
     {
       "path": "integrations/codex/plugin.json",
       "bytes": 1799,
-      "sha256": "1b7d51e48f52f017c7b0626f2f146a384b7b44cfb6518dd99408709b8964dd4b"
+      "sha256": "afce61395f0085e6c869f8785a2f90e615cfd202b6b3b76d9ec4fc0ca25c6d1d"
     },
     {
       "path": "integrations/codex/scripts/harnesses.cjs",
