@@ -120,13 +120,13 @@
     },
     {
       "path": "docs/assets/make-app-windows.png",
-      "bytes": 32289,
-      "sha256": "927e6ca7c3b9bfe59abc606d9eb9fe6bb5ed6c6a243cbd306563f467c8ea8a01"
+      "bytes": 196992,
+      "sha256": "746dab6caab908b0006c3a99c9fb73ef416ec254c0b426a9daf34d5a1be44435"
     },
     {
       "path": "electron-builder.config.cjs",
-      "bytes": 820,
-      "sha256": "e42251f0e727d2eedba9db6b27eeab94560aeb5247353cc2d27398a8db00e7b4"
+      "bytes": 897,
+      "sha256": "5b2cd67a2da156318bd0ee21a6d743584d9283a96aeee30a324becf74a984db4"
     },
     {
       "path": "electron-builder.production.cjs",
@@ -405,8 +405,8 @@
     },
     {
       "path": "scripts/assemble-plugin.cjs",
-      "bytes": 4506,
-      "sha256": "9a3dcb5ca97abe5b18728b7a8295d0a021a3619c2de00d9f14ee86a2027c0c2b"
+      "bytes": 4601,
+      "sha256": "32e7e5a246bff6f6e770d1448275002b4a370039ec4e53e298b1f3a4c71965d9"
     },
     {
       "path": "scripts/build-launcher.cjs",
@@ -600,8 +600,8 @@
     },
     {
       "path": "src/mac-app.cjs",
-      "bytes": 2229,
-      "sha256": "f5e69521b448ec34edb4071d464780305f0abfeab2033240c76b98d395b92d74"
+      "bytes": 3127,
+      "sha256": "d64b6d91a05d7e793fce37d3676fd163372f9d3919648173601948cd61f20e0f"
     },
     {
       "path": "src/main.cjs",
@@ -657,6 +657,21 @@
       "path": "src/projects.cjs",
       "bytes": 14629,
       "sha256": "39d23471370125c4ee866fb1218b1c5a1370fadfa515b72d7016668e76d770d5"
+    },
+    {
+      "path": "src/pwa-icons/icon-180.png",
+      "bytes": 1642,
+      "sha256": "041bc5ce6f022229cec34031600acd9d2ad152b8aa331414773e5d38e06d04ba"
+    },
+    {
+      "path": "src/pwa-icons/icon-192.png",
+      "bytes": 1740,
+      "sha256": "4c57542cb4333d00ab588d189aae08238eb29acc20ea7dca22006fcc511bb032"
+    },
+    {
+      "path": "src/pwa-icons/icon-512.png",
+      "bytes": 7414,
+      "sha256": "b63a71c0cff41f79c4133cafc432dc9207d0d347f37c282208fd81ea59db279c"
     },
     {
       "path": "src/readiness.cjs",
@@ -790,8 +805,8 @@
     },
     {
       "path": "src/web-export.cjs",
-      "bytes": 7285,
-      "sha256": "1d34bda6de1a9f81614c986b9d267519b4591d2f4943e7772c39dd12eac35cd4"
+      "bytes": 7732,
+      "sha256": "870533198cb5d28f1784222fa0ddaf97c7c2789cf61a56e5d155b986e4e58e66"
     },
     {
       "path": "src/workspaces.cjs",

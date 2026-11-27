@@ -4,6 +4,7 @@ async function inventory(root,prefix=''){const result=[];for(const entry of awai
 async function assemble({base=path.resolve(__dirname,'..'),destination=path.join(base,'integrations/marketplace'),node=process.env.APPDOCK_PLUGIN_NODE,builder=process.env.APPDOCK_PLUGIN_BUILDER}={}){
  const plugin=path.join(base,'integrations/codex'),runtime=path.join(plugin,'server/runtime');await fs.mkdir(runtime,{recursive:true});
  for(const name of ['core','automatic','projects','managed','integration','languages','process-broker','execution-plan','package-managers','workspaces','setup-key','project-data','diagnostics','adapters','readiness','environment','platform','posix-supervisor','web-export','output-path'])await fs.copyFile(path.join(base,'src',name+'.cjs'),path.join(runtime,name+'.cjs'));
+ await fs.cp(path.join(base,'src/pwa-icons'),path.join(runtime,'pwa-icons'),{recursive:true});
  const target=path.join(destination,'plugins/make-app');await fs.mkdir(target,{recursive:true});
  for(const name of ['plugin.json','.codex-plugin','mcp.json','.mcp.json','package.json','package-lock.json','README.md','server','scripts','skills','assets','node_modules']){const source=path.join(plugin,name);if(await fs.stat(source).catch(()=>null))await fs.cp(source,path.join(target,name),{recursive:true,force:true,verbatimSymlinks:true});}
  await fs.copyFile(path.join(base,'LICENSE'),path.join(target,'LICENSE'));
