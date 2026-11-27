@@ -1,0 +1,58 @@
+/* Eight cumulative refinements of the approved photographic Aero direction. */
+/* 01 — Composition and material hierarchy. Source imagery remains unchanged. */
+:root{--canvas:#edf6f9;--solid:#fbfeff;--ink:#143447;--secondary:#426273;--line:#bad1dc}
+body{font-feature-settings:'ss01';text-rendering:optimizeLegibility}
+.site-header{padding-top:22px}
+.nav{border-radius:22px;box-shadow:inset 0 1px 0 #edffffa8,inset 0 -1px 0 #79bdcf45,0 16px 50px #001e3d33}
+.nav .brand{gap:11px;font-weight:650}.nav .brand img{width:32px;height:32px;border-radius:9px;box-shadow:0 2px 10px #001d4e66}
+.hero{padding-top:66px;gap:50px;padding-bottom:74px}
+.hero-copy{max-width:940px;margin-inline:auto}
+.hero-copy h1{font-size:clamp(54px,6.4vw,90px);line-height:1.06;letter-spacing:-.055em;font-weight:570;text-wrap:balance;text-shadow:0 2px 16px #001a2e30}
+.hero-description{font-size:20px;line-height:1.65;letter-spacing:-.3px;color:#e3f6fb}
+.hero-actions .button{min-height:54px;padding-inline:25px}
+.hero-copy .release-pill{margin-bottom:25px;box-shadow:inset 0 1px 0 #e9ffff55,0 4px 16px #00263a26}
+.hero-foot{margin-top:20px}.hero-note{color:#d5edf5}
+.hero-product{scroll-margin-top:108px}
+.product-frame{padding:8px;border-radius:27px;box-shadow:inset 0 1px 0 #f2ffffc9,inset 0 -1px 0 #8fd4ea80,0 12px 24px #001b4333,0 45px 90px #00172e66}
+.product-frame iframe{border-radius:19px}
+.preview-toolbar{margin-bottom:16px}.preview-bottom{margin-top:17px}
+.section-intro h2,.integration-copy h2,.closing h2{font-weight:570;text-wrap:balance}
+.section-intro>p:last-child{max-width:45ch}.section-space{padding-block:104px}
+@media(max-width:760px){.hero{padding-top:36px;gap:32px;padding-bottom:42px}.hero-copy h1{font-size:clamp(46px,10vw,66px);letter-spacing:-.055em}.hero-description{font-size:18px}.section-space{padding-block:64px}.product-frame{padding:5px;border-radius:20px}.product-frame iframe{border-radius:15px}}
+/* 04 — A curated collection with a useful, live current selection. */
+.site-atmosphere{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);margin:0 0 34px;border:1px solid #b0cdd9;border-radius:23px;overflow:hidden;background:#faffff;box-shadow:inset 0 1px 0 #fff,0 12px 35px #19445612}
+.site-atmosphere>img{width:100%;height:280px;object-fit:cover}.site-atmosphere>div{padding:35px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.site-atmosphere .eyebrow{font-size:13px;color:#436d7c;letter-spacing:1.6px;margin:0 0 14px}
+.site-atmosphere h3{font-size:32px;line-height:1.2;letter-spacing:-1px;margin:0 0 13px;font-weight:580}
+.site-atmosphere p:not(.eyebrow){font-size:16px;line-height:1.7;color:var(--secondary);max-width:34ch;margin:0 0 22px}
+.site-atmosphere .button{min-height:46px;font-size:14px;padding:12px 17px;border:1px solid #b3cdda;background:#fff;border-radius:12px}
+.site-design-grid{gap:24px}.site-design-card{border-radius:19px;box-shadow:inset 0 1px 0 #fff,0 6px 18px #123e5210}.site-design-card>span{padding:18px}.site-design-card img{aspect-ratio:1.5}
+.site-design-card[aria-pressed=true]{outline-color:#007e90;box-shadow:0 5px 22px #007d8a26}
+.site-design-card:hover{border-color:#669dad;box-shadow:0 10px 26px #133d5424}
+@media(max-width:760px){.site-atmosphere{grid-template-columns:1fr;border-radius:19px}.site-atmosphere>img{height:205px}.site-atmosphere>div{padding:25px}.site-atmosphere h3{font-size:28px}.site-design-grid{gap:17px}.site-design-card>span{padding:13px}}
+/* 06 — One material language through setup, integrations and the final action. */
+.workflow li{gap:23px;padding-block:29px}.workflow-number{width:29px;flex:none;font-size:14px;line-height:1.7;color:#376b7b}
+.workflow h3{font-size:20px;letter-spacing:-.35px}.workflow p{max-width:39ch}
+.integration-surface{border-radius:28px;box-shadow:inset 0 1px 0 #c9f7ff9c,inset 0 -1px 0 #13415c88,0 22px 65px #00273b26}
+.agent-panel{padding:28px;border-radius:21px;box-shadow:inset 0 1px 0 #b9f7ff50,0 14px 35px #001c3040}
+.agent-tabs{gap:5px}.agent-tabs>button{border:1px solid transparent;border-radius:10px}.agent-tabs>button[aria-pressed=true]{border-color:#99d9e460}
+.prompt-text{font-weight:500;font-size:29px;letter-spacing:-.6px;margin-block:20px 28px}.prompt-footer button{border:1px solid #81b4c64d;border-radius:10px;padding-inline:12px}
+.device-row{border-radius:14px;padding-inline:15px;margin-inline:-15px;transition:background .2s}.device-row:hover{background:#ffffffaa}.device-icon{border-radius:15px;box-shadow:inset 0 1px 0 #fff,0 4px 12px #123d5014}
+.faq-list details[open]{padding-bottom:12px}.faq-list summary{font-weight:550}.faq-list details p{max-width:48ch;margin-right:20px}
+.closing{padding:70px 36px 76px;margin-bottom:50px;width:calc(100% - 60px);max-width:1220px;border:1px solid #a7d4df;border-radius:28px;background:url('app/assets/aero/pearl_current.jpg') center/cover;box-shadow:inset 0 1px 0 #fff,0 16px 40px #1a526614}
+.closing h2{color:#10384c;line-height:1.08}.closing .eyebrow,.closing>p:last-child{color:#345d6e}
+#download-dialog{width:min(650px,calc(100vw - 30px));max-height:calc(100dvh - 30px);border-radius:25px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.download-card{padding:33px}.download-card h2{letter-spacing:-1.2px;font-weight:580;line-height:1.15}.platform-picker label>span{min-height:66px;border-radius:13px;box-shadow:inset 0 1px 0 #fff}
+.platform-picker label:has(input:checked)>span{border-color:#007b91;background:#e6f6fa;box-shadow:inset 0 1px 0 #fff,0 4px 12px #005c7415}
+.download-instruction{padding:16px 18px;border:1px solid #bad4de;background:#edf7fb;border-radius:13px;font-size:14px;line-height:1.7;color:#31586d;margin:22px 0 0}
+.download-link{min-height:50px;border-radius:13px}.download-help a{min-height:44px;display:inline-flex;align-items:center}
+@media(max-width:760px){.agent-panel{padding:20px}.prompt-text{font-size:25px}.closing{width:calc(100% - 36px);padding:54px 23px;margin-bottom:28px;border-radius:22px}.closing h2{font-size:42px}.download-card{padding:25px}.device-row{padding-inline:10px;margin-inline:-10px}}
+/* 08 — The same hierarchy remains readable on a phone or assistive display. */
+.site-design-tools input{min-width:0}.site-atmosphere>div{min-width:0}.site-atmosphere h3{overflow-wrap:break-word}
+:is(.site-atmosphere,.site-design-card,.device-row,.closing,#download-dialog) a:focus-visible{outline-color:#007083}
+@media(max-width:760px){.nav-links{display:none}.hero-actions .button{min-height:50px}.hero-copy .release-pill{font-size:13px}.hero-note{max-width:32ch;margin-inline:auto}.hero-note br{display:block}.site-design-tools{gap:12px}.site-design-tools input{font-size:16px;min-height:50px}.site-design-card{border-radius:15px}.site-design-card small{line-height:1.6}.section-intro h2{font-size:36px;letter-spacing:-1.3px}.site-footer{gap:22px}.download-help{gap:14px;flex-wrap:wrap}.download-instruction{font-size:14px}.platform-picker label>span{min-height:70px}.preview-bottom{gap:6px}.preview-bottom a{min-height:44px}}
+@media(max-width:380px){.hero-copy h1{font-size:45px}.hero-actions .button{padding-inline:17px;font-size:14px}.site-atmosphere>div{padding:21px}.site-atmosphere h3{font-size:27px}.download-card{padding:23px 20px}.download-card h2{font-size:29px}.platform-picker{gap:8px}.platform-picker label>span{font-size:14px}}
+@media(pointer:coarse){.site-design-tools button,.mode-switch button,.agent-tabs>button{min-height:46px}}
+@media(prefers-contrast:more){.site-design-card,.site-atmosphere,.principles>div{border-color:#31576c}.hero-description,.hero-note,.hero-foot,.preview-bottom{color:#fff}}
+@media(prefers-reduced-transparency:reduce){.nav{backdrop-filter:none;background:#0b3e55}.agent-panel{background:#103c50}.hero-actions .quiet{background:#10465d}}
+@media(forced-colors:active){.closing{background:Canvas;color:CanvasText}.closing h2,.closing .eyebrow,.closing>p:last-child{color:CanvasText}.site-atmosphere,.download-instruction,.platform-picker label:has(input:checked)>span{background:Canvas;color:CanvasText;border:1px solid CanvasText}.site-atmosphere>img{display:none}.site-atmosphere{grid-template-columns:1fr}.site-design-card[aria-pressed=true]{outline-color:Highlight}}

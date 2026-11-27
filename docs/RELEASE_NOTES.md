@@ -1,4 +1,10 @@
-# Make App 0.15.0 — complete Aero design and first-launch verification
+# Make App 0.16.0 — eight Aero refinements
+
+Eight cumulative passes refine the approved photographic direction: composition and materials; desktop navigation; project workspace; current-atmosphere exhibits; tactile controls and truthful creation feedback; complete website and download flow; quieter glass motion with an explicit preview; and small-screen, keyboard and assistive-display refinements. All twenty themes, twelve utility views, original creator compositions and bundled artwork remain.
+
+New interaction checks cover project-search shortcuts, pin focus, theme focus, motion preview, gallery empty-state recovery, live workspace links and platform-specific installation hints. Source, native and fresh-cache qualification records are specific to this release. The site remains local and binaries remain unsigned previews.
+
+## Previous: Make App 0.15.0 — complete Aero design and first-launch verification
 
 The complete website now shares the application's photographic Aero materials, readable typography and glass controls. Its live gallery includes all twenty designs, Original/Studio collection filters and search. Selecting a design updates the actual embedded interface; it remains a clearly labeled browser demonstration with sample projects.
 

@@ -1,0 +1,80 @@
+/* Refinements apply to live utility views and Studio. Measured photo creators
+   keep their original geometry, imagery and editable control alignment. */
+/* 01 — Shared optical rhythm. */
+.app-views{--refine-radius:18px;--refine-shadow:0 8px 24px #001b3210;font-feature-settings:'ss01'}
+.app-views .view-heading h1{font-weight:580;letter-spacing:-.045em;line-height:1.12}
+.app-views .view-intro{line-height:1.75;max-width:62ch}
+.app-views .views-stage{scroll-padding-block:26px}
+.app-views .view-card{border-radius:var(--refine-radius);box-shadow:inset 0 1px 0 var(--glass-border),var(--refine-shadow)}
+.app-views .view-card h2{font-weight:600;line-height:1.35}
+.app-views .view-card p{font-size:15px;line-height:1.75}
+.app-views .view-card p:last-child{margin-bottom:0}
+:root[data-studio] .creator-shell{box-shadow:inset 0 1px 0 var(--glass-border),0 14px 30px #00233d14,0 40px 90px #00233d24}
+/* 02 — Navigation feels like a desktop instrument, with stable focus. */
+.app-views .views-toolbar{box-shadow:inset 0 1px 0 var(--glass-border)}
+.app-views .views-toolbar-note{font:500 13px/1.5 Geist,sans-serif;letter-spacing:.1px}
+.app-views #views-nav button{border:1px solid transparent;transition:background .18s,border-color .18s,box-shadow .18s}
+.app-views #views-nav button:hover{background:var(--surface);border-color:var(--line)}
+.app-views #views-nav button.is-current{border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-border),0 3px 8px #002c4020}
+.app-views #views-nav:not([data-compact=true]) button[data-view=connections]{margin-top:14px}
+.app-views #views-nav:not([data-compact=true]) button[data-view=help]{margin-top:14px}
+.views-more-menu{padding:8px;border-radius:17px;box-shadow:inset 0 1px 0 var(--glass-border),0 14px 50px #001e3d45}
+.views-more-menu button{min-height:44px;border-radius:10px}
+.views-more-menu button[data-menu-view=connections],.views-more-menu button[data-menu-view=help]{border-top:1px solid var(--line);margin-top:5px;padding-top:13px}
+.app-views #views-nav button:focus-visible,.views-more-menu button:focus-visible{outline-offset:-3px}
+@media(max-width:650px){.app-views #views-nav[data-compact=true]{box-shadow:inset 0 1px 0 var(--glass-border),0 5px 12px #001e3015}.app-views .views-toolbar-note{display:none}}
+/* 03 — A composed project workspace, instead of enlarged low-resolution art. */
+.app-views[data-original] .workspace-art{display:flex;align-items:center;justify-content:center;min-height:260px;background:var(--wallpaper) center/cover;overflow:hidden}
+.app-views[data-original] .workspace-art>img{position:static;inset:auto;width:156px;height:156px;max-width:58%;object-fit:contain;border-radius:24px;filter:drop-shadow(0 14px 22px #002a3c40)}
+.app-views .workspace-feature{border-radius:21px;overflow:hidden;box-shadow:inset 0 1px 0 var(--glass-border),0 10px 30px #002a3a10}
+.app-views[data-original] .workspace-feature{padding-top:0}
+.app-views .workspace-shortcuts .button{padding:16px;min-height:58px;box-shadow:inset 0 1px 0 var(--glass-border),0 3px 10px #002b3a08}
+.app-views .workspace-shortcuts .button>.icon{width:22px;height:22px;margin-right:3px}
+.app-views .project-row{border-radius:12px;padding-inline:10px;margin-inline:-10px;transition:background .18s}
+.app-views .project-row:hover,.app-views .project-row:focus-within{background:var(--surface)}
+.app-views .project-row .path-text{font:13px/1.6 var(--mono);overflow-wrap:anywhere}
+.app-views .project-row .project-picture{box-shadow:inset 0 1px 0 var(--glass-border),0 3px 8px #002c3015}
+.project-library-summary{font-size:13px;color:var(--secondary);margin:0 0 16px;line-height:1.6}
+:root[data-density=compact] .app-views .project-row{padding-block:11px}
+@media(max-width:650px){.app-views[data-original] .workspace-art{min-height:180px;height:180px}.app-views[data-original] .workspace-art>img{width:120px;height:120px}.app-views .workspace-shortcuts .button{min-height:48px;padding:12px}.app-views .project-row{gap:10px}.app-views .project-row .project-picture{width:38px;height:38px}.app-views .project-row .button{min-height:44px}}
+/* 04 — A current-atmosphere exhibit anchors the complete collection. */
+.atmosphere-spotlight{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin:0 0 26px;background:var(--surface);box-shadow:inset 0 1px 0 var(--glass-border),0 8px 24px #001a3012}
+.atmosphere-spotlight>img{width:100%;height:245px;min-height:0;object-fit:cover}
+.atmosphere-spotlight>div{padding:28px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:0}
+.atmosphere-spotlight h2{font-size:25px;line-height:1.25;letter-spacing:-.7px;margin:0 0 10px;color:var(--ink)}
+.atmosphere-spotlight p{font-size:14px;line-height:1.7;color:var(--secondary);margin:0 0 18px}
+.atmosphere-spotlight .view-eyebrow{font-size:13px;margin-bottom:11px}
+.app-views .view-theme-card{transition:box-shadow .2s,border-color .2s}
+.app-views .view-theme-card:hover{box-shadow:inset 0 1px 0 var(--glass-border),0 8px 22px #002b3a20;border-color:var(--accent)}
+.app-views .view-theme-card[aria-pressed=true]{outline-width:2px;outline-offset:4px}
+@media(max-width:800px){.atmosphere-spotlight{grid-template-columns:1fr}.atmosphere-spotlight>img{height:170px;min-height:0}.atmosphere-spotlight>div{padding:23px}}
+/* 05 — Tactile controls and truthful creation feedback. */
+.app-views :is(input,select){box-shadow:inset 0 2px 4px #001d2e0a,inset 0 1px 0 var(--glass-border)}
+.app-views :is(input,select):focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-color:var(--accent)}
+.app-views .button{min-height:44px;font-weight:550}
+.app-views .button.primary{box-shadow:inset 0 1px 0 var(--glass-border),0 4px 12px #00243d22}
+.app-views .button:disabled{box-shadow:none;opacity:.55}
+:root[data-photo] .photo-control:focus-within{outline:2px solid var(--accent);outline-offset:3px}
+:root:not([data-photo]) .creator-shell :is(input,select):focus-visible{outline-width:2px;box-shadow:0 0 0 5px var(--accent-soft)}
+:root[data-studio] .format:has(input:checked){box-shadow:inset 0 1px 0 var(--glass-border),0 4px 14px #00283c15}
+:root:not([data-photo]) body[data-phase=success] .result-area{border:1px solid var(--line);padding:17px 20px;border-radius:15px;background:var(--success-soft);margin-top:20px}
+.app-views .success-card{border-color:var(--success);box-shadow:inset 0 1px 0 var(--glass-border),0 8px 24px #113c2712}
+.build-path{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;list-style:none;padding:0;margin:22px 0}
+.build-path li{padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);min-width:0}
+.build-path .icon{width:20px;height:20px;color:var(--secondary);margin-bottom:13px}
+.build-path strong{display:block;font-size:14px;line-height:1.4;color:var(--ink)}
+.build-path small{display:block;font-size:13px;line-height:1.6;color:var(--secondary);margin-top:6px}
+.build-path [data-complete=true]{border-color:var(--success)}.build-path [data-complete=true] .icon{color:var(--success)}
+.app-views .activity-log{font:13px/1.8 var(--mono);padding:22px;border-radius:15px;max-height:300px;overflow:auto}
+@media(max-width:650px){.build-path{gap:8px}.build-path li{padding:13px 10px}.build-path strong{font-size:13px}.build-path small{font-size:13px}}
+/* 08 — Small windows, touch, higher contrast and reduced transparency. */
+.app-views .view-toolbar>input{flex:1 1 250px;min-width:0}
+.app-views .design-library-tools{position:sticky;top:-1px;z-index:4;padding:10px 0;background:var(--solid);border-radius:12px;box-shadow:0 6px 12px #001a3008}
+.app-views .view-heading :is(h1,p){overflow-wrap:break-word}
+.app-views .view-facts dd{line-height:1.6;overflow-wrap:anywhere}
+.app-views #view-notice:not(:empty){padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:14px;line-height:1.6}
+@media(max-width:650px){.app-views .views-stage{padding-bottom:35px}.app-views .view-toolbar{gap:10px}.app-views .view-toolbar>input{flex-basis:100%;font-size:16px;min-height:48px}.app-views .view-card{padding:20px}.app-views .design-library-tools{padding:8px;background:var(--solid)}.app-views .project-row .project-copy{min-width:0;flex:1}.app-views .project-row .path-text{font-size:13px}.app-views .project-row>.button.quiet{padding-inline:8px}.app-views .view-heading h1{font-size:31px}}
+@media(pointer:coarse){.app-views :is(.button,select,input),.views-more-menu button{min-height:48px}.app-views .design-library-tabs .button{padding-inline:12px}}
+@media(prefers-contrast:more){.app-views .view-card,.app-views .project-row,.atmosphere-spotlight,.build-path li{border-color:var(--ink)}.app-views .view-eyebrow,.app-views .view-intro,.app-views .project-copy p{color:var(--ink)}}
+@media(prefers-reduced-transparency:reduce){.app-views,.app-views .views-stage,.app-views #views-nav,.views-more-menu{backdrop-filter:none;background:var(--solid)}}
+@media(forced-colors:active){.app-views[data-original] .workspace-art{display:none}.atmosphere-spotlight,.build-path li,.app-views .design-library-tools,.app-views #view-notice:not(:empty){background:Canvas;color:CanvasText;border:1px solid CanvasText;box-shadow:none}.atmosphere-spotlight>img{display:none}.atmosphere-spotlight{grid-template-columns:1fr}.app-views .project-row:hover,.app-views .project-row:focus-within{background:Canvas}.app-views .button,.views-more-menu button{box-shadow:none}}

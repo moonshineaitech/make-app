@@ -20,8 +20,8 @@
  }
  function enter(e,index=0){
   if(entered.has(e)||!active()||!usable(e))return;entered.add(e);
-  const picture=e.matches(pictures),field=e.matches('input,select,textarea'),distance=subtle()?3:picture?5:8;
-  animate(e,[{opacity:picture?0.82:1,translate:'0 '+distance+'px'},{opacity:1,translate:'0 0'}],{duration:picture?650:420,delay:Math.min(index*24,160)});
+  const picture=e.matches(pictures),reading=e.matches(text),distance=subtle()?2:reading?0:picture?4:6;
+  animate(e,[{opacity:picture?0.86:reading?0.94:1,translate:'0 '+distance+'px'},{opacity:1,translate:'0 0'}],{duration:picture?600:reading?300:380,delay:Math.min(index*18,100)});
  }
  function surface(e){
   if(!e||e.matches('input,select,textarea,img,.symbol')||!usable(e))return null;
@@ -85,7 +85,7 @@
     const dialog=[...document.querySelectorAll('dialog[open]')].at(-1),candidates=[...visible].filter(e=>e.isConnected&&e.matches('button,.format,.glass,.view-card,.studio-art,.original-receipt,.creation-bar')&&(!dialog||dialog.contains(e))&&!e.disabled&&usable(e));
     const e=candidates[Math.floor(Math.random()*candidates.length)];if(e)shine(e);
    }schedule();
-  },subtle()?11000:6200);
+  },subtle()?16000:10000);
  }
  function preference(){
   if(!root.dataset.motion){try{const p=JSON.parse(localStorage.getItem('make-app-motion'));if(['system','full','subtle','quiet'].includes(p))root.dataset.motion=p}catch{}}
@@ -119,7 +119,7 @@
   window.addEventListener('resize',()=>{for(const a of owned)a.cancel();resetPicture(lastPointerTarget)});
   window.addEventListener('make-app:appearance',()=>{for(const a of owned)a.cancel();requestAnimationFrame(()=>{register(document.body);reveal(document.querySelector('.creator-shell')||document.body);schedule()})});
   window.addEventListener('make-app:created',()=>{requestAnimationFrame(phase)});
-  window.makeAppMotion=Object.freeze({get mode(){return quiet()?'quiet':subtle()?'subtle':'full'},get activeAnimations(){return owned.size},effects:['shine','entrance','spring','ripple','image-depth','panel-light','state-feedback']});
+  window.makeAppMotion=Object.freeze({get mode(){return quiet()?'quiet':subtle()?'subtle':'full'},get activeAnimations(){return owned.size},preview(element){if(usable(element)&&active()){shine(element);glow(element);}},effects:['shine','entrance','spring','ripple','image-depth','panel-light','state-feedback']});
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();

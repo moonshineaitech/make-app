@@ -112,10 +112,17 @@ app.whenReady().then(async () => {
   await evaluate(site,`document.getElementById('site-design-search').value='Sapphire';document.getElementById('site-design-search').dispatchEvent(new Event('input'));document.querySelector('[data-design=sapphire_reef]').click();true`);
   await until(()=>evaluate(site,`document.getElementById('app-demo').contentDocument.documentElement.dataset.aero==='sapphire_reef'`),'website gallery applies the selected design');
   assert.equal(await evaluate(site,`[...document.querySelectorAll('.site-design-card')].filter(b=>!b.hidden).length`),1);
+  assert.equal(await evaluate(site,`document.querySelector('.site-atmosphere h3').textContent`),'Sapphire Reef');
+  assert.ok(await evaluate(site,`document.querySelector('.site-atmosphere a').getAttribute('href').endsWith('style=sapphire_reef&view=overview')`));
   checks.push(await scan(site,'website-live-design-gallery','light',1440));
+  await evaluate(site,`document.getElementById('site-design-search').value='no-such-design';document.getElementById('site-design-search').dispatchEvent(new Event('input'));true`);
+  assert.equal(await evaluate(site,`[...document.querySelectorAll('button')].find(b=>b.textContent==='Show all designs').hidden`),false);
+  await evaluate(site,`[...document.querySelectorAll('button')].find(b=>b.textContent==='Show all designs').click();true`);
+  assert.equal(await evaluate(site,`[...document.querySelectorAll('.site-design-card')].filter(b=>!b.hidden).length`),20);
   await evaluate(site, `window.fetch=async()=>({ok:true,json:async()=>[]});document.querySelector('[data-download]').click();true`);
   await until(() => evaluate(site, `document.getElementById('release-status').textContent.includes('maintainer review')`), 'draft download state');
   assert.equal(await evaluate(site, `document.getElementById('download-native').hidden`), true, 'Drafts must not become broken public download links');
+  await evaluate(site,`document.querySelector('[name=platform][value=linux-arm64]').click();true`);assert.ok(await evaluate(site,`document.querySelector('.download-instruction').textContent.includes('AppImage')`));
   await capture(site, 'website-downloads.png');
   checks.push(await scan(site,'website-downloads','light',1440));
   await evaluate(site, `document.getElementById('close-download').click();document.querySelector('[data-agent="cursor"]').click();true`);
