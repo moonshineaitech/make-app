@@ -114,14 +114,19 @@
       "sha256": "b19a7a1b875611d77e2586b679f83732d29def9999f626373e5d953f56dcc88f"
     },
     {
+      "path": "docs/assets/make-app-light.png",
+      "bytes": 199643,
+      "sha256": "d1793272b34cb7d0d54b7c6d3b115e5193eaee98ce5ee36e69f5cd58944a010a"
+    },
+    {
       "path": "docs/assets/make-app-windows.png",
       "bytes": 32289,
       "sha256": "927e6ca7c3b9bfe59abc606d9eb9fe6bb5ed6c6a243cbd306563f467c8ea8a01"
     },
     {
       "path": "electron-builder.config.cjs",
-      "bytes": 544,
-      "sha256": "13faa626caa5614496519877b846fe6cace8e4dc2a32c5cf53245bc5cba718a6"
+      "bytes": 820,
+      "sha256": "e42251f0e727d2eedba9db6b27eeab94560aeb5247353cc2d27398a8db00e7b4"
     },
     {
       "path": "electron-builder.production.cjs",
@@ -385,8 +390,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 3996,
-      "sha256": "6b4599559e273af47144f25a7033a7bcbe4314e478dcfe6b28cb5eb0b4be72ac"
+      "bytes": 4052,
+      "sha256": "37ec71b371674a7f1be4502fa6430f32abc78146d1be75413d0a5f48aa13394f"
     },
     {
       "path": "qa/README.md",
@@ -394,9 +399,14 @@
       "sha256": "356efe8773a0ddd0d16982675ae74f00b10bde86f84fe5ea61217e4942e151b6"
     },
     {
+      "path": "qa/desktop-win32-x64.json",
+      "bytes": 179,
+      "sha256": "e2c094979718521583d6ff6a4a0156b536932d37ecc8a78f3ade9067c9e96748"
+    },
+    {
       "path": "scripts/assemble-plugin.cjs",
-      "bytes": 4462,
-      "sha256": "cb0b9c12919d743f597496b01c911001245dd6d0b1195e18db9bc2922f6cb132"
+      "bytes": 4506,
+      "sha256": "9a3dcb5ca97abe5b18728b7a8295d0a021a3619c2de00d9f14ee86a2027c0c2b"
     },
     {
       "path": "scripts/build-launcher.cjs",
@@ -432,6 +442,11 @@
       "path": "scripts/package-public-release.cjs",
       "bytes": 4983,
       "sha256": "7da463a74dd73f4c25f35ddbca23be04118a4982e04f1886d6eedc2455fd3fed"
+    },
+    {
+      "path": "scripts/prepare-terminal.cjs",
+      "bytes": 736,
+      "sha256": "2381b2c04fc73c6b7aaa42cb5d832c8c276ff11c214f0f6cd64aa614bc937ce2"
     },
     {
       "path": "scripts/release-check.cjs",
@@ -860,8 +875,8 @@
     },
     {
       "path": "test/terminal.test.cjs",
-      "bytes": 4267,
-      "sha256": "7b6213146c120a6f914616bce287002bdbf7e5511e3892fbcd63f90b183b38d0"
+      "bytes": 4406,
+      "sha256": "51c24091b7b2fb018e637da49b43979e5f27a4e721f8934e30e9cd24fdf53bb1"
     }
   ]
 }

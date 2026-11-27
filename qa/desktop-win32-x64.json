@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "platform": "win32",
+  "arch": "x64",
+  "version": "0.8.0",
+  "desktopConversion": true,
+  "directLaunch": true,
+  "stopped": true,
+  "sourceCopied": false
+}

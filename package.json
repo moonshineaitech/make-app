@@ -25,7 +25,8 @@
     "package:release": "node scripts/package-public-release.cjs",
     "build:windows": "electron-builder --win portable --x64 --config electron-builder.config.cjs",
     "build:mac": "electron-builder --mac zip --config electron-builder.config.cjs",
-    "build:linux": "electron-builder --linux AppImage --config electron-builder.config.cjs"
+    "build:linux": "electron-builder --linux AppImage --config electron-builder.config.cjs",
+    "postinstall": "node scripts/prepare-terminal.cjs"
   },
   "devDependencies": {
     "axe-core": "^4.14.1",
