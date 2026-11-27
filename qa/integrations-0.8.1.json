@@ -1,0 +1,19 @@
+{
+  "version": "0.8.1",
+  "environment": "Development Windows x64 host, Node 24",
+  "regressions": { "passed": 82, "failed": 0, "posixOnlySkipped": 1 },
+  "integrationTests": { "passed": 19, "failed": 0, "skipped": 0 },
+  "adapterIds": ["codex", "claude", "cursor", "vscode", "vscode-local", "gemini", "opencode", "generic"],
+  "actualMcpServerLaunchPerAdapter": true,
+  "toolAndPromptDiscovery": true,
+  "readOnlyProjectInspection": true,
+  "configurationCommentsAndUnrelatedEditsPreserved": true,
+  "linkedConfigurationPathsRejected": true,
+  "cliInspectionAndWebExport": true,
+  "nativeCliAutomaticOutputAndLaunch": true,
+  "localNativeBuilderScope": "Compatible previously verified 0.8 converter; the native release matrix builds and exercises the exact source independently",
+  "pluginDependencyAudit": { "vulnerabilities": 0 },
+  "manualAcceptanceInEveryVendorUi": false,
+  "hostedOnlyHarnessAccessToLocalFiles": false,
+  "note": "Adapter/protocol checks do not certify all proprietary harnesses or environments. See each release's BUILD-VERIFICATION.json for exact native source provenance."
+}

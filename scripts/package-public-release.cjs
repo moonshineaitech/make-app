@@ -9,6 +9,15 @@ async function main(){
  await fs.mkdir(output,{recursive:true});const staging=await fs.mkdtemp(path.join(require('node:os').tmpdir(),'make-app-release-'));
  try{
   await require('./assemble-plugin.cjs').assemble({base,destination:path.join(staging,'marketplace'),node,builder});
+  const cli='marketplace/plugins/make-app/scripts/make-app.cjs';
+  if(host.platform==='win32'){
+   await fs.writeFile(path.join(staging,'Make App.cmd'),['@echo off','"%~dp0marketplace\\plugins\\make-app\\bin\\node.exe" "%~dp0'+cli.replaceAll('/','\\')+'" %*','exit /b %ERRORLEVEL%',''].join('\r\n'));
+   await fs.writeFile(path.join(staging,'Connect Coding Tool.cmd'),['@echo off','"%~dp0marketplace\\plugins\\make-app\\bin\\node.exe" "%~dp0'+cli.replaceAll('/','\\')+'" connect','set "result=%ERRORLEVEL%"','if not defined MAKE_APP_INSTALL_NO_PAUSE pause','exit /b %result%',''].join('\r\n'));
+  }else{
+   for(const [name,args]of [['make-app','"$@"'],['Connect Coding Tool.'+(host.platform==='darwin'?'command':'sh'),'connect']]){
+    const file=path.join(staging,name);await fs.writeFile(file,['#!/bin/sh','set -eu','base=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)','exec "$base/marketplace/plugins/make-app/bin/node" "$base/'+cli+'" '+args,''].join('\n'));await fs.chmod(file,0o755);
+   }
+  }
   for(const operation of ['Install','Uninstall']){
    if(host.platform==='win32'){
     const text=['@echo off','setlocal','"%~dp0marketplace\\plugins\\make-app\\bin\\node.exe" "%~dp0marketplace\\plugins\\make-app\\scripts\\install.cjs" '+operation.toLowerCase(),'set "result=%ERRORLEVEL%"','if not defined MAKE_APP_INSTALL_NO_PAUSE pause','exit /b %result%',''].join('\r\n');
@@ -23,6 +32,7 @@ async function main(){
    `Make App ${pkg.version} — ${system} ${host.arch} preview`,'',
    'Extract this entire archive to a folder you will keep. Open the Install Codex Plugin script (Linux: run it from your file manager or terminal). Codex must already be installed. Open a new chat and ask: Make an app for this project.','',
    'Node and the converter are included. No administrator rights, global Node installation, manual MCP config or API key are required. Keep the folder in place while installed. Use the matching Uninstall script to remove this plugin.','',
+   'Other coding tools: open Connect Coding Tool, choose your harness and project folder. Project-scoped adapters support Codex, Claude Code, Cursor, VS Code/Copilot, Gemini CLI and OpenCode. A generic MCP config and Make App command are included for other harnesses. No Codex installation is required for these paths.','',
    'Desktop outputs require their original project folder and a compatible desktop OS. Static web exports can be hosted over HTTPS for phones, tablets and browsers. They do not run server-side code.','',
    'This independent preview is unsigned and is not an approved OpenAI Directory listing.',''].join('\n'));
   const extension=host.platform==='win32'?'zip':'tar.gz',pluginName=`Make-App-Codex-Plugin-${system}-${host.arch}.${extension}`;

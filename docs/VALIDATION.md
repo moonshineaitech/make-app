@@ -5,7 +5,7 @@ Verification records apply to a particular build, source commit and environment.
 ## Local Windows evidence
 
 - 82 applicable Windows regression tests passed; one POSIX-only permission check is skipped on Windows and runs on Unix.
-- Three plugin protocol/integrity tests passed.
+- Nineteen plugin/integration tests passed for 0.8.1. Each adapter's generated configuration launches the actual MCP server, discovers tools/prompts and inspects a local project. Tests verify configuration/comment preservation, removal after unrelated edits, conflicts, invalid settings, linked paths, CLI inspection and automatic web output. This is protocol/adapter verification, not manual acceptance in every vendor UI.
 - Three actual project executables opened their app windows with zero extra setup/approval clicks, then stopped their managed processes. Original source fingerprints remained unchanged. These tests used an intermediate 0.8 development executable; final release binaries are gated independently by native matrix acceptance.
 - The creator passed automated WCAG-tagged checks in light/dark themes at 320, 520 and 900 pixels, without horizontal overflow.
 - A static web export rendered at 390, 768 and 1280 pixels. Its service worker controlled the app, and the app reloaded after its HTTP server stopped, with browser storage preserved and no Node bridge exposed.
@@ -18,6 +18,8 @@ Sanitized aggregate records are in `qa/`. Private project names, filesystem path
 [Build and exercise desktop apps](https://github.com/moonshineaitech/make-app/actions/workflows/cross-platform.yml) targets Windows x64, macOS ARM64/Intel and Linux x64/ARM64. Each job compiles its native launcher, checks SHA-256 vectors, runs applicable regressions/plugin tests/audits, builds the converter, creates an app through its UI, verifies actual tool output and shutdown, and packages its complete plugin archive.
 
 Windows-specific tests are explicitly skipped on Unix. Packaging success and app-launch success are separate steps. A draft release can consume only a successful five-target run for the exact source commit. `BUILD-VERIFICATION.json` identifies the source SHA and native jobs attached to a release.
+
+The 0.8.1 matrix additionally creates an app through the harness CLI without an explicit output path, launches that generated app, checks its actual output and verifies shutdown. The local Windows test passed against the previously verified compatible 0.8 converter; the release matrix repeats the flow with its freshly built converter.
 
 ## Open acceptance gates
 

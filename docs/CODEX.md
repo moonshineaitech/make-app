@@ -16,6 +16,8 @@ The independent local plugin turns a selected project into a desktop app or expo
 
 Codex must already be installed. Node and the converter are included. The installer validates the bundle's integrity inventory, finds Codex, registers the local marketplace and installs `make-app@make-app`. It uses supported plugin CLI commands without editing configuration files manually or changing your execution policy. When installed, open a new chat.
 
+The plugin includes a `run-project` skill. Ask naturally or explicitly invoke `$run-project`; only the project root is needed for creation. Make App chooses a fresh name in the sibling **Make App Outputs** directory. An explicit output path remains available when you want it.
+
 > Make a desktop app for this project.
 
 > Export this project's static web build as an installable web app.
@@ -29,7 +31,9 @@ Codex must already be installed. Node and the converter are included. The instal
 | `make_executable` | Create a desktop app by default; set `format: "web"` to export a static build |
 | `open_project` | Open the desktop converter with the chosen project selected |
 
-Desktop output must match the current host: `.exe` on Windows, `.app` on macOS, `.run` on Linux. Web output is a new absolute directory. Creation does not execute project code. Opening a generated desktop app runs its project/setup scripts with your account permissions. The original project folder must remain in place.
+Desktop output must match the current host: `.exe` on Windows, `.app` on macOS, `.run` on Linux. Output is optional; explicit output paths must be absolute and new. Creation does not execute project code. Opening a generated desktop app runs its project/setup scripts with your account permissions. The original project folder must remain in place.
+
+For a project-only connection, use **Connect Coding Tool** and select Codex instead of the global plugin installer. This registers MCP for that trusted project without changing your global profile; the global plugin also supplies its skill. Choose one route to avoid duplicate tool entries. The server offers a `make-app` prompt in clients that expose MCP prompts. See [other harnesses and CLI use](HARNESSES.md).
 
 ## Update or remove
 

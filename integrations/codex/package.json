@@ -1,6 +1,6 @@
 {
   "name": "appdock-codex-plugin",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Local project inspection and AppDock desktop handoff for Codex",
   "private": true,
   "license": "MIT",
@@ -9,8 +9,9 @@
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.4.0",
-    "zod": "4.6.7",
-    "smol-toml": "1.9.1"
+    "jsonc-parser": "3.3.1",
+    "smol-toml": "1.9.1",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@modelcontextprotocol/client": "2.4.0"

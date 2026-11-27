@@ -4,7 +4,7 @@ Open what you build. Choose a local project and create its desktop app, or expor
 
 **Free · MIT licensed · Local execution · No account or API key**
 
-[Downloads](https://github.com/moonshineaitech/make-app/releases) · [Codex plugin](docs/CODEX.md) · [Device support](docs/CROSS_PLATFORM.md) · [Validation](docs/VALIDATION.md)
+[Downloads](https://github.com/moonshineaitech/make-app/releases) · [Codex plugin](docs/CODEX.md) · [Other coding tools](docs/HARNESSES.md) · [Device support](docs/CROSS_PLATFORM.md) · [Validation](docs/VALIDATION.md)
 
 ![Make App creator](docs/assets/make-app-windows.png)
 
@@ -47,7 +47,13 @@ For a static web build:
 
 > Export this project as an installable web app.
 
-The plugin can inspect projects without executing their code. It offers `inspect_project`, `list_projects`, `make_executable` and `open_project`. The creation tool accepts a desktop or web format. [Installation, updates and removal](docs/CODEX.md).
+The plugin includes the `run-project` skill and four tools: `inspect_project`, `list_projects`, `make_executable` and `open_project`. The creation tool needs only your project path; it chooses a fresh output name automatically. It accepts desktop or web output. [Installation, updates and removal](docs/CODEX.md).
+
+## Use it from another coding tool
+
+In a complete 0.8.1+ plugin archive, open **Connect Coding Tool**, select your harness and choose your project folder. Supported project adapters cover Codex, Claude Code, Cursor, current VS Code/Copilot, older VS Code Local, Gemini CLI and OpenCode. Setup preserves unrelated configuration and comments. Codex is not required for these routes.
+
+Other local harnesses can use the generic MCP configuration or the bundled `make-app` command, which returns JSON. The same engine powers the plugin, MCP server and CLI. A hosted-only chat needs a local agent or worker with access to the project; it cannot reach your computer automatically. [Setup, commands, compatibility and removal](docs/HARNESSES.md).
 
 ## Device support
 
@@ -92,7 +98,7 @@ On one actual project containing 1,875 files and about 806 MB of source/build co
 
 ## Verification and limits
 
-The current local suite passes 82 regression tests and three plugin tests. Three actual project executables opened their app windows with zero additional setup/approval clicks, then stopped their processes; source fingerprints stayed unchanged. The creator passed automated accessibility checks in both themes at 320, 520 and 900 pixels. A web export rendered at phone/tablet/desktop sizes and reloaded offline after its server stopped. These are browser-engine checks, not physical iPhone/Android or manual screen-reader certification.
+The current local suite passes 82 applicable Windows regression tests and 19 plugin/integration tests. Three actual project executables opened their app windows with zero additional setup/approval clicks, then stopped their processes; source fingerprints stayed unchanged. The creator passed automated accessibility checks in both themes at 320, 520 and 900 pixels. A web export rendered at phone/tablet/desktop sizes and reloaded offline after its server stopped. These are browser-engine checks, not physical iPhone/Android or manual screen-reader certification. Harness adapters are checked by launching the actual MCP server through their generated commands; vendor UI acceptance is separate.
 
 Read [validation evidence and open gates](docs/VALIDATION.md) and the [native CI runs](https://github.com/moonshineaitech/make-app/actions/workflows/cross-platform.yml). Native build success, unit tests, desktop launch acceptance and physical-device acceptance are reported separately. Compatibility varies by framework. The preview is not a filesystem or network sandbox: project code runs with your account's permissions.
 

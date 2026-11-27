@@ -4,4 +4,9 @@ const converter=host.platform==='win32'?`Make-App-${version}-Windows.exe`:host.p
 const asset=path.join(base,'release',converter),builder=host.platform==='darwin'?path.join(base,'release',host.arch==='arm64'?'mac-arm64':'mac','Make App.app'):asset;
 fs.mkdirSync(path.join(base,'qa'),{recursive:true});const npm=path.join(path.dirname(process.execPath),host.platform==='win32'?'node_modules/npm/bin/npm-cli.js':'../lib/node_modules/npm/bin/npm-cli.js');
 const sbom=spawnSync(process.execPath,[npm,'sbom','--sbom-format','cyclonedx','--omit','dev'],{cwd:base,encoding:'utf8'});if(sbom.status!==0)throw new Error(sbom.stderr);fs.writeFileSync(path.join(base,'qa/sbom.cdx.json'),sbom.stdout);
+const pluginSbom=spawnSync(process.execPath,[npm,'sbom','--sbom-format','cyclonedx'],{cwd:path.join(base,'integrations/codex'),encoding:'utf8'});if(pluginSbom.status!==0)throw new Error(pluginSbom.stderr);
+const combined=JSON.parse(sbom.stdout),pluginInventory=JSON.parse(pluginSbom.stdout);
+const components=new Map((combined.components||[]).map(item=>[item['bom-ref'],item]));for(const item of pluginInventory.components||[])components.set(item['bom-ref'],item);combined.components=[...components.values()];
+const dependencies=new Map();for(const item of [...(combined.dependencies||[]),...(pluginInventory.dependencies||[])]){const previous=dependencies.get(item.ref);dependencies.set(item.ref,{...item,dependsOn:[...new Set([...(previous?.dependsOn||[]),...(item.dependsOn||[])])]});}combined.dependencies=[...dependencies.values()];
+combined.components.push(pluginInventory.metadata.component);fs.writeFileSync(path.join(base,'qa/sbom.cdx.json'),JSON.stringify(combined,null,2)+'\n');
 const result=spawnSync(process.execPath,[path.join(__dirname,'package-public-release.cjs')],{cwd:base,env:{...process.env,APPDOCK_PLUGIN_NODE:process.execPath,APPDOCK_PLUGIN_BUILDER:builder,APPDOCK_CONVERTER_ASSET:asset},stdio:'inherit'});process.exit(result.status??1);

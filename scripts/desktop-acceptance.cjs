@@ -13,7 +13,16 @@ async function main(){
  const made=JSON.parse(await fs.readFile(creator,'utf8'));if(!made.passed||!made.createdThroughDesktopUI)throw new Error('Desktop creation did not pass.');
  console.log('Checking generated app on '+info.platform+'/'+info.arch);await invoke(output,[],{APPDOCK_DATA:path.join(root,'generated'),APPDOCK_TOOLCACHE:process.env.APPDOCK_TOOLCACHE||path.join(root,'tools'),APPDOCK_DIRECT_TEST:direct,APPDOCK_DIRECT_EXPECT_TEXT:'APPDOCK_SUM=0'});
  const opened=JSON.parse(await fs.readFile(direct,'utf8'));if(!opened.passed||!opened.stopped||opened.executionApprovalClicks!==0)throw new Error('Generated app acceptance did not pass.');
- await fs.mkdir(path.join(base,'qa'),{recursive:true});await fs.writeFile(path.join(base,'qa',`desktop-${info.platform}-${info.arch}.json`),JSON.stringify({passed:true,platform:info.platform,arch:info.arch,version,desktopConversion:true,directLaunch:true,stopped:true,sourceCopied:false},null,2));console.log('Desktop conversion, direct launch, output and shutdown passed on '+info.platform+'/'+info.arch);
+ console.log('Checking harness CLI with automatic output on '+info.platform+'/'+info.arch);
+ const cliSource=path.join(root,'cli-project');await fs.cp(path.join(base,'examples/languages/javascript'),cliSource,{recursive:true});
+ const execFile=require('node:util').promisify(require('node:child_process').execFile),cli=path.join(base,'integrations/codex/scripts/make-app.cjs');
+ const cliResult=await execFile(process.execPath,[cli,'make',cliSource],{env:{...process.env,APPDOCK_BUILDER:builder,APPDOCK_DATA:path.join(root,'cli-builder')},windowsHide:true,timeout:120000});
+ const cliMade=JSON.parse(cliResult.stdout),cliOutput=cliMade.executable;
+ if(!cliOutput||cliMade.executionStarted!==false||await fs.realpath(path.dirname(cliOutput))!==await fs.realpath(path.join(root,'Make App Outputs')))throw new Error('CLI did not choose a fresh sibling output.');
+ const cliDirect=path.join(root,'cli-direct.json');await invoke(cliOutput,[],{APPDOCK_DATA:path.join(root,'cli-generated'),APPDOCK_TOOLCACHE:process.env.APPDOCK_TOOLCACHE||path.join(root,'tools'),APPDOCK_DIRECT_TEST:cliDirect,APPDOCK_DIRECT_EXPECT_TEXT:'APPDOCK_SUM=0'});
+ const cliOpened=JSON.parse(await fs.readFile(cliDirect,'utf8'));if(!cliOpened.passed||!cliOpened.stopped)throw new Error('CLI-generated app did not launch and stop.');
+ await fs.rm(cliOutput,{recursive:true,force:true,maxRetries:5,retryDelay:100});
+ await fs.mkdir(path.join(base,'qa'),{recursive:true});await fs.writeFile(path.join(base,'qa',`desktop-${info.platform}-${info.arch}.json`),JSON.stringify({passed:true,platform:info.platform,arch:info.arch,version,desktopConversion:true,directLaunch:true,stopped:true,sourceCopied:false,harnessCliCreation:true,automaticOutput:true,cliAppLaunch:true},null,2));console.log('Desktop and harness CLI conversion, launch, output and shutdown passed on '+info.platform+'/'+info.arch);
  // Only remove the generated output; keep result files for runner diagnostics.
  await fs.rm(output,{recursive:true,force:true,maxRetries:5,retryDelay:100});
 }

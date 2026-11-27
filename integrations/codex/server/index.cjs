@@ -1,29 +1,39 @@
 #!/usr/bin/env node
-const {McpServer}=require('@modelcontextprotocol/server');
-const {StdioServerTransport}=require('@modelcontextprotocol/server/stdio');
-const {z}=require('zod');
-const fs=require('node:fs/promises'),path=require('node:path');
-const {spawn}=require('node:child_process');
-const {detect}=require('./runtime/core.cjs');
-const {codexProjects}=require('./runtime/managed.cjs');
-const {projectPath,registrationPath}=require('./runtime/integration.cjs');
-const server=new McpServer({name:'appdock',version:'0.8.0'});
-const result=value=>({content:[{type:'text',text:JSON.stringify(value)}],structuredContent:value});
-const guarded=handler=>async args=>{try{return result(await handler(args));}catch(error){return{isError:true,content:[{type:'text',text:error.message}]};}};
-const localRead={readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false};
-server.registerTool('inspect_project',{title:'Inspect a local project',description:'Detect a launch plan without running project code, installing packages, or returning environment values. Commands and arguments are omitted to avoid exposing embedded credentials.',inputSchema:z.object({path:z.string().min(1),target:z.string().optional()}),annotations:localRead},guarded(async args=>{
-  const root=await projectPath(args.path),record=await detect(root,{target:args.target}),plan=record.plan;
-  return{path:root,desktop:require('./runtime/platform.cjs').host(),webExportAvailable:!!await require('./runtime/web-export.cjs').webRoot(root),name:record.name,type:record.label,kind:record.kind,automatic:!!record.automatic,mode:plan?.mode||record.kind,configured:plan?.configured!==false,needsInstall:!!record.needsInstall,nodeMajor:record.nodeMajor||null,services:(plan?.services||[]).map(s=>({id:s.id})),setupTasks:plan?.setup?.length||0,buildTasks:plan?.build?.length||0,requiredEnvironment:plan?.requiredEnv||[],candidates:record.candidates?.map(c=>({name:c.name,path:c.path,type:c.label})),language:record.language||record.framework,targets:record.targets||[],selectedTarget:record.selectedTarget||null,explanation:record.executionSummary,executionStarted:false};
-}));
-server.registerTool('make_executable',{title:'Make a project executable',description:'Create a native desktop app for this host, or set format web to export an existing static build. Does not execute project code. Desktop output requires the original folder; web output requires HTTPS hosting.',inputSchema:z.object({path:z.string().min(1),output:z.string().min(1),target:z.string().optional(),format:z.enum(['desktop','web']).optional()}),annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:false,openWorldHint:false}},guarded(async args=>{
- const root=await projectPath(args.path),platform=require('./runtime/platform.cjs'),info=platform.host();if(!path.isAbsolute(args.output))throw new Error('Choose an absolute output path.');if(args.format==='web')return require('./runtime/web-export.cjs').exportWeb(root,args.output,{name:path.basename(root)});if(path.extname(args.output).toLowerCase()!==info.extension)throw new Error('Choose a '+info.extension+' output path for '+info.name+'.');let builder=process.env.APPDOCK_BUILDER||path.join(__dirname,'../bin',info.builderName);if(!await fs.stat(builder).catch(()=>null))throw new Error('The Make App builder is missing. Use the complete plugin bundle for your OS.');const temporary=await fs.mkdtemp(path.join(require('node:os').tmpdir(),'make-app-result-')),resultFile=path.join(temporary,'result.json');
- try{await new Promise((resolve,reject)=>{const invocation=platform.builderCommand(builder,['--make-executable',root,'--output='+args.output,'--result-file='+resultFile,...(args.target?['--target='+args.target]:[])]);const child=spawn(invocation.command,invocation.args,{env:{...process.env,...(process.platform==='linux'?{APPIMAGE_EXTRACT_AND_RUN:'1'}:{})},shell:false,windowsHide:true,stdio:'ignore'});const timer=setTimeout(()=>{child.kill();reject(new Error('Executable creation exceeded two minutes.'));},120000);child.once('error',error=>{clearTimeout(timer);reject(error);});child.once('exit',code=>{clearTimeout(timer);code===0?resolve():reject(new Error('Executable creation failed. Check that the project and output path are available.'));});});return{...JSON.parse(await fs.readFile(resultFile,'utf8')),executionStarted:false};}finally{await fs.rm(temporary,{recursive:true,force:true});}
-}));
-server.registerTool('list_projects',{title:'Find saved local projects',description:'Read local saved Codex project names and paths. Discovery is a best-effort convenience; arbitrary local folders can be opened too.',inputSchema:z.object({}),annotations:localRead},guarded(async()=>({projects:await codexProjects(),executionStarted:false})));
-server.registerTool('open_project',{title:'Open the executable converter',description:'Open Make App with this local project selected. Does not start project code. Save an executable in the converter, or use make_executable directly.',inputSchema:z.object({path:z.string().min(1)}),annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:false,openWorldHint:false}},guarded(async args=>{
-  const root=await projectPath(args.path);let executable=process.env.APPDOCK_BUILDER||process.env.APPDOCK_EXECUTABLE||path.join(__dirname,'../bin',require('./runtime/platform.cjs').host().builderName);
-  if(!path.isAbsolute(executable)||!await fs.stat(executable).catch(()=>null))throw new Error('The Make App builder is missing. Use the complete plugin bundle for your OS.');
-  await new Promise((resolve,reject)=>{const invocation=require('./runtime/platform.cjs').builderCommand(executable,['--open-project='+root]);const child=spawn(invocation.command,invocation.args,{env:{...process.env,...(process.platform==='linux'?{APPIMAGE_EXTRACT_AND_RUN:'1'}:{})},shell:false,windowsHide:true,detached:true,stdio:'ignore'});child.once('error',reject);child.once('spawn',()=>{child.unref();resolve();});});
-  return{path:root,handoffRequested:true,executionStarted:false,message:'Opened the converter with this project selected. Creating an executable does not run project code.'};
-}));
-server.connect(new StdioServerTransport()).catch(error=>{console.error(error.message);process.exitCode=1;});
+const { McpServer } = require('@modelcontextprotocol/server');
+const { StdioServerTransport } = require('@modelcontextprotocol/server/stdio');
+const { z } = require('zod');
+const service = require('./service.cjs');
+const server = new McpServer({ name: 'appdock', version: require('../package.json').version });
+const result = value => ({ content: [{ type: 'text', text: JSON.stringify(value) }], structuredContent: value });
+const guarded = handler => async args => {
+  try { return result(await handler(args)); }
+  catch (error) { return { isError: true, content: [{ type: 'text', text: error.message }] }; }
+};
+const localRead = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
+const localWrite = { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: false };
+server.registerTool('inspect_project', {
+  title: 'Inspect a local project',
+  description: 'Detect launch requirements without running project code, installing packages or returning environment values. Use the current workspace root.',
+  inputSchema: z.object({ path: z.string().min(1), target: z.string().optional() }), annotations: localRead
+}, guarded(service.inspect));
+server.registerTool('make_executable', {
+  title: 'Make an app for this project',
+  description: 'Create a native app for this host or export an existing static build with format web. Only path is required. Output defaults to a fresh name in the sibling Make App Outputs folder. Does not run project code. Desktop apps need the original source; web exports need HTTPS hosting.',
+  inputSchema: z.object({ path: z.string().min(1), output: z.string().min(1).optional(), target: z.string().optional(), format: z.enum(['desktop', 'web']).optional() }),
+  annotations: localWrite
+}, guarded(service.make));
+server.registerTool('list_projects', {
+  title: 'Find saved local projects', description: 'Discover saved local Codex projects. Other harnesses can pass their workspace path directly.',
+  inputSchema: z.object({}), annotations: localRead
+}, guarded(service.projects));
+server.registerTool('open_project', {
+  title: 'Open the executable converter', description: 'Open Make App with a project selected; does not start project code.',
+  inputSchema: z.object({ path: z.string().min(1) }), annotations: localWrite
+}, guarded(service.open));
+server.registerPrompt('make-app', {
+  title: 'Make an app for this project', description: 'Inspect the workspace and create a native app or an installable static web export.',
+  argsSchema: z.object({ path: z.string(), format: z.enum(['desktop', 'web']).optional() })
+}, ({ path, format = 'desktop' }) => ({ messages: [{ role: 'user', content: { type: 'text', text:
+  `Use Make App to inspect the local project at ${JSON.stringify(path)} and create ${format === 'web' ? 'an installable static web export' : 'a native desktop app'}. Use the default output unless I specified one. If several executable targets exist and my request does not select one, ask which to use. Return the saved path and prerequisites. Creating an app does not authorize publishing or running project code.`
+} }] }));
+server.connect(new StdioServerTransport()).catch(error => { console.error(error.message); process.exitCode = 1; });
