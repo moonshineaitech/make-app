@@ -1,4 +1,4 @@
-name: Verify Windows preview
+name: Verify source and plugin
 on:
   push:
     branches: [main]
