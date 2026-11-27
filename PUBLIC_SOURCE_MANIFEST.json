@@ -626,8 +626,8 @@
     },
     {
       "path": "scripts/verify-views.cjs",
-      "bytes": 9220,
-      "sha256": "ef73b6b4dc8df50cd975c6368509db9417903174cc3117e22ef389b32cf07147"
+      "bytes": 9540,
+      "sha256": "163c2a2e48bdc3c20a599724a287de8920c10a8c014a42c009957610bf1c938d"
     },
     {
       "path": "site/aero-site.css",
