@@ -31,7 +31,7 @@ jobs:
       - name: Verify portable SHA-256 vectors
         shell: bash
         run: |
-          rustc --test native/src/sha256.rs -o "${RUNNER_TEMP}/sha256-test${{ runner.os == 'Windows' && '.exe' || '' }}"
+          rustc --edition=2021 --test native/src/sha256.rs -o "${RUNNER_TEMP}/sha256-test${{ runner.os == 'Windows' && '.exe' || '' }}"
           "${RUNNER_TEMP}/sha256-test${{ runner.os == 'Windows' && '.exe' || '' }}"
       - run: npm test
       - run: npm ci --prefix integrations/codex

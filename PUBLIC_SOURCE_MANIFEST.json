@@ -30,8 +30,8 @@
     },
     {
       "path": ".github/workflows/cross-platform.yml",
-      "bytes": 2153,
-      "sha256": "78a137d611299d25b2bd947430181a697e8450e930d3c4e8fcd9826fd7da4c37"
+      "bytes": 2168,
+      "sha256": "99f03758b8f37ad3434daa5f72dd3ad0200f72c0918452f8e67b375f9229f555"
     },
     {
       "path": ".github/workflows/verify.yml",
@@ -591,7 +591,7 @@
     {
       "path": "src/main.cjs",
       "bytes": 52417,
-      "sha256": "df8b7e1ebcb99fb904b535abed1e2af345f22e8f3f686ab74723219523468569"
+      "sha256": "e350c2293a741a9557c2cef6844259291256282f21cfdecac879d47f154b2d91"
     },
     {
       "path": "src/managed.cjs",
@@ -710,8 +710,8 @@
     },
     {
       "path": "src/ui/creator.css",
-      "bytes": 3872,
-      "sha256": "c996ad1f9b971159468f531462bb1445f80df62b171b04348f4ca2b0171e947c"
+      "bytes": 4130,
+      "sha256": "47cbde61c28122b59719c87a406a6a9c9816cdd638a096954fc3c9a43ece2c1a"
     },
     {
       "path": "src/ui/creator.html",
