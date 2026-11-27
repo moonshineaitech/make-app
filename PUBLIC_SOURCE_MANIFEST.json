@@ -596,8 +596,8 @@
     },
     {
       "path": "scripts/verify-motion.cjs",
-      "bytes": 6498,
-      "sha256": "a9fa47d7d2fd5dcc1b45d08a535e52a92d5dd78a88b3f297c4ef8b5773c8225f"
+      "bytes": 7066,
+      "sha256": "8afe2f8a4d61b059349e858424cc8317711c4d84751ee8f76652e9df8d448b42"
     },
     {
       "path": "scripts/verify-originals.cjs",
