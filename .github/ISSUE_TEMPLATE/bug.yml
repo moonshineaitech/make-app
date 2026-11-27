@@ -1,0 +1,29 @@
+name: Launch or setup problem
+description: Report a reproducible Make App problem without sharing credentials or private source.
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Make App version and operating system
+      placeholder: 0.7.0, Windows 11 x64
+    validations:
+      required: true
+  - type: input
+    id: project
+    attributes:
+      label: Project type and runtimes
+      description: Framework/runtime names and versions only; do not paste private source paths.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction and expected result
+      description: Include a minimal public sample if possible. State the point where setup or launch fails.
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Redacted error output
+      description: Remove API keys, tokens, environment values, personal paths, database contents and private source before posting.

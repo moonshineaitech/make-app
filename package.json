@@ -1,0 +1,138 @@
+{
+  "name": "appdock",
+  "version": "0.7.0",
+  "description": "Create one-click Windows executables from local projects",
+  "author": "GoldRock AI",
+  "license": "MIT",
+  "main": "src/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node scripts/unit-tests.cjs",
+    "smoke": "electron . --smoke-test",
+    "test:projects": "electron . --project-smoke",
+    "inspect": "node src/cli.cjs inspect",
+    "build": "electron-builder --win portable --x64",
+    "build:plugin": "node scripts/assemble-plugin.cjs",
+    "test:plugin": "node --test integrations/codex/test/*.cjs",
+    "test:languages": "node scripts/test-languages.cjs",
+    "release:check": "node scripts/release-check.cjs",
+    "test:services": "node scripts/test-compiled-services.cjs",
+    "build:production": "electron-builder --win portable --x64 --config electron-builder.production.cjs --publish never",
+    "build:supervisor": "node scripts/build-process-broker.cjs",
+    "test:package-managers": "node scripts/test-package-managers.cjs",
+    "build:launcher": "node scripts/build-launcher.cjs",
+    "public:check": "node scripts/check-public-source.cjs",
+    "package:release": "node scripts/package-public-release.cjs"
+  },
+  "devDependencies": {
+    "axe-core": "^4.14.1",
+    "electron": "45.5.0",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "ai.goldrock.makeapp",
+    "productName": "Make App",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "package.json",
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md",
+      {
+        "from": "examples",
+        "to": "examples",
+        "filter": [
+          "**/*"
+        ]
+      },
+      "!**/*.pdb"
+    ],
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ],
+      "icon": "src/icon.ico",
+      "signExecutable": false
+    },
+    "portable": {
+      "artifactName": "Make-App-${version}-Windows.exe"
+    },
+    "compression": "normal",
+    "nsis": {
+      "artifactName": "Make-App-${version}-Setup.exe",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": false,
+      "createStartMenuShortcut": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Development"
+    },
+    "extraResources": [
+      {
+        "from": "native/bin/appdock-process-win-x64.exe",
+        "to": "bin/appdock-process.exe"
+      },
+      {
+        "from": "native/bin/RUST-STANDARD-LIBRARY-NOTICES.html",
+        "to": "bin/RUST-STANDARD-LIBRARY-NOTICES.html"
+      },
+      {
+        "from": "native/bin/licenses",
+        "to": "bin/licenses",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "native/bin/appdock-launcher-win-x64.exe",
+        "to": "bin/appdock-launcher.exe"
+      }
+    ],
+    "npmRebuild": false,
+    "asarUnpack": [
+      "node_modules/node-pty/**"
+    ]
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "0.11.0",
+    "@xterm/xterm": "6.0.0",
+    "node-pty": "1.1.0",
+    "smol-toml": "1.9.1"
+  },
+  "overrides": {
+    "app-builder-lib": {
+      "minimatch": "11.0.1"
+    },
+    "@electron/universal": {
+      "minimatch": "11.0.1"
+    }
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moonshineaitech/make-app.git"
+  },
+  "homepage": "https://github.com/moonshineaitech/make-app",
+  "bugs": {
+    "url": "https://github.com/moonshineaitech/make-app/issues"
+  }
+}

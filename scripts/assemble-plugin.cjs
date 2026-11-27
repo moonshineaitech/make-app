@@ -1,0 +1,17 @@
+const fs=require('node:fs/promises'),sync=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+async function checksum(file){const hash=crypto.createHash('sha256');for await(const chunk of sync.createReadStream(file))hash.update(chunk);return hash.digest('hex');}
+async function inventory(root,prefix=''){const result=[];for(const entry of await fs.readdir(path.join(root,prefix),{withFileTypes:true})){const relative=path.join(prefix,entry.name);if(entry.isSymbolicLink())throw new Error('Plugin packages cannot include symbolic links.');if(entry.isDirectory())result.push(...await inventory(root,relative));else if(relative!=='bundle-integrity.json')result.push({path:relative.split(path.sep).join('/'),bytes:(await fs.stat(path.join(root,relative))).size,sha256:await checksum(path.join(root,relative))});}return result.sort((a,b)=>a.path.localeCompare(b.path));}
+async function assemble({base=path.resolve(__dirname,'..'),destination=path.join(base,'integrations/marketplace'),node=process.env.APPDOCK_PLUGIN_NODE,builder=process.env.APPDOCK_PLUGIN_BUILDER}={}){
+ const plugin=path.join(base,'integrations/codex'),runtime=path.join(plugin,'server/runtime');await fs.mkdir(runtime,{recursive:true});
+ for(const name of ['core','automatic','projects','managed','integration','languages','process-broker','execution-plan','package-managers','workspaces','setup-key','project-data','diagnostics','adapters','readiness','environment'])await fs.copyFile(path.join(base,'src',name+'.cjs'),path.join(runtime,name+'.cjs'));
+ const target=path.join(destination,'plugins/make-app');await fs.mkdir(target,{recursive:true});
+ for(const name of ['plugin.json','.codex-plugin','mcp.json','.mcp.json','package.json','package-lock.json','README.md','server','scripts','skills','assets','node_modules']){const source=path.join(plugin,name);if(await fs.stat(source).catch(()=>null))await fs.cp(source,path.join(target,name),{recursive:true,force:true});}
+ await fs.copyFile(path.join(base,'LICENSE'),path.join(target,'LICENSE'));
+ const bin=path.join(target,'bin');if(node){await fs.mkdir(bin,{recursive:true});await fs.copyFile(node,path.join(bin,'node.exe'));await fs.copyFile(path.join(path.dirname(node),'LICENSE'),path.join(bin,'NODE-LICENSE.txt'));for(const filename of ['mcp.json','.mcp.json']){const config=JSON.parse(await fs.readFile(path.join(target,filename),'utf8'));config.mcpServers.appdock.command='${PLUGIN_ROOT}/bin/node.exe';await fs.writeFile(path.join(target,filename),JSON.stringify(config,null,2)+'\n');}}
+ if(builder){await fs.mkdir(bin,{recursive:true});await fs.copyFile(builder,path.join(bin,'Make-App.exe'));}
+ await fs.writeFile(path.join(target,'bundle-integrity.json'),JSON.stringify({schemaVersion:1,files:await inventory(target)},null,2)+'\n');
+ const sourceManifest=path.join(base,'integrations/marketplace/.agents/plugins/marketplace.json'),targetManifest=path.join(destination,'.agents/plugins/marketplace.json');await fs.mkdir(path.dirname(targetManifest),{recursive:true});if(path.resolve(sourceManifest)!==path.resolve(targetManifest))await fs.copyFile(sourceManifest,targetManifest);
+ return{directory:destination,plugin:target,bundledNode:!!node,bundledBuilder:!!builder};
+}
+if(require.main===module)assemble().then(result=>console.log(JSON.stringify(result))).catch(error=>{console.error(error);process.exitCode=1;});
+module.exports={assemble,inventory};

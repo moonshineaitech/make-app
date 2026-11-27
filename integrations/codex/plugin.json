@@ -1,0 +1,43 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "make-app",
+  "version": "0.7.0",
+  "description": "Create one-click Windows executables from local projects.",
+  "author": {
+    "name": "GoldRock AI"
+  },
+  "license": "MIT",
+  "keywords": [
+    "local-development",
+    "desktop",
+    "project-launcher"
+  ],
+  "extensions": {
+    "com.openai": {
+      "requires_local_executor": true,
+      "interface": {
+        "displayName": "Make App",
+        "shortDescription": "Turn a project into its own executable",
+        "longDescription": "Create a one-click Windows .exe from a local project without an AppDock installation. The existing project folder must remain in place. Independent local developer preview.",
+        "developerName": "GoldRock AI",
+        "category": "Developer Tools",
+        "defaultPrompt": [
+          "Make a one-click executable for this project."
+        ],
+        "capabilities": [
+          "Inspect local projects",
+          "Create Windows executables"
+        ],
+        "websiteURL": "https://github.com/moonshineaitech/make-app",
+        "supportURL": "https://github.com/moonshineaitech/make-app/issues",
+        "privacyPolicyURL": "https://github.com/moonshineaitech/make-app/blob/main/PRIVACY.md",
+        "termsOfServiceURL": "https://github.com/moonshineaitech/make-app/blob/main/LICENSE",
+        "brandColor": "#335FB0",
+        "brandColorDark": "#9DB7F5",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/icon.png"
+      }
+    }
+  },
+  "repository": "https://github.com/moonshineaitech/make-app"
+}

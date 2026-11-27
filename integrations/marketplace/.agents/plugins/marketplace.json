@@ -1,0 +1,20 @@
+{
+  "name": "make-app",
+  "interface": {
+    "displayName": "Make App"
+  },
+  "plugins": [
+    {
+      "name": "make-app",
+      "source": {
+        "source": "local",
+        "path": "./plugins/make-app"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

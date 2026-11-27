@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 2,
+  "name": "Native Notes",
+  "mode": "native",
+  "requirements": ["python"],
+  "run": ["python", "main.py"]
+}

@@ -1,0 +1,1 @@
+{"name": "acceptance-typescript", "version": "1.0.0", "private": true, "scripts": {"build": "tsc", "start": "node dist/main.js"}, "bin": "dist/main.js", "devDependencies": {"typescript": "7.0.2"}}

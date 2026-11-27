@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 2,
+  "name": "Full Stack Desk",
+  "mode": "web",
+  "requirements": ["node"],
+  "url": "http://127.0.0.1:{ports.frontend}",
+  "services": [
+    { "id": "api", "command": ["node", "api.cjs"], "ready": { "url": "http://127.0.0.1:{ports.api}/health" } },
+    { "id": "frontend", "command": ["node", "frontend.cjs"], "dependsOn": ["api"], "env": { "API_URL": "http://127.0.0.1:{ports.api}" }, "ready": { "url": "http://127.0.0.1:{ports.frontend}" } }
+  ]
+}

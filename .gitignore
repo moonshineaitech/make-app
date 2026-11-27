@@ -1,0 +1,17 @@
+node_modules/
+release/
+public-release/
+.language-test-data/
+work/
+native/bin/
+integrations/marketplace/plugins/
+integrations/codex/bin/
+integrations/codex/server/runtime/
+*.exe
+*.dll
+*.zip
+*.7z
+*.pdb
+.env
+.env.*
+!.env.example

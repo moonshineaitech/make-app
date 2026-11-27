@@ -1,0 +1,2 @@
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os');
+test('public source review rejects text encoded for a local Windows code page',async t=>{const root=await fs.mkdtemp(path.join(os.tmpdir(),'make-app-utf8-'));t.after(()=>fs.rm(root,{recursive:true,force:true}));await fs.writeFile(path.join(root,'workflow.yml'),Buffer.from([0x6e,0x61,0x6d,0x65,0x3a,0x20,0x97]));await assert.rejects(require('../scripts/check-public-source.cjs').check(root),/UTF-8/);});

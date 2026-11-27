@@ -1,0 +1,1 @@
+const http=require('node:http');http.createServer((_req,res)=>{res.setHeader('content-type','application/json');res.end(JSON.stringify({message:'Your backend is running.',service:'api',uptime:Math.floor(process.uptime())}));}).listen(Number(process.env.PORT),'127.0.0.1');

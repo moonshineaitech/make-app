@@ -1,0 +1,88 @@
+name: Build draft release
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            integrations/codex/package-lock.json
+      - name: Validate release tag and commit
+        run: node scripts/validate-release-tag.cjs
+      - run: npm ci
+      - run: npm run public:check
+      - run: npm run build:supervisor
+      - run: npm run build:launcher
+      - run: npm test
+      - run: npm ci --prefix integrations/codex
+      - run: npm run build:plugin
+      - run: npm run test:plugin
+      - run: npm audit --audit-level=moderate
+      - run: npm audit --prefix integrations/codex --audit-level=moderate
+      - name: Build unsigned converter
+        run: npm run build -- --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Exercise converter runtime
+        shell: pwsh
+        run: |
+          $env:APPDOCK_DATA=Join-Path $env:RUNNER_TEMP 'make-app-desktop-smoke'
+          $process=Start-Process -FilePath 'release/win-unpacked/Make App.exe' -ArgumentList '--smoke-test' -WindowStyle Hidden -PassThru
+          if (!$process.WaitForExit(120000)) { Stop-Process -Id $process.Id -Force; throw 'Desktop smoke timed out' }
+          if ($process.ExitCode -ne 0) { throw 'Desktop smoke failed' }
+      - name: Package public assets
+        shell: pwsh
+        run: |
+          $env:APPDOCK_PLUGIN_NODE=node -p 'process.execPath'
+          $version=node -p 'require("./package.json").version'
+          $env:APPDOCK_PLUGIN_BUILDER=(Resolve-Path "release/Make-App-$version-Windows.exe").Path
+          New-Item -ItemType Directory -Path qa -Force | Out-Null
+          npm sbom --sbom-format cyclonedx --omit dev > qa/sbom.cdx.json
+          npm run package:release
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: make-app-windows-preview
+          path: public-release/*
+          if-no-files-found: error
+  draft:
+    needs: windows
+    runs-on: windows-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: make-app-windows-preview
+          path: public-release
+      - name: Attest the artifacts built in this run
+        uses: actions/attest-build-provenance@43d14bc2b83dec42d39ecae14e916627a18bb661
+        with:
+          subject-path: public-release/*
+      - name: Create draft prerelease with all assets
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $version=node -p 'require("./package.json").version'
+          gh release create "v$version" public-release/* --repo $env:GITHUB_REPOSITORY --target $env:GITHUB_SHA --title "Make App $version — Windows preview" --notes-file docs/RELEASE_NOTES.md --draft --prerelease
