@@ -15,6 +15,8 @@ async function main(){
  const opened=JSON.parse(await fs.readFile(direct,'utf8'));if(!opened.passed||!opened.stopped||opened.executionApprovalClicks!==0)throw new Error('Generated app acceptance did not pass.');
  console.log('Checking harness CLI with automatic output on '+info.platform+'/'+info.arch);
  const cliSource=path.join(root,'cli-project');await fs.cp(path.join(base,'examples/languages/javascript'),cliSource,{recursive:true});
+ const readyFile=path.join(root,'parallel-ready');
+ await fs.appendFile(path.join(cliSource,'main.cjs'),`\nrequire('node:fs').writeFileSync(${JSON.stringify(readyFile)},'ready');setTimeout(()=>{},6000);\n`);
  const execFile=require('node:util').promisify(require('node:child_process').execFile),cli=path.join(base,'integrations/codex/scripts/make-app.cjs');
  const cliResult=await execFile(process.execPath,[cli,'make',cliSource],{env:{...process.env,APPDOCK_BUILDER:builder,APPDOCK_DATA:path.join(root,'cli-builder')},windowsHide:true,timeout:120000});
  const cliMade=JSON.parse(cliResult.stdout),cliOutput=cliMade.executable;
@@ -23,7 +25,13 @@ async function main(){
  const cliOpened=JSON.parse(await fs.readFile(cliDirect,'utf8'));if(!cliOpened.passed||!cliOpened.stopped)throw new Error('CLI-generated app did not launch and stop.');
  console.log('Checking simultaneous generated app launches on '+info.platform+'/'+info.arch);
  const parallelReports=[path.join(root,'parallel-ui.json'),path.join(root,'parallel-cli.json')];
- const parallel=await Promise.allSettled([output,cliOutput].map((file,index)=>invoke(file,[],{APPDOCK_DATA:path.join(root,'parallel-'+index),APPDOCK_TOOLCACHE:process.env.APPDOCK_TOOLCACHE||path.join(root,'tools'),APPDOCK_DIRECT_TEST:parallelReports[index],APPDOCK_DIRECT_EXPECT_TEXT:'APPDOCK_SUM=0'})));
+ await fs.rm(readyFile,{force:true});
+ const parallelInvoke=(file,index)=>invoke(file,[],{APPDOCK_DATA:path.join(root,'parallel-'+index),APPDOCK_TOOLCACHE:process.env.APPDOCK_TOOLCACHE||path.join(root,'tools'),APPDOCK_DIRECT_TEST:parallelReports[index],APPDOCK_DIRECT_EXPECT_TEXT:'APPDOCK_SUM=0'});
+ // Start the second runtime while the first is definitely executing its project.
+ const first=parallelInvoke(cliOutput,1).then(()=>({ok:true}),error=>({ok:false,error}));
+ const readyDeadline=Date.now()+30000;while(!await fs.stat(readyFile).catch(()=>null)&&Date.now()<readyDeadline)await new Promise(resolve=>setTimeout(resolve,50));
+ const ready=!!await fs.stat(readyFile).catch(()=>null);
+ const parallel=await Promise.allSettled([first.then(result=>{if(!result.ok)throw result.error;}),ready?parallelInvoke(output,0):Promise.reject(new Error('The first app did not reach its running state'))]);
  const failures=parallel.filter(result=>result.status==='rejected');if(failures.length)throw new AggregateError(failures.map(result=>result.reason),'Simultaneous generated apps failed');
  for(const file of parallelReports){const opened=JSON.parse(await fs.readFile(file,'utf8'));if(!opened.passed||!opened.stopped)throw new Error('Simultaneous generated apps did not launch and stop.');}
  await fs.rm(cliOutput,{recursive:true,force:true,maxRetries:5,retryDelay:100});
