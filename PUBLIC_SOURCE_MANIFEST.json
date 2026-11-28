@@ -546,8 +546,8 @@
     },
     {
       "path": "scripts/package-public-release.cjs",
-      "bytes": 6674,
-      "sha256": "f436bcd6733124abb88365c24b70c71ef0398736016c4e28590591002c9eb2bf"
+      "bytes": 6883,
+      "sha256": "c5a78daaf192228523bc84b3820b9a811a5bb46115e8165e39d4344340bd467b"
     },
     {
       "path": "scripts/prepare-terminal.cjs",
