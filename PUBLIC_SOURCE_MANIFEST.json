@@ -711,8 +711,8 @@
     },
     {
       "path": "src/creator-smoke.cjs",
-      "bytes": 12385,
-      "sha256": "22a6e74537797f3bae39306edc26fb02e8427386496306c192af5cf0a98c05ef"
+      "bytes": 12463,
+      "sha256": "638c56eb4be7254a33414dffa8b452821fa051bb8dd135ba4af57afe8b544ddf"
     },
     {
       "path": "src/diagnostics.cjs",
@@ -991,8 +991,8 @@
     },
     {
       "path": "src/ui/app-views.js",
-      "bytes": 37942,
-      "sha256": "da4a8ab41c8a6f02be35e5624573659c707917c3c7875df7604226f00465a798"
+      "bytes": 38077,
+      "sha256": "74d7eca506e8206c720e5ed50937e64bc82041ca7af09b2836ea3c0da0f67d7c"
     },
     {
       "path": "src/ui/appearance.js",

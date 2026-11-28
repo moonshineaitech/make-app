@@ -30,7 +30,7 @@ exports.run=async({app,getCreator,dialog})=>{
   const receipt=await run('makeApp.outputs().then(rows=>rows.find(r=>r.executable===window.__creatorMade.executable))');assert.ok(receipt?.available&&receipt.standalone&&receipt.id);assert.equal(receipt.id,await run('window.__creatorMade.exportId'));
   let finalOutput=output,relocation;
   if(process.env.APPDOCK_CREATOR_RELOCATE==='1'){
-   finalOutput=path.join(path.dirname(output),'Shared game'+require('./platform.cjs').host().extension);await fs.rename(output,finalOutput);await run('makeAppViews.refreshOutputs()');await run("makeAppViews.open('results');true");
+   finalOutput=path.join(path.dirname(output),'Shared game'+require('./platform.cjs').host().extension);await fs.rename(output,finalOutput);await run("makeAppViews.open('results');true");await until(()=>run("[...document.querySelectorAll('#view-content button')].some(b=>b.textContent==='Find moved app')"));
    assert.equal(await run("[...document.querySelectorAll('#view-content button')].find(b=>b.textContent==='Open app').disabled"),true,'Missing current exports must not remain enabled');
    let relocationPrompts=0;dialog.showOpenDialog=async()=>{relocationPrompts++;return{canceled:true,filePaths:[]};};
    await run("[...document.querySelectorAll('#view-content button')].find(b=>b.textContent==='Find moved app').click();true");await until(async()=>relocationPrompts===1&&!await run('makeAppCreator.state().busy'));assert.equal(await run('makeApp.outputs().then(rows=>rows[0].executable)'),output);
