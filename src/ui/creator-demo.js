@@ -15,13 +15,13 @@
   const delay = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
   Object.defineProperty(window,'makeApp',{value:Object.freeze({
     preview:true,
-    async capabilities(){return{name,extension,platform,arch:'x64',supported:true,version:'0.19.0 preview',targets,crossCompilation:false};},
+    async capabilities(){return{name,extension,platform,arch:'x64',supported:true,version:'0.19.1 preview',targets,crossCompilation:false};},
     async outputs(){return[];},async clearOutputs(){},
     async guide(section){if(section==='downloads'){if(parent!==window)parent.postMessage({type:'make-app:download'},location.origin);else location.href='../#download';return;}window.open('https://github.com/moonshineaitech/make-app','_blank','noopener,noreferrer');},
     async projects(){return samples.map(sample=>({name:sample.name,path:sample.path}));},
     async initial(){return samples[0].path;},
-    async choose(){return samples[(samples.findIndex(sample=>sample.path===document.getElementById('source').value)+1)%samples.length].path;},
-    async inspect({source}){await delay(140);const sample=samples.find(item=>item.path===source);if(!sample)throw new Error('This preview uses sample projects. Choose one from the list below.');return{...sample,standalone:{supported:true,reason:'A supported runtime or compiled build is included.'},configured:true,setupTasks:1,buildTasks:sample.webAvailable?1:0,requiredEnvironment:[]};},
+    async choose(kind){if(kind==='file')return samples[0].path+'/game.html';return samples[(samples.findIndex(sample=>sample.path===document.getElementById('source').value)+1)%samples.length].path;},
+    async inspect({source}){await delay(140);const sample=source===samples[0].path+'/game.html'?{...samples[0],path:source,name:'Sample Game',label:'HTML game / app',requirements:[]}:samples.find(item=>item.path===source);if(!sample)throw new Error('This preview uses sample projects. Choose one from the list below.');return{...sample,standalone:{supported:true,reason:'A supported runtime or compiled build is included.'},configured:true,setupTasks:1,buildTasks:sample.webAvailable?1:0,requiredEnvironment:[]};},
     async make({name:appName,format}){cancelled=false;for(const step of ['Reading project requirements…','Preparing the app launcher…','Finishing your app…']){progress(step+'\n');await delay(430);if(cancelled)return{cancelled:true};}return{preview:true,name:appName,format:format==='web'?'web':extension.slice(1)};},
     async cancel(){cancelled=true;},
     async reveal(){if(parent!==window)parent.postMessage({type:'make-app:download'},location.origin);else location.href='../#download';},

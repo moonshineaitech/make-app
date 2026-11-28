@@ -1,6 +1,6 @@
 const $ = id => document.getElementById(id);
 const api = window.makeApp;
-let selected, busy = false, sequence = 0, timer, nameEdited = false, platform, completed, busyOperation,targetPlatform,targetArch,projectsRevision=0,codexProjects=[],inspectionError='';
+let selected, busy = false, sequence = 0, timer, nameEdited = false, platform, completed, busyOperation,targetPlatform,targetArch,projectsRevision=0,codexProjects=[],inspectionError='',cancelling=false;
 let remembered=[];try{const rows=JSON.parse(localStorage.getItem('make-app-project-folders')||'[]');if(Array.isArray(rows))remembered=rows.filter(p=>typeof p?.path==='string'&&p.path.length<8192&&typeof p.name==='string').slice(0,12);}catch{}
 const format = () => document.querySelector('input[name="format"]:checked').value;
 function destination(){if(!platform)return null;const target=platform.targets?.find(t=>t.platform===targetPlatform&&t.arch===targetArch)||platform;return{...target,buildable:target.platform===platform.platform&&target.arch===platform.arch};}
@@ -100,11 +100,11 @@ api.capabilities().then(value => {
 function drawProjects(){const value=$('saved').value;$('saved').replaceChildren(new Option('Select a project',''));const rows=[...codexProjects,...remembered.filter(p=>!codexProjects.some(c=>c.path===p.path))];for(const p of rows)$('saved').append(new Option(p.name,p.path));if(!rows.length)$('saved').firstElementChild.textContent='No saved projects yet — browse a folder';$('saved').value=rows.some(p=>p.path===value)?value:rows.some(p=>p.path===$('source').value)?$('source').value:'';projectsRevision++;}
 async function refreshProjects(){codexProjects=await api.projects();drawProjects();render();return codexProjects.length;}
 refreshProjects().catch(()=>{drawProjects();render();});
-$('browse').onclick = async () => { try { await openSource(await api.choose()); } catch (error) { status(error.message, true); } };
+$('browse').onclick = async () => { if(busy)return;try { await openSource(await api.choose()); } catch (error) { status(error.message, true); } };
 $('saved').onchange = () => openSource($('saved').value);
 $('source').onchange = () => { clearTimeout(timer); $('entry').value = ''; nameEdited = false; inspect(); };
 $('source').oninput = () => {
-  clearTimeout(timer); ++sequence; selected = null; clearResult(); phase('idle'); render();
+  clearTimeout(timer); ++sequence; selected = null; inspectionError=''; clearResult(); phase('idle'); render();
   $('saved').value = ''; $('facts').hidden = true; $('source').removeAttribute('aria-invalid');
   $('detection-icon').className = 'icon i-code'; $('detected').textContent = 'Setup is detected automatically.';
   timer = setTimeout(() => { $('entry').value = ''; nameEdited = false; inspect(); }, 300);
@@ -120,9 +120,9 @@ $('creator-form').onsubmit = async event => {
   if(completed&&!api.preview&&format()!=='web'){
     setBusy(true,'open');status('Opening '+completed.name+'…');
     try{await api.openCreated();status(completed.name+' is opening. You can close Make App.');}
-    catch(error){status(error.message,true);}finally{setBusy(false);}return;
+    catch(error){status(error.message,true);setBusy(false);window.makeAppReadiness.failure(snapshot(),error,'open');}finally{if(busy)setBusy(false);}return;
   }
-  clearResult(); setBusy(true); phase('creating'); status(format() === 'web' ? 'Exporting your web app…' : 'Making room for your next app…');
+  clearResult(); cancelling=false;let creationFailure;setBusy(true); phase('creating'); status(format() === 'web' ? 'Exporting your web app…' : 'Making room for your next app…');
   try {
     const result = await api.make({ source: $('source').value, name: $('name').value, target: $('entry').value || undefined, format: format(),askSave:$('ask-save').checked,targetPlatform:destination()?.platform,targetArch:destination()?.arch });
     if (result.cancelled) { phase('ready'); status('Creation cancelled. Your existing files are unchanged.'); return; }
@@ -133,18 +133,18 @@ $('creator-form').onsubmit = async event => {
       : result.format === 'web' ? 'Web app exported. Host the folder over HTTPS to use it on your devices.' : filename + ' is ready'+(result.savedToDesktop?' on your Desktop':'')+'. Click Open app to use it.');
     $('reveal-label').textContent = result.preview ? 'Get Make App' : 'Show saved app'; $('reveal').hidden = false;
     if(result.historyWarning)status($('status').textContent+' '+result.historyWarning);
-  } catch (error) { status(error.message, true); }
-  finally { setBusy(false); }
+  } catch (error) { if(cancelling){phase('ready');status('Creation cancelled. Your existing files are unchanged.');}else{status(error.message,true);creationFailure=error;} }
+  finally { setBusy(false);if(creationFailure)window.makeAppReadiness.failure(snapshot(),creationFailure); }
 };
 $('cancel').onclick = async () => {
-  $('cancel').disabled = true; status('Cancelling creation…');
-  try { await api.cancel(); } catch (error) { $('cancel').disabled = false; status(error.message, true); }
+  cancelling=true;$('cancel').disabled = true; status('Cancelling creation…');
+  try { await api.cancel(); } catch (error) { cancelling=false;$('cancel').disabled = false; status(error.message, true); }
 };
 api.onProgress(text => { $('progress').hidden = false; $('log').textContent = ($('log').textContent + text).slice(-12000);window.dispatchEvent(new Event('make-app:progress')); });
 $('reveal').onclick = () => api.reveal().catch(error => status(error.message, true));
 api.initial().then(source=>{if(!source&&!api.preview)try{source=localStorage.getItem('make-app-last-project');}catch{}return openSource(source);}).catch(error => status(error.message, true)); api.onSource(openSource);
 phase('idle'); render();
 window.addEventListener('make-app:open-project',event=>openSource(event.detail?.path));
-window.makeAppCreator=Object.freeze({state:snapshot,refreshProjects,selectTarget(os,arch){if(busy)return;const choice=platform?.targets?.find(t=>t.platform===os&&t.arch===arch);if(!choice)throw Error('Unsupported desktop target.');if(targetPlatform===os&&targetArch===arch)return;targetPlatform=os;targetArch=arch;clearResult();phase(selected?"ready":"idle");render();},useFormat(value){if(busy||!['desktop','web'].includes(value)||format()===value)return;const input=document.querySelector('input[name=format][value='+value+']');input.checked=true;input.dispatchEvent(new Event('change'));},async another(){if(busy)return false;const source=await api.choose();if(!source)return false;await openSource(source);return true;}});
+window.makeAppCreator=Object.freeze({state:snapshot,refreshProjects,selectTarget(os,arch){if(busy)return;const choice=platform?.targets?.find(t=>t.platform===os&&t.arch===arch);if(!choice)throw Error('Unsupported desktop target.');if(targetPlatform===os&&targetArch===arch)return;targetPlatform=os;targetArch=arch;clearResult();phase(selected?"ready":"idle");render();},useFormat(value){if(busy||!['desktop','web'].includes(value)||format()===value)return;const input=document.querySelector('input[name=format][value='+value+']');input.checked=true;input.dispatchEvent(new Event('change'));},async chooseFile(){if(busy)return false;const source=await api.choose('file');if(!source)return false;await openSource(source);return true;},recreate(){if(busy)return;clearResult();phase(selected?'ready':'idle');render();$('creator-form').requestSubmit();},async another(){if(busy)return false;const source=await api.choose();if(!source)return false;await openSource(source);return true;}});
 $('copy-output').onclick=async()=>{try{if(api.copyText)await api.copyText(completed.executable);else await navigator.clipboard.writeText(completed.executable);status('Saved app path copied.');}catch{status('Copy the saved path from Recent apps.');}};
 $('another-app').onclick=async()=>{try{if(await window.makeAppCreator.another())window.makeAppWorkflow.close();}catch(e){status(e.message,true);}};

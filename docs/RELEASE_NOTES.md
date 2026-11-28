@@ -1,4 +1,12 @@
-# Make App 0.19.0 — one workspace, every design
+# Make App 0.19.1 — direct game files and recoverable creation
+
+Projects and creation guidance can open a native file picker for HTML games, exported executables and supported scripts. Cancelling preserves the current project and result. A folder with no detected entry offers direct file selection; real multi-target projects retain their entry chooser.
+
+Failed creation and failed opening have readable recovery dialogs with the exact reason, local troubleshooting details and retry or fresh-copy actions. Build logs stay available in an expandable section. User cancellation remains separate from failure. The shared controls and guidance work in all twenty designs.
+
+Native acceptance now verifies file selection, cancelled selection and invalid-picker rejection. Native game shutdown no longer interrupts its test report; report readers wait for complete JSON. Routine pushes remain free of automatic Actions runs.
+
+## Previous: Make App 0.19.0 — one workspace, every design
 
 Every original and studio design exposes the same project, export and workspace controls. Export options show Windows, macOS and Linux, the five supported OS/CPU combinations, and matching file formats and sharing instructions. Desktop creation remains local to the matching OS and CPU; unsupported cross-host requests are refused before a save prompt.
 

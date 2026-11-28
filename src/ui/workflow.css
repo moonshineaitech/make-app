@@ -51,6 +51,11 @@ body{padding-bottom:86px}
 .app-views .recent-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;flex:1 1 340px;justify-content:flex-end}
 .app-views .project-row:has(.recent-actions){flex-wrap:wrap}
 #export-options-button[data-ready=false]{border-color:var(--danger)}
+.creation-help .export-intro{white-space:pre-wrap;overflow-wrap:anywhere}
+.creation-help .export-result-actions .button{white-space:normal;text-align:center;max-width:100%}
+.creation-help details{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+.creation-help summary{font-size:14px;cursor:pointer}
+.creation-help pre{font:13px/1.7 Consolas,monospace;max-height:260px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink);background:var(--subtle);padding:14px;border:1px solid var(--line);border-radius:10px;user-select:text}
 .app-views .project-row .output-availability{font-size:13px;color:var(--secondary)}
 @media(max-width:650px){.workflow-tools{gap:2px;padding:5px;bottom:10px;border-radius:17px}.workflow-tools .view-launcher{font-size:13px;padding:10px 11px;gap:5px}.workflow-tools .icon,#export-target-badge{display:none}.export-settings{padding:21px;border-radius:18px}.export-settings-header h2{font-size:25px}.export-platforms{gap:7px}.export-platforms button{padding:12px 9px}.export-target-actions .button{flex:1}.export-settings-footer{align-items:flex-start;flex-direction:column}.export-settings-footer .button{width:100%}}
 @media(forced-colors:active){select{color-scheme:light dark}select option,select optgroup,select option:checked{background:Canvas!important;color:CanvasText!important;-webkit-text-fill-color:CanvasText!important}.workflow-tools,.export-settings,.export-mode,.export-platforms button{background:Canvas;color:CanvasText;border:1px solid CanvasText}.export-mode button[aria-pressed=true],.export-platforms button[aria-pressed=true]{outline:2px solid Highlight}.export-settings::backdrop{background:Canvas}.workflow-tools .view-launcher{color:CanvasText}}

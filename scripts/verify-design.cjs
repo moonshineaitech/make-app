@@ -20,6 +20,7 @@ ipcMain.handle('creator', async (event, method, args) => {
   if (method === 'choose') return 'C:/Projects/Focus Notes';
   if (method === 'make') {
     madePayload = args; event.sender.send('creator-progress', 'Preparing the app launcher…\n');
+    if(creationMode==='failure')throw new Error('Could not install the game dependency: fixture missing SDK.');
     if (creationMode === 'wait') return new Promise(resolve => { pendingMake = resolve; });
     const host = require('../src/platform.cjs').host();
     return { executable: 'C:/Apps/Focus Notes' + host.extension, name: 'Focus Notes', format: args.format === 'web' ? 'web' : host.extension.slice(1) };
@@ -79,6 +80,10 @@ app.whenReady().then(async () => {
       assert.equal(await evaluate(win, `document.getElementById('creation-help').open`),true);
       assert.match(await evaluate(win, `document.getElementById('creation-help-copy').textContent`),/existing project folder/);
       await evaluate(win, `document.getElementById('close-creation-help').click();true`);
+      await evaluate(win, `document.getElementById('source').value='C:/Projects/Focus Notes';document.getElementById('source').dispatchEvent(new Event('change'));true`);await until(()=>evaluate(win,'makeAppCreator.state().ready'),'ready for recovery check');
+      creationMode='failure';await evaluate(win, `document.getElementById('make').click();true`);await until(()=>evaluate(win,`document.getElementById('creation-help').open`),'readable creation failure');
+      assert.match(await evaluate(win,`document.getElementById('creation-help-copy').textContent`),/fixture missing SDK/);assert.equal(await evaluate(win,`document.getElementById('creation-help-log').hidden`),false);assert.equal(await evaluate(win,`document.getElementById('make').disabled`),false);
+      creationMode='success';await evaluate(win,`document.getElementById('fix-creation').click();true`);await until(()=>evaluate(win,`document.body.dataset.phase==='success'`),'retry creates successfully');assert.equal(await evaluate(win,`document.getElementById('creation-help').open`),false);
     }
     win.destroy();
   }
