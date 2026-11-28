@@ -69,7 +69,7 @@ The runtime must execute on the machine that can access your project and build t
 
 A browser-only or hosted chat cannot spawn this local stdio server or see a laptop folder automatically. It needs a supported local agent/bridge or an explicitly configured worker. This release does not expose an unauthenticated remote execution endpoint. A generic adapter is a compatibility route, not evidence that every proprietary harness or hosted environment has been tested.
 
-Static web exports can be served over HTTPS for phones/tablets; backend/native code still needs its compatible host. Desktop apps require their original project folder. Publisher signing, clean-machine and physical-device checks remain separate preview limitations.
+Static web exports can be served over HTTPS for phones/tablets; backend/native code still needs its compatible host. Desktop apps include their project and dependencies; the original project folder is not required. Publisher signing, clean-machine and physical-device checks remain separate preview limitations.
 
 ## Verification and format references
 

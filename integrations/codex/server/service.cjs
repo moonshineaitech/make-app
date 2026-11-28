@@ -61,11 +61,11 @@ async function make({ path: source, output, target, format = 'desktop' }) {
         env: { ...process.env, ...(process.platform === 'linux' ? { APPIMAGE_EXTRACT_AND_RUN: '1' } : {}) },
         shell: false, windowsHide: true, stdio: 'ignore'
       });
-      const timer = setTimeout(() => { child.kill(); reject(new Error('Executable creation exceeded two minutes.')); }, 120000);
+      const timer = setTimeout(() => { child.kill(); reject(new Error('Standalone packaging exceeded ten minutes.')); }, 600000);
       child.once('error', error => { clearTimeout(timer); reject(error); });
       child.once('exit', code => { clearTimeout(timer); code === 0 ? resolve() : reject(new Error('Executable creation failed. Check that the project and output path are available.')); });
     });
-    return { ...JSON.parse(await fs.readFile(resultFile, 'utf8')), executionStarted: false };
+    return JSON.parse(await fs.readFile(resultFile, 'utf8'));
   } finally { await fs.rm(temporary, { recursive: true, force: true }); }
 }
 

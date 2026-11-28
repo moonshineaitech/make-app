@@ -1,4 +1,12 @@
-# Make App 0.17.0 — a shorter local desktop flow
+# Make App 0.18.0 — standalone desktop apps
+
+Generated desktop apps now contain a streamed, compressed project snapshot, installed dependencies and a managed runtime or a compiled artifact. Move or share the Windows EXE or Linux run file; macOS apps include the payload inside their application bundle. The recipient does not need the original project directory or Make App installed. A private writable copy is extracted on first use, with application data stored on the receiving computer.
+
+Node apps include the verified Node distribution and their package manager when needed. Supported compiled adapters build in temporary source snapshots and ship their artifacts rather than requiring the recipient to install the compiler. Python and Java retain bundled interpreter runtimes. Packaging refuses unsupported self-contained runtime combinations instead of creating a launcher tied to the developer computer.
+
+Packaging can run dependency and build scripts. The original project stays untouched. Dot-env files, private key files, version-control folders and common caches are excluded; external services, credentials and OS libraries remain application requirements. Native acceptance verifies relocated output after deleting its temporary source, with a new profile and runtime downloads blocked. Builds remain unsigned previews and GitHub assets remain draft.
+
+## Previous: Make App 0.17.0 — a shorter local desktop flow
 
 Choose a project, create its app, then use Open app from the same primary button. Desktop creation now saves a fresh file on your Desktop by default, without a save-location prompt or overwriting existing apps. An optional Ask where to save choice remains available. The last successfully inspected native project is restored on the next start, without running it automatically.
 

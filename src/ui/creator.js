@@ -17,10 +17,10 @@ function render() {
     : 'Uses an existing static web build. Backend services need their own host.';
   $('scope').textContent = web
     ? 'Exports public static assets to a new folder. Host it over HTTPS to open or install it on your devices.'
-    : 'The app opens your existing project folder. Setup is handled on first launch. Keep that folder in place.';
-  $('review-heading').textContent = web ? 'Ready for a smaller screen.' : 'Your project stays yours.';
-  $('fact-copy').textContent = web ? 'Static assets only' : 'None';
-  $('fact-setup').textContent = web ? 'HTTPS hosting' : selected?.setupTasks || selected?.buildTasks ? 'Automatic setup' : 'Open directly';
+    : 'Includes the project, dependencies and runtime. Move or share the finished app. Build steps may run while packaging.';
+  $('review-heading').textContent = web ? 'Ready for a smaller screen.' : 'Ready to take with you.';
+  $('fact-copy').textContent = web ? 'Static assets only' : 'Bundled snapshot';
+  $('fact-setup').textContent = web ? 'HTTPS hosting' : 'Included in the app';
   const name = $('name').value.trim();
   $('output-name').textContent = completed?.executable?.split(/[\\/]/).at(-1) || (name ? name + (web ? ' · web export' : platform?.extension || '') : 'Your next app');
   $('output-caption').textContent = web ? 'Export to a folder of your choice' : api.preview?'Desktop app · browser preview':completed?.savedToDesktop?'Saved on your Desktop':$('ask-save').checked?'Choose a save location':'Saves to Desktop automatically';

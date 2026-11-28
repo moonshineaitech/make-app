@@ -47,7 +47,7 @@ async function main(){
   await fs.writeFile(path.join(output,`SHA256SUMS-${host.platform}-${host.arch}.txt`),files.map(f=>f.sha256+'  '+f.name).join('\n')+'\n');
   const coldFile=path.join(base,'qa',`cold-start-${host.platform}-${host.arch}.json`),desktopFile=path.join(base,'qa',`desktop-${host.platform}-${host.arch}.json`);
   const validation={desktop:await fs.readFile(desktopFile,'utf8').then(JSON.parse,()=>null),coldStart:await fs.readFile(coldFile,'utf8').then(JSON.parse,()=>null)};
-  await fs.writeFile(path.join(output,`release-manifest-${host.platform}-${host.arch}.json`),JSON.stringify({version:pkg.version,platform:host.platform,arch:host.arch,unsignedPreview:true,desktopProjectFolderRequired:true,validation,files},null,2)+'\n');
+  await fs.writeFile(path.join(output,`release-manifest-${host.platform}-${host.arch}.json`),JSON.stringify({version:pkg.version,platform:host.platform,arch:host.arch,unsignedPreview:true,desktopProjectFolderRequired:false,standaloneDesktopApps:true,validation,files},null,2)+'\n');
   console.log(JSON.stringify({output,files}));
  }finally{await fs.rm(staging,{recursive:true,force:true});}
 }

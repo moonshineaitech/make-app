@@ -11,7 +11,7 @@ Make App separates the computer that builds/launches a desktop project from devi
 | Linux ARM64 | AppImage | Executable `.run` | Native matrix runner |
 | iOS / iPadOS / Android / ChromeOS / other browser devices | Desktop converter not available | Hosted static web exports | Chromium responsive and offline checks passed; physical devices not certified |
 
-Desktop output includes the converter's desktop runtime but keeps the selected project at its existing absolute path. It is not a source-inclusive transfer package. Different machines need their own project folder and a compatible output. Native frameworks remain subject to their OS, architecture, SDK and hardware requirements.
+Desktop output includes the project snapshot, dependencies and a managed runtime or compiled build. It does not require the original folder or Make App on the recipient computer. The recipient must use a compatible OS and architecture. macOS apps travel as complete .app bundles; Windows .exe and Linux .run outputs travel as individual files. External APIs, credentials, OS libraries, services and hardware remain application requirements.
 
 ## Web exports
 

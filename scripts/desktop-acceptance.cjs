@@ -2,7 +2,7 @@ const fs=require('node:fs/promises'),path=require('node:path'),os=require('node:
 const {host,builderCommand}=require('../src/platform.cjs');
 async function invoke(file,args,env){const command=builderCommand(file,args);return new Promise((resolve,reject)=>{
  const child=spawn(command.command,command.args,{env:{...process.env,...env,...(process.platform==='linux'?{APPIMAGE_EXTRACT_AND_RUN:'1'}:{})},stdio:['ignore','pipe','pipe'],windowsHide:true});let log='';
- const timer=setTimeout(()=>{child.kill();reject(new Error('Desktop acceptance exceeded 120 seconds. '+log));},120000);for(const stream of [child.stdout,child.stderr])stream.on('data',chunk=>log=(log+chunk).slice(-12000));child.once('error',error=>{clearTimeout(timer);reject(error);});child.once('exit',code=>{clearTimeout(timer);code===0?resolve():reject(new Error('Desktop acceptance exited '+code+': '+log));});
+ const timer=setTimeout(()=>{child.kill();reject(new Error('Desktop acceptance exceeded 240 seconds. '+log));},240000);for(const stream of [child.stdout,child.stderr])stream.on('data',chunk=>log=(log+chunk).slice(-12000));child.once('error',error=>{clearTimeout(timer);reject(error);});child.once('exit',code=>{clearTimeout(timer);code===0?resolve():reject(new Error('Desktop acceptance exited '+code+': '+log));});
  });}
 let diagnosticRoot;
 async function main(){
@@ -21,8 +21,11 @@ async function main(){
  await fs.appendFile(path.join(cliSource,'main.cjs'),`\nrequire('node:fs').writeFileSync(${JSON.stringify(readyFile)},'ready');setTimeout(()=>{},6000);\n`);
  const execFile=require('node:util').promisify(require('node:child_process').execFile),cli=path.join(base,'integrations/codex/scripts/make-app.cjs');
  const cliResult=await execFile(process.execPath,[cli,'make',cliSource],{env:{...process.env,APPDOCK_BUILDER:builder,APPDOCK_DATA:path.join(root,'cli-builder')},windowsHide:true,timeout:120000});
- const cliMade=JSON.parse(cliResult.stdout),cliOutput=cliMade.executable;
+ const cliMade=JSON.parse(cliResult.stdout);let cliOutput=cliMade.executable;
+ if(!cliMade.standalone||cliMade.requiresExistingProjectFolder)throw new Error('CLI did not create a standalone app.');
+ await fs.rm(cliSource,{recursive:true,force:true});
  if(!cliOutput||cliMade.executionStarted!==false||await fs.realpath(path.dirname(cliOutput))!==await fs.realpath(path.join(root,'Make App Outputs')))throw new Error('CLI did not choose a fresh sibling output.');
+ await fs.mkdir(path.join(root,'recipient'),{recursive:true});const moved=path.join(root,'recipient',path.basename(cliOutput));await fs.rename(cliOutput,moved);cliOutput=moved;
  const cliDirect=path.join(root,'cli-direct.json');await invoke(cliOutput,[],{APPDOCK_DATA:path.join(root,'cli-generated'),APPDOCK_TOOLCACHE:process.env.APPDOCK_TOOLCACHE||path.join(root,'tools'),APPDOCK_DIRECT_TEST:cliDirect,APPDOCK_DIRECT_EXPECT_TEXT:'APPDOCK_SUM=0'});
  const cliOpened=JSON.parse(await fs.readFile(cliDirect,'utf8'));if(!cliOpened.passed||!cliOpened.stopped)throw new Error('CLI-generated app did not launch and stop.');
  console.log('Checking simultaneous generated app launches on '+info.platform+'/'+info.arch);
@@ -37,7 +40,7 @@ async function main(){
  const failures=parallel.filter(result=>result.status==='rejected');if(failures.length)throw new AggregateError(failures.map(result=>result.reason),'Simultaneous generated apps failed');
  for(const file of parallelReports){const opened=JSON.parse(await fs.readFile(file,'utf8'));if(!opened.passed||!opened.stopped)throw new Error('Simultaneous generated apps did not launch and stop.');}
  await fs.rm(cliOutput,{recursive:true,force:true,maxRetries:5,retryDelay:100});
- await fs.mkdir(path.join(base,'qa'),{recursive:true});await fs.writeFile(path.join(base,'qa',`desktop-${info.platform}-${info.arch}.json`),JSON.stringify({passed:true,platform:info.platform,arch:info.arch,version,desktopConversion:true,automaticDesktopOutput:true,savePrompts:0,openFromCreator:true,lastProjectRestored:true,directLaunch:true,coldRuntimeSetup:true,stopped:true,sourceCopied:false,harnessCliCreation:true,automaticOutput:true,cliAppLaunch:true,simultaneousAppLaunches:true},null,2));console.log('Desktop and harness CLI conversion, simultaneous launch, output and shutdown passed on '+info.platform+'/'+info.arch);
+ await fs.mkdir(path.join(base,'qa'),{recursive:true});await fs.writeFile(path.join(base,'qa',`desktop-${info.platform}-${info.arch}.json`),JSON.stringify({passed:true,platform:info.platform,arch:info.arch,version,desktopConversion:true,automaticDesktopOutput:true,savePrompts:0,openFromCreator:true,lastProjectRestored:true,directLaunch:true,coldRuntimeSetup:true,stopped:true,sourceCopied:true,standalone:true,originalProjectFolderRequired:false,sourceRemovedBeforeLaunch:true,outputRelocated:true,harnessCliCreation:true,automaticOutput:true,cliAppLaunch:true,simultaneousAppLaunches:true},null,2));console.log('Desktop and harness CLI conversion, simultaneous launch, output and shutdown passed on '+info.platform+'/'+info.arch);
  // Only remove the generated output; keep result files for runner diagnostics.
  await fs.rm(output,{recursive:true,force:true,maxRetries:5,retryDelay:100});
 }

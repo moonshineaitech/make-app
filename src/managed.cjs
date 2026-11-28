@@ -16,9 +16,9 @@ function nodePlatform(platform=process.platform,arch=process.arch){
   const windows=platform==='win32',system=windows?'win':platform==='darwin'?'darwin':'linux';
   return{windows,system,arch,extension:windows?'zip':'tar.gz',releaseFile:(platform==='darwin'?'osx':system)+'-'+arch+(windows?'-zip':platform==='darwin'?'-tar':''),node:windows?'node.exe':'bin/node',npm:windows?'node_modules/npm/bin/npm-cli.js':'lib/node_modules/npm/bin/npm-cli.js'};
 }
-async function nodeRuntime(dataRoot,major=24,onLog=()=>{},{signal,allowDownloads=true}={}){
+async function nodeRuntime(dataRoot,major=24,onLog=()=>{},{signal,allowDownloads=true,preferManaged=false}={}){
   const platform=nodePlatform(),suffix=process.platform==='win32'&&process.arch==='x64'?'':'-'+process.platform+'-'+process.arch;
-  signal?.throwIfAborted();const existing=await systemNode(major,{signal});if(existing){onLog('Using compatible installed Node.js '+existing.version+'.\n');return existing;}
+  signal?.throwIfAborted();const existing=preferManaged?null:await systemNode(major,{signal});if(existing){onLog('Using compatible installed Node.js '+existing.version+'.\n');return existing;}
   const key=path.join(dataRoot,'runtimes','node-'+major+suffix);if(pending.has(key))return pending.get(key);
   const operation=(async()=>{
     await fs.mkdir(key,{recursive:true});

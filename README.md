@@ -19,7 +19,9 @@ The creator includes twenty selectable Frutiger Aero themes and a Classic appear
 
 Make App remembers your last project. Setup is detected automatically; choose an entry point only when a project has several. Existing Desktop files are preserved. To choose another destination, enable **Ask where to save the desktop app** in Project details.
 
-A desktop app opens the selected project directly and prepares its dependencies when needed. **Keep the original project folder in place.** The desktop output is a local launcher, not a source-inclusive package for another computer. The converter can be removed after creating it.
+Desktop outputs now include a compressed project snapshot, installed dependencies and the required managed runtime or compiled artifact. **Move or share the finished executable; the original project folder and converter are not required.** First launch extracts a private writable copy into app storage. Windows uses one `.exe`, Linux one `.run`, and macOS an `.app` bundle (zip it to share). Build for the recipient OS and architecture.
+
+Packaging may run dependency installation and build steps in a temporary snapshot. It preserves the original project and excludes dot-env files, private key files and common caches. External APIs, accounts, databases, hardware and OS libraries remain application requirements; secrets are not automatically embedded. Unsupported self-contained runtime combinations fail with a specific packaging message.
 
 A web export copies an existing static build into a new folder. Upload that folder to any static HTTPS host, then open its URL on your devices. Supported browsers offer **Install App** or **Add to Home Screen**. Offline access starts after the first successful visit and service-worker installation. Backend services, external APIs and authentication still need their own connectivity and hosting.
 

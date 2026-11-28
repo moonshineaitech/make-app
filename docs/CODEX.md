@@ -31,7 +31,7 @@ The plugin includes a `run-project` skill. Ask naturally or explicitly invoke `$
 | `make_executable` | Create a desktop app by default; set `format: "web"` to export a static build |
 | `open_project` | Open the desktop converter with the chosen project selected |
 
-Desktop output must match the current host: `.exe` on Windows, `.app` on macOS, `.run` on Linux. Output is optional; explicit output paths must be absolute and new. Creation does not execute project code. Opening a generated desktop app runs its project/setup scripts with your account permissions. The original project folder must remain in place.
+Desktop output must match the current host: `.exe` on Windows, `.app` on macOS, `.run` on Linux. Output is optional; explicit output paths must be absolute and new. Packaging may execute dependency/build scripts in a temporary source snapshot with your account permissions. It does not open the finished application. The result includes its project, dependencies and runtime or compiled artifact; the original project folder is not required. Secrets and external services are not automatically included.
 
 For a project-only connection, use **Connect Coding Tool** and select Codex instead of the global plugin installer. This registers MCP for that trusted project without changing your global profile; the global plugin also supplies its skill. Choose one route to avoid duplicate tool entries. The server offers a `make-app` prompt in clients that expose MCP prompts. See [other harnesses and CLI use](HARNESSES.md).
 
