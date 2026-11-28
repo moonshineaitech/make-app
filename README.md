@@ -23,6 +23,10 @@ Open **Export** (or press **Alt+E**) to choose desktop or static web output, see
 
 **Views → Recent apps** remembers up to twenty completed exports locally. Open an available desktop app, show its file, copy its path, or create it again from the source. Moved files are marked unavailable. Clearing this list preserves your exported files. The success screen also offers **Create another app**.
 
+**Create stays clickable while a project needs attention.** It opens readable guidance with an action to choose a folder, select an entry point, switch output format, or restore this computer’s OS/CPU. Copy details includes the version, project path and reason for troubleshooting. The button locks only while creation or opening is in progress.
+
+For browser games, choose the project folder: a single named HTML file such as `my-game.html` is detected automatically, and several HTML files offer a chooser. On Windows, a folder containing an exported game EXE is recognized with its neighbouring assets, DLLs, PCK or Unity data folder. Matching game data helps distinguish the main game from helper executables. Godot/Unity **editor source** still needs an engine export first; choose that completed desktop build folder. Make App does not yet build those editor projects into standalone games automatically.
+
 Desktop outputs now include a compressed project snapshot, installed dependencies and the required managed runtime or compiled artifact. **Move or share the finished executable; the original project folder and converter are not required.** First launch extracts a private writable copy into app storage. Windows uses one `.exe`, Linux one `.run`, and macOS an `.app` bundle (zip it to share). Build for the recipient OS and architecture.
 
 First launch shows verification and extraction progress with file and byte counts. Later launches reuse the prepared copy. Cancelling or encountering a disk error removes the incomplete extraction after its pending writes close.

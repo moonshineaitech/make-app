@@ -1,10 +1,10 @@
 const $ = id => document.getElementById(id);
 const api = window.makeApp;
-let selected, busy = false, sequence = 0, timer, nameEdited = false, platform, completed, busyOperation,targetPlatform,targetArch,projectsRevision=0,codexProjects=[];
+let selected, busy = false, sequence = 0, timer, nameEdited = false, platform, completed, busyOperation,targetPlatform,targetArch,projectsRevision=0,codexProjects=[],inspectionError='';
 let remembered=[];try{const rows=JSON.parse(localStorage.getItem('make-app-project-folders')||'[]');if(Array.isArray(rows))remembered=rows.filter(p=>typeof p?.path==='string'&&p.path.length<8192&&typeof p.name==='string').slice(0,12);}catch{}
 const format = () => document.querySelector('input[name="format"]:checked').value;
 function destination(){if(!platform)return null;const target=platform.targets?.find(t=>t.platform===targetPlatform&&t.arch===targetArch)||platform;return{...target,buildable:target.platform===platform.platform&&target.arch===platform.arch};}
-function snapshot(){return{selected,busy,platform,target:destination(),completed,projectsRevision,format:format(),source:$('source').value,name:$('name').value,phase:document.body.dataset.phase};}
+function snapshot(){return{selected,busy,platform,target:destination(),completed,projectsRevision,format:format(),source:$('source').value,name:$('name').value,phase:document.body.dataset.phase,ready:eligible(),inspectionError};}
 const phase = value => { document.body.dataset.phase = value; };
 function eligible() {
   return !!selected && !selected.selection && (format() === 'web' ? selected.webAvailable : selected.configured !== false && selected.standalone?.supported!==false && platform?.supported && destination()?.buildable);
@@ -12,7 +12,8 @@ function eligible() {
 function render() {
   const web = format() === 'web';
   const target=destination();if(platform){$('desktop-label').textContent=(target?.name||platform.name)+' app';$('desktop-description').textContent=(target?.extension||platform.extension)+' · '+(target?.cpu||platform.arch);}
-  $('make').disabled = busy || !eligible();
+  $('make').disabled = busy;
+  $('make').dataset.ready = String(eligible());
   $('make-label').textContent = busy ? (busyOperation==='open'?'Opening…':web ? 'Exporting…' : 'Creating…') : completed&&!api.preview&&!web?'Open app':web ? 'Export web app' : 'Create app';
   $('make').querySelector('.icon').className = 'icon ' + (busy ? 'i-loader' : 'i-arrow');
   $('web-hint').hidden = !web;
@@ -51,7 +52,7 @@ function clearResult() {
 }
 async function inspect() {
   const request = ++sequence;
-  selected = null; clearResult(); render();
+  selected = null; inspectionError=''; clearResult(); render();
   $('facts').hidden = true; $('requirements').textContent = ''; $('credentials').textContent = '';$('subproject-area').hidden=true;
   $('source').removeAttribute('aria-invalid');
   if (!$('source').value.trim()) {
@@ -79,7 +80,7 @@ async function inspect() {
     phase('ready'); render();
   } catch (error) {
     if (request !== sequence) return;
-    selected = null; phase('error'); $('source').setAttribute('aria-invalid', 'true');
+    selected = null; inspectionError=error.message; phase('error'); $('source').setAttribute('aria-invalid', 'true');
     $('detection-icon').className = 'icon i-help'; $('detected').textContent = error.message;
     $('facts').hidden = true; $('entry-area').hidden = true; render();
     if(!api.preview)try{if(localStorage.getItem('make-app-last-project')===$('source').value)localStorage.removeItem('make-app-last-project');}catch{}
@@ -114,7 +115,8 @@ $('name').oninput = () => { nameEdited = true; clearResult();phase(selected?'rea
 $('ask-save').onchange=()=>{clearResult();phase(selected?'ready':'idle');render();};
 for (const input of document.querySelectorAll('input[name="format"]')) input.onchange = () => { clearResult(); phase(selected ? 'ready' : 'idle'); render(); };
 $('creator-form').onsubmit = async event => {
-  event.preventDefault(); if (busy || !eligible()) return;
+  event.preventDefault(); if (busy) return;
+  if(!eligible()){window.makeAppReadiness.open(snapshot());return;}
   if(completed&&!api.preview&&format()!=='web'){
     setBusy(true,'open');status('Opening '+completed.name+'…');
     try{await api.openCreated();status(completed.name+' is opening. You can close Make App.');}

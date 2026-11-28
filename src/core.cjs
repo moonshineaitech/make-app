@@ -84,7 +84,19 @@ async function detectInternal(input,options={}) {
   }
   if (await exists(path.join(source, 'index.html'))) return {kind:'static', source, root:source, entry:'index.html', name:path.basename(source), label:'Static web app'};
   for(const filename of ['main.py','app.py','main.js','index.js'])if(await exists(path.join(source,filename)))return{kind:'tool',framework:filename.endsWith('.py')?'python':'node',source,root:source,entry:filename,name:path.basename(source),label:filename.endsWith('.py')?'Python desktop tool':'Node desktop tool',needsInstall:false};
+  // Codex games often use game.html or a named HTML entry instead of index.html.
+  const localEntries=await fs.readdir(source,{withFileTypes:true});
+  const html=localEntries.filter(e=>e.isFile()&&/\.html?$/i.test(e.name)).map(e=>e.name).sort();
+  if(html.length===1)return{kind:'static',source,root:source,entry:html[0],name:path.basename(source),label:'HTML game / app'};
+  if(html.length>1)return{kind:'selection',source,root:source,name:path.basename(source),label:'HTML games / apps',candidates:html.map(name=>({path:path.join(source,name),name:path.basename(name,path.extname(name)),label:'HTML entry point'}))};
   const workspace=await require('./projects.cjs').discover(source,options);if(workspace)return workspace;
+  // Keep all neighbouring data/PCK/DLL files when wrapping an exported game.
+  if(process.platform==='win32'){
+    let games=localEntries.filter(e=>e.isFile()&&/\.exe$/i.test(e.name)&&!/^(?:unins\d*|uninstall|setup|crashpad_handler|UnityCrashHandler\d*|update)(?:\.|$)/i.test(e.name)).map(e=>e.name).sort();
+    const nativeGames=games.filter(name=>localEntries.some(e=>e.name.toLowerCase()===(path.basename(name,'.exe')+'.pck').toLowerCase()||e.name.toLowerCase()===(path.basename(name,'.exe')+'_Data').toLowerCase()));if(nativeGames.length)games=nativeGames;
+    if(games.length===1)return detectInternal(path.join(source,games[0]),options);
+    if(games.length>1)return{kind:'selection',source,root:source,name:path.basename(source),label:'Native games / apps',candidates:games.map(name=>({path:path.join(source,name),name:path.basename(name,'.exe'),label:'Windows executable'}))};
+  }
   return require('./projects.cjs').record(source,{mode:'tool',configured:false,run:['your-runtime','your-entrypoint'],requirements:[],notes:['No automatic entry point was found. Set the actual build and run commands in the launch plan before running.']},'Configure project');
 }
 async function detect(input,options={}){let record=await detectInternal(input,options);if(record.plan?.configured===false)record=await require('./adapters.cjs').discover(record.root,options.adapterDirectory)||record;record.executionSummary=require('./execution-plan.cjs').describe(record);return record;}

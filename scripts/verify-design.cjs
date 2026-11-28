@@ -49,7 +49,7 @@ app.whenReady().then(async () => {
   for (const theme of ['light', 'dark']) {
     nativeTheme.themeSource = theme;
     const win = new BrowserWindow({ show: false, width: 1000, height: 900, webPreferences: { preload: path.join(root, 'src/creator-preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false, backgroundThrottling: false } });
-    await win.loadURL(origin + '/app/creator.html?theme=' + theme); await until(() => evaluate(win, `!document.getElementById('make').disabled`), 'project inspection');
+    await win.loadURL(origin + '/app/creator.html?theme=' + theme); await until(() => evaluate(win, `document.getElementById('make').dataset.ready==='true'`), 'project inspection');
     await evaluate(win, 'document.fonts.ready'); await evaluate(win, axe);
     assert.equal(await evaluate(win, 'window.makeApp.preview'), undefined, 'The browser demo must not replace native IPC');
     for (const width of [1000, 900, 520, 390, 320]) { win.setContentSize(width, 1050); await stable(win); checks.push(await scan(win, 'creator', theme, width)); }
@@ -70,11 +70,15 @@ app.whenReady().then(async () => {
       creationMode = 'success';
       await evaluate(win, `document.getElementById('source').value='C:/Projects/slow-a';document.getElementById('source').dispatchEvent(new Event('change'));true`);
       await delay(35); await evaluate(win, `document.getElementById('source').value='C:/Projects/fast-b';document.getElementById('source').dispatchEvent(new Event('input'));true`);
-      await delay(230); assert.equal(await evaluate(win, `document.getElementById('make').disabled`), true, 'A stale inspection must not enable the wrong project');
-      await until(() => evaluate(win, `document.getElementById('name').value==='Fast B'&&!document.getElementById('make').disabled`), 'newest inspection');
+      await delay(230); assert.equal(await evaluate(win, `document.getElementById('make').dataset.ready==='true'`), false, 'A stale inspection must not enable the wrong project');
+      await until(() => evaluate(win, `document.getElementById('name').value==='Fast B'&&document.getElementById('make').dataset.ready==='true'`), 'newest inspection');
       await evaluate(win, `document.getElementById('source').value='C:/Projects/invalid';document.getElementById('source').dispatchEvent(new Event('change'));true`);
       await until(() => evaluate(win, `document.getElementById('source').getAttribute('aria-invalid')==='true'`), 'invalid source');
-      assert.equal(await evaluate(win, `document.getElementById('make').disabled`), true);
+      assert.equal(await evaluate(win, `document.getElementById('make').dataset.ready==='true'`), false);
+      await evaluate(win, `document.getElementById('make').click();true`);
+      assert.equal(await evaluate(win, `document.getElementById('creation-help').open`),true);
+      assert.match(await evaluate(win, `document.getElementById('creation-help-copy').textContent`),/existing project folder/);
+      await evaluate(win, `document.getElementById('close-creation-help').click();true`);
     }
     win.destroy();
   }

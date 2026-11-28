@@ -8,6 +8,8 @@ Recent apps use local completion receipts to open or reveal registered exports a
 
 Standalone exports retain their verified project/runtime bundle, extraction progress, cancellation cleanup and cached launch behavior. This remains an unsigned preview; release binaries remain draft and the website remains local.
 
+Create remains actionable when detection, entry selection, output format or target requirements need attention. A readable dialog explains the reason and offers the next action; it can copy local troubleshooting details. Named HTML game files and Windows exported game folders are discovered automatically, with choices when several entries remain. Godot/Unity editor projects explain the current engine-export requirement. Routine pushes no longer start GitHub Actions; source checks run on pull requests or manual dispatch, and native qualification is reserved for deliberate release work.
+
 ## Previous: Make App 0.18.3 — visible standalone startup
 
 First launch now reports actual verification and extraction progress, including completed files and bytes. The opening window retains its log for late subscribers and errors, and cached launches show a separate starting state. Cancel remains visible in the compact opening layout.

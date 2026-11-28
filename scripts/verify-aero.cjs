@@ -29,7 +29,7 @@ app.whenReady().then(async()=>{
   // Deliberately oppose OS and theme palettes to catch inherited color-scheme defects.
   nativeTheme.themeSource=['midnight_tide','aurora_lake'].includes(theme)?'light':'dark';
   win.setContentSize(1487,1058);await win.loadURL(url+'?style='+theme);
-  await until(()=>evaluate(win,"document.body.dataset.phase==='ready'&&!document.getElementById('make').disabled"),theme+' ready');await evaluate(win,'document.fonts.ready');
+  await until(()=>evaluate(win,"document.body.dataset.phase==='ready'&&document.getElementById('make').dataset.ready==='true'"),theme+' ready');await evaluate(win,'document.fonts.ready');
   await evaluate(win,axe);await scan(theme,1487);await capture(win,theme+'.png');
   await evaluate(win,"document.getElementById('project-details').click();true");
   assert.equal(await evaluate(win,"document.getElementById('project-information').open"),true,'Project requirements remain available in photographic layouts');

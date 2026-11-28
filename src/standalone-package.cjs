@@ -5,6 +5,7 @@ function support(record){
  const requirements=record.plan?.requirements||[],node=!!record.nodeMajor||requirements.some(r=>['node','npm','pnpm','yarn'].includes(r)),compiled=['rust','go','c','cpp','cmake','dotnet','java'].includes(record.adapter),python=record.adapter==='python'||requirements.includes('python');
  if(record.kind==='url')return{supported:false,reason:'Choose the website’s local project folder to include its files.'};
  if(requirements.includes('docker'))return{supported:false,reason:'This project needs a Docker engine. A standalone desktop export cannot include that external service.'};
+ if(requirements.includes('godot')||requirements.includes('Unity'))return{supported:false,reason:'This is a game editor project. Export a desktop build from '+(requirements.includes('godot')?'Godot':'Unity')+', then choose the exported game folder in Make App. Its executable and neighbouring game data will be included. Editor projects do not yet have a standalone build adapter.'};
  if(!node&&!compiled&&!python&&requirements.some(r=>!['sh','bash','powershell','pwsh'].includes(r))&&!['static','tool'].includes(record.kind))return{supported:false,reason:'Standalone packaging is not available for '+requirements.join(', ')+'. Its runtime would still be needed on the recipient computer.'};
  return{supported:true,reason:'Project files, dependencies and its supported runtime or compiled build are included.'};
 }
