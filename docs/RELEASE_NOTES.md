@@ -1,4 +1,8 @@
-# Make App 0.18.0 — standalone desktop apps
+# Make App 0.18.1 — practical standalone packages
+
+Standalone packaging now excludes known generated output folders (release, public-release, work and outputs) when the project explicitly ignores them. Runtime commands and workspace paths take precedence, and production build assets such as dist remain included. This avoids embedding old installers and development tool archives in a new app. A Windows single-file size guard refuses oversized output before replacing any existing file.
+
+## Previous: Make App 0.18.0 — standalone desktop apps
 
 Generated desktop apps now contain a streamed, compressed project snapshot, installed dependencies and a managed runtime or a compiled artifact. Move or share the Windows EXE or Linux run file; macOS apps include the payload inside their application bundle. The recipient does not need the original project directory or Make App installed. A private writable copy is extracted on first use, with application data stored on the receiving computer.
 

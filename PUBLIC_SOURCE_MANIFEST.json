@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceVersion": "0.18.0",
+  "sourceVersion": "0.18.1",
   "generatedForReview": true,
   "contentBasis": "Committed Git blob bytes (LF for text), excluding this manifest",
   "files": [
@@ -71,8 +71,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 17775,
-      "sha256": "f9bd4f3500b7383ba92604514e64163665c8bbfcccdbfd580bb7fba414c2acf8"
+      "bytes": 18105,
+      "sha256": "f616e331fa830de286a7a522dc494d1b386c744143de76d827cf70275b09f620"
     },
     {
       "path": "SECURITY.md",
@@ -126,8 +126,8 @@
     },
     {
       "path": "docs/RELEASE_NOTES.md",
-      "bytes": 15669,
-      "sha256": "c867efe7beb0da5d454d1811dd064b83e918d2cf48619e19facf50405d5f683a"
+      "bytes": 16172,
+      "sha256": "eec3846d281e21a70911978c10d5c1b56233849c686d25648a4a9fab18552b1b"
     },
     {
       "path": "docs/RELEASING.md",
@@ -347,7 +347,7 @@
     {
       "path": "integrations/codex/.codex-plugin/plugin.json",
       "bytes": 1420,
-      "sha256": "113e1b5a8da8fcd742c4f5c4a5d6a13bb4a10132bc0367a6b1743f2164af1505"
+      "sha256": "4086a1d0339711e22d233d22a79772e640d78a666225de53752818204824d1cd"
     },
     {
       "path": "integrations/codex/.mcp.json",
@@ -372,17 +372,17 @@
     {
       "path": "integrations/codex/package-lock.json",
       "bytes": 6756,
-      "sha256": "964a436e014bf5222a88d6924dbd47c4b370e6620cab5ed13244ff1129f8513f"
+      "sha256": "98122dfec4b7de0a31f11141a85c1425267662104eb63264eefbec4b398a3085"
     },
     {
       "path": "integrations/codex/package.json",
       "bytes": 437,
-      "sha256": "26b578f8bba5afdbcda8448542b7199a8fbd3f677304e4947abea81fe813a364"
+      "sha256": "f8e9de2b8e2297e36d7295dc59a598233faedf99a0b76fb5a433ed0a8d81f286"
     },
     {
       "path": "integrations/codex/plugin.json",
       "bytes": 1799,
-      "sha256": "57978aedfe8efc9d255d7e1fd7f33f9fb6334e0ea6740278b44754a16100ce48"
+      "sha256": "30e14636c22e3d442022e56994836f2abdd9a96322791e33fc1df18d488b24cc"
     },
     {
       "path": "integrations/codex/scripts/harnesses.cjs",
@@ -457,12 +457,12 @@
     {
       "path": "package-lock.json",
       "bytes": 119130,
-      "sha256": "e5823aeaaa1479eec0cbb25dacccfa7d1dde24423ab010cc747d4c9828a75861"
+      "sha256": "d647b685838bb1fc54ba1709b523ca6e23b2365ca56541ef94301b04234d6371"
     },
     {
       "path": "package.json",
       "bytes": 4500,
-      "sha256": "adc2f75b064e16492c36c60ac50f0ecbfe316756d168d4ddc5821536a9cb4080"
+      "sha256": "b6db971538988d7619ed41cff681bbebfcee3052b15e95794b3d1f63290fc758"
     },
     {
       "path": "qa/README.md",
@@ -726,8 +726,8 @@
     },
     {
       "path": "src/executable.cjs",
-      "bytes": 5671,
-      "sha256": "6675b39f2084fd522dc3f8a81d14f4453dc17844f508ba3dea03532d463373c5"
+      "bytes": 6069,
+      "sha256": "12bdad9bb556a3ab8b864ea6f6b6d98a70cd8c007c761b0fe1454a042f662c62"
     },
     {
       "path": "src/execution-plan.cjs",
@@ -901,8 +901,8 @@
     },
     {
       "path": "src/standalone-package.cjs",
-      "bytes": 10146,
-      "sha256": "4a3d1ba9635aa47670985e0b872225d4c977bb6bab47f2bc42682a753563df04"
+      "bytes": 11384,
+      "sha256": "487618db16f1ffd97c3527fc54bfb832421f64bc540a5c67efbeb91e793cbf72"
     },
     {
       "path": "src/terminal-native.cjs",
@@ -2486,8 +2486,8 @@
     },
     {
       "path": "test/executable.test.cjs",
-      "bytes": 3932,
-      "sha256": "ef37879196478ad54f7a4ebe235c5693c430ab8804b6baed639d0c23e24cc38e"
+      "bytes": 4756,
+      "sha256": "bc6c03770f793896d11878159f958eb6b7fad2f597b4397268a01f0c7a5c1e94"
     },
     {
       "path": "test/existing-folder.test.cjs",
@@ -2546,8 +2546,8 @@
     },
     {
       "path": "test/standalone-package.test.cjs",
-      "bytes": 3208,
-      "sha256": "66d8c10cbdc5b2f50cd9bddf7d1034fd0d900d7554d6fe0014b114bd3cfb91e7"
+      "bytes": 4595,
+      "sha256": "aecd4bd98cde595226945f36c1d84b9662615c8715834a55f07017a209a8f272"
     },
     {
       "path": "test/supervisor.test.cjs",
