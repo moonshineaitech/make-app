@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'">
 <title>Make App</title><script src="aero-scenes-data.js"></script><script src="studio-themes.js"></script><script src="appearance.js"></script><link rel="stylesheet" href="design.css"><link rel="stylesheet" href="creator.css"><link rel="stylesheet" href="aero.css"><link rel="stylesheet" href="photo-scenes.css"><link rel="stylesheet" href="studio-themes.css"><link rel="stylesheet" href="app-views.css"><link rel="stylesheet" href="original-views.css">
-<link rel="stylesheet" href="workspace-polish.css"><link rel="stylesheet" href="refinement.css"><link rel="stylesheet" href="motion.css"><script src="motion.js" defer></script></head>
+<link rel="stylesheet" href="workspace-polish.css"><link rel="stylesheet" href="refinement.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="workflow.css"><script src="motion.js" defer></script></head>
 <body>
 <div id="creator-viewport"><main class="creator-shell">
   <div class="scene-art" aria-hidden="true"></div><div class="scene-dragbar" aria-hidden="true"></div>
@@ -22,6 +22,7 @@
         <div class="folder-row"><span class="icon i-folder" aria-hidden="true"></span><input id="source" placeholder="Choose a project folder" autocomplete="off" spellcheck="false" aria-describedby="detected"><button id="browse" type="button" class="button secondary"><span id="browse-label">Browse</span><span class="icon i-up-right" aria-hidden="true"></span></button></div>
         <div class="saved-field"><label for="saved">Or pick a saved Codex project</label><select id="saved"><option value="">Select a project</option></select></div>
         <div id="entry-area" hidden><label for="entry">Executable entry point</label><select id="entry"></select></div>
+        <div id="subproject-area" hidden><label for="subproject">Project in this workspace</label><select id="subproject"></select></div>
         <button class="detection" id="project-details" type="button" title="Project details"><span id="detection-icon" class="icon i-code" aria-hidden="true"></span><span id="detected" role="status">Setup is detected automatically.</span></button>
         <p class="field-note" id="requirements"></p><p class="field-note" id="credentials"></p>
       </section>
@@ -36,9 +37,9 @@
       </section>
       <section class="review" aria-labelledby="review-heading">
         <div class="review-title"><span class="icon i-shield" aria-hidden="true"></span><h2 id="review-heading">Your project stays yours.</h2></div>
-        <p id="scope">The app opens your existing project folder. Setup is handled on first launch. Keep that folder in place.</p>
+        <p id="scope">Includes the project, dependencies and its supported runtime or compiled build. Share the app without the original folder.</p>
         <label class="save-choice"><input id="ask-save" type="checkbox">Ask where to save the desktop app</label>
-        <dl id="facts" hidden><div><dt>Detected project</dt><dd id="fact-kind"></dd></div><div><dt>First launch</dt><dd id="fact-setup"></dd></div><div><dt>Source copies</dt><dd id="fact-copy">None</dd></div></dl>
+        <dl id="facts" hidden><div><dt>Detected project</dt><dd id="fact-kind"></dd></div><div><dt>First launch</dt><dd id="fact-setup"></dd></div><div><dt>Project files</dt><dd id="fact-copy">Bundled snapshot</dd></div></dl>
       </section>
     </div>
     <div class="creation-bar"><div class="output-receipt"><span class="receipt-icon"><span class="icon i-window" aria-hidden="true"></span></span><div><strong id="output-name">Your next app</strong><span id="output-caption">Choose where to save it next</span></div></div><div class="actions"><button id="cancel" type="button" class="button secondary" hidden>Cancel</button><button id="make" type="submit" class="button primary" disabled><span id="make-label">Create app</span><span class="icon i-arrow" aria-hidden="true"></span></button></div></div>
@@ -51,7 +52,7 @@
   <button class="scene-control" id="scene-sidebar-project" type="button">Project</button><button class="scene-control" id="scene-sidebar-saved" type="button">Saved projects</button><select class="scene-control" id="scene-sidebar-choice" aria-label="Saved project"></select>
   <button class="scene-caption" id="scene-minimize" type="button" aria-label="Minimize window"><img alt=""></button><button class="scene-caption" id="scene-maximize" type="button" aria-label="Maximize or restore window"><img alt=""></button><button class="scene-caption" id="scene-close" type="button" aria-label="Close window"><img alt=""></button>
   <footer class="app-footer"><span><span class="icon i-shield" aria-hidden="true"></span><span id="footer-copy">No account. No API key.</span></span><span id="platform">Local execution</span></footer>
-  <p class="execution-note">Creating an app doesn’t run your project. Opening the desktop app does.</p>
+  <p class="execution-note">Packaging may run dependency and build scripts in a temporary copy. Opening the finished app runs its included project.</p>
 </main></div>
 <dialog id="project-information" class="project-information" aria-labelledby="project-information-title"><header><h2 id="project-information-title">Project details</h2><button id="close-project-information" class="icon-button" type="button" aria-label="Close project details"><span class="icon i-x" aria-hidden="true"></span></button></header><div id="project-information-content"></div></dialog>
 <dialog id="theme-picker" class="theme-picker" aria-labelledby="theme-title" aria-describedby="theme-description">
@@ -62,8 +63,23 @@
   <div class="classic-controls"><div><strong>Classic appearance</strong><p>A quiet canvas, with no scenery.</p></div><label class="sr-only" for="classic-appearance">Classic color mode</label><select id="classic-appearance"><option value="system">Match system</option><option value="light">Light</option><option value="dark">Dark</option></select><button id="use-classic" class="button secondary" type="button" aria-pressed="false">Use Classic</button></div>
   <p id="theme-status" class="theme-status" role="status" aria-live="polite"></p>
 </dialog>
-<button id="open-originals" class="view-launcher original-launcher" type="button" aria-haspopup="dialog" aria-controls="theme-picker"><span class="icon i-window" aria-hidden="true"></span><span>Original designs</span></button>
+<nav id="workflow-tools" class="workflow-tools" aria-label="Make App tools">
+<button id="open-originals" class="view-launcher original-launcher" type="button" aria-haspopup="dialog" aria-controls="theme-picker" aria-label="Original designs"><span class="icon i-sun" aria-hidden="true"></span><span>Designs</span></button>
+<button id="projects-tool" class="view-launcher" type="button" aria-haspopup="dialog" aria-controls="app-views" title="Search projects (Ctrl or Cmd+K)"><span class="icon i-folder" aria-hidden="true"></span><span>Projects</span></button>
+<button id="export-options-button" class="view-launcher" type="button" aria-haspopup="dialog" aria-controls="export-settings" title="Export options (Alt+E)"><span class="icon i-monitor" aria-hidden="true"></span><span>Export</span><small id="export-target-badge"></small></button>
 <button id="open-views" class="view-launcher" type="button" aria-haspopup="dialog" aria-controls="app-views" title="Explore views (Alt+G)"><span class="icon i-menu" aria-hidden="true"></span><span>Views</span></button>
+</nav>
+<dialog id="export-settings" class="export-settings" aria-labelledby="export-settings-title">
+ <header class="export-settings-header"><div><p class="view-eyebrow">READY TO SHARE</p><h2 id="export-settings-title">Your app. The right format.</h2></div><button id="close-export-settings" class="icon-button" type="button" aria-label="Close export options"><span class="icon i-x" aria-hidden="true"></span></button></header>
+ <p class="export-intro">Choose the computer that will run the app. Project files and the supported runtime travel with desktop exports.</p>
+ <div class="export-mode" role="group" aria-label="Output format"><button id="export-desktop" type="button" aria-pressed="true">Desktop app</button><button id="export-web" type="button" aria-pressed="false">Static web app</button></div>
+ <section id="desktop-targets" aria-labelledby="desktop-targets-title"><h3 id="desktop-targets-title">Operating system</h3><div id="export-platforms" class="export-platforms" role="group" aria-label="Operating system"><button type="button" data-target-platform="win32" aria-pressed="false"><strong>Windows</strong><span>.exe</span></button><button type="button" data-target-platform="darwin" aria-pressed="false"><strong>macOS</strong><span>.app</span></button><button type="button" data-target-platform="linux" aria-pressed="false"><strong>Linux</strong><span>.run</span></button></div><label for="export-architecture">Processor</label><select id="export-architecture"></select><p id="export-buildability" role="status"></p><div class="export-target-actions"><button id="use-this-computer" class="button secondary" type="button">Use this computer</button><button id="matching-downloads" class="button secondary" type="button">Downloads for other computers</button></div></section>
+ <section class="export-readiness" aria-labelledby="export-readiness-title"><h3 id="export-readiness-title">Before you create</h3><p id="export-readiness-summary" role="status"></p><ul id="export-checks"></ul></section>
+ <section class="export-sharing" aria-labelledby="export-sharing-title"><h3 id="export-sharing-title">How to share it</h3><p id="export-sharing-copy"></p><p>Recipients use their own private working copy. External accounts, API keys, databases and OS libraries may still be required. Common secret files are excluded; review your project before sharing.</p></section>
+ <section id="export-save-section" class="export-readiness"><h3>Save location</h3><label class="export-save-choice" for="export-ask-save"><input id="export-ask-save" type="checkbox">Ask where to save the desktop app</label><p>Otherwise the app saves to your Desktop with a new filename. Existing files are preserved.</p></section>
+ <section id="latest-export" class="latest-export" hidden aria-labelledby="latest-export-title"><h3 id="latest-export-title">Your saved app</h3><p id="latest-export-path" class="path-text"></p><div class="export-result-actions"><button id="show-latest-output" class="button primary" type="button">Show saved app</button><button id="copy-output" class="button secondary" type="button">Copy path</button><button id="another-app" class="button secondary" type="button">Create another app</button></div></section>
+ <footer class="export-settings-footer"><span id="export-host"></span><button id="export-back" class="button primary" type="button">Back to creating</button></footer>
+</dialog>
 <dialog id="app-views" class="app-views" aria-labelledby="views-title"><header class="views-toolbar"><a class="views-brand" href="#create"><img src="assets/brand.png" alt="" width="32" height="32"><span>Make App</span></a><span class="views-toolbar-note">A place for your next app.</span><button id="close-views" class="icon-button" type="button" aria-label="Close views"><span class="icon i-x" aria-hidden="true"></span></button></header><div class="views-layout"><nav id="views-nav" aria-label="App views"></nav><section class="views-stage"><div id="view-content"></div><p id="view-notice" role="status" aria-live="polite"></p></section></div></dialog>
-<script src="creator-demo.js"></script><script src="creator.js"></script><script src="aero-scenes.js"></script><script src="app-views.js"></script><script src="original-views.js"></script>
+<script src="creator-demo.js"></script><script src="creator.js"></script><script src="workflow.js"></script><script src="aero-scenes.js"></script><script src="app-views.js"></script><script src="original-views.js"></script>
 </body></html>

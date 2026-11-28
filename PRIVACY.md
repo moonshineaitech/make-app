@@ -6,6 +6,8 @@ The converter reads the project folder you choose to infer its setup and launch 
 
 App state, cached runtimes/SDKs, encrypted saved settings and run records are stored locally. Packaging uses a temporary project snapshot and may execute dependency/build scripts there. A receiving computer extracts a private writable copy into local app storage. Opening a live project directly in the converter uses that original folder. Project code and its setup scripts run under your account and can read files or contact services as they normally would.
 
+The creator remembers recently selected project paths and up to twenty completed export receipts, including source/output paths, names, platform, time and file size, in local app storage. Clearing Recent apps removes those receipts without deleting exported files. Copy path writes the selected path to your system clipboard only when requested; the creator does not read your clipboard.
+
 Runtime, SDK and dependency preparation can contact publisher download services and package registries. Your projects can make their own network requests. Those services have their own policies.
 
 The optional local Codex plugin reads selected project files, reports detection results and creates the output file you request. Tool inputs and results pass through your Codex client; its privacy settings and terms apply. Make App does not add a separate relay server. Do not include credentials in tool arguments, issue reports, screenshots or public launchers.

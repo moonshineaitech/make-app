@@ -1,0 +1,56 @@
+/* Native menus get an opaque, paired palette instead of inheriting glass text. */
+select{color-scheme:light}
+select option,select optgroup{background:#f5f9fc!important;color:#152b3f!important;-webkit-text-fill-color:#152b3f!important;text-shadow:none!important}
+select option:checked{background:#dcebf7!important;color:#152b3f!important}
+select option:disabled{color:#596b7a!important;-webkit-text-fill-color:#596b7a!important}
+.workflow-tools{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:35;display:flex;align-items:center;gap:5px;max-width:calc(100vw - 20px);padding:6px;border:1px solid var(--glass-border);border-radius:20px;background:var(--surface);backdrop-filter:blur(24px) saturate(1.2);box-shadow:var(--shadow);-webkit-app-region:no-drag}
+.workflow-tools .view-launcher{position:static;inset:auto;min-height:44px;flex:none;padding:10px 13px;border:1px solid transparent;box-shadow:none;backdrop-filter:none;background:transparent;color:var(--ink);border-radius:14px;white-space:nowrap;font-size:14px;gap:8px}
+.workflow-tools .view-launcher:hover{background:var(--solid);border-color:var(--line)}
+.workflow-tools button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#export-target-badge{font-size:13px;color:var(--secondary);font-weight:450}
+.workflow-tools .icon{width:18px;height:18px}
+body{padding-bottom:86px}
+.export-settings{width:min(700px,calc(100vw - 28px));max-height:calc(100dvh - 28px);padding:28px;border:1px solid var(--glass-border);border-radius:24px;background:var(--solid);color:var(--ink);font:16px/1.6 Geist,'Segoe UI',sans-serif;overflow:auto;box-shadow:var(--shadow)}
+.export-settings::backdrop{background:#03192e99;backdrop-filter:blur(8px)}
+.export-settings-header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.export-settings-header h2{font-size:29px;line-height:1.2;letter-spacing:-.8px;font-weight:600;margin:0}
+.export-settings-header .view-eyebrow{margin:0 0 8px}
+.export-settings .icon-button{flex:none;min-width:44px;min-height:44px}
+.export-settings h3{font-size:16px;font-weight:600;margin:0 0 12px;color:var(--ink)}
+.export-settings p{font-size:14px;line-height:1.7;color:var(--secondary);margin:12px 0}
+.export-settings .export-intro{font-size:16px;margin:17px 0 22px}
+.export-mode{display:flex;gap:5px;padding:5px;border:1px solid var(--line);border-radius:12px;background:var(--subtle);margin-bottom:24px}
+.export-mode button{flex:1;border:1px solid transparent;border-radius:8px;padding:10px;min-height:44px;background:transparent;color:var(--ink);font:550 14px Geist,sans-serif;cursor:pointer}
+.export-mode button[aria-pressed=true]{background:var(--solid);border-color:var(--line);box-shadow:0 2px 6px #001e3112}
+.export-platforms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.export-platforms button{min-height:92px;padding:15px 12px;border:1px solid var(--line);border-radius:14px;background:var(--subtle);color:var(--ink);text-align:left;cursor:pointer;font-family:Geist,sans-serif}
+.export-platforms button strong{display:block;font-size:16px}
+.export-platforms button span{display:block;font-size:14px;color:var(--secondary);margin-top:4px}
+.export-platforms button[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.export-settings label{display:block;font-size:14px;font-weight:550;margin:18px 0 7px}
+.export-settings select{font-size:16px;min-height:48px;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--subtle);color:var(--ink);padding:11px}
+.export-settings button:disabled{opacity:.55;cursor:default}
+.export-settings :is(button,select):focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.export-target-actions,.export-result-actions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.export-settings .button{min-height:44px;font-size:14px}
+.export-readiness,.export-sharing,.latest-export{margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
+#export-checks{margin:14px 0 0;padding:0;list-style:none}
+#export-checks li{position:relative;padding:5px 0 5px 25px;font-size:14px;color:var(--secondary)}
+#export-checks li::before{content:'✓';position:absolute;left:0;color:var(--success);font-weight:650}
+#export-checks li[data-ready=false]::before{content:'•';color:var(--accent)}
+#export-readiness-summary[data-ready=false],#export-buildability[data-ready=false]{color:var(--danger)}
+.export-settings-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:26px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--secondary)}
+.export-settings .path-text{font-size:13px;overflow-wrap:anywhere;user-select:text}
+.export-settings .export-save-choice{display:flex!important;align-items:center;gap:10px;font-size:14px;margin:12px 0;color:var(--ink)}
+.export-settings .export-save-choice input{width:20px!important;min-width:20px;max-width:20px;min-height:20px!important;height:20px;padding:0!important;accent-color:var(--accent)}
+:root[data-photo] body:is([data-phase=creating],[data-phase=success],[data-phase=error]) .workflow-tools{display:flex}
+:root[data-photo] #progress{bottom:155px}
+.app-views .project-copy :is(h2,h3){color:var(--ink)}
+.app-views .project-copy .path-text{color:var(--secondary)}
+.app-views .project-row[data-selected=true]{background:var(--accent-soft);border:1px solid var(--accent-line);padding:16px;border-radius:14px}
+.app-views .recent-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;flex:1 1 340px;justify-content:flex-end}
+.app-views .project-row:has(.recent-actions){flex-wrap:wrap}
+#export-options-button[data-ready=false]{border-color:var(--danger)}
+.app-views .project-row .output-availability{font-size:13px;color:var(--secondary)}
+@media(max-width:650px){.workflow-tools{gap:2px;padding:5px;bottom:10px;border-radius:17px}.workflow-tools .view-launcher{font-size:13px;padding:10px 11px;gap:5px}.workflow-tools .icon,#export-target-badge{display:none}.export-settings{padding:21px;border-radius:18px}.export-settings-header h2{font-size:25px}.export-platforms{gap:7px}.export-platforms button{padding:12px 9px}.export-target-actions .button{flex:1}.export-settings-footer{align-items:flex-start;flex-direction:column}.export-settings-footer .button{width:100%}}
+@media(forced-colors:active){select{color-scheme:light dark}select option,select optgroup,select option:checked{background:Canvas!important;color:CanvasText!important;-webkit-text-fill-color:CanvasText!important}.workflow-tools,.export-settings,.export-mode,.export-platforms button{background:Canvas;color:CanvasText;border:1px solid CanvasText}.export-mode button[aria-pressed=true],.export-platforms button[aria-pressed=true]{outline:2px solid Highlight}.export-settings::backdrop{background:Canvas}.workflow-tools .view-launcher{color:CanvasText}}

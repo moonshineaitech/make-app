@@ -29,7 +29,7 @@
   brandSecondary:()=>byId('scene-secondary-brand'),reviewTitle:()=>byId('scene-review-title'),reviewKind:()=>byId('scene-review-kind'),reviewSetup:()=>byId('scene-setup'),reviewOrigin:()=>byId('scene-origin'),setupLabel:()=>byId('scene-setup-title'),originLabel:()=>byId('scene-location-title'),footer:()=>byId('footer-copy'),
   stepOne:()=>byId('scene-step-one'),stepTwo:()=>byId('scene-step-two'),stepThree:()=>byId('scene-step-three'),stepSource:()=>byId('scene-step-source'),stepOutput:()=>byId('scene-step-output'),stepCreate:()=>byId('scene-step-create'),stepSourceCopy:()=>byId('scene-step-source-copy'),stepOutputCopy:()=>byId('scene-step-output-copy'),stepCreateCopy:()=>byId('scene-step-create-copy')
  };
- function resize(){if(!active)return;const scale=Math.min(innerWidth/1487,window.makeApp?.window?innerHeight/1058:1.4,1.4);main.style.transform='scale('+scale+')';viewport.style.height=(1058*scale)+'px';viewport.style.width=(1487*scale)+'px';viewport.style.maxWidth=(1487*1.4)+'px';}
+ function resize(){if(!active)return;const scale=Math.min(innerWidth/1487,window.makeApp?.window?Math.max(300,innerHeight-86)/1058:1.4,1.4);main.style.transform='scale('+scale+')';viewport.style.height=(1058*scale)+'px';viewport.style.width=(1487*scale)+'px';viewport.style.maxWidth=(1487*1.4)+'px';}
  function relative(spec,parent){return {...spec,box:[spec.box[0]-parent[0],spec.box[1]-parent[1],spec.box[2],spec.box[3]],ink:spec.ink?[spec.ink[0]-parent[0],spec.ink[1]-parent[1],spec.ink[2],spec.ink[3]]:undefined};}
  function controlText(node,key,value){const spec=scene.text[key];if(!node||!spec)return;remember(node);const parent=scene.controls[node.id==='browse-label'?'browse':node.id==='make-label'?'make':node.id==='desktop-label'?'desktop':'web'];text(node,relative(spec,parent),value);}
  function field(node,id,key){
@@ -64,7 +64,7 @@
   const d=scene.text.detected,di=scene.icons.detected;
   if(d){const r=di?[Math.min(di[0],d.box[0]),Math.min(di[1],d.box[1]),d.box[0]+d.box[2]-Math.min(di[0],d.box[0]),Math.max(44,d.box[3],di[3])]:d.box;box(byId('project-details'),r);text(byId('detected'),relative(d,r));if(di){box(byId('detection-icon'),[di[0]-r[0],di[1]-r[1],di[2],di[3]]);byId('detection-icon').style.setProperty('--photo-detected','url("assets/photographic/'+scene.id+'/detected.png")');}}
   for(const [key,id,textKey]of [['sidebarProject','scene-sidebar-project','sidebarProject'],['sidebarSaved','scene-sidebar-saved','sidebarSaved'],['sidebarChoice','scene-sidebar-choice','sidebarChoice']]){const node=byId(id);node.hidden=!scene.controls[key];if(scene.controls[key]){material(node,key);if(scene.text[textKey]){const t=scene.text[textKey],r=scene.controls[key];Object.assign(node.style,{fontSize:t.fontSize+'px',fontWeight:t.weight,color:t.color,paddingLeft:Math.max(0,t.box[0]-r[0])+'px',textAlign:'left'});}}}
-  for(const node of [document.querySelector('.review'),byId('entry-area'),byId('requirements'),byId('credentials'),byId('web-hint')])moveToInformation(node);
+  for(const node of [document.querySelector('.review'),byId('entry-area'),byId('subproject-area'),byId('requirements'),byId('credentials'),byId('web-hint')])moveToInformation(node);
   const action=scene.controls.make;remember(byId('busy-progress'));byId('busy-progress').style.cssText='left:'+action[0]+'px;top:'+(action[1]-12)+'px;width:'+action[2]+'px';
   resize();reflect();
  }
@@ -80,14 +80,14 @@
   }
   byId('scene-review-kind').textContent=scene.reviewKind==='format'?byId('desktop-label').textContent:byId('fact-kind').textContent;
   byId('scene-setup').textContent=byId('fact-setup').textContent;
-  byId('scene-origin').textContent=web?'Static assets':'Original folder';
+  byId('scene-origin').textContent=web?'Static assets':'Bundled project';byId('scene-location-title').textContent='Project files';
   if(scene.text.reviewTitle)byId('scene-review-title').textContent=scene.text.reviewTitle.text;
   const detection=byId('detected');detection.style.color=document.body.dataset.phase==='error'?'var(--danger)':scene.text.detected?.color||scene.colors.ink||'#102032';
-  const short=byId('scene-sidebar-choice');if(short.options.length!==byId('saved').options.length){short.replaceChildren(...[...byId('saved').options].map(option=>new Option(option.text,option.value)));}short.value=byId('saved').value;
+  const short=byId('scene-sidebar-choice'),options=[...byId('saved').options],signature=JSON.stringify(options.map(o=>[o.text,o.value]));if(short.dataset.options!==signature){short.replaceChildren(...options.map(option=>new Option(option.text,option.value)));short.dataset.options=signature;}short.value=byId('saved').value;
   short.disabled=byId('saved').disabled;byId('scene-sidebar-saved').disabled=short.disabled;byId('scene-sidebar-project').disabled=byId('source').disabled;
-  if(!byId('entry-area').hidden&&!byId('theme-picker').open&&!byId('project-information').open)byId('project-information').showModal();
+  const choice=window.makeAppCreator.state().selected;if(choice&&(choice.selection||choice.configured===false)&&document.body.dataset.phase==='ready'&&!['theme-picker','project-information','export-settings','app-views'].some(id=>byId(id).open))byId('project-information').showModal();
  }
- byId('project-details').addEventListener('click',()=>{if(!byId('project-information').open){for(const node of [document.querySelector('.review'),byId('entry-area'),byId('requirements'),byId('credentials'),byId('web-hint')])moveToInformation(node);byId('project-information').showModal();}});
+ byId('project-details').addEventListener('click',()=>{if(!byId('project-information').open){for(const node of [document.querySelector('.review'),byId('entry-area'),byId('subproject-area'),byId('requirements'),byId('credentials'),byId('web-hint')])moveToInformation(node);byId('project-information').showModal();}});
  byId('close-project-information').addEventListener('click',()=>{byId('project-information').close();if(!active)for(const[node,anchor]of moved)anchor.after(node);});
  byId('scene-sidebar-project').addEventListener('click',()=>byId('source').focus());
  byId('scene-sidebar-saved').addEventListener('click',()=>{byId('scene-sidebar-choice').focus();byId('scene-sidebar-choice').showPicker?.();});

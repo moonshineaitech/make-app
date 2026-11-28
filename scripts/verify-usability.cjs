@@ -1,0 +1,28 @@
+// Actual renderer, explicitly labelled browser samples; native execution is separate.
+const {app,BrowserWindow,nativeTheme}=require('electron'),fs=require('node:fs/promises'),path=require('node:path'),assert=require('node:assert/strict');
+const output=path.resolve(process.env.MAKE_APP_USABILITY_OUTPUT||path.join(__dirname,'../qa/usability'));app.disableHardwareAcceleration();app.commandLine.appendSwitch('force-device-scale-factor','1');app.setPath('userData',path.join(output,'profile'));app.on('window-all-closed',()=>{});
+setTimeout(()=>{console.error('Usability verification exceeded three minutes');app.exit(1);},180000).unref();
+const pause=ms=>new Promise(r=>setTimeout(r,ms));
+app.whenReady().then(async()=>{
+ await fs.mkdir(output,{recursive:true});const server=require('./preview-site.cjs').createServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));const win=new BrowserWindow({show:false,width:1487,height:1058,webPreferences:{offscreen:true,sandbox:true,contextIsolation:true,nodeIntegration:false,backgroundThrottling:false}}),run=code=>win.webContents.executeJavaScript(code),errors=[],checks=[];win.webContents.on('console-message',event=>{if(event.level==='error')errors.push(event.message);});
+ const until=async code=>{for(let i=0;i<150;i++){if(await run(code))return;await pause(30);}throw Error('Timed out: '+code+'; '+JSON.stringify(errors));};
+ const stable=async()=>{await pause(60);await run('document.getAnimations().filter(a=>Number.isFinite(a.effect.getComputedTiming().endTime)).forEach(a=>a.finish());true');};
+ const capture=async name=>{await stable();await fs.writeFile(path.join(output,name+'.jpg'),(await win.webContents.capturePage()).toJPEG(88));};
+ const axe=await fs.readFile(path.join(__dirname,'../node_modules/axe-core/axe.min.js'),'utf8');
+ // The theme registry is the source of truth; it includes the original ten and studio ten.
+ await win.loadURL('http://127.0.0.1:'+server.address().port+'/app/creator.html');await until("document.body.dataset.phase==='ready'&&!document.getElementById('make').disabled");const themes=await run("[...document.querySelectorAll('[data-theme-choice]')].map(b=>b.dataset.themeChoice)");assert.equal(themes.length,20);
+ for(const [index,id]of themes.entries()){
+  nativeTheme.themeSource=index%2?'dark':'light';win.setContentSize(1487,1058);await win.loadURL('http://127.0.0.1:'+server.address().port+'/app/creator.html?style='+id);await until("document.body.dataset.phase==='ready'&&!document.getElementById('make').disabled");await run('document.fonts.ready');await stable();
+  const host=await run('makeAppCreator.state().platform');await run("document.getElementById('export-options-button').click();true");assert.equal(await run("document.getElementById('export-settings').open"),true);
+  const targets=await run('makeAppCreator.state().platform.targets');assert.equal(targets.length,5);
+  for(const target of targets){await run(`makeAppCreator.selectTarget(${JSON.stringify(target.platform)},${JSON.stringify(target.arch)});true`);assert.equal(await run('document.getElementById("make").disabled'),target.platform!==host.platform||target.arch!==host.arch);assert.equal(await run('document.getElementById("export-architecture").value'),target.arch);}
+  await run('document.getElementById("use-this-computer").click();true');await capture(id+'-export');
+  await run(axe);const violations=await run("axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}}).then(r=>r.violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)})))");
+  const options=await run(`(()=>{const rgb=s=>s.match(/[\\d.]+/g).slice(0,3).map(Number),lum=c=>c.map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}).reduce((n,v,i)=>n+v*[.2126,.7152,.0722][i],0);return[...document.querySelectorAll('select option,select optgroup')].map(e=>{const s=getComputedStyle(e),a=lum(rgb(s.color)),b=lum(rgb(s.backgroundColor));return{text:e.textContent,ratio:(Math.max(a,b)+.05)/(Math.min(a,b)+.05),color:s.color,background:s.backgroundColor};});})()`);
+  assert.ok(options.length>6);assert.ok(options.every(o=>o.ratio>=4.5),'Unreadable menu in '+id+': '+JSON.stringify(options.filter(o=>o.ratio<4.5)));
+  for(const width of [1487,390,320]){win.setContentSize(width,1058);await stable();const layout=await run("(()=>{const d=document.getElementById('export-settings'),b=document.getElementById('workflow-tools');return{page:document.documentElement.scrollWidth>innerWidth,dialog:d.scrollWidth>d.clientWidth+1,dock:b.getBoundingClientRect().width>innerWidth};})()");assert.ok(!layout.page&&!layout.dialog&&!layout.dock,'Overflow '+id+' '+width+': '+JSON.stringify(layout));}
+  win.setContentSize(1487,1058);await run("document.getElementById('close-export-settings').click();document.getElementById('projects-tool').click();true");await stable();assert.equal(await run('document.querySelectorAll(".project-row").length'),3);await capture(id+'-projects');
+  checks.push({theme:id,platformTargets:5,menuOptions:options.length,minimumMenuContrast:Math.min(...options.map(o=>o.ratio)),violations});console.log('Checked platform choices, menus and shared controls: '+id);
+ }
+ const passed=!errors.length&&checks.every(c=>!c.violations.length);await fs.writeFile(path.join(output,'verification.json'),JSON.stringify({passed,checks,errors,scope:'All twenty actual renderer themes, five truthful target combinations, opaque menu contrast and responsive shared export controls. Native app creation is qualified separately.'},null,2)+'\n');console.log(JSON.stringify({passed,themes:checks.length,violations:checks.filter(c=>c.violations.length),errors,output}));win.destroy();server.close();app.exit(passed?0:1);
+}).catch(error=>{console.error(error);app.exit(1);});

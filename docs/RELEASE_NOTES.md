@@ -1,4 +1,14 @@
-# Make App 0.18.3 — visible standalone startup
+# Make App 0.19.0 — one workspace, every design
+
+Every original and studio design exposes the same project, export and workspace controls. Export options show Windows, macOS and Linux, the five supported OS/CPU combinations, and matching file formats and sharing instructions. Desktop creation remains local to the matching OS and CPU; unsupported cross-host requests are refused before a save prompt.
+
+Project dropdowns use an opaque text/background palette across all twenty themes. The project library highlights the current project, refreshes saved Codex projects and remembers recently browsed folders. Multi-project folders expose a project chooser. Inspection reports known unsupported standalone runtimes before creation.
+
+Recent apps use local completion receipts to open or reveal registered exports after restarting Make App. Moved files are reported as unavailable, and clearing the list preserves the files. Native clipboard writing is scoped to the trusted converter UI; project windows keep their separate permission rules. Export options include copy-path, create-another and sharing guidance.
+
+Standalone exports retain their verified project/runtime bundle, extraction progress, cancellation cleanup and cached launch behavior. This remains an unsigned preview; release binaries remain draft and the website remains local.
+
+## Previous: Make App 0.18.3 — visible standalone startup
 
 First launch now reports actual verification and extraction progress, including completed files and bytes. The opening window retains its log for late subscribers and errors, and cached launches show a separate starting state. Cancel remains visible in the compact opening layout.
 

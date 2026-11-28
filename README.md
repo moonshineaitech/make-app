@@ -17,7 +17,11 @@ The creator includes twenty selectable Frutiger Aero themes and a Classic appear
 3. Click **Create app**. A fresh executable is saved on your Desktop automatically.
 4. Click **Open app**. Next time, double-click the Desktop file.
 
-Make App remembers your last project. Setup is detected automatically; choose an entry point only when a project has several. Existing Desktop files are preserved. To choose another destination, enable **Ask where to save the desktop app** in Project details.
+Make App remembers your last project and recently chosen folders. Setup is detected automatically; choose an entry point only when a project has several. Existing Desktop files are preserved. The persistent bottom toolbar provides **Designs**, **Projects**, **Export** and **Views** in every design, including the original ten.
+
+Open **Export** (or press **Alt+E**) to choose desktop or static web output, see Windows/macOS/Linux and CPU options, and choose a save location. Desktop creation runs on the matching OS and CPU; another target shows the matching download and explains which computer is needed. **Use this computer** restores the correct target. Unsupported standalone runtimes are explained before creation begins.
+
+**Views → Recent apps** remembers up to twenty completed exports locally. Open an available desktop app, show its file, copy its path, or create it again from the source. Moved files are marked unavailable. Clearing this list preserves your exported files. The success screen also offers **Create another app**.
 
 Desktop outputs now include a compressed project snapshot, installed dependencies and the required managed runtime or compiled artifact. **Move or share the finished executable; the original project folder and converter are not required.** First launch extracts a private writable copy into app storage. Windows uses one `.exe`, Linux one `.run`, and macOS an `.app` bundle (zip it to share). Build for the recipient OS and architecture.
 
