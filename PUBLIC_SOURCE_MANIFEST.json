@@ -126,8 +126,8 @@
     },
     {
       "path": "docs/RELEASE_NOTES.md",
-      "bytes": 16586,
-      "sha256": "76a72befa41ba713fc5f011d0da9d2472e33ec5d0415f6a7019f1a21f4230af8"
+      "bytes": 16804,
+      "sha256": "d6df4880da201893c7a1c8ecd67bef9148a870eee714f2a71a2d705f6e5a47d2"
     },
     {
       "path": "docs/RELEASING.md",
@@ -901,8 +901,8 @@
     },
     {
       "path": "src/standalone-package.cjs",
-      "bytes": 11384,
-      "sha256": "487618db16f1ffd97c3527fc54bfb832421f64bc540a5c67efbeb91e793cbf72"
+      "bytes": 11441,
+      "sha256": "79aed6584d6147e38905a148affc72ed2b71d9ed84c3e2760afdc560c2e0fd9a"
     },
     {
       "path": "src/terminal-native.cjs",
@@ -2546,8 +2546,8 @@
     },
     {
       "path": "test/standalone-package.test.cjs",
-      "bytes": 4595,
-      "sha256": "aecd4bd98cde595226945f36c1d84b9662615c8715834a55f07017a209a8f272"
+      "bytes": 5670,
+      "sha256": "ddf4a34bf558cbfc3a478775991bbeda0090f6bc4ef1a3a5c6be92cadb79baa6"
     },
     {
       "path": "test/supervisor.test.cjs",
