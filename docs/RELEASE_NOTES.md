@@ -1,4 +1,12 @@
-# Make App 0.18.2 — relocated pnpm workspaces
+# Make App 0.18.3 — visible standalone startup
+
+First launch now reports actual verification and extraction progress, including completed files and bytes. The opening window retains its log for late subscribers and errors, and cached launches show a separate starting state. Cancel remains visible in the compact opening layout.
+
+Extraction caches prepared directories and processes small files with a bounded queue of eight writers. Large assets stay streamed. Writes finish and close before links are created or failed/cancelled extraction folders are removed. Regression coverage includes simultaneous disk failures, cancellation with active writes, binary assets, permissions and internal dependency links.
+
+Standalone output formats and runtime coverage are unchanged. Previously generated apps need to be regenerated to use the improved opening flow. This remains an unsigned preview; release binaries remain draft.
+
+## Previous: Make App 0.18.2 — relocated pnpm workspaces
 
 Packaged dependency snapshots now skip pnpm checks that depend on the developer computer’s old workspace path. The bundled archive is checked before extraction, and the recipient runs its included dependencies without an implicit install. Live source projects keep the strict dependency check. The fix was verified against the moved Vespera snapshot.
 

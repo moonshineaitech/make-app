@@ -1,6 +1,6 @@
 {
   "name": "appdock",
-  "version": "0.18.2",
+  "version": "0.18.3",
   "description": "Create desktop apps and installable web exports from local projects",
   "author": "GoldRock AI",
   "license": "MIT",
