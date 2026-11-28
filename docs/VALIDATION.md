@@ -1,5 +1,17 @@
 # Validation and open gates
 
+## 0.19 local Windows qualification
+
+The local Windows x64 build includes actionable Create guidance, named HTML and exported-game detection, the shared toolbar, five OS/CPU choices and saved export receipts. All twenty designs passed menu contrast, target selection, Create guidance, responsive layout and automated accessibility checks. The Classic creator and website passed twenty-two layout checks, including invalid-source guidance. The source suite passed 108 tests, with one POSIX-only test skipped on Windows.
+
+LunaFold, Vespera Shardfall and CoWork Gold were packaged with the final local converter, moved and renamed, then opened with fresh recipient profiles and runtime downloads blocked. Their original source fingerprints remained unchanged. A named HTML game fixture launched after its source was deleted. The existing Congressional Subpena Simulator desktop build was packaged with its game data; its moved EXE visibly opened the native menu and responded to a preparation-panel action. That native observation is a bounded UI check, not a full gameplay playtest. Its automatic shutdown report was interrupted, so the native result is recorded separately as manual window verification.
+
+The native Windows creator passed create/open, remembered project, export receipts, opening from Recent apps, rejection of unknown receipt IDs and rejection of a foreign target before a save dialog. Rust and Python EXEs launched after source deletion with system toolchains unavailable. A separate source-deletion proof checked an installed Node dependency, asset and excluded dot-env file. Temporary receiving profiles and test copies were removed after retaining the resulting EXEs and records.
+
+This iteration was qualified locally on Windows. macOS/Linux target choices explain matching-host requirements; they do not claim arbitrary cross-compilation. Routine pushes no longer trigger Actions. Pull requests and deliberate manual release checks retain their workflows. The website remains local and the preview is unsigned.
+
+## Earlier evidence
+
 The 0.12 interface preview adds twenty total designs and twelve utility views. Its focused Electron renderer smoke passed 54 layout checks and creation, cancellation and project-search behavior. Native engine compatibility evidence below is from earlier runs; the full cross-platform release matrix has not been repeated for this UI iteration.
 
 The 0.9 interface adds native Electron design checks for 15 light/dark and responsive layouts, automated accessibility rules, horizontal overflow, creation/cancellation/errors, stale inspections, preview resizing and website controls. These use controlled fixtures. The native desktop matrix separately verifies actual app creation and launch. See [interface verification](INTERFACE.md).
