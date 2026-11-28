@@ -15,7 +15,7 @@
   const delay = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
   Object.defineProperty(window,'makeApp',{value:Object.freeze({
     preview:true,
-    async capabilities(){return{name,extension,platform,arch:'x64',supported:true,version:'0.20.0 preview',targets,crossCompilation:false};},
+    async capabilities(){return{name,extension,platform,arch:'x64',supported:true,version:'0.21.0 preview',targets,crossCompilation:false};},
     async checkOutput(){await delay(300);return{status:'preview',detail:'No local app was run. Use the desktop converter to check an actual export.'};},onCheckProgress(){},async outputs(){return[];},async clearOutputs(){},
     async guide(section){if(section==='downloads'){if(parent!==window)parent.postMessage({type:'make-app:download'},location.origin);else location.href='../#download';return;}window.open('https://github.com/moonshineaitech/make-app','_blank','noopener,noreferrer');},
     async projects(){return samples.map(sample=>({name:sample.name,path:sample.path}));},

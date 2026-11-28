@@ -2,15 +2,11 @@
 const fs=require('node:fs/promises'),path=require('node:path'),crypto=require('node:crypto');
 const unsupported=message=>Object.assign(Error(message),{code:'CHECK_UNSUPPORTED'});
 async function descriptor(file){
- const stat=await fs.lstat(file);if(stat.isSymbolicLink())throw Error('The saved app is a link. Choose its original export.');let spec;
- if(stat.isDirectory()&&process.platform==='darwin'&&file.endsWith('.app')){const p=path.join(file,'Contents/Resources/make-app-project.json'),s=await fs.lstat(p);if(!s.isFile()||s.isSymbolicLink()||s.size>1048576)throw Error('The app settings are invalid.');spec=JSON.parse(await fs.readFile(p,'utf8'));}
- else if(stat.isFile()){
-  const handle=await fs.open(file,'r');try{if(stat.size<96)throw unsupported('Create this app again with the current Make App to enable startup checks.');const footer=Buffer.alloc(96);await handle.read(footer,0,96,stat.size-96);if(footer.subarray(80).toString()!=='APPDOCKEXE000001')throw unsupported('This file does not support Make App startup checks. Create a new standalone export first.');const length=Number(footer.readBigUInt64LE(8));if(!Number.isSafeInteger(length)||length<2||length>1048576||length>stat.size-96)throw Error('The standalone app settings are damaged.');const body=Buffer.alloc(length);const read=await handle.read(body,0,length,stat.size-96-length);if(read.bytesRead!==length||!crypto.createHash('sha256').update(body).digest().equals(footer.subarray(48,80)))throw Error('The standalone app settings failed verification. Create the app again.');spec=JSON.parse(body);}finally{await handle.close();}
- }else throw unsupported('Choose a standalone desktop export.');
+ let info;try{info=await require('./standalone-descriptor.cjs').read(file);}catch(error){if(error.code==='EXPORT_UNSUPPORTED')throw unsupported('Create this app again with Make App 0.20 or newer to enable startup checks.');throw error;}const {spec}=info;
  if(spec.schemaVersion!==2||spec.startupCheckVersion!==1)throw unsupported('Create this app again with Make App 0.20 or newer to enable startup checks.');
  if(spec.bundle?.platform!==process.platform||spec.bundle?.arch!==process.arch)throw unsupported('Run this startup check on the matching OS and processor.');
  const mode=spec.record?.kind==='static'?'static':spec.record?.plan?.mode;if(!['static','web','native','tool'].includes(mode))throw unsupported('This export does not support an automatic startup check. You can still open it normally.');
- return{spec,mode,file:{bytes:stat.size,mtimeMs:stat.mtimeMs}};
+ return{...info,mode};
 }
 function report(value,token){if(!value||value.schemaVersion!==1||value.token!==token||typeof value.passed!=='boolean'||value.stopped!==true||!['static','web','native','tool'].includes(value.mode))throw Error('The app did not return a valid completed startup check.');return{status:value.passed?'passed':'failed',mode:value.mode,detail:String(value.detail||'').slice(0,4000),error:value.error?String(value.error).slice(0,4000):undefined};}
 async function check(file,dataRoot,{signal,onProgress=()=>{},timeoutMs=180000,spawnProcess=require('./process-broker.cjs').spawn}={}){

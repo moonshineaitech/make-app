@@ -1,4 +1,12 @@
-# Make App 0.20.0 — check an export before sharing
+# Make App 0.21.0 — reconnect moved apps
+
+Recent apps can reconnect a moved or renamed standalone export with **Find moved app**. Its native picker accepts a finished app, compares its bounded embedded settings with the saved export identity, updates that entry and refreshes the current app’s Open action. Cancelled selection and a different export preserve the saved location. Local fallback history follows the new path without adding a duplicate row. Missing current exports no longer leave Open enabled.
+
+Available older receipts automatically acquire an identity. Entries already missing without one explain that a new export is needed. A previous startup result remains historical; moving the app or changing its file metadata recommends another check. This settings match and metadata hint are not a full-file integrity attestation or publisher signature. The standalone launch path continues to verify its runtime and payload.
+
+The original ten and studio ten designs share the recovery control and responsive layout. Windows, macOS and Linux keep their matching formats and host requirements; the current local binary qualification is Windows x64.
+
+## Previous: Make App 0.20.0 — check an export before sharing
 
 Check launch runs a newly exported desktop app in a temporary receiving profile, checks initial startup, stops it and removes that copy. Export and Recent apps share the action across all twenty designs. Results distinguish passed, failed, cancelled, timed out and older unsupported exports; Recent apps records the last result locally. This is a startup check, not a full functionality or gameplay test.
 

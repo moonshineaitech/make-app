@@ -21,9 +21,9 @@ Make App remembers your last project and recently chosen folders. Setup is detec
 
 Open **Export** (or press **Alt+E**) to choose desktop or static web output, see Windows/macOS/Linux and CPU options, and choose a save location. Desktop creation runs on the matching OS and CPU; another target shows the matching download and explains which computer is needed. **Use this computer** restores the correct target. Unsupported standalone runtimes are explained before creation begins.
 
-**Views → Recent apps** remembers up to twenty completed exports locally. Open an available desktop app, show its file, copy its path, or create it again from the source. Moved files are marked unavailable. Clearing this list preserves your exported files. The success screen also offers **Create another app**.
+**Views → Recent apps** remembers up to twenty completed exports locally. Open an available desktop app, show its file, copy its path, or create it again from the source. After moving or renaming an export, use **Find moved app** and choose the finished file or complete `.app` bundle. Make App compares its embedded export settings with the saved entry, reconnects that location and updates the current app’s Open action. Cancelling or choosing another export preserves the entry. Available older entries acquire this identity automatically; an older entry already missing without an identity needs a fresh export. Clearing the list preserves your exported files. The success screen also offers **Create another app**.
 
-**Create stays clickable while a project needs attention.** It opens readable guidance with an action to choose a folder, select an entry point, switch output format, or restore this computer’s OS/CPU. Copy details includes the version, project path and reason for troubleshooting. The button locks only while creation or opening is in progress.
+**Create stays clickable while a project needs attention.** It opens readable guidance with an action to choose a folder, select an entry point, switch output format, or restore this computer’s OS/CPU. Copy details includes the version, project path and reason for troubleshooting. The button locks while an app operation is in progress.
 
 Use **Projects → Choose file** to select a game’s HTML file, exported EXE or supported script directly. Use a dedicated project folder: neighbouring files are bundled too. Cancelling the picker preserves the current project and result. A folder without recognized entries offers this picker instead of an empty selector. Failed creation shows the exact error, expandable build details and **Try again**. An unavailable saved app offers **Create a fresh app**. Cancelling creation returns to the creator without a failure dialog.
 
@@ -34,6 +34,8 @@ Desktop outputs now include a compressed project snapshot, installed dependencie
 First launch shows verification and extraction progress with file and byte counts. Later launches reuse the prepared copy. Cancelling or encountering a disk error removes the incomplete extraction after its pending writes close.
 
 Before sharing a new export, use **Export → Check launch** or **Recent apps → Check launch**. Make App opens a temporary receiving profile, checks the initial app page, native process or command, stops it and removes that copy. The saved EXE stays in place. Results and their time are kept locally in Recent apps. The check can be cancelled and has a bounded timeout. It checks startup, not full functionality, account access or gameplay. Older exports must be recreated with Make App 0.20 or newer to support this optional check.
+
+Recent apps recommends another startup check when a saved file’s size or modification time changes, or after reconnecting a moved app. This metadata hint and embedded-settings match do not attest to all files inside an app or replace publisher signing. Check launch verifies the bundled payload during its normal opening flow.
 
 Directly selected Python files now use the same bundled-interpreter adapter as Python projects. Recognized GUI/game imports select the native window mode; console scripts retain their command interface.
 

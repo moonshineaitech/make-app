@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceVersion": "0.20.0",
+  "sourceVersion": "0.21.0",
   "generatedForReview": true,
   "contentBasis": "Committed Git blob bytes (LF for text), excluding this manifest",
   "files": [
@@ -66,13 +66,13 @@
     },
     {
       "path": "PRIVACY.md",
-      "bytes": 3841,
-      "sha256": "c09b98f621a8a009ca6c904e5a74b1560e16db6cebe5640ea0fbc4eb872087ad"
+      "bytes": 3736,
+      "sha256": "b7c784bfb9190500733bb904d11e9d7883187a36568384001f4dc0cfe0982549"
     },
     {
       "path": "README.md",
-      "bytes": 22094,
-      "sha256": "1f91b74a812fb98426ca74985bc61c59021804fa2e5a4951edc2478fe3cadc2e"
+      "bytes": 22826,
+      "sha256": "314e4f274202a52587eb6aa16d982e3feb4a9777830ca9d9e69fd197a99e7265"
     },
     {
       "path": "SECURITY.md",
@@ -126,8 +126,8 @@
     },
     {
       "path": "docs/RELEASE_NOTES.md",
-      "bytes": 21710,
-      "sha256": "ed79b88e946d9dc925ad4b3d23b3c1b484ce349a2eb3718865b2790333b9775d"
+      "bytes": 22884,
+      "sha256": "9bb68ce5f7789ffc115f8e0011c5b7155917e8927f87361e7d1c4e78a884246c"
     },
     {
       "path": "docs/RELEASING.md",
@@ -372,17 +372,17 @@
     {
       "path": "integrations/codex/package-lock.json",
       "bytes": 6756,
-      "sha256": "d6e8a3a9148f92931338e43c543b4ac5a7c7b62eb9e03376bbb695003ef2f750"
+      "sha256": "5f3996a9762ab4040c47f82d06cfdf339a093fde83913dd572c1f4edea442186"
     },
     {
       "path": "integrations/codex/package.json",
       "bytes": 437,
-      "sha256": "1300b76e7d2c473fc551c6dce6152e8f9cdadfc0867a2d7e9ab2ecc1b4d8946a"
+      "sha256": "bd5806d9217bbf8c5765847e60dde7d7f788f36cd117ccaa892fd4fa18e3d12b"
     },
     {
       "path": "integrations/codex/plugin.json",
       "bytes": 1799,
-      "sha256": "0c84fb012532b0dd1e3f89aed7c0d1439d8d3696a6a9e11851fbf6dda77ba481"
+      "sha256": "3081a1502106be67525e51b4fe0d6fb09d6c070421ba892b4c9d84eea1489ab2"
     },
     {
       "path": "integrations/codex/scripts/harnesses.cjs",
@@ -457,12 +457,12 @@
     {
       "path": "package-lock.json",
       "bytes": 119130,
-      "sha256": "2099adb799597eef3815a1fadea020ea0fb1fe3791f4bfd5a9c50147c12821b9"
+      "sha256": "620977c95565b46c3cc38ddf99f3213bb076f85074326e3325e8f33da966be23"
     },
     {
       "path": "package.json",
       "bytes": 4571,
-      "sha256": "581049063a04276136a5748910619a907b82588460acd4475803d9148213db40"
+      "sha256": "83bc9d741f919ccfaf65a44a6693c05cb99c37e04aeb3eb0595636352a4ab6bb"
     },
     {
       "path": "qa/README.md",
@@ -631,8 +631,8 @@
     },
     {
       "path": "scripts/verify-usability.cjs",
-      "bytes": 9612,
-      "sha256": "4ae52006696086e3c4b69aefe5522f599cc015753fe3898e9a8f30345497d69e"
+      "bytes": 10803,
+      "sha256": "de34e89e73bbc7e776959f845b72a5210125f6fe4269469bdf07cf6414612e85"
     },
     {
       "path": "scripts/verify-views.cjs",
@@ -701,18 +701,18 @@
     },
     {
       "path": "src/creator-outputs.cjs",
-      "bytes": 3487,
-      "sha256": "fc5166fecb19d143005e6372315a0e8313ac832938cc3eb23f4cf83f36e26c38"
+      "bytes": 5218,
+      "sha256": "3ef4d9c8cce1cea6bf16c760527c3869964c85e634fe18f7313fa15a4160fda0"
     },
     {
       "path": "src/creator-preload.cjs",
-      "bytes": 1403,
-      "sha256": "1b504d4e4d9410f1e0462ee213a1c41906cbefd76e6ed1dbff4fa828d2592211"
+      "bytes": 1471,
+      "sha256": "7a9aa00ead066115b3b78f9fe3442942870e95a612455b4c8692f3fe5f063e20"
     },
     {
       "path": "src/creator-smoke.cjs",
-      "bytes": 10002,
-      "sha256": "56219039d9199572e3e82a7b1e753e72dd6f092c98e57cf3f4ded22752ccc373"
+      "bytes": 12385,
+      "sha256": "22a6e74537797f3bae39306edc26fb02e8427386496306c192af5cf0a98c05ef"
     },
     {
       "path": "src/diagnostics.cjs",
@@ -811,8 +811,8 @@
     },
     {
       "path": "src/main.cjs",
-      "bytes": 61328,
-      "sha256": "4129c11e6177dc0df1cd883f1972f233266eedf1064895a978572ad7aee07785"
+      "bytes": 62437,
+      "sha256": "c54162e73e3ab9d836caa9f33ca92dc6ba6fab930517e7c623dbb10553d6b739"
     },
     {
       "path": "src/managed.cjs",
@@ -920,14 +920,19 @@
       "sha256": "da9e81a48cf8cc4ca6854c3ecde20691ab4912e9f35b0a2783d14321cfbbd6ea"
     },
     {
+      "path": "src/standalone-descriptor.cjs",
+      "bytes": 2395,
+      "sha256": "bc900645fd487a170ad652d1eb3f77a3037420240b7dda6d1944151a5391d64c"
+    },
+    {
       "path": "src/standalone-package.cjs",
       "bytes": 13176,
       "sha256": "21ecbe5101e53b79b01f5cbdb3d2677e17a4cebecc2b3c31056ed3c268870b1a"
     },
     {
       "path": "src/startup-check.cjs",
-      "bytes": 7391,
-      "sha256": "c978e2e479b31ca45b4b07ccef3420a9fc1991298d53d13ddd9da2fd2f4838c7"
+      "bytes": 6150,
+      "sha256": "8c860864303338b41cf2d78c6d09a3212c6ba359cce83047e76f92cf28a5aaa7"
     },
     {
       "path": "src/startup-probe.cjs",
@@ -986,8 +991,8 @@
     },
     {
       "path": "src/ui/app-views.js",
-      "bytes": 36911,
-      "sha256": "a0fb50942d77b0315a2b46da454737e4ddcdca475bf7d2fa35be31fc6a024389"
+      "bytes": 37942,
+      "sha256": "da4a8ab41c8a6f02be35e5624573659c707917c3c7875df7604226f00465a798"
     },
     {
       "path": "src/ui/appearance.js",
@@ -2362,7 +2367,7 @@
     {
       "path": "src/ui/creator-demo.js",
       "bytes": 5760,
-      "sha256": "b50993729348b024c0c55445285d510439fdf0dd359cfd260ac8ca5fbf50c961"
+      "sha256": "6e25202b5e2517b237cdbb0340b40738c544af2a78ace2652e6a1e0b172543fe"
     },
     {
       "path": "src/ui/creator.css",
@@ -2376,8 +2381,8 @@
     },
     {
       "path": "src/ui/creator.js",
-      "bytes": 14749,
-      "sha256": "ae4538e31696b46205c39a01c026c0a7269a86e158c55c4cb11d0cf0249c3d43"
+      "bytes": 15343,
+      "sha256": "b04325111f9711ced7fcc5b4d66aeb70914edaaeb9c522b1fa3cd336992f7701"
     },
     {
       "path": "src/ui/design.css",
@@ -2608,6 +2613,11 @@
       "path": "test/recovery.test.cjs",
       "bytes": 10517,
       "sha256": "13c51a3e32dd8ac8a7bac6cdd54e2d7cf2679091b98e70416fc685ddacd2de2f"
+    },
+    {
+      "path": "test/relocated-outputs.test.cjs",
+      "bytes": 4662,
+      "sha256": "3093c66a896786b415a408f539cc317eaaacf90dfea441db02fdff41c3f4cc31"
     },
     {
       "path": "test/runtime.test.cjs",
