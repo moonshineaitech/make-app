@@ -2,6 +2,8 @@ const {app,BrowserWindow,ipcMain,dialog,shell,session,protocol,net,Notification,
 const fs=require('node:fs/promises');
 const syncFs=require('node:fs');
 const path=require('node:path');
+// Windows known-folder lookup can fail for a deliberately temporary profile.
+if(process.env.MAKE_APP_CHECK_ROOT&&path.isAbsolute(process.env.MAKE_APP_CHECK_ROOT))app.setPath('appData',path.join(process.env.MAKE_APP_CHECK_ROOT,'roaming'));
 const crypto=require('node:crypto');
 const {pathToFileURL}=require('node:url');
 const {spawn}=require('node:child_process');

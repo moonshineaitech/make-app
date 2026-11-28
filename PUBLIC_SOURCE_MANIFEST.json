@@ -806,8 +806,8 @@
     },
     {
       "path": "src/main.cjs",
-      "bytes": 61088,
-      "sha256": "349346b89aef395dbfbd1ae47b5fa0e1d80de48b65cdbb056aeb7fc073173a2e"
+      "bytes": 61328,
+      "sha256": "4129c11e6177dc0df1cd883f1972f233266eedf1064895a978572ad7aee07785"
     },
     {
       "path": "src/managed.cjs",
@@ -921,8 +921,8 @@
     },
     {
       "path": "src/startup-check.cjs",
-      "bytes": 7278,
-      "sha256": "4347327dbe3f61a7fa65ae404506e15f6679751061cf6ce6c499ba692b8ce077"
+      "bytes": 7391,
+      "sha256": "c978e2e479b31ca45b4b07ccef3420a9fc1991298d53d13ddd9da2fd2f4838c7"
     },
     {
       "path": "src/startup-probe.cjs",
