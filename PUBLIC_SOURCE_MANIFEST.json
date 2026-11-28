@@ -606,8 +606,8 @@
     },
     {
       "path": "scripts/verify-design.cjs",
-      "bytes": 17024,
-      "sha256": "e41cf912013f2a2ad0f6fbe2afc8106c0a9eb9bf618daa29fd86328ebc1ca407"
+      "bytes": 17031,
+      "sha256": "c554fd298336bf9d771000ab15570e9bd1a95c80182456381a6f1273fc006924"
     },
     {
       "path": "scripts/verify-motion.cjs",
