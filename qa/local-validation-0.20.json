@@ -1,0 +1,81 @@
+{
+  "version": "0.20.0",
+  "sourceCommit": "0dd5a3d700deaae0d679571c8b7628b55144c11f",
+  "windowsSha256": "8bca0e31fa67930e8813072f679d775cff7bc492404beddb00634dbd94a0ea9b",
+  "platform": "Windows x64",
+  "unsignedPreview": true,
+  "unitTests": {
+    "total": 119,
+    "passed": 118,
+    "skipped": 1,
+    "failed": 0
+  },
+  "integrationTests": {
+    "passed": 20,
+    "failed": 0
+  },
+  "interface": {
+    "designs": 20,
+    "utilityViewChecks": 54,
+    "startupCheckDialog": true,
+    "automatedAccessibilityViolations": 0
+  },
+  "realNativeGame": {
+    "createdThroughDesktopUI": true,
+    "checkedFromRecentApps": true,
+    "cancellationCleanedUp": true,
+    "openedFromCreatorAndRecentApps": true,
+    "originalUnchanged": true,
+    "scope": "Process startup and shutdown; not full gameplay"
+  },
+  "fixtures": [
+    {
+      "type": "canvas",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "sourceDeleted": true,
+      "movedAndRenamed": true,
+      "exportUnchanged": true,
+      "temporaryCopyRemoved": true
+    },
+    {
+      "type": "node",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "sourceDeleted": true,
+      "movedAndRenamed": true,
+      "exportUnchanged": true,
+      "temporaryCopyRemoved": true
+    },
+    {
+      "type": "failure",
+      "expectedStatus": "failed",
+      "actualStatus": "failed",
+      "sourceDeleted": true,
+      "movedAndRenamed": true,
+      "exportUnchanged": true,
+      "temporaryCopyRemoved": true
+    },
+    {
+      "type": "python",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "sourceDeleted": true,
+      "movedAndRenamed": true,
+      "exportUnchanged": true,
+      "temporaryCopyRemoved": true
+    }
+  ],
+  "olderExportsRefused": true,
+  "localBuiltDemo": {
+    "passed": true,
+    "preview": true,
+    "exportOptions": true,
+    "launchCheck": true,
+    "status": "Preview only — no local app was checked"
+  },
+  "githubActionsRun": false,
+  "websitePublished": false,
+  "newBinaryReleasePublished": false,
+  "scope": "This version was tested locally on Windows x64. Earlier macOS/Linux and real-project evidence retains its original version scope."
+}

@@ -1,5 +1,15 @@
 # Validation and open gates
 
+## 0.20 local Windows qualification
+
+The final local Windows x64 converter passed 118 regression tests, with one POSIX-only test skipped, and all 20 plugin/integration tests. All twenty designs passed the shared launch-check dialog, narrow layouts and automated accessibility checks. The utility views passed 54 checks. The built browser demo includes the shared export and readiness files and explicitly labels its simulated check as preview-only.
+
+An existing native game build was selected and packaged through the actual desktop creator. Check launch passed from Recent apps, a second check was cancelled from Export options with its temporary receiving profile removed, and the app opened from both the creator and Recent apps with complete shutdown reports. Original game fingerprints remained unchanged. This checks native process startup and shutdown, not full gameplay.
+
+Canvas-only HTML, a Node command with an installed dependency and asset, and a directly selected Python file passed the production startup check after their temporary sources were deleted and the exports were moved and renamed. System runtimes were unavailable and runtime downloads were blocked. An intentional exit-code-7 program correctly returned a failed check. Every receiving copy was removed and exported-file hashes remained unchanged. Older exports were refused before execution. A Windows known-folder lookup failure discovered during qualification was fixed before the final build and rerun.
+
+The sanitized [local qualification record](../qa/local-validation-0.20.json) identifies the final runtime source commit and executable hash. Temporary test copies were removed after preserving one useful native-game example and verification records. No Actions run, website publication or new binary release was started. This version was qualified locally on Windows x64; earlier real-project and macOS/Linux evidence keeps its original version scope. The preview remains unsigned.
+
 ## 0.19.1 local Windows qualification
 
 The source suite passed 111 tests, with one POSIX-only check skipped on Windows. All twenty designs passed direct file selection, recovery from an unknown entry, readable failed-creation guidance, native-menu contrast, five target choices and responsive dialog checks. A controlled IPC failure exercised the actual creator’s error dialog and successful retry; Classic and website layout checks also passed.
