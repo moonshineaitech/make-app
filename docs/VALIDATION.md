@@ -1,5 +1,13 @@
 # Validation and open gates
 
+## 0.19.1 local Windows qualification
+
+The source suite passed 111 tests, with one POSIX-only check skipped on Windows. All twenty designs passed direct file selection, recovery from an unknown entry, readable failed-creation guidance, native-menu contrast, five target choices and responsive dialog checks. A controlled IPC failure exercised the actual creator’s error dialog and successful retry; Classic and website layout checks also passed.
+
+The final local Windows converter selected the existing Congressional game EXE through its native file-picker API, cancelled a subsequent selection without changing the source, rejected an invalid picker kind, created the standalone game through the desktop creator, and opened it from both the creator and Recent apps. Both native processes stayed alive through the bounded startup check and stopped with complete JSON reports. Original game fingerprints stayed unchanged. A separate moved CLI export included the PCK game data and ran without system Node. This is startup/shutdown verification, not a new gameplay playtest.
+
+A named HTML game and an installed-dependency fixture ran after deletion of their temporary sources. Final converter and retained game-bundle integrity were verified after removing the three temporary test profiles. The current iteration used local Windows checks; no GitHub Actions run or website deployment was requested. Earlier actual-project and cross-platform evidence below retains its original version scope.
+
 ## 0.19 local Windows qualification
 
 The local Windows x64 build includes actionable Create guidance, named HTML and exported-game detection, the shared toolbar, five OS/CPU choices and saved export receipts. All twenty designs passed menu contrast, target selection, Create guidance, responsive layout and automated accessibility checks. The Classic creator and website passed twenty-two layout checks, including invalid-source guidance. The source suite passed 108 tests, with one POSIX-only test skipped on Windows.

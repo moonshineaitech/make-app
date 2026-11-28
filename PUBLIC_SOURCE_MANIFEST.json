@@ -71,8 +71,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 20497,
-      "sha256": "aec04a2693c26186311541512402ab8c7a6ff9e658e51467887833ed725a6a83"
+      "bytes": 20565,
+      "sha256": "f52a690332ec2f71c215b048342302924477c50b54c2946956080dc7c46c3062"
     },
     {
       "path": "SECURITY.md",
@@ -136,8 +136,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 6911,
-      "sha256": "f2649768e60517c944a04cc013b027a5177a61cfa83d80f793aa05c82243f096"
+      "bytes": 8405,
+      "sha256": "a995fa30ec1327a4cd09889a7dbcc78fd7199735260b7e085088b9bf9ff9f5f6"
     },
     {
       "path": "docs/assets/make-app-light.png",
