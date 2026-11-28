@@ -19,7 +19,7 @@ async function pack(roots,destination,{filter=()=>true,onLog=()=>{},signal,resol
 async function unpack(file,destination,{offset=0,bytes,sha256,signal,linkRoot=destination}={}){
  if(!Number.isSafeInteger(offset)||offset<0||!Number.isSafeInteger(bytes)||bytes<=0||!Number.isSafeInteger(offset+bytes)||!/^[a-f0-9]{64}$/.test(sha256||''))throw Error('Invalid bundled project descriptor.');if(await digest(file,{offset,bytes,signal})!==sha256)throw Error('Bundled project failed its integrity check.');
  // Only unpack into a new, private directory. File contents cannot traverse links.
- await fs.mkdir(destination,{mode:0o700});let iterator,stream,input;const links=[],seen=new Set();let pending=Buffer.alloc(0),ended=false,total=0,count=0;
+ await fs.mkdir(destination,{mode:0o700});const realDestination=await fs.realpath(destination);let iterator,stream,input;const links=[],seen=new Set();let pending=Buffer.alloc(0),ended=false,total=0,count=0;
  try{
   input=sync.createReadStream(file,{start:offset,end:offset+bytes-1});stream=zlib.createGunzip();input.on('error',e=>stream.destroy(e));input.pipe(stream);iterator=stream[Symbol.asyncIterator]();
   async function read(n){while(pending.length<n){signal?.throwIfAborted();const part=await iterator.next();if(part.done){ended=true;throw Error('Bundled project is truncated.');}pending=pending.length?Buffer.concat([pending,part.value]):part.value;}const value=pending.subarray(0,n);pending=pending.subarray(n);return value;}
@@ -32,7 +32,7 @@ async function unpack(file,destination,{offset=0,bytes,sha256,signal,linkRoot=de
   }
   if(pending.length)throw Error('Unexpected trailing bundle data.');const tail=await iterator.next();if(!tail.done)throw Error('Unexpected trailing bundle data.');ended=true;
   // Link targets must be present and cannot themselves be links. Links are last.
-  for(const entry of links){signal?.throwIfAborted();const to=path.join(destination,...entry.target.split('/'));let ancestor=path.dirname(entry.targetPath);while(ancestor!==destination){if((await fs.lstat(ancestor).catch(()=>null))?.isSymbolicLink())throw Error('Bundled link traverses another link.');ancestor=path.dirname(ancestor);}if(!within(destination,await fs.realpath(to)))throw Error('Bundled link escapes its project.');await fs.mkdir(path.dirname(entry.targetPath),{recursive:true,mode:0o700});await fs.symlink(process.platform==='win32'&&entry.directory?path.join(linkRoot,...entry.target.split('/')):path.relative(path.dirname(entry.targetPath),to),entry.targetPath,entry.directory?(process.platform==='win32'?'junction':'dir'):'file');}
+  for(const entry of links){signal?.throwIfAborted();const to=path.join(destination,...entry.target.split('/'));let ancestor=path.dirname(entry.targetPath);while(ancestor!==destination){if((await fs.lstat(ancestor).catch(()=>null))?.isSymbolicLink())throw Error('Bundled link traverses another link.');ancestor=path.dirname(ancestor);}if(!within(realDestination,await fs.realpath(to)))throw Error('Bundled link escapes its project.');await fs.mkdir(path.dirname(entry.targetPath),{recursive:true,mode:0o700});await fs.symlink(process.platform==='win32'&&entry.directory?path.join(linkRoot,...entry.target.split('/')):path.relative(path.dirname(entry.targetPath),to),entry.targetPath,entry.directory?(process.platform==='win32'?'junction':'dir'):'file');}
   return{files:count,uncompressedBytes:total};
  }catch(e){await fs.rm(destination,{recursive:true,force:true});throw e;}finally{if(!ended)stream?.destroy();input?.destroy();}
 }

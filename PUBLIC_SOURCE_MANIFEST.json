@@ -531,8 +531,8 @@
     },
     {
       "path": "scripts/cold-start-acceptance.cjs",
-      "bytes": 4030,
-      "sha256": "11b001b4d5e4696cf25efc194f0b7b4e2159c5159d098db38655ddabbf956526"
+      "bytes": 4068,
+      "sha256": "bb73de9d8c65d6baa34d9aa8fe0d5dd44c6814c0bb59324b46f6658972bd1d95"
     },
     {
       "path": "scripts/desktop-acceptance.cjs",
@@ -676,8 +676,8 @@
     },
     {
       "path": "src/bundle-archive.cjs",
-      "bytes": 7984,
-      "sha256": "9388d38a0d67238231e98227ebb3e5817cb005fed564aef4cb8f1d0043743b98"
+      "bytes": 8041,
+      "sha256": "e42da4728d2c25b073b4c9fe6965f1d2df8ba3dc13f9a6e49a1f6cfe336ed8b5"
     },
     {
       "path": "src/cli.cjs",
@@ -2471,8 +2471,8 @@
     },
     {
       "path": "test/bundle-archive.test.cjs",
-      "bytes": 3039,
-      "sha256": "690ae9f72363f9c12e641faf68fcbcd3fdeadb8e1ee87f012c480d0e26fbed0e"
+      "bytes": 3834,
+      "sha256": "14c0a90205400541e8948a53fe2fedde7d514ea3dda19899eb1c55a0259eb9a4"
     },
     {
       "path": "test/core.test.cjs",
