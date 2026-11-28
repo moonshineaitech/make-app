@@ -26,7 +26,9 @@ For Whop, use a digital-download/software product with the platform-specific arc
 
 ## Describe the product accurately
 
-Make App detects supported local project setups and creates launchers. It does not guarantee that every repository works or that missing SDKs, credentials or hardware are supplied. Generated desktop launchers retain the original project path; they are not source-inclusive packages for other computers. Static web export needs an existing static build and HTTPS hosting. Hosted-only coding tools need a local bridge or worker.
+Make App detects supported local project setups and creates standalone desktop apps containing their project snapshot, dependencies and required managed runtime or compiled artifact. Recipients do not need the original project folder or Make App. Share the single Windows EXE or Linux run file, or a ZIP of the complete macOS app bundle, for the matching OS and architecture. Windows single-file output is limited to 2 GB. Older source-linked launchers must be regenerated.
+
+Packaging may execute dependency/build scripts in a temporary snapshot. Dot-env and private key files are excluded. External services, credentials, hardware and OS libraries remain application requirements. Unsupported self-contained runtime combinations are refused; not every repository is supported. Static web export needs an existing static build and HTTPS hosting. Hosted-only coding tools need a local bridge or worker.
 
 State the unsigned preview status before download. Signing, macOS notarization, clean-machine testing and manual accessibility acceptance are separate release gates. Do not imply that passing CI is publisher certification or an OpenAI endorsement. No accounts, analytics, remote fonts or Make App API key are required by the application. Opening website downloads contacts GitHub's public release API.
 

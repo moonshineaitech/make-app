@@ -5,7 +5,7 @@ Make App separates the computer that builds/launches a desktop project from devi
 | Target | Converter | Generated desktop output | Verification target |
 | --- | --- | --- | --- |
 | Windows x64 | Portable EXE | One-file EXE with checked desktop runtime | Local Windows acceptance and `windows-latest` runner |
-| macOS ARM64 | Application ZIP | `.app` bundle with local project metadata and relative framework links | Native matrix runner |
+| macOS ARM64 | Application ZIP | `.app` bundle with embedded project payload and relative framework links | Native matrix runner |
 | macOS Intel | Application ZIP | `.app` bundle | Native matrix runner |
 | Linux x64 | AppImage | Executable `.run` with checked embedded AppImage runtime | Native matrix runner |
 | Linux ARM64 | AppImage | Executable `.run` | Native matrix runner |
@@ -33,4 +33,4 @@ Windows x64 uses Job Objects. macOS/Linux use a pipe-owned supervisor and separa
 
 Unsigned previews require OS trust handling and are not notarized or certified for every desktop distribution. Physical iOS/Android, screen-reader/high-DPI, clean-machine acceptance and publisher signing remain separate gates. The CI workflow exercises actual packaged converter and generated-app launch paths for each listed desktop architecture.
 
-Acceptance includes a separate fresh-cache phase that bypasses installed Node, downloads and verifies a private runtime, runs the original JavaScript project with no setup clicks, and checks shutdown. Platform release manifests embed this evidence. This is a controlled native-runner check, not a claim of physical-device or publisher certification. Windows uses the native ZIP extractor when available, retaining the PowerShell fallback.
+Acceptance deletes its own temporary source fixture and relocates the generated output before launch. A separate receiving-profile check bypasses installed Node, blocks runtime downloads, starts the app with its bundled runtime and checks shutdown. Platform release manifests embed this evidence. This is a controlled native-runner check, not a claim of physical-device or publisher certification. Windows uses the native ZIP extractor when available, retaining the PowerShell fallback.

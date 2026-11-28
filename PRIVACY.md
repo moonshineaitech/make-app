@@ -2,9 +2,9 @@
 
 Make App does not operate an account system, telemetry service, advertising tracker or hosted project-storage service.
 
-The converter reads the project folder you choose to infer its setup and launch commands. Generated local launchers contain the selected local path and inferred settings. Keep them private when that metadata is sensitive. They are not source-inclusive distributions.
+The converter reads the project folder you choose to infer its setup and launch commands. Generated standalone apps contain a compressed copy of the project, dependencies and required runtime or compiled artifact, with commands relative to that copy. Anyone receiving the app can extract its included files. Review the project before sharing: common secret files are excluded, but custom files or credentials embedded in source and built assets may remain. Make App does not upload generated apps automatically.
 
-App state, cached runtimes/SDKs, encrypted saved settings and run records are stored locally. The normal flow does not clone the full source tree. Project code and its setup scripts run under your account and can read files or contact services as they normally would.
+App state, cached runtimes/SDKs, encrypted saved settings and run records are stored locally. Packaging uses a temporary project snapshot and may execute dependency/build scripts there. A receiving computer extracts a private writable copy into local app storage. Opening a live project directly in the converter uses that original folder. Project code and its setup scripts run under your account and can read files or contact services as they normally would.
 
 Runtime, SDK and dependency preparation can contact publisher download services and package registries. Your projects can make their own network requests. Those services have their own policies.
 
