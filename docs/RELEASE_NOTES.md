@@ -1,4 +1,8 @@
-# Make App 0.18.1 — practical standalone packages
+# Make App 0.18.2 — relocated pnpm workspaces
+
+Packaged dependency snapshots now skip pnpm checks that depend on the developer computer’s old workspace path. The bundled archive is checked before extraction, and the recipient runs its included dependencies without an implicit install. Live source projects keep the strict dependency check. The fix was verified against the moved Vespera snapshot.
+
+## Previous: Make App 0.18.1 — practical standalone packages
 
 Standalone packaging now excludes known generated output folders (release, public-release, work and outputs) when the project explicitly ignores them. Runtime commands and workspace paths take precedence, and production build assets such as dist remain included. This avoids embedding old installers and development tool archives in a new app. A Windows single-file size guard refuses oversized output before replacing any existing file.
 

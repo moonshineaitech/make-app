@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceVersion": "0.18.1",
+  "sourceVersion": "0.18.2",
   "generatedForReview": true,
   "contentBasis": "Committed Git blob bytes (LF for text), excluding this manifest",
   "files": [
@@ -126,8 +126,8 @@
     },
     {
       "path": "docs/RELEASE_NOTES.md",
-      "bytes": 16172,
-      "sha256": "eec3846d281e21a70911978c10d5c1b56233849c686d25648a4a9fab18552b1b"
+      "bytes": 16586,
+      "sha256": "76a72befa41ba713fc5f011d0da9d2472e33ec5d0415f6a7019f1a21f4230af8"
     },
     {
       "path": "docs/RELEASING.md",
@@ -347,7 +347,7 @@
     {
       "path": "integrations/codex/.codex-plugin/plugin.json",
       "bytes": 1420,
-      "sha256": "4086a1d0339711e22d233d22a79772e640d78a666225de53752818204824d1cd"
+      "sha256": "5ba69908dc1160c30fb8606e0b9600157d7478d50067c52695b4d00346f1d001"
     },
     {
       "path": "integrations/codex/.mcp.json",
@@ -372,17 +372,17 @@
     {
       "path": "integrations/codex/package-lock.json",
       "bytes": 6756,
-      "sha256": "98122dfec4b7de0a31f11141a85c1425267662104eb63264eefbec4b398a3085"
+      "sha256": "750ba3886fd8dddcd7d10aa7b34d4d606deacbe44f3118a61196b30460c7871f"
     },
     {
       "path": "integrations/codex/package.json",
       "bytes": 437,
-      "sha256": "f8e9de2b8e2297e36d7295dc59a598233faedf99a0b76fb5a433ed0a8d81f286"
+      "sha256": "bcd8b5df43c024df5e707ccfd24ddea8cfa20b61444ce38b8a940603a8a02512"
     },
     {
       "path": "integrations/codex/plugin.json",
       "bytes": 1799,
-      "sha256": "30e14636c22e3d442022e56994836f2abdd9a96322791e33fc1df18d488b24cc"
+      "sha256": "a62974463d846206558577d83a1c81e05cc0795cd4da21591d006e6d42afbf24"
     },
     {
       "path": "integrations/codex/scripts/harnesses.cjs",
@@ -457,12 +457,12 @@
     {
       "path": "package-lock.json",
       "bytes": 119130,
-      "sha256": "d647b685838bb1fc54ba1709b523ca6e23b2365ca56541ef94301b04234d6371"
+      "sha256": "4c84b2b6ab655a6304ae8bc9d601d0057c8d9b4fa3d66d7ecfc6a09ddf1af420"
     },
     {
       "path": "package.json",
       "bytes": 4500,
-      "sha256": "b6db971538988d7619ed41cff681bbebfcee3052b15e95794b3d1f63290fc758"
+      "sha256": "e9929607d35fc738c301875138cffd2b6eb6e8fa241c66b7aba339f78099c07d"
     },
     {
       "path": "qa/README.md",
@@ -716,8 +716,8 @@
     },
     {
       "path": "src/engine.cjs",
-      "bytes": 17332,
-      "sha256": "968ecea1074ff2632e001859755af04418b013e366d1b2066784c96052925dfb"
+      "bytes": 17361,
+      "sha256": "82104ad728c0ff5794786e13fb53a2c5d3d24f322884b5f7628bbfd71b2e2dee"
     },
     {
       "path": "src/environment.cjs",
@@ -2481,8 +2481,8 @@
     },
     {
       "path": "test/engine.test.cjs",
-      "bytes": 5199,
-      "sha256": "3da358d45ac418febc94f513a2667993c2f37fbb7ac046b0c31b7e13d09940af"
+      "bytes": 5818,
+      "sha256": "693fdfd0567ae6a23ed39868662e5f83e2d0837fdce33013372ebe8247c1802d"
     },
     {
       "path": "test/executable.test.cjs",
