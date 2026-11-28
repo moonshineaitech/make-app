@@ -51,6 +51,12 @@ body{padding-bottom:86px}
 .app-views .recent-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;flex:1 1 340px;justify-content:flex-end}
 .app-views .project-row:has(.recent-actions){flex-wrap:wrap}
 #export-options-button[data-ready=false]{border-color:var(--danger)}
+.launch-check progress{width:100%;height:8px;accent-color:var(--accent);margin:12px 0}
+#launch-check-status{font-size:17px;font-weight:600;color:var(--ink);padding:10px 14px;border-left:3px solid var(--accent);background:var(--subtle);border-radius:4px}
+#launch-check-status[data-result=passed]{border-color:var(--success)}
+#launch-check-status[data-result=failed],#launch-check-status[data-result=timed-out]{border-color:var(--danger)}
+.launch-check-detail{font:14px/1.7 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:260px;overflow:auto;background:var(--subtle);color:var(--ink);padding:14px;border:1px solid var(--line);border-radius:10px;user-select:text}
+.launch-check .export-result-actions .button{white-space:normal;max-width:100%}
 .creation-help .export-intro{white-space:pre-wrap;overflow-wrap:anywhere}
 .creation-help .export-result-actions .button{white-space:normal;text-align:center;max-width:100%}
 .creation-help details{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}

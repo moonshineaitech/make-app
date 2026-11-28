@@ -11,7 +11,8 @@ function create(directory){
   add(input){return change(async()=>{const row={id:crypto.randomUUID(),name:input.name,source:input.source,executable:input.executable,format:input.format,platform:input.platform,arch:input.arch,createdAt:Date.now(),standalone:!!input.standalone,bytes:input.bytes};if(!valid(row)||!await available(row))throw Error('Only a completed app export can be added to recent apps.');const rows=await read();await write([row,...rows.filter(r=>r.executable!==row.executable)].slice(0,20));return row;});},
   async list(){await pending.catch(()=>{});return Promise.all((await read()).map(async r=>({...r,available:await available(r)})));},
   async get(id){const row=(await this.list()).find(r=>r.id===id);if(!row)throw Error('This app is not in Make App’s recent exports.');if(!row.available)throw Error('This saved app was moved or removed. Create it again or open it from its new location.');return row;},
-  clear(){return change(()=>write([]));}
+  clear(){return change(()=>write([]));},
+  saveCheck(id,value){return change(async()=>{const rows=await read(),row=rows.find(r=>r.id===id);if(!row)return;const statuses=['passed','failed','cancelled','timed-out','unsupported'];if(!statuses.includes(value.status))throw Error('Invalid startup check status');row.startupCheck={status:value.status,checkedAt:value.checkedAt,elapsedMs:value.elapsedMs,mode:value.mode,detail:String(value.detail||'').slice(0,2000),error:String(value.error||'').slice(0,2000),file:value.file,temporaryProfileRemoved:value.temporaryProfileRemoved};await write(rows);});}
  };
 }
 module.exports={create};

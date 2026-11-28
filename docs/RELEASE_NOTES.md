@@ -1,4 +1,12 @@
-# Make App 0.19.1 — direct game files and recoverable creation
+# Make App 0.20.0 — check an export before sharing
+
+Check launch runs a newly exported desktop app in a temporary receiving profile, checks initial startup, stops it and removes that copy. Export and Recent apps share the action across all twenty designs. Results distinguish passed, failed, cancelled, timed out and older unsupported exports; Recent apps records the last result locally. This is a startup check, not a full functionality or gameplay test.
+
+New exports carry a versioned check protocol. A per-run token correlates completion with the launched app; damaged settings and older outputs are refused before execution. Cancellation and deadlines use the process supervisor, and temporary copies are cleaned up. Closing the creator waits for an active operation’s cleanup. Check logs use the existing secret redaction before they reach the creator.
+
+Directly selected Python files now use the same managed interpreter adapter as Python projects. GUI/game imports preserve native mode, so these files no longer fall through to a source-dependent script launcher.
+
+## Previous: Make App 0.19.1 — direct game files and recoverable creation
 
 Projects and creation guidance can open a native file picker for HTML games, exported executables and supported scripts. Cancelling preserves the current project and result. A folder with no detected entry offers direct file selection; real multi-target projects retain their entry chooser.
 

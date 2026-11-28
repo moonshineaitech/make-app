@@ -19,8 +19,8 @@
   for(const [text,done]of [[p?'Project: '+p.name:'Choose a project folder.',!!p&&!p.selection],[web?'Public static assets are copied to a new folder.':'Project files, dependencies and the supported runtime or compiled build are bundled.',!!p&&(web?!!p.webAvailable:p.standalone?.supported!==false)],[web?'Use an HTTPS host for browser installation.':'First launch verifies and extracts a private writable copy. Later launches reuse it.',true],[p?.requiredEnvironment?.length?'Required settings: '+p.requiredEnvironment.join(', ')+'. Provide these separately.':'External accounts and credentials are not supplied by Make App.',!p?.requiredEnvironment?.length]]){const li=document.createElement('li');li.textContent=text;li.dataset.ready=String(done);checks.append(li);}
   $('export-sharing-copy').textContent=web?'Host the exported folder over HTTPS for phones, tablets and browsers. Native code and backend services still need their own host.':(target?.share||'Use the output for the matching OS and CPU.')+' The original project folder and Make App are not required on the receiving computer.'+(target?.platform==='win32'?' Single-file output is limited to 2 GB.':'');
   $('export-host').textContent=host?(window.makeApp.preview?'Browser demonstration · ':'This computer: ')+host.name+' '+host.arch:'';
-  const completed=state.completed;$('latest-export').hidden=!completed?.executable;$('latest-export-path').textContent=completed?.executable||'';
-  for(const id of ['export-desktop','export-web','show-latest-output','copy-output','another-app'])$(id).disabled=!!state.busy;
+  const completed=state.completed;$('latest-export').hidden=!completed?.executable;$('check-latest-output').hidden=web;$('latest-export-path').textContent=completed?.executable||'';
+  for(const id of ['export-desktop','export-web','show-latest-output','check-latest-output','copy-output','another-app'])$(id).disabled=!!state.busy;
  }
  for(const button of dialog.querySelectorAll('[data-target-platform]'))button.onclick=()=>{const os=button.dataset.targetPlatform,choices=state.platform.targets.filter(t=>t.platform===os),choice=choices.find(t=>t.arch===state.platform.arch)||choices[0];controller.selectTarget(os,choice.arch);};
  $('export-architecture').onchange=()=>controller.selectTarget(state.target.platform,$('export-architecture').value);
@@ -28,7 +28,7 @@
  $('use-this-computer').onclick=()=>controller.selectTarget(state.platform.platform,state.platform.arch);
  $('matching-downloads').onclick=()=>window.makeApp.guide?.('downloads');
  $('export-desktop').onclick=()=>controller.useFormat('desktop');$('export-web').onclick=()=>controller.useFormat('web');
- $('close-export-settings').onclick=close;$('export-back').onclick=()=>{close();$('make').focus();};$('show-latest-output').onclick=()=>$('reveal').click();
+ $('check-latest-output').onclick=()=>window.makeAppLaunchCheck.open({name:state.completed?.name});$('close-export-settings').onclick=close;$('export-back').onclick=()=>{close();$('make').focus();};$('show-latest-output').onclick=()=>$('reveal').click();
  $('export-options-button').onclick=open;$('projects-tool').onclick=()=>window.makeAppViews.open('projects');
  $('export-settings-title').tabIndex=-1;window.addEventListener('make-app:state',event=>{state=event.detail;draw();});
  document.addEventListener('keydown',event=>{if(event.altKey&&event.key.toLowerCase()==='e'){event.preventDefault();open();}});

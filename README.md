@@ -33,6 +33,14 @@ Desktop outputs now include a compressed project snapshot, installed dependencie
 
 First launch shows verification and extraction progress with file and byte counts. Later launches reuse the prepared copy. Cancelling or encountering a disk error removes the incomplete extraction after its pending writes close.
 
+Before sharing a new export, use **Export → Check launch** or **Recent apps → Check launch**. Make App opens a temporary receiving profile, checks the initial app page, native process or command, stops it and removes that copy. The saved EXE stays in place. Results and their time are kept locally in Recent apps. The check can be cancelled and has a bounded timeout. It checks startup, not full functionality, account access or gameplay. Older exports must be recreated with Make App 0.20 or newer to support this optional check.
+
+Directly selected Python files now use the same bundled-interpreter adapter as Python projects. Recognized GUI/game imports select the native window mode; console scripts retain their command interface.
+
+Before sharing a new desktop export, use **Export → Check launch** or **Recent apps → Check launch**. Click **Start check** to run it in a temporary receiving profile, check initial startup, stop the app and remove that temporary copy. The result explains a failure or timeout and can be copied; Recent apps remembers the last check locally. Cancellation stops the checking process. Older exports need to be recreated with Make App 0.20 or newer to support this action.
+
+This checks startup rather than full functionality or gameplay. A native process must stay running through the startup check; a web/HTML app must load its desktop page. Applications run normally and can contact their own services. Accounts, credentials, OS libraries and hardware remain application requirements.
+
 Known generated output folders that your project ignores are omitted, so old installers and development scratch tools do not bloat the new app. Explicit runtime paths and production build assets are preserved. Windows single-file output has a supported limit of 2 GB; larger results are refused before replacing an existing app.
 
 Packaging may run dependency installation and build steps in a temporary snapshot. It preserves the original project and excludes dot-env files, private key files and common caches. External APIs, accounts, databases, hardware and OS libraries remain application requirements; secrets are not automatically embedded. Unsupported self-contained runtime combinations fail with a specific packaging message.
