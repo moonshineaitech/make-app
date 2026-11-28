@@ -36,8 +36,8 @@
     },
     {
       "path": ".github/workflows/verify.yml",
-      "bytes": 1276,
-      "sha256": "6c48c4a661d787d6148af066757093ca17dbdab13f8fe88b57676c32d186330e"
+      "bytes": 1247,
+      "sha256": "fcbd4bb1533b497f32ced69e9ac44988c212bc75ef11d93c479a1dfebca3c2e8"
     },
     {
       "path": ".gitignore",
